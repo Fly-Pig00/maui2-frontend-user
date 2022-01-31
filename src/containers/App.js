@@ -19,24 +19,12 @@ const MENU = [
 ];
 
 const Header = withRouter(({ location }) => {
-  console.log('location', location);
   if (location.pathname === '/splash' || location.pathname === '/deposit')
     return null;
-  let currentSelected = 0;
-  switch(location.pathname) {
-    case '/dashboard': currentSelected = 0; break;
-    case '/earn': currentSelected = 1; break;
-    case '/borrow': currentSelected = 2; break;
-    case '/stocks': currentSelected = 3; break;
-    case '/cards': currentSelected = 4; break;
-    default:
-      currentSelected = 0;
-      break;
-  }
   return (
     <>
       <div className='fixed top-[140px] w-[90%] left-[5%] md:w-[80%] md:left-[10%] z-10'>
-        <AnimatedTab tabs={MENU} currentSelected={currentSelected}/>
+        <AnimatedTab tabs={MENU}/>
       </div>
       <div className='fixed top-[250px] right-[5%] md:right-[10%] z-10'>
         <DarkMode />
@@ -52,15 +40,21 @@ const Content = withRouter(({ location }) => {
         classNames='transition-fade'
         key={location.key}
       >
-        <Switch location={location}>
-          <Route path="/splash" component={Splash} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/earn" component={Earn} />
-          <Route path="/borrow" component={Borrow} />
-          <Route path="/stocks" component={Stocks} />
-          <Route path="/cards" component={Cards} />
-          <Redirect to="/splash" />
-        </Switch>
+        {(state) => {
+          return (
+            <Switch location={location}>
+              <Route path="/splash" component={Splash}/>
+              <Route path="/dashboard" render={(props) => (
+                <Dashboard state={state}/>
+              )}/>
+              <Route path="/earn" component={Earn}/>
+              <Route path="/borrow" component={Borrow}/>
+              <Route path="/stocks" component={Stocks}/>
+              <Route path="/cards" component={Cards}/>
+            <Redirect to="/splash" />
+          </Switch>
+          )
+        }}
       </CSSTransition>
     </TransitionGroup>
   )

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 
 function Tab(props) {
   const totalSpace = 10; // 10%, sum of spaces between tabs
@@ -18,13 +18,16 @@ function Tab(props) {
   )
 }
 
-function AnimatedTab(props) {
+const AnimatedTab = withRouter(props => {
   let history = useHistory();
   let defaultPositions = [];
+  let currentSelected = 0;
   for (let i = 0; i < props.tabs.length; i++) {
+    if (props.tabs[i].url.toLowerCase() === props.location.pathname) {
+      currentSelected = i;
+    }
     defaultPositions.push(i);
   }
-  const currentSelected = props.currentSelected;
   const [ positions, setPositions ] = useState(defaultPositions);
 
   const handleClick=(dest) => {
@@ -63,6 +66,6 @@ function AnimatedTab(props) {
     </div>
   );
 
-}
+});
 
 export default AnimatedTab;
