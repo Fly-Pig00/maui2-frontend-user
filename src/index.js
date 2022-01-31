@@ -8,11 +8,11 @@ import './assets/css/tailwind.css';
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <StateProvider>
       <App />
-    </StateProvider>
-  </React.StrictMode>,
+    </StateProvider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

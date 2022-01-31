@@ -1,5 +1,14 @@
 @tailwind base;
 @tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Toggle B */
+  input:checked ~ .dot {
+    transform: translateX(100%);
+    background-color: #745FF2;
+  }
+}
 /* poppins-regular - latin */
 @font-face {
   font-family: 'Poppins';
@@ -13,12 +22,23 @@
        url('../fonts/poppins-v15-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
        url('../fonts/poppins-v15-latin-regular.svg#Poppins') format('svg'); /* Legacy iOS */
 }
-@tailwind utilities;
+.transition-fade-enter,
+.transition-fade-exit {
+  transition: opacity 1000ms ease-out;
+}
 
-@layer utilities {
-  /* Toggle B */
-  input:checked ~ .dot {
-    transform: translateX(100%);
-    background-color: #745FF2;
-  }
+.transition-fade-enter {
+  opacity: 0;
+}
+
+.transition-fade-enter.transition-fade-enter-active {
+  opacity: 1;
+}
+
+.transition-fade-exit {
+  opacity: 1;
+}
+
+.transition-fade-exit-active {
+  opacity: 0;
 }
