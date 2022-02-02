@@ -23,10 +23,10 @@ const Header = withRouter(({ location }) => {
     return null;
   return (
     <>
-      <div className='fixed top-[140px] w-[90%] left-[5%] md:w-[80%] md:left-[10%] z-10'>
+      <div className='fixed top-[100px] w-[360px] left-[calc(50%-180px)] md:w-[900px] md:left-[calc(50%-450px)] z-50'>
         <AnimatedTab tabs={MENU}/>
       </div>
-      <div className='fixed top-[250px] right-[5%] md:right-[10%] z-10'>
+      <div className='fixed top-[210px] right-[calc(50%-180px)] md:right-[calc(50%-450px)] z-50'>
         <DarkMode />
       </div>
     </>
@@ -34,7 +34,7 @@ const Header = withRouter(({ location }) => {
 })
 const Content = withRouter(({ location }) => {
   return (
-    <TransitionGroup>
+    <TransitionGroup className="w-full h-full overflow-auto">
       <CSSTransition
         timeout={1000}
         classNames='transition-fade'

@@ -30,7 +30,20 @@ module.exports = {
         'main-lefttop-dark': "url('../images/main/lefttop-dark.svg')",
         'main-righttop': "url('../images/main/righttop.svg')",
         'main-righttop-dark': "url('../images/main/righttop-dark.svg')",
-      })
+        'main-card': 'linear-gradient(160.71deg, #EFF0FB 9.07%, #E1DEF1 92.22%)',
+        'main-card-dark': 'linear-gradient(160.71deg, #392F40 9.07%, #3E3C4E 92.22%)',
+        'main-card-btn': 'linear-gradient(124.08deg, #745FF2 3.96%, #00DDA2 94.96%)',
+        'main-card-earn-banner': "url('../images/main/card-earn-banner.png')",
+        'main-card-borrow-banner': "url('../images/main/card-borrow-banner.png')",
+        'main-card-cards-banner': "url('../images/main/card-cards-banner.png')",
+        'main-card-stocks-banner': "url('../images/main/card-stocks-banner.png')",
+      }),
+      boxShadow: {
+        'main-card': '-9px -13px 37px rgba(255, 255, 255, 0.8), 9px 17px 37px rgba(0, 0, 0, 0.13)',
+        'main-card-dark': '-6px -13px 37px rgba(116, 95, 242, 0.1), 6px 17px 37px rgba(116, 95, 242, 0.1)',
+        'main-card-btn': '9px 8px 12px rgba(114, 138, 183, 0.5)',
+        'main-card-banner': 'inset 3px 6px 4px rgba(0, 0, 0, 0.25)',
+      }
     },
     colors: {
     },
