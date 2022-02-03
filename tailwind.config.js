@@ -57,6 +57,13 @@ module.exports = {
         'stocks-cardbanner': "url('../images/stocks/cardbanner.png')",
         'stocks-card': 'linear-gradient(160.71deg, #EFF0FB 9.07%, #E1DEF1 92.22%)',
         'stocks-card-dark': 'linear-gradient(160.71deg, rgba(65, 52, 64, 0.41) 9.07%, rgba(24, 19, 29, 0.53) 92.22%);',
+        // cards
+        'cards-leftmiddle': "url('../images/cards/leftmiddle.png')",
+        'cards-leftbottom': "url('../images/cards/leftbottom.png')",
+        'cards-rightmiddle': "url('../images/cards/rightmiddle.png')",
+        'cards-rightbottom': "url('../images/cards/rightbottom.png')",
+        'cards-cardtop': "url('../images/cards/cardtop.png')",
+        'cards-cardbottom': "url('../images/cards/cardbottom.png')",
       }),
       boxShadow: {
         // header
@@ -74,6 +81,8 @@ module.exports = {
         // stocks
         'stocks-card': '-9px -13px 37px rgba(255, 255, 255, 0.8), 9px 17px 37px rgba(0, 0, 0, 0.13)',
         'stocks-card-dark': '-9px -13px 37px rgba(116, 95, 242, 0.5), 9px 17px 37px rgba(116, 95, 242, 0.5)',
+        // cards
+        'cards-card': '0px 0px 9px #745FF2',
       }
     },
     colors: {

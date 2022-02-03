@@ -9,7 +9,7 @@ import Cards from '../pages/Cards';
 
 const Routes = withRouter(({ location }) => {
   return (
-    <TransitionGroup className="w-full h-full overflow-auto">
+    <TransitionGroup className="w-full">
       <CSSTransition
         timeout={1000}
         classNames='transition-fade'
