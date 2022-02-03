@@ -2,7 +2,7 @@
 import moment from 'moment';
 import AnimatedTab from '../AnimatedTab';
 import DarkMode from '../DarkMode';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useHistory } from 'react-router-dom';
 
 const MENU = [
   { title: 'Dashboard', url: '/dashboard' },
@@ -39,10 +39,15 @@ function DepositStatus({symbol, balance, kind}) {
 }
 
 const Header = withRouter(({ location }) => {
+  let history = useHistory();
+  const handleDepositClick = () => {
+    history.push('/balance');
+  }
+
   switch(location.pathname) {
     case '/splash':
       return null;
-    case '/earn':
+    case '/balance':
       return (
         <div className='absolute top-0 left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
           <div className='mt-[20px]'>
@@ -73,6 +78,7 @@ const Header = withRouter(({ location }) => {
               </div>
               <div className='flex justify-between items-center'>
                 <button
+                  onClick={handleDepositClick}
                   className='rounded-[20px] shadow-header-deposit-btn dark:shadow-header-deposit-btn-dark w-[110px] h-[32px] bg-[#FFFFFF50] bg-header-deposit-btn dark:bg-header-deposit-btn-dark text-[#000000]
                 '>
                   <span className='font-semibold text-[16px] leading-[24px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2] dark:from-[#F9D3B4] dark:to-[#F9D3B4] transition-all duration-1000'>DEPOSIT</span>
@@ -89,11 +95,12 @@ const Header = withRouter(({ location }) => {
           <div className='mt-[20px]'>
             <AnimatedTab tabs={MENU}/>
           </div>
+          {location.pathname !== '/dashboard1' &&
           <div className='text-right mt-[25px]'>
             <div className='w-[100px] inline-block'>
               <DarkMode />
             </div>
-          </div>
+          </div>}
         </div>
       );
   }  

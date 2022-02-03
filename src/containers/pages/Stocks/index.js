@@ -1,27 +1,28 @@
-import React, { useEffect } from 'react';
-import { useHistory } from "react-router-dom";
-import { gsap } from 'gsap';
+import React from 'react';
 
 function Stocks() {
-  let history = useHistory();
-  function handleClick(){
-    history.push('/splash');
-    gsap.timeline().fromTo("#main-righttop", 1, {opacity: 1, scale: 1}, {opacity: 1, scale: 0.01, transformOrigin:"right top"});
-  }
-
-  useEffect(() => {
-    gsap.timeline().fromTo("#main-righttop", 1, {opacity: 0, scale: 0.01}, {opacity: 1, scale: 1, transformOrigin:"right top"});
-    return function unmount() {
-      // console.log('unmount');
-    }
-  }, []);
   return (
-    <div className='fixed bg-main-background dark:bg-main-background-dark bg-center bg-cover w-full h-full transition-all duration-1000' onClick={handleClick}>
-      this is the Stocks screen
-      <div className='bg-main-lefttop dark:bg-main-lefttop-dark bg-center bg-cover fixed top-[210px] left-[200px] w-[464px] h-[260px] transition-all duration-1000'></div>
-      <div className='bg-main-leftbottom dark:bg-main-leftbottom-dark bg-center bg-cover fixed top-[620px] left-[91px] w-[672px] h-[633px] transition-all duration-1000'></div>
-      <div id='main-righttop' className='bg-main-righttop dark:bg-main-righttop-dark bg-center bg-cover fixed top-0 right-0 w-[750px] h-[797px]'></div>
-      <div className='bg-main-center dark:bg-main-center-dark bg-center bg-cover fixed left-[calc(50%-180px)] top-[calc(50%-215px)]  w-[360px] h-[430px] transition-all duration-1000'></div>
+    <div className='relative w-full h-full bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
+      <div className='bg-stocks-left bg-center bg-cover absolute left-0 bottom-[30%] w-[600px] h-[350px]'></div>
+      <div className='bg-stocks-right bg-center bg-cover absolute right-0 top-[200px] w-[500px] h-[350px]'></div>
+      <div className='absolute w-[1020px] top-[230px] left-[calc(50%-510px)] bg-stocks-card dark:bg-stocks-card-dark shadow-stocks-card dark:shadow-stocks-card-dark border border-[#FFFFFF] rounded-[33px]'>
+        <div className='mt-[70px] relative'>
+          <div className='bg-stocks-cardbanner bg-center bg-cover w-[735px] h-[471px] m-auto'></div>
+          <div className='absolute w-full top-[calc(50%-100px)] flex justify-center'>
+            <span className='text-transparent bg-clip-text bg-gradient-to-b from-[#745FF2FF] via-[#ffffff00] to-[#00000000] text-[64px]'>Stocks</span>
+          </div>
+          <div className='absolute w-full top-[calc(50%-50px)] flex justify-center'>
+            <span className='text-[#EB5757] font-bold text-[72px] leading-[108px] tracking-[0px]'>Coming Soon.</span>
+          </div>
+        </div>
+        <div className='mt-[20px] mb-[30px] text-[24px] font-semibold text-center tracking-[2px]'>
+          <span className='text-[#39C6D9]'>Buy</span>
+          <span className='text-[#000000] dark:text-[#FFFFFF] pl-2 pr-2 transition-all duration-1000'>-</span>
+          <span className='text-[#EB5757]'>sell</span>
+          <br />
+          <span className='text-[#000000] dark:text-[#FFFFFF] text-[18px] transition-all duration-1000'>stocks @ one click</span>
+        </div>
+      </div>
     </div>
   )
 }

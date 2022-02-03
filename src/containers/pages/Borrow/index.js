@@ -1,27 +1,34 @@
-import React, { useEffect } from 'react';
-import { useHistory } from "react-router-dom";
-import { gsap } from 'gsap';
+import React from 'react';
 
 function Borrow() {
-  let history = useHistory();
-  function handleClick(){
-    history.push('/splash');
-    gsap.timeline().fromTo("#main-righttop", 1, {opacity: 1, scale: 1}, {opacity: 1, scale: 0.01, transformOrigin:"right top"});
-  }
-
-  useEffect(() => {
-    gsap.timeline().fromTo("#main-righttop", 1, {opacity: 0, scale: 0.01}, {opacity: 1, scale: 1, transformOrigin:"right top"});
-    return function unmount() {
-      // console.log('unmount');
-    }
-  }, []);
   return (
-    <div className='fixed bg-main-background dark:bg-main-background-dark bg-center bg-cover w-full h-full transition-all duration-1000' onClick={handleClick}>
-      this is the Borrow screen
-      <div className='bg-main-lefttop dark:bg-main-lefttop-dark bg-center bg-cover fixed top-[210px] left-[200px] w-[464px] h-[260px] transition-all duration-1000'></div>
-      <div className='bg-main-leftbottom dark:bg-main-leftbottom-dark bg-center bg-cover fixed top-[620px] left-[91px] w-[672px] h-[633px] transition-all duration-1000'></div>
-      <div id='main-righttop' className='bg-main-righttop dark:bg-main-righttop-dark bg-center bg-cover fixed top-0 right-0 w-[750px] h-[797px]'></div>
-      <div className='bg-main-center dark:bg-main-center-dark bg-center bg-cover fixed left-[calc(50%-180px)] top-[calc(50%-215px)]  w-[360px] h-[430px] transition-all duration-1000'></div>
+    <div className='relative w-full h-full bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
+      <div className='bg-borrow-left bg-center bg-cover absolute left-0 bottom-0 w-[1024px] h-[768px]'></div>
+      <div className='bg-borrow-righttop bg-center bg-cover absolute right-0 top-[100px] w-[325px] h-[313px]'></div>
+      <div className='bg-borrow-rightbottom bg-center bg-cover absolute right-0 bottom-[0px] w-[655px] h-[581px]'></div>
+      <div className='absolute w-[1020px] top-[230px] left-[calc(50%-510px)] bg-borrow-card dark:bg-borrow-card-dark shadow-borrow-card dark:shadow-borrow-card-dark border border-[#FFFFFF] rounded-[33px]'>
+          <div className='mt-[30px] text-[30px] text-[#273855] dark:text-[#728AB7] text-center transition-all duration-1000'>Get access up to <span className='text-[#273855] dark:text-[#FFFFFF] font-bold transition-all duration-1000'>50%</span> of your collateral with</div>
+          <div className='text-[30px] text-center'>
+            <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#39C6D9]'>no repayments</span>
+            <span className='pl-3 pr-3 dark:text-[#728AB7]'>&</span>
+            <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#39C6D9] to-[#00DDA2]'>no liquidation risk!</span>
+          </div>
+          <div className='relative mt-[150px] text-center'>
+            <span className='text-[#000000] dark:text-[#FFFFFF] text-[32px] leading-[48px] transition-all duration-1000'>WE ARE COMING SOON!</span>            
+            <div className='bg-borrow-saly bg-center bg-cover absolute bottom-0 right-[250px] w-[48px] h-[50px]'></div>
+          </div>
+          <div className='mt-[10px] text-[16px] leading-[24px] tracking-[1px] text-[#828282] text-center'>
+            Stay tuned for something amazing
+          </div>
+          <div className='mt-[20px] text-center'>
+            <button className='bg-[#2F80ED] rounded-[4px] w-[141px] h-[48px] p-1 text-[#FFFFFF]'>Learn More</button>
+          </div>
+          <div className='mt-[100px] mb-[30px] text-center tracking-[4px]'>
+            <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#39C6D9]'>Borrow - Withdraw - Repay</span>
+            <br />
+            <span className='text-[#000000] dark:text-[#FFFFFF] text-[18px] transition-all duration-1000'>anytime , anywhere globally</span>
+          </div>
+      </div>
     </div>
   )
 }
