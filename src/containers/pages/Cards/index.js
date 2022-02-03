@@ -2,7 +2,7 @@ import React from 'react';
 
 function Cards() {
   return (
-    <div className='relative w-full min-h-[1850px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
+    <div className='relative w-full min-h-[1920px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
       <div className='bg-cards-leftbottom bg-center bg-cover absolute left-0 bottom-0 w-[636px] h-[541px]'></div>
       <div className='bg-cards-leftmiddle bg-center bg-cover absolute left-0 top-[500px] w-[357px] h-[596px]'></div>
       <div className='bg-cards-rightbottom bg-center bg-cover absolute right-0 bottom-[0px] w-[427px] h-[582px]'></div>
@@ -14,6 +14,9 @@ function Cards() {
         </div>
         <div className='mt-[20px]'>
           <div className='bg-cards-cardtop bg-center bg-cover w-[467px] h-[488px] m-auto'></div>
+        </div>
+        <div className='text-center mt-[10px] mb-[10px]'>
+          <span className='font-semibold text-[36px] tracking-[4px] text-transparent bg-clip-text bg-gradient-to-b from-[#6E48C9] to-[#BFC1CD]'>Comming soon</span>
         </div>
         <div className='text-[24px] text-[#000000] dark:text-[#CAC7CD] transition-all duration-1000'>
           The only <span className=' text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>crypto</span> you need
