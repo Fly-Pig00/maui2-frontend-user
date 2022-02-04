@@ -8,7 +8,6 @@ function Splash() {
   }
   return (
     <div className='fixed w-full h-screen cursor-pointer' onClick={handleClick}>
-      This is the splash screen
       <div className='fixed w-full h-full flex flex-col justify-center items-center '>
         <div className='bg-splash-logo dark:bg-splash-logo-dark bg-center bg-cover w-[405px] h-[141px] transition-all duration-1000'></div>
         <div className='mb-20 font-semibold text-[36px] leading-[54px] tracking-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>BANKING REVOLUTION</div>

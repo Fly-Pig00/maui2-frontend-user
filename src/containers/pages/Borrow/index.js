@@ -2,7 +2,7 @@ import React from 'react';
 
 function Borrow() {
   return (
-    <div className='relative w-full min-h-screen bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
+    <div className='relative w-full min-h-[950px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
       {/* bg images */}
       <div className='bg-borrow-left bg-center bg-cover absolute left-0 bottom-0 w-[1024px] h-[768px]'></div>
       <div className='bg-borrow-righttop bg-center bg-cover absolute right-0 top-[100px] w-[325px] h-[313px]'></div>
