@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 import Checkbox from '../../../components/Form/Checkbox';
+import InputAmount from '../../../components/Form/InputAmount';
 import SelectCurrency from '../../../components/Form/SelectCurrency';
 import SelectWallet from '../../../components/Form/SelectWallet';
+import { unmaskCurrency } from '../../../utils/masks';
 
 function Tab({className, isCrypto, onChange}) {
   const className_active = 'bg-[#EDEDF9] dark:bg-[#271B2D] shadow-deposit-tab w-[110px] border-b-[#745FF2] p-2 text-[#745FF2] text-center cursor-pointer';
@@ -25,12 +30,36 @@ function Tab({className, isCrypto, onChange}) {
   )
 }
 
-function Deposit() {
+function Deposit(props) {
+  const validationSchema = Yup.object().shape({
+		amount: Yup.number()
+      .min(0.1, "The amount must be between $0.1 and $99,999")
+      .max(99999, "The amount must be between $0.1 and $99,999")
+      .required("This input field is required.")
+	});
+	const formOptions = { resolver: yupResolver(validationSchema) };
+
+	// get functions to build form with useForm() hook
+  const hookForm = useForm(formOptions);
+	const { handleSubmit, setValue, setError, clearErrors } = hookForm;
+  // set initial values
+  useEffect(() => {
+    setValue('amount', 0);
+  }, [props.data, setValue]);
+  
+  // handle functions
+	const onSubmit = (data) => {
+		console.log('submit', data);
+		return false;
+	}
+
   const [ isCrypto, setIsCrypto ] = useState(true);
+  const [ isAgreed, setIsAgreed ] = useState(false);
   const [ selectedFiat, setSelectedFiat ] = useState('USD');
   const [ selectedCrypto, setSelectedCrypto ] = useState('BTC');
   const [ selectedFiatWallet, setSelectedFiatWallet ] = useState('USD');
   const [ selectedCryptoWallet, setSelectedCryptoWallet ] = useState('BTC');
+  const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
   const history = useHistory();
 
   function handleTabChange(val) {
@@ -51,9 +80,26 @@ function Deposit() {
   function handleCryptoWalletChange(symbol) {
     setSelectedCryptoWallet(symbol);
   }
+  function handleCryptoFiatChange(symbol) {
+    setSelectedCryptoFiat(symbol);
+  }
+  const handleAmountChange = (e) => {
+    const value = unmaskCurrency(e.target.value);
+    if (!value) {
+      setError('amount', {message: 'This input field is required.'});
+    } else if (parseInt(value) <= 0 || parseInt(value) > 99999){
+      setError('amount', {message: 'The amount must be between $0.1 and $99,999'});
+    } else {
+      clearErrors('amount');
+    }
+    setValue('amount', !value ? 0 : parseInt(value));
+  }
+  function handleAgreeChange(e) {
+    setIsAgreed(e.target.checked);
+  }
 
   return (
-    <div className='relative w-full min-h-screen bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
+    <div className='relative w-full min-h-[1040px] bg-[#DEE2E8] dark:bg-[#32283C]'>
       {/* bg images */}
       <div className='bg-deposit-leftbottom bg-center bg-cover absolute left-0 bottom-0 w-[530px] h-[436px]'></div>
       <div className='bg-main-center dark:bg-main-center-dark pointer-events-none bg-center bg-cover absolute right-0 top-[200px] w-[550px] h-[450px] z-10'></div>
@@ -69,7 +115,7 @@ function Deposit() {
           onChange={handleTabChange}
         />
         {/* form */}
-        <div className='flex p-20 justify-between'>
+        <form className='flex p-20 justify-between' onSubmit={handleSubmit(onSubmit)}>
           <div className='w-[45%]'>
             {!isCrypto ?            
               <SelectCurrency
@@ -88,7 +134,7 @@ function Deposit() {
                 onChange={handleCryptoChange}
               />
             }
-            <div className='h-[20px]'></div>
+            <div className='h-[30px]'></div>
             {!isCrypto ?            
               <SelectWallet
                 isCrypto={false}
@@ -106,10 +152,32 @@ function Deposit() {
                 onChange={handleCryptoWalletChange}
               />
             }
-            <Checkbox className="ml-5 mb-3 mt-[20px]">
+            <InputAmount
+              name="amount"
+              isCrypto={isCrypto}
+              className="mt-[40px]"
+              label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Enter amount</div>}
+              selectedSymbol={isCrypto ? selectedCryptoFiat : selectedFiat}
+              hookForm={hookForm}
+              onChange={handleCryptoFiatChange}
+              handleAmountChange={handleAmountChange}
+            />
+            <div className='ml-5 mt-[30px]'>
+              <div className='flex text-[14px] items-center'>
+                <div className='text-[#6B8CFF]'>Fee</div>
+                <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>4</div>
+              </div>
+              <div className='flex text-[14px] items-center'>
+                <div className='text-[#6B8CFF]'>You will get</div>
+                <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>196</div>
+              </div>
+            </div>
+            <Checkbox className="ml-4 mb-3 mt-[30px]" onChange={handleAgreeChange}>
               <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
             </Checkbox>
             <button
+              type="submit"
+              disabled={!isAgreed}
               className='disabled:bg-[#888888] disabled:bg-none disabled:cursor-no-drop bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
             >
               Deposit
@@ -129,7 +197,7 @@ function Deposit() {
               Uncomplicated and safe decentralized financial products built to serve everyone fairly with “one click Strategies”.
             </div>
           </div>
-        </div>        
+        </form>
       </div>
     </div>
   )

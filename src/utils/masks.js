@@ -1,8 +1,8 @@
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 export const maskCurrency = createNumberMask({
-  prefix: '$ ',
+  prefix: '',
   allowDecimal: true,
-  integerLimit: 5,
+  // integerLimit: 5,
 });
 export const unmaskCurrency = val => val.replace(/[$, ]+/g, '');
 

@@ -6,13 +6,13 @@ function Input(props) {
   const [ value, setInputValue ] = useState(props.defaultValue);
   const { formState: { errors }, register, setValue, control } = props.hookForm;
 
-  const cn = `border ${errors && errors[props.name] ? 'border-[#ff0000] focus:border-[#ff0000]' : 'border-[#dbe3eb] focus:border-[#008AEA]'} rounded-[3px] w-full h-[46px] p-3 outline-none mt-[13px] transition-all duration-500`;
+  const cn = `border ${errors && errors[props.name] ? 'border-[#ff0000] focus:border-[#ff0000]' : 'border-[#dbe3eb] focus:border-[#008AEA]'} rounded-[3px] w-full h-[46px] p-3 outline-none mt-[13px] bg-transparent transition-all duration-500`;
   
   return (
-    <div className={`mt-[18px] ${props.className || ''}`}>
-      <div className="text-left font-medium text-[14px] leading-[16px] text-[#000A2F] tracking-tight	">
+    <div className={`${props.className || ''}`}>
+      {props.label && <div className="text-left font-medium text-[14px] leading-[16px] text-[#000A2F] tracking-tight	">
         {props.label}
-      </div>
+      </div>}
       {props.isMasked &&
         <Controller
           render={({ field }) => (

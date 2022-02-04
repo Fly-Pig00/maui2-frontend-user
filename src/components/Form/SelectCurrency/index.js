@@ -1,7 +1,7 @@
 import { useState } from "react";
 import _ from "lodash";
 
-const FIAT = [
+export const FIAT = [
   {img: 'bg-common-fiat-usd', symbol: 'USD', desc: 'USA Dollar'},
   {img: 'bg-common-fiat-usd', symbol: 'EUR', desc: 'Euro'},
   {img: 'bg-common-fiat-usd', symbol: 'SGD', desc: 'Singapore Dollar'},
@@ -10,7 +10,7 @@ const FIAT = [
   {img: 'bg-common-fiat-usd', symbol: 'BRL', desc: 'Brazilian Real'},
 ];
 
-const CRYPTO = [
+export const CRYPTO = [
   {img: 'bg-common-crypto-btc', symbol: 'BTC', desc: 'Bitcoin', rate: '45,000.87'},
   {img: 'bg-common-crypto-sbu', symbol: 'SBU', desc: 'Shibu', rate: '45,000.87'},
   {img: 'bg-common-crypto-mtc', symbol: 'MTC', desc: 'Matic', rate: '45,000.87'},
