@@ -5,11 +5,11 @@ import { Controller } from "react-hook-form";
 import { FIAT, CRYPTO } from "../SelectCurrency";
 import { maskCurrency } from "../../../utils/masks";
 
-const getSelected = (isCrypto, selectedSymbol) => {
-  let found = isCrypto ? FIAT[0]: CRYPTO[0];
+const getSelected = (selectedSymbol) => {
+  let found = FIAT[0];
   if (!selectedSymbol)
     return found;
-  _.map(isCrypto ? FIAT : CRYPTO, item => {
+  _.map(FIAT, item => {
     if (item.symbol === selectedSymbol) {
       found = {...item};
     }
@@ -17,13 +17,13 @@ const getSelected = (isCrypto, selectedSymbol) => {
   return found;
 }
 
-function InputAmount({isCrypto = false, name, className, label, hookForm, selectedSymbol, onChange, handleAmountChange, defaultValue}) {
+function InputAmount({isSelectable = false, name, className, label, hookForm, selectedSymbol, onChange, handleAmountChange, defaultValue}) {
   const { formState: { errors }, setValue, control } = hookForm;
   const [ value, setInputValue ] = useState(defaultValue);
   const cn = `mt-[13px] border-0 dark:border ${errors && errors[name] ? 'border border-[#ff0000] focus:border-[#ff0000]' : 'border-[#745FF2] focus:border-[#745FF2]'} rounded-[13px] w-full h-[46px] p-3 pl-4 pr-4 outline-none bg-[#FFFFFF] dark:bg-transparent text-black dark:text-white dark:bg-[#32283C]`;
 
   const [isOpen, setIsOpen] = useState(false);
-  const selected = getSelected(isCrypto, selectedSymbol);
+  const selected = getSelected(selectedSymbol);
   const caret = !isOpen ? 'bg-common-caret-up dark:bg-common-caret-up-dark' : 'bg-common-caret-down dark:bg-common-caret-down-dark'
   const dropdown_crypto = _.map(FIAT, item=>{
     return (<div
@@ -75,7 +75,7 @@ function InputAmount({isCrypto = false, name, className, label, hookForm, select
           {errors[name]?.message}
         </div>
       }
-      {isCrypto ?
+      {isSelectable ?
         <div className="absolute right-[10px] top-[53px]">
           <div
             className={`${caret} bg-cover bg-center w-[15px] h-[15px] cursor-pointer`}
@@ -86,7 +86,7 @@ function InputAmount({isCrypto = false, name, className, label, hookForm, select
         :
         <div className="absolute right-[10px] top-[46px] rounded-[5px] border border-[#888888] p-[2px] pl-[10px] pr-[10px] text-black dark:text-white ">{selectedSymbol}</div>
       }
-      {isOpen && isCrypto && <div className={`absolute right-[5px] top-[75px] z-50 rounded-[5px] overflow-hidden`}>
+      {isOpen && isSelectable && <div className={`absolute right-[5px] top-[75px] z-50 rounded-[5px] overflow-hidden`}>
         {dropdown_crypto}
       </div>}
     </div>

@@ -154,7 +154,7 @@ function Deposit(props) {
             }
             <InputAmount
               name="amount"
-              isCrypto={isCrypto}
+              isSelectable={isCrypto}
               className="mt-[40px]"
               label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Enter amount</div>}
               selectedSymbol={isCrypto ? selectedCryptoFiat : selectedFiat}
