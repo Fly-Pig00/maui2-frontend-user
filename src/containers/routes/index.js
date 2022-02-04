@@ -6,6 +6,7 @@ import Earn from '../pages/Earn';
 import Borrow from '../pages/Borrow';
 import Stocks from '../pages/Stocks';
 import Cards from '../pages/Cards';
+import Deposit from '../pages/Deposit';
 
 const Routes = withRouter(({ location }) => {
   return (
@@ -26,8 +27,9 @@ const Routes = withRouter(({ location }) => {
               <Route path="/borrow" component={Borrow}/>
               <Route path="/stocks" component={Stocks}/>
               <Route path="/cards" component={Cards}/>
-            <Redirect to="/splash" />
-          </Switch>
+              <Route path="/deposit" component={Deposit}/>
+              <Redirect to="/splash" />
+            </Switch>
           )
         }}
       </CSSTransition>

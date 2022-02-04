@@ -41,13 +41,13 @@ function DepositStatus({symbol, balance, kind}) {
 const Header = withRouter(({ location }) => {
   let history = useHistory();
   const handleDepositClick = () => {
-    history.push('/balance');
+    history.push('/deposit');
   }
 
   switch(location.pathname) {
     case '/splash':
       return null;
-    case '/balance':
+    case '/deposit':
       return (
         <div className='absolute top-0 left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
           <div className='mt-[20px]'>
@@ -63,6 +63,11 @@ const Header = withRouter(({ location }) => {
                 <div className='w-[10px]'></div>
                 <DepositStatus symbol="$" balance="3,545.635.47" kind="USD" />
               </div>
+            </div>
+          </div>
+          <div className='text-right mt-[25px]'>
+            <div className='w-[100px] inline-block'>
+              <DarkMode />
             </div>
           </div>
         </div>
@@ -95,7 +100,7 @@ const Header = withRouter(({ location }) => {
           <div className='mt-[20px]'>
             <AnimatedTab tabs={MENU}/>
           </div>
-          {location.pathname !== '/dashboard1' &&
+          {location.pathname === '/dashboard' &&
           <div className='text-right mt-[25px]'>
             <div className='w-[100px] inline-block'>
               <DarkMode />

@@ -3,8 +3,10 @@ import React from 'react';
 function Stocks() {
   return (
     <div className='relative w-full min-h-screen bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
+      {/* bg images */}
       <div className='bg-stocks-left bg-center bg-cover absolute left-0 bottom-[30%] w-[600px] h-[350px]'></div>
       <div className='bg-stocks-right bg-center bg-cover absolute right-0 top-[200px] w-[500px] h-[350px]'></div>
+      {/* card */}
       <div className='absolute w-[1020px] top-[230px] left-[calc(50%-510px)] bg-stocks-card dark:bg-stocks-card-dark shadow-stocks-card dark:shadow-stocks-card-dark border border-[#FFFFFF] rounded-[33px]'>
         <div className='mt-[70px] relative'>
           <div className='bg-stocks-cardbanner bg-center bg-cover w-[735px] h-[471px] m-auto'></div>
