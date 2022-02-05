@@ -2,7 +2,7 @@ import { useState } from "react";
 import _ from "lodash";
 import MaskedInput from 'react-text-mask';
 import { Controller } from "react-hook-form";
-import { FIAT, CRYPTO } from "../SelectCurrency";
+import { FIAT } from "../SelectCurrency";
 import { maskCurrency } from "../../../utils/masks";
 
 const getSelected = (selectedSymbol) => {
@@ -20,7 +20,7 @@ const getSelected = (selectedSymbol) => {
 function InputAmount({isSelectable = false, name, className, label, hookForm, selectedSymbol, onChange, handleAmountChange, defaultValue}) {
   const { formState: { errors }, setValue, control } = hookForm;
   const [ value, setInputValue ] = useState(defaultValue);
-  const cn = `mt-[13px] border-0 dark:border ${errors && errors[name] ? 'border border-[#ff0000] focus:border-[#ff0000]' : 'border-[#745FF2] focus:border-[#745FF2]'} rounded-[13px] w-full h-[46px] p-3 pl-4 pr-4 outline-none bg-[#FFFFFF] dark:bg-transparent text-black dark:text-white dark:bg-[#32283C]`;
+  const cn = `mt-[13px] border-1 dark:border ${errors && errors[name] ? 'border border-[#ff0000] focus:border-[#ff0000]' : 'border-[#745FF2] focus:border-[#745FF2]'} rounded-[13px] w-full h-[46px] p-3 pl-4 pr-4 outline-none bg-[#FFFFFF] dark:bg-transparent text-black dark:text-white dark:bg-[#32283C]`;
 
   const [isOpen, setIsOpen] = useState(false);
   const selected = getSelected(selectedSymbol);
@@ -76,12 +76,16 @@ function InputAmount({isSelectable = false, name, className, label, hookForm, se
         </div>
       }
       {isSelectable ?
-        <div className="absolute right-[10px] top-[53px]">
+        <div
+          className="absolute flex flex-row-reverse w-[60px] cursor-pointer text-right right-[10px] top-[53px]"
+          onClick={handleOpen}
+        >
           <div
             className={`${caret} bg-cover bg-center w-[15px] h-[15px] cursor-pointer`}
-            onClick={handleOpen}
           />
-          <div className="absolute right-[-3px] top-[-8px] rounded-[5px] border border-[#888888] p-[2px] pl-[10px] pr-[25px] pointer-events-none text-black dark:text-white">{selectedSymbol}</div>
+          <div
+            className="absolute right-[-3px] top-[-8px] rounded-[5px] border border-[#888888] p-[2px] pl-[10px] pr-[25px] pointer-events-none text-black dark:text-white"
+          >{selectedSymbol}</div>
         </div>
         :
         <div className="absolute right-[10px] top-[46px] rounded-[5px] border border-[#888888] p-[2px] pl-[10px] pr-[10px] text-black dark:text-white ">{selectedSymbol}</div>

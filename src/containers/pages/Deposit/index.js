@@ -83,7 +83,10 @@ function Deposit(props) {
   function handleCryptoFiatChange(symbol) {
     setSelectedCryptoFiat(symbol);
   }
-  const handleAmountChange = (e) => {
+  function handleAgreeChange(e) {
+    setIsAgreed(e.target.checked);
+  }
+  function handleAmountChange(e) {
     const value = unmaskCurrency(e.target.value);
     if (!value) {
       setError('amount', {message: 'This input field is required.'});
@@ -93,9 +96,6 @@ function Deposit(props) {
       clearErrors('amount');
     }
     setValue('amount', !value ? 0 : parseInt(value));
-  }
-  function handleAgreeChange(e) {
-    setIsAgreed(e.target.checked);
   }
 
   return (

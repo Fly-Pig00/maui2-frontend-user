@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import _ from "lodash";
+import useOutsideClick from "../../../utils/useOutsideClick";
 
 export const FIAT = [
   {img: 'bg-common-fiat-usd', symbol: 'USD', desc: 'USA Dollar'},
@@ -74,20 +75,27 @@ function SelectCurrency({isCrypto = false, id, className, label, selectedSymbol,
     onChange(symbol);
   }
 
+  const ref = useRef();
+  useOutsideClick(ref, () => {
+    if(isOpen) {
+      setIsOpen(false);
+    }
+  });
+
   return (
     <div className={`w-full ${className}`}>
       {label && <div className="mb-[16px] ml-[16px]">{label}</div>}
-      <div className="relative flex p-[8px] pl-[15px] items-center rounded-[16px] border-0 dark:border border-[#745FF2] bg-white dark:bg-[#32283C] transition-all duration-1000">
+      <div
+        onClick={handleOpen}
+        className="relative cursor-pointer flex p-[8px] pl-[15px] items-center rounded-[16px] border dark:border-transparent dark:border dark:border-[#745FF2] bg-white dark:bg-[#32283C] transition-all duration-1000"
+      >
         <div className={`bg-cover bg-center ${selected.img} w-[30px] h-[30px]`} />
         <div className={`ml-[10px] text-black dark:text-[#767070] text-[16px] transition-all duration-1000`}> {selected.symbol} </div>
         <div className={`ml-[10px] text-[#CCCDCD] text-[14px]`}> { isCrypto ? `(${selected.desc})` : selected.desc} </div>
         <div className="absolute right-[10px]">
-          <div
-            className={`${caret} bg-cover bg-center w-[15px] h-[15px] cursor-pointer`}
-            onClick={handleOpen}
-          />
+          <div className={`${caret} bg-cover bg-center w-[15px] h-[15px]`} />
         </div>
-        {isOpen && <div className={`absolute right-[5px] ${isCrypto? 'top-[45px] w-[350px]': 'top-[40px]'} z-50 rounded-[5px] overflow-hidden`}>
+        {isOpen && <div ref={ref} className={`absolute right-[5px] ${isCrypto? 'top-[45px] w-[350px]': 'top-[40px]'} z-50 rounded-[5px] overflow-hidden`}>
           {isCrypto ? dropdown_crypto : dropdown_fiat}
         </div>}
       </div>
