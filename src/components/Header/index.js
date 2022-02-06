@@ -100,7 +100,7 @@ const Header = withRouter(({ location }) => {
           <div className='mt-[20px]'>
             <AnimatedTab tabs={MENU}/>
           </div>
-          {location.pathname !== '/dashboard1' &&
+          {location.pathname === '/dashboard' &&
           <div className='text-right mt-[25px]'>
             <div className='w-[100px] inline-block'>
               <DarkMode />

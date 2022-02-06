@@ -100,7 +100,7 @@ function Earn() {
       <div className='bg-earn-rightbottom bg-center bg-cover absolute left-0 top-0 w-[1024px] h-[768px]'></div>
       <div className='bg-earn-rightbottom bg-center bg-cover absolute right-0 bottom-0 w-[1024px] h-[768px]'></div>
       {/* card */}
-      <div className='absolute w-[1020px] top-[250px] left-[calc(50%-510px)] bg-deposit-card dark:bg-deposit-card-dark shadow-stocks-card dark:shadow-stocks-card-dark border border-[#000000] rounded-[33px] p-[25px]'>
+      <div className='absolute w-[1020px] top-[250px] left-[calc(50%-510px)] bg-deposit-card dark:bg-deposit-card-dark shadow-stocks-card dark:shadow-stocks-card-dark border border-[#FFFFFF] dark:border-[#000000] rounded-[33px] p-[25px]'>
         <div className='w-full flex justify-between'>
           <div className='w-[60%]'>
             <Card name='frmDeposit' isDeposit={true}/>
