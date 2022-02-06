@@ -88,7 +88,7 @@ function InputAmount({isSelectable = false, name, className, label, hookForm, se
           >{selectedSymbol}</div>
         </div>
         :
-        <div className="absolute right-[10px] top-[46px] rounded-[5px] border border-[#888888] p-[2px] pl-[10px] pr-[10px] text-black dark:text-white ">{selectedSymbol}</div>
+        <div className="absolute right-[10px] top-[45px] rounded-[5px] border border-[#888888] p-[2px] pl-[10px] pr-[10px] text-black dark:text-white ">{selectedSymbol}</div>
       }
       {isOpen && isSelectable && <div className={`absolute right-[5px] top-[75px] z-50 rounded-[5px] overflow-hidden`}>
         {dropdown_crypto}
