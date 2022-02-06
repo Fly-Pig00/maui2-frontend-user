@@ -76,6 +76,14 @@ module.exports = {
         'deposit-transfer-from': "url('../images/deposit/transfer-from.png')",
         'deposit-tab-inactive': 'linear-gradient(180deg, #DEE2E8 0%, #EFF1F3 100%)',
         'deposit-tab-inactive-dark': 'linear-gradient(180deg, #393140 0%, #393141 100%)',
+        // earn
+        'earn-rightbottom': "url('../images/earn/rightbottom.png')",
+        'earn-banner': "url('../images/earn/banner.png')",
+        'earn-chart': "url('../images/earn/chart.png')",
+        'earn-card': 'linear-gradient(107.49deg, rgba(116, 95, 242, 0.05) 9.82%, rgba(116, 95, 242, 0.06) 61.98%);',
+        'earn-withdraw-card-btn': 'linear-gradient(160.71deg, #EA6D96 3.96%, #BC81CF 94.96%)',
+        'earn-right-panel': 'linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%)',
+        'earn-right-panel-dark': 'linear-gradient(97deg, #32283C 7.53%, #32283C 95.32%)',
         // common component
         'common-crypto-btc': "url('../images/_common/crypto-btc.svg')",
         'common-crypto-chat': "url('../images/_common/crypto-chat.svg')",
@@ -112,6 +120,11 @@ module.exports = {
         'cards-card': '0px 0px 9px #745FF2',
         // deposit
         'deposit-tab': '0px 4px 4px rgba(116, 95, 242, 0.26)',
+        // earn
+        'earn-panel': '-9px -13px 37px rgba(255, 255, 255, 0.8), 9px 17px 37px rgba(0, 0, 0, 0.13)',
+        'earn-panel-dark': '-6px -13px 37px rgba(116, 95, 242, 0.1), 6px 17px 37px rgba(116, 95, 242, 0.1)',
+        'earn-expected-card': '-6px -8px 15px rgba(255, 255, 255, 0.7), 4px 6px 15px rgba(0, 0, 0, 0.13)',
+        'earn-expected-card-dark': '-6px -8px 15px rgba(255, 255, 255, 0.06), 4px 6px 15px rgba(0, 0, 0, 0.13)'
       }
     },
     colors: {
