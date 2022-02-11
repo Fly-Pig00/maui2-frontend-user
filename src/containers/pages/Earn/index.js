@@ -68,10 +68,9 @@ function Card(props) {
         onChange={handleCryptoFiatChange}
         handleAmountChange={handleAmountChange}
       />
-      { props.isDeposit &&
       <Checkbox className="ml-4 mb-3 mt-[30px]" onChange={handleAgreeChange}>
         <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
-      </Checkbox> }
+      </Checkbox>
       <button
         type="submit"
         disabled={!isAgreed}

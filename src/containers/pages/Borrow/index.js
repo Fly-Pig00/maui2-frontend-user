@@ -41,7 +41,7 @@ function Borrow() {
               <div>
                 <div className='text-[16px] text-[#000] dark:text-[#EFEFFA]'>Borrow <span className='text-transparent tracking-tight bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#39C6D9] text-[24px]'>Permissionless</span> and <span className='text-transparent tracking-tight bg-clip-text bg-gradient-to-r from-[#39C6D9] to-[#00DDA2] text-[24px]'>Instantly</span></div>
               </div>
-              <div className='mt-[20px] w-[200px] h-[300px] rounded-[14px] border-[2px] border-[#FFFFFF00] dark:border-[#F9D3B4] bg-[#EBEBF8] dark:bg-borrow-card-small-dark shadow-borrow-card-small dark:shadow-borrow-card-small-dark'></div>
+              <div className='mt-[20px] w-[250px] h-[300px] rounded-[14px] border-[2px] border-[#FFFFFF00] dark:border-[#F9D3B4] bg-[#EBEBF8] dark:bg-borrow-card-small-dark shadow-borrow-card-small dark:shadow-borrow-card-small-dark'></div>
             </div>
           </div>
           <div className='w-full text-center relative'>
