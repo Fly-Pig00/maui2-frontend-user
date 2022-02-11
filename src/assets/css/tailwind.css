@@ -115,3 +115,21 @@
   border: solid #745FF2;
   border-width: 0 3px 3px 0;
 }
+
+/* Borrow Decoration */
+.borrow-span-borrow-dark {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-color: rgba(255, 255, 255, .17);
+  -webkit-text-stroke-width: 3px;
+}
+.borrow-span-borrow {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-color: rgba(0, 0, 0, .2);
+  -webkit-text-stroke-width: 3px;
+}
+.borrow-span-soon {
+  text-shadow: 8px 20px 4px rgba(0, 0, 0, 0.19);
+}
+.borrow-span-soon-dark {
+  text-shadow: 3px 24px 4px rgba(112, 112, 112, 0.36);
+}

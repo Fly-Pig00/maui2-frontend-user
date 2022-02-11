@@ -48,9 +48,14 @@ module.exports = {
         'borrow-left': "url('../images/borrow/left.png')",
         'borrow-righttop': "url('../images/borrow/righttop.png')",
         'borrow-rightbottom': "url('../images/borrow/rightbottom.png')",
+        'borrow-leftbottom': "url('../images/borrow/leftbottom.png')",
+        'borrow-rightbottom2': "url('../images/borrow/rightbottom2.png')",
         'borrow-card': 'linear-gradient(160.71deg, #EFF0FB 9.07%, #E1DEF1 92.22%)',
         'borrow-card-dark': 'linear-gradient(160.71deg, rgba(65, 52, 64, 0.41) 9.07%, rgba(24, 19, 29, 0.53) 92.22%);',
         'borrow-saly': "url('../images/borrow/saly.png')",
+        'borrow-borrow': "url('../images/borrow/borrow.png')",
+        'borrow-soon': "url('../images/borrow/soon.svg')",
+        'borrow-card-small-dark': 'linear-gradient(110.16deg, #302B34 0.48%, #22242A 106.09%)',
         // stocks
         'stocks-left': "url('../images/stocks/left.png')",
         'stocks-right': "url('../images/stocks/right.png')",
@@ -111,8 +116,10 @@ module.exports = {
         'main-card-btn': '9px 8px 12px rgba(114, 138, 183, 0.5)',
         'main-card-banner': 'inset 3px 6px 4px rgba(0, 0, 0, 0.25)',        
         // borrow
-        'borrow-card': '-9px -13px 37px rgba(255, 255, 255, 0.8), 9px 17px 37px rgba(0, 0, 0, 0.13)',
+        'borrow-card': '-9px -13px 37px rgba(255, 255, 255, 0.8), 9px 17px 37px rgba(0, 0, 0, 0.13)',        
         'borrow-card-dark': '-9px -13px 37px rgba(116, 95, 242, 0.5), 9px 17px 37px rgba(116, 95, 242, 0.5)',
+        'borrow-card-small': '-9px -13px 37px rgba(255, 255, 255, 0.8), 9px 17px 37px rgba(0, 0, 0, 0.13)',
+        'borrow-card-small-dark': '0px 0px 37px rgba(162, 89, 255, 0.33)',
         // stocks
         'stocks-card': '-9px -13px 37px rgba(255, 255, 255, 0.8), 9px 17px 37px rgba(0, 0, 0, 0.13)',
         'stocks-card-dark': '-9px -13px 37px rgba(116, 95, 242, 0.5), 9px 17px 37px rgba(116, 95, 242, 0.5)',
