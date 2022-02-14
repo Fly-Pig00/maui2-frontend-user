@@ -6,6 +6,9 @@ import Checkbox from '../../../components/Form/Checkbox';
 import InputAmount from '../../../components/Form/InputAmount';
 import { unmaskCurrency } from '../../../utils/masks';
 import AnimatedTab from '../../../components/AnimatedTab';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { apiEarnDeposit } from '../../../saga/actions/workflow';
 
 function Card(props) {
   const validationSchema = Yup.object().shape({
@@ -25,7 +28,20 @@ function Card(props) {
   }, [setValue]);
   // handle functions
 	const onSubmit = (data) => {
-		console.log('submit', data);
+    props.apiEarnDeposit({
+      url: '/deposit',
+      method: 'POST',
+      data: {
+        amount: data.amount,
+        in_out: 'in'
+      },
+      success: (response) => {
+        console.log(response);
+      },
+      fail: (error) => {
+        console.log('error', error);
+      }
+    })
 		return false;
 	}
   
@@ -82,7 +98,7 @@ function Card(props) {
   )
 }
 
-function Earn() {
+function Earn(props) {
   const [ timePeriod, setTimePeriod ] = useState('year');
   const TABS_TIME = [
     {title: 'Year', value: 'year'},
@@ -102,7 +118,7 @@ function Earn() {
       <div className='absolute w-[1020px] top-[250px] left-[calc(50%-510px)] bg-deposit-card dark:bg-deposit-card-dark shadow-stocks-card dark:shadow-stocks-card-dark border border-[#FFFFFF] dark:border-[#000000] rounded-[33px] p-[25px]'>
         <div className='w-full flex justify-between'>
           <div className='w-[60%]'>
-            <Card name='frmDeposit' isDeposit={true}/>
+            <Card name='frmDeposit' isDeposit={true} apiEarnDeposit={props.apiEarnDeposit}/>
             <div className='h-[30px]'></div>
             <Card name='frmWithdraw' isDeposit={false}/>
           </div>
@@ -156,4 +172,13 @@ function Earn() {
   )
 }
 
-export default Earn;
+export default compose(
+  connect(
+    state => ({
+      workflow: state.workflow
+    }),
+    {
+      apiEarnDeposit,
+    }
+  )
+)(Earn);

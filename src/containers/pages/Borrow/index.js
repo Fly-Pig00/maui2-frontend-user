@@ -5,7 +5,7 @@ import CustomSlider from './slider';
 
 function Borrow() {
   const handleChanged = (collateral, borrowed, apy) => {
-    console.log('val', collateral, borrowed, apy);
+    // console.log('val', collateral, borrowed, apy);
     functionPlot({
       target: "#plot",
       width: 370,

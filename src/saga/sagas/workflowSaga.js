@@ -18,6 +18,14 @@ function* signOut(action) {
   }), action);
 }
 
+function* earnDeposit(action) {
+  yield call(request({
+    type: WorkflowConstants.EARNDEPOSIT_ACTION,
+    method: 'POST',
+    url: action.payload.url,
+  }), action);
+}
+
 function* getIPAddress(action) {
   yield call(request({
     type: WorkflowConstants.GET_IP_ADDRESS,
@@ -31,4 +39,5 @@ export default function* workflowSaga() {
   yield takeEvery(WorkflowConstants.GET_IP_ADDRESS, getIPAddress);
   yield takeEvery(WorkflowConstants.SIGNIN_ACTION, signIn);
   yield takeEvery(WorkflowConstants.SIGNOUT_ACTION, signOut);
+  yield takeEvery(WorkflowConstants.EARNDEPOSIT_ACTION, earnDeposit);
 }

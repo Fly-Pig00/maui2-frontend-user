@@ -20,7 +20,7 @@ export const request = ({ type, method, url, apiUrl, headers, success, fail, pay
           originalType: type,
         });
       }
-      const token = localStorage.getItem('idToken');
+      const token = localStorage.getItem('token');
       axios.defaults.baseURL = apiUrl || appConfig.apiUrl;
 
       if (type !== WorkflowConstants.GET_IP_ADDRESS) {

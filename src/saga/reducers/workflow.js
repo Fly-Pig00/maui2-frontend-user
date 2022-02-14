@@ -10,7 +10,8 @@
  
  const initialState = {
    token: '',
-   mauiAddress: ''
+   mauiAddress: '', 
+   terraAddress: '',
  };
  
  export default handleActions({

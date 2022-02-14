@@ -3,7 +3,7 @@ import moment from 'moment';
 import AnimatedTab from '../AnimatedTab';
 import DarkMode from '../DarkMode';
 import { withRouter, useHistory } from 'react-router-dom';
-import Terra from '../Terra';
+import TerraConnect from './terraConnect';
 
 const MENU = [
   { title: 'Dashboard', url: '/dashboard' },
@@ -90,7 +90,7 @@ const Header = withRouter(({ location }) => {
                   <span className='font-semibold text-[16px] leading-[24px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2] dark:from-[#F9D3B4] dark:to-[#F9D3B4] transition-all duration-1000'>DEPOSIT</span>
                 </button>
                 <DepositStatus symbol="$" balance="3,545.635.47" kind="USD" />
-                <Terra />
+                <TerraConnect />
               </div>
             </div>
           </div>

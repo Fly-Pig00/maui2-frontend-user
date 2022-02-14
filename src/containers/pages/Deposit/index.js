@@ -8,6 +8,8 @@ import InputAmount from '../../../components/Form/InputAmount';
 import SelectCurrency from '../../../components/Form/SelectCurrency';
 import SelectWallet from '../../../components/Form/SelectWallet';
 import { unmaskCurrency } from '../../../utils/masks';
+// import { appConfig } from '../../../appConfig';
+// import { fetchBalance } from '../../../utils/wallet';
 
 function Tab({className, isCrypto, onChange}) {
   const className_active = 'bg-[#EDEDF9] dark:bg-[#271B2D] shadow-deposit-tab w-[110px] border-b-[#745FF2] p-2 text-[#745FF2] text-center cursor-pointer';
@@ -46,6 +48,48 @@ function Deposit(props) {
   useEffect(() => {
     setValue('amount', 0);
   }, [props.data, setValue]);
+
+  // const fetchBalance = async () => {
+  //   const terra = new LCDClient({
+  //     URL: "https://bombay-lcd.terra.dev",
+  //     chainID: "bombay-12",
+  //   });
+  //   console.log(terra);
+  //   const currentBalance = await terra.bank.balance(from);
+  //   console.log("current balance", currentBalance);
+  //   const balance = new Dec(currentBalance[0]._coins.uusd.amount)
+  //     .div(1000000)
+  //     .toNumber()
+  //     .toFixed(2);
+  //   setBalance(balance);
+  //   setLoading(false);
+  // };
+
+  // const handleCryptoDeposit = (amount, from, to) => {
+  //   try {
+  //     console.log("amount", amount);
+  //     const pool_contract = new MsgSend(from, to, {
+  //       uusd: new Dec(amount).mul(appConfig.MICRO).toNumber(),
+  //     });
+
+  //     // Sign transaction
+  //     const result = await sign({
+  //       msgs: [pool_contract],
+  //       feeDenoms: ["uusd"],
+  //       gasPrices: "0.15uusd",
+  //     });
+
+  //     const tx = result.result;
+
+  //     await terra.tx.broadcast(tx);
+  //     await fetchBalance();
+  //     // toast.success("Transaction success");
+  //     fetchBalance(to);
+  //   } catch (error) {
+  //     setLoading(false);
+  //     // toast.error("Transaction fails");
+  //   }
+  // }
   
   // handle functions
 	const onSubmit = (data) => {
@@ -162,16 +206,18 @@ function Deposit(props) {
               onChange={handleCryptoFiatChange}
               handleAmountChange={handleAmountChange}
             />
-            <div className='ml-5 mt-[30px]'>
-              <div className='flex text-[14px] items-center'>
-                <div className='text-[#6B8CFF]'>Fee</div>
-                <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>4</div>
+            {!isCrypto && 
+              <div className='ml-5 mt-[30px]'>
+                <div className='flex text-[14px] items-center'>
+                  <div className='text-[#6B8CFF]'>Fee</div>
+                  <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>4</div>
+                </div>
+                <div className='flex text-[14px] items-center'>
+                  <div className='text-[#6B8CFF]'>You will get</div>
+                  <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>196</div>
+                </div>
               </div>
-              <div className='flex text-[14px] items-center'>
-                <div className='text-[#6B8CFF]'>You will get</div>
-                <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>196</div>
-              </div>
-            </div>
+            }
             <Checkbox className="ml-4 mb-3 mt-[30px]" onChange={handleAgreeChange}>
               <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
             </Checkbox>

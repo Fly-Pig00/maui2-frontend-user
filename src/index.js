@@ -16,16 +16,16 @@ const history = createBrowserHistory();
 const store = configureStore({}, history);
 const render = () => {
   getChainOptions().then((chainOptions) => {
-    console.log('option', chainOptions)
+    // console.log('chainOptions', chainOptions)
     ReactDOM.render(
       <WalletProvider>
-        <React.StrictMode>
+        {/* <React.StrictMode> */}
           <Provider store={store}>
             <ConnectedRouter history={history}>
               <App />
             </ConnectedRouter>
           </Provider>
-        </React.StrictMode>
+        {/* </React.StrictMode> */}
       </WalletProvider>,
       document.getElementById('root')
     );

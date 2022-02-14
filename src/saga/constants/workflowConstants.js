@@ -7,5 +7,6 @@ import keyMirror from 'fbjs/lib/keyMirror';
 export const WorkflowConstants = keyMirror({
   SIGNIN_ACTION: undefined,
   SIGNOUT_ACTION: undefined,
+  EARNDEPOSIT_ACTION: undefined,
   GET_IP_ADDRESS: undefined,
 });
