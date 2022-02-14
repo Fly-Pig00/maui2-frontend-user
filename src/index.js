@@ -11,19 +11,25 @@ import configureStore from './saga/store';
 import App from './containers/App';
 import './assets/css/tailwind.css';
 
+import { getChainOptions, WalletProvider } from "@terra-money/wallet-provider";
 const history = createBrowserHistory();
 const store = configureStore({}, history);
-const render = () => {    
-  ReactDOM.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <App />
-        </ConnectedRouter>
-      </Provider>
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
+const render = () => {
+  getChainOptions().then((chainOptions) => {
+    console.log('option', chainOptions)
+    ReactDOM.render(
+      <WalletProvider>
+        <React.StrictMode>
+          <Provider store={store}>
+            <ConnectedRouter history={history}>
+              <App />
+            </ConnectedRouter>
+          </Provider>
+        </React.StrictMode>
+      </WalletProvider>,
+      document.getElementById('root')
+    );
+  });
 };  
 setTimeout(() => render(), 1200);
 

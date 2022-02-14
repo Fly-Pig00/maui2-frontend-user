@@ -1,6 +1,33 @@
 import React from 'react';
+import functionPlot from 'function-plot';
+import { white } from 'tailwindcss/colors';
+import CustomSlider from './slider';
 
 function Borrow() {
+  const handleChanged = (collateral, borrowed, apy) => {
+    console.log('val', collateral, borrowed, apy);
+    functionPlot({
+      target: "#plot",
+      width: 370,
+      height: 270,
+      yAxis: {
+        label: "Remaining Debt",
+        domain: [0, 50],
+        color: white,
+      },
+      xAxis: {
+        label: "X axis",
+        domain: [0, 30],
+      },
+      data: [
+        {
+          fn: `(${(-collateral / 1200) * apy}x + ${borrowed}) / 1000`,
+        },
+      ],
+      disableZoom: true,
+    });
+  };
+  
   return (
     <div className='relative w-full min-h-[1750px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
       {/* bg images */}
@@ -21,7 +48,9 @@ function Borrow() {
             <div className='text-center w-full p-[40px]'>
               <div>
                 <div className='text-left pl-[10px] text-[24px] text-[#000] dark:text-[#EFEFFA]'><span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#39C6D9]'>Zero</span> Repayments</div>
-                <div className='mt-[20px] w-[400px] h-[300px] rounded-[14px] border-[1px] border-[#FFFFFF00] dark:border-[#F9D3B4] bg-[#EBEBF8] dark:bg-borrow-card-small-dark shadow-borrow-card-small dark:shadow-borrow-card-small-dark'></div>
+                <div className='mt-[20px] w-[400px] h-[300px] rounded-[14px] border-[1px] border-[#FFFFFF00] dark:border-[#F9D3B4] bg-[#EBEBF8] dark:bg-borrow-card-small-dark shadow-borrow-card-small dark:shadow-borrow-card-small-dark'>
+                  <div className='rounded-[18px] w-[400px] h-[300px]' id="plot"></div>
+                </div>
               </div>
               <div className='mt-[100px]'>
                 <div className='text-[16px] text-[#000] dark:text-[#EFEFFA] mb-[20px]'>Your yield <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#39C6D9] text-[24px]'>Self Repays</span> your loan</div>
@@ -41,7 +70,11 @@ function Borrow() {
               <div>
                 <div className='text-[16px] text-[#000] dark:text-[#EFEFFA]'>Borrow <span className='text-transparent tracking-tight bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#39C6D9] text-[24px]'>Permissionless</span> and <span className='text-transparent tracking-tight bg-clip-text bg-gradient-to-r from-[#39C6D9] to-[#00DDA2] text-[24px]'>Instantly</span></div>
               </div>
-              <div className='mt-[20px] w-[250px] h-[300px] rounded-[14px] border-[2px] border-[#FFFFFF00] dark:border-[#F9D3B4] bg-[#EBEBF8] dark:bg-borrow-card-small-dark shadow-borrow-card-small dark:shadow-borrow-card-small-dark'></div>
+              <div className='mt-[20px] w-[250px] h-[300px] rounded-[14px] border-[2px] border-[#FFFFFF00] dark:border-[#F9D3B4] bg-[#EBEBF8] dark:bg-borrow-card-small-dark shadow-borrow-card-small dark:shadow-borrow-card-small-dark'>
+                <CustomSlider
+                  onChange={handleChanged}
+                />
+              </div>
             </div>
           </div>
           <div className='w-full text-center relative'>
