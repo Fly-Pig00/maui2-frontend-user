@@ -1,3 +1,3 @@
 export const appConfig = {
-  apiUrl: process.env.REACT_APP_API_URL || 'https://swat9g1qlg.execute-api.us-west-2.amazonaws.com/dev/workflows/direct-mail/',
+  apiUrl: process.env.REACT_APP_API_URL || 'https://secure-falls-43253.herokuapp.com/api',
 };
