@@ -1,17 +1,14 @@
 import { LCDClient, Dec } from "@terra-money/terra.js";
+import { appConfig } from "../appConfig";
 
 const terra = new LCDClient({
-  URL: "https://bombay-lcd.terra.dev",
-  chainID: "bombay-12",
+  URL: appConfig.lcdURL,
+  chainID: appConfig.lcdChainId,
 });
 
-export const fetchBalance = async (key) => {
-  console.log("fetchBalance", key);
-  const currentBalance = await terra.bank.balance(key);
-
+export const fetchBalance = async (address) => {
+  const currentBalance = await terra.bank.balance(address);
   const uusdAmount = currentBalance[0]._coins.uusd?.amount;
-
-  console.log(uusdAmount);
   if (uusdAmount) {
     return new Dec(currentBalance[0]._coins.uusd.amount)
       .div(1000000)

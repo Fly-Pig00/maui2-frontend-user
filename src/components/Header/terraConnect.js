@@ -2,10 +2,10 @@ import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 import { useEffect, useState } from "react";
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { ToastContainer, toast } from "react-toastify";
-import { apiSignIn, signOut } from "../../saga/actions/workflow";
-import Loading from "./loading";
+import { toast } from "react-toastify";
+import { apiSignIn, signOut, updateBalance } from "../../saga/actions/workflow";
 import 'react-toastify/dist/ReactToastify.css';
+import Button from "../Button";
 
 const EXTENSION = 'EXTENSION';
 
@@ -25,31 +25,37 @@ function TerraConnect(props) {
   const [ isConnecting, setIsConnecting ] = useState(false);
   const [ isGettingSignature, setIsGettingSignature ] = useState(false);
   const apiSignIn = props.apiSignIn;
+  const updateBalance = props.updateBalance;
+  const isLogged = props.workflow.isLogged;
 
   useEffect(() => {
-    console.log('wallet status', status, availableInstallTypes, availableConnectTypes);
-    switch(status) {
-      case WalletStatus.WALLET_NOT_CONNECTED:
-        if (availableInstallTypes.indexOf(EXTENSION) >= 0) { // should install
-          setLabel('INSTALL');
-        } else {
-          if (availableConnectTypes.indexOf(EXTENSION) >= 0) {
-            setLabel('LOGIN');
+    if (isLogged) {
+      setLabel('LOGOUT');
+    } else {
+      console.log('wallet status', status, availableInstallTypes, availableConnectTypes);
+      switch(status) {
+        case WalletStatus.WALLET_NOT_CONNECTED:
+          if (availableInstallTypes.indexOf(EXTENSION) >= 0) { // should install
+            setLabel('INSTALL');
           } else {
-            setLabel('ERROR');
+            if (availableConnectTypes.indexOf(EXTENSION) >= 0) {
+              setLabel('LOGIN');
+            } else {
+              setLabel('ERROR');
+            }
           }
-        }
-        break;
-      case WalletStatus.WALLET_CONNECTED:
-        setLabel('LOGIN');
-        break;
-      case WalletStatus.INITIALIZING:
-        setLabel('...');
-        break;
-      default:
-        break;
+          break;
+        case WalletStatus.WALLET_CONNECTED:
+          setLabel('LOGIN');
+          break;
+        case WalletStatus.INITIALIZING:
+          setLabel('...');
+          break;
+        default:
+          break;
+      }
     }
-  }, [status, availableInstallTypes, availableConnectTypes]);
+  }, [status, availableInstallTypes, availableConnectTypes, isLogged]);
 
   useEffect(() => {
     if (isConnecting && status === WalletStatus.WALLET_CONNECTED && !isGettingSignature) { // user clicked on login button and then wallet connection has been completed from disconnected state.
@@ -85,6 +91,7 @@ function TerraConnect(props) {
             setLabel('LOGOUT');
             setIsConnecting(false);
             setIsGettingSignature(false);
+            updateBalance(response.mauiAddress);
           },
           fail: (error) => {
             console.log('signIn error', error);
@@ -98,14 +105,13 @@ function TerraConnect(props) {
       setIsGettingSignature(true);
       getSignature(); // get signature
     }
-  }, [status, isConnecting, isGettingSignature, wallets, signBytes, apiSignIn]);
+  }, [status, isConnecting, isGettingSignature, wallets, signBytes, apiSignIn, updateBalance]);
 
   /**
    * Handle events
    */
   const handleClick = (e) => {
-    const isSignedIn = !!props.workflow.mauiAddress;
-    if (isSignedIn) {
+    if (props.workflow.isLogged) {
       localStorage.clear();
       disconnect();
       props.signOut();
@@ -137,29 +143,16 @@ function TerraConnect(props) {
   /**
    * Render
    */
-  let className = 'rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#745FF2] w-[93px] h-[42px] bg-[#F3F3FB] dark:bg-transparent';
   const isLoading = status === WalletStatus.INITIALIZING || isConnecting;
-  if (isLoading) {
-    className += ' bg-[#dbe3eb] hover:bg-[#dbe3eb] text-[#6c757d] cursor-no-drop ';
-  }
   return (
-    <>
-      <button
-        className={className}
-        onClick={handleClick}
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <div className="flex flex-col items-center">
-            <Loading width={24} height={24} fill="#FFF"/>
-          </div>
-        ):(
-          <span className='font-semibold text-[16px] leading-[24px] text-[#745FF2] dark:text-[#745FF2] transition-all duration-1000'>{label}</span>
-        )}     
-      </button>
-      <ToastContainer />
-    </>
-    
+    <Button
+      className="rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#745FF2] w-[93px] h-[42px] bg-[#F3F3FB] dark:bg-transparent"
+      onClick={handleClick}
+      isLoading={isLoading}
+      isDisabled={isLoading}
+    >
+      <span className='font-semibold text-[16px] leading-[24px] text-[#745FF2] dark:text-[#745FF2] transition-all duration-1000'>{label}</span>
+    </Button>
   );
 }
 
@@ -171,6 +164,7 @@ export default compose(
     {
       apiSignIn,
       signOut,
+      updateBalance,
     }
   )
 )(TerraConnect);

@@ -69,7 +69,7 @@ function Card(props) {
   return (
     <form name={props.name} id={props.name} className='w-full bg-earn-card rounded-[40px] p-[30px] pl-[50px] border dark:border-[#FFFFFF30]' onSubmit={handleSubmit(onSubmit)}>
       { props.isDeposit ?
-        <div className=' font-semibold text-[24px] text-[#273855] dark:text-[#F9D3B4]'>Enter an amount for 18% APY <span className='text-[#745FF2]'>Deposit</span></div>
+        <div className=' font-semibold text-[24px] text-[#273855] dark:text-[#F9D3B4]'>Enter an amount for 15% APY <span className='text-[#745FF2]'>Deposit</span></div>
       :
         <div className=' font-semibold text-[24px] text-[#273855] dark:text-[#F9D3B4]'>How much would you like to <span className='text-transparent bg-clip-text bg-gradient-to-b from-[#FF0000FF] to-[#FF000010]'>Withdraw</span> ?</div>
       }
@@ -135,7 +135,7 @@ function Earn(props) {
             </div>
             <div className='mt-[130px] text-center bg-deposit-card dark:bg-deposit-card-dark shadow-earn-panel dark:shadow-earn-panel-dark border border-[#FFFFFF30] dark:border-[#745FF220] rounded-[26px] p-[25px]'>
               <span className='font-semibold text-[24px] leading-[36px] text-transparent bg-clip-text bg-gradient-to-r from-[#39C6D9] via-[#B84ADE] to-[#DE1F4D]'>
-                Earn with 18% APY
+                Earn with 15% APY
               </span>
               <div className='mt-[20px] flex items-center justify-evenly'>
                 <div className={`bg-cover bg-center rounded-[22px] bg-earn-banner w-[175px] h-[130px]`}/>

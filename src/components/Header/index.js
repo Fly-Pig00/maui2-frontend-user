@@ -1,8 +1,9 @@
-
+import { withRouter, useHistory } from 'react-router-dom';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import AnimatedTab from '../AnimatedTab';
 import DarkMode from '../DarkMode';
-import { withRouter, useHistory } from 'react-router-dom';
 import TerraConnect from './terraConnect';
 
 const MENU = [
@@ -31,7 +32,7 @@ function DepositStatus({symbol, balance, kind}) {
   return (
     <div className='bg-[#DEE2E8] dark:bg-[#31303650] dark:bg-header-login-btn-dark rounded-[14px] w-[206px] h-[42px] border border-[#728AB7A0] p-1 flex justify-evenly items-center'>
       <span className='text-[#707070] text-[18px]'>{symbol}</span>
-      <span className='font-semibold text-[18px] leading-[24px] mt-[1px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2] transition-all duration-1000'>
+      <span className='font-semibold w-[100px] text-[18px] leading-[24px] mt-[1px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2] transition-all duration-1000'>
         {balance}
       </span>
       <span className='text-[#707070] text-[18px]'>{kind}</span>
@@ -39,7 +40,8 @@ function DepositStatus({symbol, balance, kind}) {
   )
 }
 
-const Header = withRouter(({ location }) => {
+function Header(props) {
+  const { location } = props;
   let history = useHistory();
   const handleDepositClick = () => {
     history.push('/deposit');
@@ -62,7 +64,7 @@ const Header = withRouter(({ location }) => {
               <div className='flex justify-between items-center'>
                 <Balance />
                 <div className='w-[10px]'></div>
-                <DepositStatus symbol="$" balance="3,545.635.47" kind="USD" />
+                <DepositStatus symbol="$" balance={props.workflow.balance} kind="USD" />
               </div>
             </div>
           </div>
@@ -89,7 +91,7 @@ const Header = withRouter(({ location }) => {
                 '>
                   <span className='font-semibold text-[16px] leading-[24px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2] dark:from-[#F9D3B4] dark:to-[#F9D3B4] transition-all duration-1000'>DEPOSIT</span>
                 </button>
-                <DepositStatus symbol="$" balance="3,545.635.47" kind="USD" />
+                <DepositStatus symbol="$" balance={props.workflow.balance} kind="USD" />
                 <TerraConnect />
               </div>
             </div>
@@ -105,7 +107,16 @@ const Header = withRouter(({ location }) => {
           </div>}
         </div>
       );
-  }  
-});
+  }
+}
 
-export default Header;
+export default compose(
+  withRouter,
+  connect(
+    state => ({
+      workflow: state.workflow
+    }),
+    {
+    }
+  )
+)(Header);

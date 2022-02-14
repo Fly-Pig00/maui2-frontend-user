@@ -6,3 +6,4 @@ export const apiSignIn = createAction(WorkflowConstants.SIGNIN_ACTION);
 export const apiEarnDeposit = createAction(WorkflowConstants.EARNDEPOSIT_ACTION);
 
 export const signOut = createAction(WorkflowConstants.SIGNOUT_ACTION);
+export const updateBalance = createAction(WorkflowConstants.UPDATEBALANCE_ACTION);

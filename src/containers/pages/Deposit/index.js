@@ -3,11 +3,21 @@ import { useHistory } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { toast } from "react-toastify";
+import { useWallet } from "@terra-money/wallet-provider";
+import axios from 'axios';
 import Checkbox from '../../../components/Form/Checkbox';
 import InputAmount from '../../../components/Form/InputAmount';
 import SelectCurrency from '../../../components/Form/SelectCurrency';
 import SelectWallet from '../../../components/Form/SelectWallet';
 import { unmaskCurrency } from '../../../utils/masks';
+import Button from '../../../components/Button';
+import { appConfig } from '../../../appConfig';
+
+import { LCDClient, Dec, MsgSend } from "@terra-money/terra.js";
+import { updateBalance } from '../../../saga/actions/workflow';
 // import { appConfig } from '../../../appConfig';
 // import { fetchBalance } from '../../../utils/wallet';
 
@@ -33,6 +43,7 @@ function Tab({className, isCrypto, onChange}) {
 }
 
 function Deposit(props) {
+  const { sign } = useWallet();
   const validationSchema = Yup.object().shape({
 		amount: Yup.number()
       .min(0.1, "The amount must be between $0.1 and $99,999")
@@ -49,56 +60,55 @@ function Deposit(props) {
     setValue('amount', 0);
   }, [props.data, setValue]);
 
-  // const fetchBalance = async () => {
-  //   const terra = new LCDClient({
-  //     URL: "https://bombay-lcd.terra.dev",
-  //     chainID: "bombay-12",
-  //   });
-  //   console.log(terra);
-  //   const currentBalance = await terra.bank.balance(from);
-  //   console.log("current balance", currentBalance);
-  //   const balance = new Dec(currentBalance[0]._coins.uusd.amount)
-  //     .div(1000000)
-  //     .toNumber()
-  //     .toFixed(2);
-  //   setBalance(balance);
-  //   setLoading(false);
-  // };
+  const depositCrypto = async (amount, from, to) => {
+    setIsLoading(true);
+    try {
+      delete axios.defaults.headers.common.Authorization;
+      const terra = new LCDClient({
+        URL: appConfig.lcdURL,
+        chainID: appConfig.lcdChainId,
+      });
+      const pool_contract = new MsgSend(from, to, {
+        uusd: new Dec(amount).mul(appConfig.MICRO).toNumber(),
+      });
 
-  // const handleCryptoDeposit = (amount, from, to) => {
-  //   try {
-  //     console.log("amount", amount);
-  //     const pool_contract = new MsgSend(from, to, {
-  //       uusd: new Dec(amount).mul(appConfig.MICRO).toNumber(),
-  //     });
+      // Sign transaction
+      const result = await sign({
+        msgs: [pool_contract],
+        feeDenoms: ["uusd"],
+        gasPrices: "0.15uusd",
+      });
 
-  //     // Sign transaction
-  //     const result = await sign({
-  //       msgs: [pool_contract],
-  //       feeDenoms: ["uusd"],
-  //       gasPrices: "0.15uusd",
-  //     });
+      const tx = result.result;
 
-  //     const tx = result.result;
-
-  //     await terra.tx.broadcast(tx);
-  //     await fetchBalance();
-  //     // toast.success("Transaction success");
-  //     fetchBalance(to);
-  //   } catch (error) {
-  //     setLoading(false);
-  //     // toast.error("Transaction fails");
-  //   }
-  // }
+      await terra.tx.broadcast(tx);
+      props.updateBalance(to);
+      setIsLoading(false);
+      toast.success("Transaction success");
+      // dispatch(getWalletInfo(to));
+    } catch (error) {
+      setIsLoading(false);
+      toast.error("Transaction fails");
+    }
+  };
   
   // handle functions
-	const onSubmit = (data) => {
-		console.log('submit', data);
+	const onSubmit = (data) => {    
+    if (!props.workflow.isLogged) {
+      toast.error("Please login first.");
+      return false;
+    }
+    if (isCrypto) {
+      const from = props.workflow.terraAddress;
+      const to = props.workflow.mauiAddress;
+      depositCrypto(data.amount, from, to);
+    }    
 		return false;
 	}
 
   const [ isCrypto, setIsCrypto ] = useState(true);
   const [ isAgreed, setIsAgreed ] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(false);
   const [ selectedFiat, setSelectedFiat ] = useState('USD');
   const [ selectedCrypto, setSelectedCrypto ] = useState('BTC');
   const [ selectedFiatWallet, setSelectedFiatWallet ] = useState('USD');
@@ -221,13 +231,14 @@ function Deposit(props) {
             <Checkbox className="ml-4 mb-3 mt-[30px]" onChange={handleAgreeChange}>
               <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
             </Checkbox>
-            <button
+            <Button
               type="submit"
-              disabled={!isAgreed}
-              className='disabled:bg-[#888888] disabled:bg-none disabled:cursor-no-drop bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
+              isDisabled={!isAgreed}
+              isLoading={isLoading}
+              className='bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
             >
               Deposit
-            </button>
+            </Button>
           </div>
           <div className='w-[45%]'>
             <div className='text-[#273855] dark:text-[#F9D3B4] text-[16px] font-semibold tracking-[1px] transition-all duration-1000'>Features</div>
@@ -249,4 +260,13 @@ function Deposit(props) {
   )
 }
 
-export default Deposit;
+export default compose(
+  connect(
+    state => ({
+      workflow: state.workflow
+    }),
+    {
+      updateBalance
+    }
+  )
+)(Deposit);

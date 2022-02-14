@@ -3,4 +3,6 @@ export const appConfig = {
   apiUrl: process.env.REACT_APP_API_URL || 'http://localhost:4000/api',
   MICRO: 1_000_000,
   BLOCKSPERYEAR: 4_656_810,
+  lcdURL: 'https://bombay-lcd.terra.dev',
+  lcdChainId: 'bombay-12',
 };
