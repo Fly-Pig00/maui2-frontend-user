@@ -1,4 +1,4 @@
-import { call, takeEvery } from 'redux-saga/effects';
+import { put, call, takeEvery } from 'redux-saga/effects';
 import { WorkflowConstants } from '../constants/workflowConstants';
 import request from '../../utils/fetch';
 
@@ -10,12 +10,8 @@ function* signIn(action) {
   }), action);
 }
 
-function* signOut(action) {
-  yield call(request({
-    type: WorkflowConstants.SIGNOUT_ACTION,
-    method: 'POST',
-    url: '',
-  }), action);
+function* signOut() {
+  yield put({ type: `${WorkflowConstants.SIGNOUT_ACTION}_SUCCESS` });
 }
 
 function* earnDeposit(action) {

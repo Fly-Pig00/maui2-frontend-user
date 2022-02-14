@@ -9,9 +9,10 @@
  import { requestPending, requestSuccess, requestFail } from '../../utils/fetch';
  
  const initialState = {
-   token: '',
-   mauiAddress: '', 
-   terraAddress: '',
+   balance: 0,
+   mauiAddress: null, 
+   terraAddress: null,
+   isLogged: false,
  };
  
  export default handleActions({
@@ -21,29 +22,27 @@
      error: null,
    }),
    [requestSuccess(WorkflowConstants.SIGNIN_ACTION)]: (state, action) => ({
-     ...action.payload,
+     ...state,
+     // ...action.payload,
+     isLogged: true,
+     mauiAddress: action.payload.mauiAddress,
+     terraAddress: action.payload.terraAddress,
      isLoading: false,
      error: null,
    }),
    [requestFail(WorkflowConstants.SIGNIN_ACTION)]: (state, action) => ({
      ...state,
+     isLogged: false,
+     mauiAddress: null,
+     terraAddress: null,
      error: action.payload,
      isLoading: false,
    }),
-   [requestPending(WorkflowConstants.SIGNOUT_ACTION)]: state => ({
-    mauiAddress: null,
-    isLoading: true,
-    error: null,
-  }),
-  [requestSuccess(WorkflowConstants.SIGNOUT_ACTION)]: (state, action) => ({
-    mauiAddress: null,
-    isLoading: false,
-    error: null,
-  }),
-  [requestFail(WorkflowConstants.SIGNOUT_ACTION)]: (state, action) => ({
-    mauiAddress: null,
-    error: action.payload,
-    isLoading: false,
-  }),
+   [requestSuccess(WorkflowConstants.SIGNOUT_ACTION)]: state => ({
+     balance: 0,
+     isLogged: false,
+     mauiAddress: null,
+     terraAddress: null,
+   }),
  }, initialState);
  

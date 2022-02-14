@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import { apiSignIn, apiSignOut } from "../../saga/actions/workflow";
+import { apiSignIn, signOut } from "../../saga/actions/workflow";
 import Loading from "./loading";
+import 'react-toastify/dist/ReactToastify.css';
 
 const EXTENSION = 'EXTENSION';
 
@@ -23,7 +23,9 @@ function TerraConnect(props) {
 
   const [ label, setLabel ] = useState('LOGIN');
   const [ isConnecting, setIsConnecting ] = useState(false);
-  
+  const [ isGettingSignature, setIsGettingSignature ] = useState(false);
+  const apiSignIn = props.apiSignIn;
+
   useEffect(() => {
     console.log('wallet status', status, availableInstallTypes, availableConnectTypes);
     switch(status) {
@@ -40,9 +42,6 @@ function TerraConnect(props) {
         break;
       case WalletStatus.WALLET_CONNECTED:
         setLabel('LOGIN');
-        if (isConnecting) { // connecting done
-          getSignature();
-        }
         break;
       case WalletStatus.INITIALIZING:
         setLabel('...');
@@ -50,73 +49,66 @@ function TerraConnect(props) {
       default:
         break;
     }
-  }, [status]);
+  }, [status, availableInstallTypes, availableConnectTypes]);
 
-  /**
-   * Utils
-   */
-  const getSignature = async () => {
-    const BYTES = Buffer.from(wallets[0].terraAddress)
-    try{
-      const { result } = await signBytes(BYTES);
-      const signature = result.signature.toString();
-      processSignIn(wallets[0].terraAddress, signature);
-    }
-    catch(e) {
-      toast.error("Connecting wallet denied");
-      setIsConnecting(false);
-      // console.log('catch', e);
-    }
-    finally {
-      return;
-    }
-  }
-  const processSignIn = (terraAddress, signature) => {
-    props.apiSignIn({
-      url: '/signIn',
-      method: 'POST',
-      data: {
-        terraAddress: terraAddress,
-        signature: signature,
-      },
-      success: (response) => {
-        localStorage.setItem('token', response.token);
-        // console.log('response', response);
-        toast.success("Login Success!");
-        setLabel('LOGOUT');
-        setIsConnecting(false);
-      },
-      fail: (error) => {
-        console.log('signIn error', error);
-        toast.error("Login API Failed!");
-        setIsConnecting(false);
+  useEffect(() => {
+    if (isConnecting && status === WalletStatus.WALLET_CONNECTED && !isGettingSignature) { // user clicked on login button and then wallet connection has been completed from disconnected state.
+      const getSignature = async () => {
+        const BYTES = Buffer.from(wallets[0].terraAddress)
+        try{
+          const { result } = await signBytes(BYTES);
+          const signature = result.signature.toString();
+          processSignIn(wallets[0].terraAddress, signature);
+        }
+        catch(e) {
+          toast.error("Connecting wallet denied");
+          setIsConnecting(false);
+          setIsGettingSignature(false);
+          // console.log('catch', e);
+        }
+        finally {
+          return;
+        }
       }
-    })
-  }
-  const processSignout = () => {
-    const funcSignOut = () => {
-      setLabel('LOGIN');
-      localStorage.clear();
-      disconnect();
-    }
-    props.apiSignOut({
-      url: '/signOut',
-      method: 'POST',      
-      success: (response) => {
-        funcSignOut();
-      },
-      fail: (error) => {
-        funcSignOut();
+      const processSignIn = (terraAddress, signature) => {
+        apiSignIn({
+          url: '/signIn',
+          method: 'POST',
+          data: {
+            terraAddress: terraAddress,
+            signature: signature,
+          },
+          success: (response) => {
+            localStorage.setItem('token', response.token);
+            // console.log('response', response);
+            toast.success("Login Success!");
+            setLabel('LOGOUT');
+            setIsConnecting(false);
+            setIsGettingSignature(false);
+          },
+          fail: (error) => {
+            console.log('signIn error', error);
+            toast.error("Login API Failed!");
+            setIsConnecting(false);
+            setIsGettingSignature(false);
+          }
+        })
       }
-    })
-  }
+      console.log('getting signature');
+      setIsGettingSignature(true);
+      getSignature(); // get signature
+    }
+  }, [status, isConnecting, isGettingSignature, wallets, signBytes, apiSignIn]);
+
   /**
    * Handle events
    */
   const handleClick = (e) => {
     const isSignedIn = !!props.workflow.mauiAddress;
     if (isSignedIn) {
-      processSignout();
+      localStorage.clear();
+      disconnect();
+      props.signOut();
     } else {
       switch(status) {
         case WalletStatus.WALLET_NOT_CONNECTED:
@@ -134,7 +126,7 @@ function TerraConnect(props) {
         case WalletStatus.WALLET_CONNECTED:
           // already connected then go to getSignature directly.
           setIsConnecting(true);
-          getSignature();
+          // getSignature();
           break;
         default:
           break;
@@ -178,7 +170,7 @@ export default compose(
     }),
     {
       apiSignIn,
-      apiSignOut
+      signOut,
     }
   )
 )(TerraConnect);
