@@ -7,6 +7,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { toast } from "react-toastify";
 import { useWallet } from "@terra-money/wallet-provider";
+import transakSDK from "@transak/transak-sdk";
 import axios from 'axios';
 import Checkbox from '../../../components/Form/Checkbox';
 import InputAmount from '../../../components/Form/InputAmount';
@@ -41,6 +42,8 @@ function Tab({className, isCrypto, onChange}) {
     </div>
   )
 }
+
+let preventSeveralCalling = false;
 
 function Deposit(props) {
   const { sign } = useWallet();
@@ -91,6 +94,36 @@ function Deposit(props) {
       toast.error("Transaction fails");
     }
   };
+
+  const depositFiat = (amount, to) => {
+    setIsLoading(true);
+    preventSeveralCalling = false;
+    let transak = new transakSDK({
+      apiKey: appConfig.transakAPIKey, // Your API Key
+      environment: "STAGING", // STAGING/PRODUCTION
+      defaultCryptoCurrency: "UST",
+      network: "terra",
+      walletAddress: to, // Your customer's wallet address
+      themeColor: "#536DFE", // App theme color
+      fiatCurrency: "EUR", // INR/GBP // ----------vdg
+      fiatAmount: amount,
+      // email: "", // Your customer's email address
+      redirectURL: "",
+      hostURL: window.location.origin,
+      widgetHeight: "550px",
+      widgetWidth: "450px",
+    });
+
+    transak.init();
+    transak.on(transak.EVENTS.TRANSAK_WIDGET_CLOSE, (offerData) => {
+      if (preventSeveralCalling)
+        return;
+      preventSeveralCalling = true;
+      setIsLoading(false);
+      props.updateBalance(to);
+      transak.close();
+    });
+  };
   
   // handle functions
 	const onSubmit = (data) => {    
@@ -102,7 +135,10 @@ function Deposit(props) {
       const from = props.workflow.terraAddress;
       const to = props.workflow.mauiAddress;
       depositCrypto(data.amount, from, to);
-    }    
+    } else {
+      const to = props.workflow.mauiAddress;
+      depositFiat(data.amount, to);
+    }
 		return false;
 	}
 
