@@ -67,7 +67,7 @@ const Card = compose(
 		return false;
 	}
   
-  const [ isAgreed, setIsAgreed ] = useState(props.isDeposit ? false : true);
+  const [ isAgreed, setIsAgreed ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
   
@@ -144,10 +144,13 @@ function Earn(props) {
   const [depositedAmount, setDepositedAmount] = React.useState(0);
   const [austVal, setAustVal] = React.useState(0);
   const [marketExchangeRate, setMarketExchangeRate] = React.useState(1);
-  const mauiAddress = props.workflow.mauiAddress;
+  const isLogged = props.workflow.isLogged;
   useEffect(() => {
     fetchExpectedInterest();
-  }, [mauiAddress]);
+  }, []);
+  useEffect(() => {
+    fetchExpectedInterest();
+  }, [isLogged]);
   useEffect(() => {
     setExpectedInterest(
       new Dec(annualExpectedInterest)
@@ -166,7 +169,7 @@ function Earn(props) {
     setTimePeriod(val);
   }
   function handleAfterSubmit() {
-    console.log('handleAfterSubmit called');
+    // console.log('handleAfterSubmit called');
     props.updateBalance(props.workflow.mauiAddress);
     fetchExpectedInterest();
   }
@@ -174,7 +177,8 @@ function Earn(props) {
     if (!props.workflow.isLogged) {
       return;
     }
-    console.log('fetchExpectedInterest called', terra);
+    delete axios.defaults.headers.common.Authorization;
+    console.log('calling', props.workflow.mauiAddress);
     // aUST balance
     const uaUST = new Promise((resolve, reject) => {
       resolve(
@@ -217,7 +221,6 @@ function Earn(props) {
     delete axios.defaults.headers.common.Authorization;
     await Promise.all([uaUST, exchangeRate, depositRate])
       .then((values) => {
-        console.log('values', values);
         const ustBalance = new Dec(values[0].balance).mul(
           values[1].exchange_rate,
         );
@@ -233,7 +236,7 @@ function Earn(props) {
 
         setMarketExchangeRate(values[1].exchange_rate);
 
-        console.log("aust", values[0].balance, values[1].exchange_rate);
+        // console.log("aust", values[0].balance, values[1].exchange_rate);
 
         setAustVal(values[0].balance);
         setAnnaulExpectedInterest(interest);
