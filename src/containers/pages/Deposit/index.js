@@ -126,7 +126,7 @@ function Deposit(props) {
   };
   
   // handle functions
-	const onSubmit = (data) => {    
+	const onSubmit = (data) => {
     if (!props.workflow.isLogged) {
       toast.error("Please login first.");
       return false;

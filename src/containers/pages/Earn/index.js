@@ -8,13 +8,26 @@ import { unmaskCurrency } from '../../../utils/masks';
 import AnimatedTab from '../../../components/AnimatedTab';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { apiEarnDeposit } from '../../../saga/actions/workflow';
+import { toast } from "react-toastify";
+import { LCDClient, Dec } from "@terra-money/terra.js";
+import axios from 'axios';
+import { apiEarnDeposit, updateBalance } from '../../../saga/actions/workflow';
+import Button from '../../../components/Button';
+import { appConfig } from '../../../appConfig';
 
-function Card(props) {
+const Card = compose(
+  connect(
+    state => ({
+      workflow: state.workflow
+    }),
+    {
+      apiEarnDeposit,
+      updateBalance,
+    }
+  )
+)((props) => {
   const validationSchema = Yup.object().shape({
 		amount: Yup.number()
-      .min(0.1, "The amount must be between $0.1 and $99,999")
-      .max(99999, "The amount must be between $0.1 and $99,999")
       .required("This input field is required.")
 	});
 	const formOptions = { resolver: yupResolver(validationSchema) };
@@ -28,24 +41,34 @@ function Card(props) {
   }, [setValue]);
   // handle functions
 	const onSubmit = (data) => {
+    if (!props.workflow.isLogged) {
+      toast.error("Please login first.");
+      return false;
+    }
+    setIsLoading(true);
     props.apiEarnDeposit({
-      url: '/deposit',
+      url: props.isDeposit ? '/deposit' : '/withdraw',
       method: 'POST',
       data: {
         amount: data.amount,
-        in_out: 'in'
       },
       success: (response) => {
-        console.log(response);
+        props.handleAfterSubmit();
+        setIsLoading(false);
+        toast.success("Transaction success");
       },
       fail: (error) => {
+        props.handleAfterSubmit();
         console.log('error', error);
+        setIsLoading(false);
+        toast.error("Transaction fail");
       }
     })
 		return false;
 	}
   
   const [ isAgreed, setIsAgreed ] = useState(props.isDeposit ? false : true);
+  const [ isLoading, setIsLoading ] = useState(false);
   const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
   
   function handleAgreeChange(e) {
@@ -58,12 +81,23 @@ function Card(props) {
     const value = unmaskCurrency(e.target.value);
     if (!value) {
       setError('amount', {message: 'This input field is required.'});
-    } else if (parseInt(value) <= 0 || parseInt(value) > 99999){
-      setError('amount', {message: 'The amount must be between $0.1 and $99,999'});
-    } else {
-      clearErrors('amount');
+      setValue('amount', !value ? 0 : parseInt(value));
+      return;
     }
-    setValue('amount', !value ? 0 : parseInt(value));
+    if (!props.isDeposit) {
+      if ( Number(value) > new Dec(props.austVal).mul(props.marketExchangeRate).div(appConfig.MICRO) ) {
+        setError('amount', {message: 'Not enough deposit'})
+      } else {
+        clearErrors('amount');
+      }
+    } else {
+      if ( Number(value) > Number(props.workflow.balance) ) {
+        setError('amount', {message: 'Insufficient balance'})
+      } else {
+        clearErrors('amount');
+      }
+    }
+    setValue('amount', value);
   }
 
   return (
@@ -87,19 +121,41 @@ function Card(props) {
       <Checkbox className="ml-4 mb-3 mt-[30px]" onChange={handleAgreeChange}>
         <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
       </Checkbox>
-      <button
+      <Button
         type="submit"
-        disabled={!isAgreed}
-        className={`disabled:bg-[#888888] disabled:bg-none disabled:cursor-no-drop ${props.isDeposit ? 'bg-deposit-card-btn': 'bg-earn-withdraw-card-btn'} shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full mt-[20px]`}
+        isDisabled={!isAgreed}
+        isLoading={isLoading}
+        className={`${props.isDeposit ? 'bg-deposit-card-btn': 'bg-earn-withdraw-card-btn'} shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full mt-[20px]`}
       >
         {props.isDeposit ? 'Deposit' : 'Withdraw'}
-      </button>
+      </Button>
     </form>
   )
-}
+})
 
 function Earn(props) {
+  const terra = new LCDClient({
+    URL: appConfig.lcdURL,
+    chainID: appConfig.lcdChainId,
+  });
   const [ timePeriod, setTimePeriod ] = useState('year');
+  const [expectedInterest, setExpectedInterest] = React.useState(0);
+  const [annualExpectedInterest, setAnnaulExpectedInterest] = React.useState(0);
+  const [depositedAmount, setDepositedAmount] = React.useState(0);
+  const [austVal, setAustVal] = React.useState(0);
+  const [marketExchangeRate, setMarketExchangeRate] = React.useState(1);
+  const mauiAddress = props.workflow.mauiAddress;
+  useEffect(() => {
+    fetchExpectedInterest();
+  }, [mauiAddress]);
+  useEffect(() => {
+    setExpectedInterest(
+      new Dec(annualExpectedInterest)
+        .div(timePeriod === 'month' ? 12 : timePeriod === 'week' ? 52 : timePeriod === 'day' ? 365 : 1)
+        .toNumber()
+        .toFixed(2),
+    );
+  }, [timePeriod, annualExpectedInterest]);
   const TABS_TIME = [
     {title: 'Year', value: 'year'},
     {title: 'Month', value: 'month'},
@@ -109,6 +165,89 @@ function Earn(props) {
   function handleTimeChange(val) {
     setTimePeriod(val);
   }
+  function handleAfterSubmit() {
+    console.log('handleAfterSubmit called');
+    props.updateBalance(props.workflow.mauiAddress);
+    fetchExpectedInterest();
+  }
+  const fetchExpectedInterest = async () => {
+    if (!props.workflow.isLogged) {
+      return;
+    }
+    console.log('fetchExpectedInterest called', terra);
+    // aUST balance
+    const uaUST = new Promise((resolve, reject) => {
+      resolve(
+        terra.wasm.contractQuery(
+          appConfig.austTokenAddress, //terra1hzh9vpxhsk8253se0vv5jj6etdvxu3nv8z07zu
+          {
+            balance: {
+              address: props.workflow.mauiAddress,
+            },
+          },
+        ),
+      );
+    });
+
+    const exchangeRate = new Promise((resolve, reject) => {
+      resolve(
+        terra.wasm.contractQuery(
+          appConfig.marketAddress, // terra1sepfj7s0aeg5967uxnfk4thzlerrsktkpelm5s
+          {
+            epoch_state: {
+              block_height: undefined,
+            },
+          },
+        ),
+      );
+    });
+
+    const depositRate = new Promise((resolve, reject) => {
+      resolve(
+        terra.wasm.contractQuery(
+          appConfig.oracleAddress, // terra1tmnqgvg567ypvsvk6rwsga3srp7e3lg6u0elp8
+          {
+            epoch_state: {
+              block_height: undefined,
+            },
+          },
+        ),
+      );
+    });
+    delete axios.defaults.headers.common.Authorization;
+    await Promise.all([uaUST, exchangeRate, depositRate])
+      .then((values) => {
+        console.log('values', values);
+        const ustBalance = new Dec(values[0].balance).mul(
+          values[1].exchange_rate,
+        );
+
+        const annualizedInterestRate = new Dec(values[2].deposit_rate)
+          .mul(appConfig.BLOCKSPERYEAR)
+          .sub(appConfig.mauiFee);
+
+        const interest = ustBalance
+          .mul(annualizedInterestRate)
+          .div(appConfig.MICRO)
+          .toNumber();
+
+        setMarketExchangeRate(values[1].exchange_rate);
+
+        console.log("aust", values[0].balance, values[1].exchange_rate);
+
+        setAustVal(values[0].balance);
+        setAnnaulExpectedInterest(interest);
+        setDepositedAmount(
+          new Dec(values[0].balance)
+            .mul(values[1].exchange_rate)
+            .div(appConfig.MICRO)
+            .toFixed(2),
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className='relative w-full min-h-[1520px] bg-[#DEE2E8] dark:bg-[#32283C]'>
       {/* bg images */}
@@ -118,19 +257,19 @@ function Earn(props) {
       <div className='absolute w-[1020px] top-[250px] left-[calc(50%-510px)] bg-deposit-card dark:bg-deposit-card-dark shadow-stocks-card dark:shadow-stocks-card-dark border border-[#FFFFFF] dark:border-[#000000] rounded-[33px] p-[25px]'>
         <div className='w-full flex justify-between'>
           <div className='w-[60%]'>
-            <Card name='frmDeposit' isDeposit={true} apiEarnDeposit={props.apiEarnDeposit}/>
+            <Card name='frmDeposit' isDeposit={true} handleAfterSubmit={handleAfterSubmit}/>
             <div className='h-[30px]'></div>
-            <Card name='frmWithdraw' isDeposit={false}/>
+            <Card name='frmWithdraw' isDeposit={false} handleAfterSubmit={handleAfterSubmit} austVal={austVal} marketExchangeRate={marketExchangeRate}/>
           </div>
           <div className='w-[35%]'>
             <div className='mt-[20px] w-full bg-earn-right-panel dark:bg-earn-right-panel-dark border border-[#FFFFFF] dark:border-[#FFFFFF34] rounded-[20px] p-[20px]'>
               <div className='flex items-center justify-center'>
                 <div className='text-[#707070] dark:text-[#F9D3B4]'>AVAILABLE: USD</div>
-                <div className='ml-[20px] rounded-[14px] border border-[#728AB7] p-[2px] pl-[13px] pr-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>18,000.00</div>
+                <div className='w-[100px] ml-[20px] rounded-[14px] border border-[#728AB7] p-[2px] pl-[13px] pr-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>{props.workflow.balance}</div>
               </div>
               <div className='flex items-center justify-center mt-[15px]'>
                 <div className='text-[#707070] dark:text-[#F9D3B4]'>DEPOSITED: USD</div>
-                <div className='ml-[20px] rounded-[14px] border border-[#728AB7] p-[2px] pl-[13px] pr-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>18,000.00</div>
+                <div className='w-[100px] ml-[20px] rounded-[14px] border border-[#728AB7] p-[2px] pl-[13px] pr-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>{depositedAmount}</div>
               </div>
             </div>
             <div className='mt-[130px] text-center bg-deposit-card dark:bg-deposit-card-dark shadow-earn-panel dark:shadow-earn-panel-dark border border-[#FFFFFF30] dark:border-[#745FF220] rounded-[26px] p-[25px]'>
@@ -151,7 +290,7 @@ function Earn(props) {
             <div className='w-[80%]'>
               <div className='ml-[15px] text-[#273855] font-semibold dark:text-[#745FF2] text-[24px] transition-all duration-1000'>Your Expected Earnings</div>
               <div className='mt-[10px] flex items-center justify-between rounded-[12px] shadow-earn-expected-card dark:shadow-earn-expected-card-dark bg-[#ECECF9] dark:bg-[#271B2D] text-[20px] p-[15px] pl-[20px] pr-[20px]  font-medium text-[#000000] dark:text-[#FFFFFF]'>
-                <div className=''>3244</div>
+                <div className=''>{expectedInterest}</div>
                 <div className=''>USD</div>
               </div>
             </div>
@@ -178,7 +317,7 @@ export default compose(
       workflow: state.workflow
     }),
     {
-      apiEarnDeposit,
+      updateBalance
     }
   )
 )(Earn);
