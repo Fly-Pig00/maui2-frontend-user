@@ -37,6 +37,14 @@ function* earnDeposit(action) {
   }), action);
 }
 
+function* depositSend(action) {
+  yield call(request({
+    type: WorkflowConstants.DEPOSITSEND_ACTION,
+    method: 'POST',
+    url: action.payload.url,
+  }), action);
+}
+
 function* getIPAddress(action) {
   yield call(request({
     type: WorkflowConstants.GET_IP_ADDRESS,
@@ -52,4 +60,5 @@ export default function* workflowSaga() {
   yield takeEvery(WorkflowConstants.SIGNOUT_ACTION, signOut);
   yield takeEvery(WorkflowConstants.UPDATEBALANCE_ACTION, updateBalance);
   yield takeEvery(WorkflowConstants.EARNDEPOSIT_ACTION, earnDeposit);
+  yield takeEvery(WorkflowConstants.DEPOSITSEND_ACTION, depositSend);
 }

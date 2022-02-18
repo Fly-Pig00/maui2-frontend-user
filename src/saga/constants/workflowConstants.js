@@ -9,5 +9,6 @@ export const WorkflowConstants = keyMirror({
   SIGNOUT_ACTION: undefined,
   UPDATEBALANCE_ACTION: undefined,
   EARNDEPOSIT_ACTION: undefined,
+  DEPOSITSEND_ACTION: undefined,
   GET_IP_ADDRESS: undefined,
 });
