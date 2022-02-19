@@ -63,8 +63,10 @@ function Header(props) {
               </div>
               <div className='flex justify-between items-center'>
                 <Balance />
-                <div className='w-[10px]'></div>
+                <div className='w-[10px]' />
                 <DepositStatus symbol="$" balance={props.workflow.balance} kind="USD" />
+                <div className='w-[30px]' />
+                <TerraConnect />
               </div>
             </div>
           </div>

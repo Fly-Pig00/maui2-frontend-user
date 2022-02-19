@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import AnimatedTab from '../../../components/AnimatedTab';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { LCDClient, Dec } from "@terra-money/terra.js";
-import Card from './card';
+import { Dec } from "@terra-money/terra.js";
+
 import { updateBalance } from '../../../saga/actions/workflow';
-import { appConfig } from '../../../appConfig';
+import { fetchExpectedInterest } from '../../../utils/wallet';
+import AnimatedTab from '../../../components/AnimatedTab';
+import Card from './card';
 
 function Earn(props) {
-  const terra = new LCDClient({
-    URL: appConfig.lcdURL,
-    chainID: appConfig.lcdChainId,
-  });
   const [ timePeriod, setTimePeriod ] = useState('year');
   const [expectedInterest, setExpectedInterest] = React.useState(0);
   const [annualExpectedInterest, setAnnaulExpectedInterest] = React.useState(0);
@@ -19,12 +16,13 @@ function Earn(props) {
   const [austVal, setAustVal] = React.useState(0);
   const [marketExchangeRate, setMarketExchangeRate] = React.useState(1);
   const isLogged = props.workflow.isLogged;
+  const mauiAddress = props.workflow.mauiAddress;
   useEffect(() => {
-    fetchExpectedInterest();
-  }, []);
-  useEffect(() => {
-    fetchExpectedInterest();
-  }, [isLogged]);
+    if (isLogged) {
+      console.log('fetchExpectedInterest....');
+      fetchExpectedInterest(mauiAddress, callbackFetchExpectedInterest);
+    }
+  }, [isLogged, mauiAddress]);
   useEffect(() => {
     setExpectedInterest(
       new Dec(annualExpectedInterest)
@@ -44,85 +42,19 @@ function Earn(props) {
   }
   function handleAfterSubmit() {
     // console.log('handleAfterSubmit called');
-    props.updateBalance(props.workflow.mauiAddress);
-    fetchExpectedInterest();
-  }
-  const fetchExpectedInterest = async () => {
-    if (!props.workflow.isLogged) {
+    if (!isLogged)
       return;
-    }
-    console.log('calling', props.workflow.mauiAddress);
-    // aUST balance
-    const uaUST = new Promise((resolve, reject) => {
-      resolve(
-        terra.wasm.contractQuery(
-          appConfig.austTokenAddress, //terra1hzh9vpxhsk8253se0vv5jj6etdvxu3nv8z07zu
-          {
-            balance: {
-              address: props.workflow.mauiAddress,
-            },
-          },
-        ),
-      );
-    });
+    props.updateBalance(props.workflow.mauiAddress);
+    fetchExpectedInterest(props.workflow.mauiAddress, callbackFetchExpectedInterest);
+  }
 
-    const exchangeRate = new Promise((resolve, reject) => {
-      resolve(
-        terra.wasm.contractQuery(
-          appConfig.marketAddress, // terra1sepfj7s0aeg5967uxnfk4thzlerrsktkpelm5s
-          {
-            epoch_state: {
-              block_height: undefined,
-            },
-          },
-        ),
-      );
-    });
+  function callbackFetchExpectedInterest({exchangeRate, austVal, annualExpectedInterest, depositedAmount}) {
+    setMarketExchangeRate(exchangeRate);
+    setAustVal(austVal);
+    setAnnaulExpectedInterest(annualExpectedInterest);
+    setDepositedAmount(depositedAmount);
+  }
 
-    const depositRate = new Promise((resolve, reject) => {
-      resolve(
-        terra.wasm.contractQuery(
-          appConfig.oracleAddress, // terra1tmnqgvg567ypvsvk6rwsga3srp7e3lg6u0elp8
-          {
-            epoch_state: {
-              block_height: undefined,
-            },
-          },
-        ),
-      );
-    });
-    await Promise.all([uaUST, exchangeRate, depositRate])
-      .then((values) => {
-        const ustBalance = new Dec(values[0].balance).mul(
-          values[1].exchange_rate,
-        );
-
-        const annualizedInterestRate = new Dec(values[2].deposit_rate)
-          .mul(appConfig.BLOCKSPERYEAR)
-          .sub(appConfig.mauiFee);
-
-        const interest = ustBalance
-          .mul(annualizedInterestRate)
-          .div(appConfig.MICRO)
-          .toNumber();
-
-        setMarketExchangeRate(values[1].exchange_rate);
-
-        // console.log("aust", values[0].balance, values[1].exchange_rate);
-
-        setAustVal(values[0].balance);
-        setAnnaulExpectedInterest(interest);
-        setDepositedAmount(
-          new Dec(values[0].balance)
-            .mul(values[1].exchange_rate)
-            .div(appConfig.MICRO)
-            .toFixed(2),
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
   return (
     <div className='relative w-full min-h-[1520px] bg-[#DEE2E8] dark:bg-[#32283C]'>
       {/* bg images */}

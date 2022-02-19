@@ -4,9 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { toast } from "react-toastify";
 import { useWallet } from "@terra-money/wallet-provider";
-import { LCDClient, Dec, MsgSend } from "@terra-money/terra.js";
 
-import { appConfig } from '../../../../appConfig';
 import Checkbox from '../../../../components/Form/Checkbox';
 import InputAmount from '../../../../components/Form/InputAmount';
 import SelectCurrency from '../../../../components/Form/SelectCurrency';
@@ -15,6 +13,7 @@ import { unmaskCurrency } from '../../../../utils/masks';
 import Button from '../../../../components/Button';
 import { updateBalance } from '../../../../saga/actions/workflow';
 import RightBar from './rightbar';
+import { depositCrypto } from '../../../../utils/wallet';
 
 function TabCrypto(props) {  
   const { sign } = useWallet();
@@ -32,36 +31,18 @@ function TabCrypto(props) {
   const [ selectedCryptoWallet, setSelectedCryptoWallet ] = useState('BTC');
   const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
 
-  const depositCrypto = async (amount, from, to) => {
+  const deposit = async (amount, from, to) => {
     setIsLoading(true);
-    try {
-      const terra = new LCDClient({
-        URL: appConfig.lcdURL,
-        chainID: appConfig.lcdChainId,
-      });
-      const pool_contract = new MsgSend(from, to, {
-        uusd: new Dec(amount).mul(appConfig.MICRO).toNumber(),
-      });
-
-      // Sign transaction
-      const result = await sign({
-        msgs: [pool_contract],
-        feeDenoms: ["uusd"],
-        gasPrices: "0.15uusd",
-      });
-
-      const tx = result.result;
-
-      await terra.tx.broadcast(tx);
+    depositCrypto(amount, from, to, sign, () => {
       props.updateBalance(to);
       setIsLoading(false);
       resetForm();
       toast.success("Transaction success");
-      // dispatch(getWalletInfo(to));
-    } catch (error) {
+    }, (err) => {
+      console.log('deposit error', err);
       setIsLoading(false);
       toast.error("Transaction fails");
-    }
+    })
   };
 
   function handleCryptoChange(symbol) {
@@ -97,7 +78,7 @@ function TabCrypto(props) {
     }
     const from = props.workflow.terraAddress;
     const to = props.workflow.mauiAddress;
-    depositCrypto(data.amount, from, to);
+    deposit(data.amount, from, to);
 		return false;
 	}
   return (
