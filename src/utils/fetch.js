@@ -22,9 +22,10 @@ export const request = ({ type, method, url, apiUrl, headers, success, fail, pay
       }
       const token = localStorage.getItem('token');
       axios.defaults.baseURL = apiUrl || appConfig.apiUrl;
-
+      
+      delete axios.defaults.headers.common.Authorization;
       if (type !== WorkflowConstants.GET_IP_ADDRESS) {
-        axios.defaults.headers.common.Authorization = token || '';
+        // axios.defaults.headers.common.Authorization = token || '';
       } else {
         delete axios.defaults.headers.common.Authorization;
       }
@@ -32,7 +33,9 @@ export const request = ({ type, method, url, apiUrl, headers, success, fail, pay
       const res = yield call(axios.request, {
         url,
         method: method.toLowerCase(),
-        headers: headers || {},
+        headers: headers || {
+          Authorization: token || ''
+        },
         data: data || {},
         params,
         onUploadProgress,

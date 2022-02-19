@@ -1,137 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import Checkbox from '../../../components/Form/Checkbox';
-import InputAmount from '../../../components/Form/InputAmount';
-import { unmaskCurrency } from '../../../utils/masks';
 import AnimatedTab from '../../../components/AnimatedTab';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { toast } from "react-toastify";
 import { LCDClient, Dec } from "@terra-money/terra.js";
-import axios from 'axios';
-import { apiEarnDeposit, updateBalance } from '../../../saga/actions/workflow';
-import Button from '../../../components/Button';
+import Card from './card';
+import { updateBalance } from '../../../saga/actions/workflow';
 import { appConfig } from '../../../appConfig';
-
-const Card = compose(
-  connect(
-    state => ({
-      workflow: state.workflow
-    }),
-    {
-      apiEarnDeposit,
-      updateBalance,
-    }
-  )
-)((props) => {
-  const validationSchema = Yup.object().shape({
-		amount: Yup.number()
-      .required("This input field is required.")
-	});
-	const formOptions = { resolver: yupResolver(validationSchema) };
-
-	// get functions to build form with useForm() hook
-  const hookForm = useForm(formOptions);
-	const { handleSubmit, setValue, setError, clearErrors } = hookForm;
-  // set initial values
-  useEffect(() => {
-    setValue('amount', 0);
-  }, [setValue]);
-  // handle functions
-	const onSubmit = (data) => {
-    if (!props.workflow.isLogged) {
-      toast.error("Please login first.");
-      return false;
-    }
-    setIsLoading(true);
-    props.apiEarnDeposit({
-      url: props.isDeposit ? '/deposit' : '/withdraw',
-      method: 'POST',
-      data: {
-        amount: data.amount,
-      },
-      success: (response) => {
-        props.handleAfterSubmit();
-        setIsLoading(false);
-        toast.success("Transaction success");
-      },
-      fail: (error) => {
-        props.handleAfterSubmit();
-        console.log('error', error);
-        setIsLoading(false);
-        toast.error("Transaction fail");
-      }
-    })
-		return false;
-	}
-  
-  const [ isAgreed, setIsAgreed ] = useState(false);
-  const [ isLoading, setIsLoading ] = useState(false);
-  const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
-  
-  function handleAgreeChange(e) {
-    setIsAgreed(e.target.checked);
-  }
-  function handleCryptoFiatChange(symbol) {
-    setSelectedCryptoFiat(symbol);
-  }
-  function handleAmountChange(e) {
-    const value = unmaskCurrency(e.target.value);
-    if (!value) {
-      setError('amount', {message: 'This input field is required.'});
-      setValue('amount', !value ? 0 : parseInt(value));
-      return;
-    }
-    if (!props.isDeposit) {
-      if ( Number(value) > new Dec(props.austVal).mul(props.marketExchangeRate).div(appConfig.MICRO) ) {
-        setError('amount', {message: 'Not enough deposit'})
-      } else {
-        clearErrors('amount');
-      }
-    } else {
-      if ( Number(value) > Number(props.workflow.balance) ) {
-        setError('amount', {message: 'Insufficient balance'})
-      } else {
-        clearErrors('amount');
-      }
-    }
-    setValue('amount', value);
-  }
-
-  return (
-    <form name={props.name} id={props.name} className='w-full bg-earn-card rounded-[40px] p-[30px] pl-[50px] border dark:border-[#FFFFFF30]' onSubmit={handleSubmit(onSubmit)}>
-      { props.isDeposit ?
-        <div className=' font-semibold text-[24px] text-[#273855] dark:text-[#F9D3B4]'>Enter an amount for 15% APY <span className='text-[#745FF2]'>Deposit</span></div>
-      :
-        <div className=' font-semibold text-[24px] text-[#273855] dark:text-[#F9D3B4]'>How much would you like to <span className='text-transparent bg-clip-text bg-gradient-to-b from-[#FF0000FF] to-[#FF000010]'>Withdraw</span> ?</div>
-      }
-      
-      <InputAmount
-        name="amount"
-        isSelectable={false}
-        className="mt-[30px]"
-        label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Enter amount</div>}
-        selectedSymbol={selectedCryptoFiat}
-        hookForm={hookForm}
-        onChange={handleCryptoFiatChange}
-        handleAmountChange={handleAmountChange}
-      />
-      <Checkbox className="ml-4 mb-3 mt-[30px]" onChange={handleAgreeChange}>
-        <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
-      </Checkbox>
-      <Button
-        type="submit"
-        isDisabled={!isAgreed}
-        isLoading={isLoading}
-        className={`${props.isDeposit ? 'bg-deposit-card-btn': 'bg-earn-withdraw-card-btn'} shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full mt-[20px]`}
-      >
-        {props.isDeposit ? 'Deposit' : 'Withdraw'}
-      </Button>
-    </form>
-  )
-})
 
 function Earn(props) {
   const terra = new LCDClient({
@@ -177,7 +51,6 @@ function Earn(props) {
     if (!props.workflow.isLogged) {
       return;
     }
-    delete axios.defaults.headers.common.Authorization;
     console.log('calling', props.workflow.mauiAddress);
     // aUST balance
     const uaUST = new Promise((resolve, reject) => {
@@ -218,7 +91,6 @@ function Earn(props) {
         ),
       );
     });
-    delete axios.defaults.headers.common.Authorization;
     await Promise.all([uaUST, exchangeRate, depositRate])
       .then((values) => {
         const ustBalance = new Dec(values[0].balance).mul(

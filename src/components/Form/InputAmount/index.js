@@ -5,27 +5,26 @@ import { Controller } from "react-hook-form";
 import { FIAT } from "../SelectCurrency";
 import { maskCurrency } from "../../../utils/masks";
 
-const getSelected = (selectedSymbol) => {
+const getSelected = (selectedCurrency) => {
   let found = FIAT[0];
-  if (!selectedSymbol)
+  if (!selectedCurrency)
     return found;
   _.map(FIAT, item => {
-    if (item.symbol === selectedSymbol) {
+    if (item.symbol === selectedCurrency) {
       found = {...item};
     }
   })
   return found;
 }
 
-function InputAmount({isSelectable = false, name, className, label, hookForm, selectedSymbol, onChange, handleAmountChange, defaultValue}) {
-  const { formState: { errors }, setValue, control } = hookForm;
-  const [ value, setInputValue ] = useState(defaultValue);
+function InputAmount({name, className, label, hookForm, validate, isCurrencySelectable = false, selectedCurrency = 'USD', onCurrencyChange}) {
+  const { formState: { errors }, control } = hookForm;
   const cn = `mt-[13px] border-1 dark:border ${errors && errors[name] ? 'border border-[#ff0000] focus:border-[#ff0000]' : 'border-[#745FF2] focus:border-[#745FF2]'} rounded-[13px] w-full h-[46px] p-3 pl-4 pr-4 outline-none bg-[#FFFFFF] dark:bg-transparent text-black dark:text-white dark:bg-[#32283C]`;
 
   const [isOpen, setIsOpen] = useState(false);
-  const selected = getSelected(selectedSymbol);
+  const selected = getSelected(selectedCurrency);
   const caret = !isOpen ? 'bg-common-caret-up dark:bg-common-caret-up-dark' : 'bg-common-caret-down dark:bg-common-caret-down-dark'
-  const dropdown_crypto = _.map(FIAT, item=>{
+  const dropdownList = isCurrencySelectable ? _.map(FIAT, item=>{
     return (<div
       key={item.symbol}
       title={item.desc}
@@ -34,7 +33,7 @@ function InputAmount({isSelectable = false, name, className, label, hookForm, se
     >
       {item.symbol}
     </div>)
-  })
+  }) : [];
   
   function handleOpen() {
     setIsOpen(!isOpen);
@@ -42,32 +41,29 @@ function InputAmount({isSelectable = false, name, className, label, hookForm, se
 
   function handleDropdownSelect (symbol) {
     setIsOpen(false);
-    onChange(symbol);
+    if (onCurrencyChange) {
+      onCurrencyChange(symbol);
+    }
   }
 
   return (
     <div className={`relative w-full ${className}`}>
       {label}
       <Controller
-        render={({ field }) => (
+        name={name}
+        control={control}
+        rules={{ validate: validate }}
+        render={({ field: { onChange, onBlur, value } }) => (
           <MaskedInput
             id={name}
             mask={maskCurrency}
             className={cn}
             value={value}
             placeholder="0.00"
-            onChange={(e) => {
-              const changedValue = e.target.value;
-              if (handleAmountChange) {
-                handleAmountChange(e);
-              } else {                  
-                setValue(name, changedValue) 
-              }
-              setInputValue(changedValue);
-            }}
+            onChange={onChange}
+            onBlur={onBlur}
           />
         )}
-        control={control}
       />
       
 			{errors && errors[name] &&
@@ -75,7 +71,7 @@ function InputAmount({isSelectable = false, name, className, label, hookForm, se
           {errors[name]?.message}
         </div>
       }
-      {isSelectable ?
+      {isCurrencySelectable ?
         <div
           className="absolute flex flex-row-reverse w-[60px] cursor-pointer text-right right-[10px] top-[53px]"
           onClick={handleOpen}
@@ -85,13 +81,13 @@ function InputAmount({isSelectable = false, name, className, label, hookForm, se
           />
           <div
             className="absolute right-[-3px] top-[-8px] rounded-[5px] border border-[#888888] p-[2px] pl-[10px] pr-[25px] pointer-events-none text-black dark:text-white"
-          >{selectedSymbol}</div>
+          >{selectedCurrency}</div>
         </div>
         :
-        <div className="absolute right-[10px] top-[45px] rounded-[5px] border border-[#888888] p-[2px] pl-[10px] pr-[10px] text-black dark:text-white ">{selectedSymbol}</div>
+        <div className="absolute right-[10px] top-[45px] rounded-[5px] border border-[#888888] p-[2px] pl-[10px] pr-[10px] text-black dark:text-white ">{selectedCurrency}</div>
       }
-      {isOpen && isSelectable && <div className={`absolute right-[5px] top-[75px] z-50 rounded-[5px] overflow-hidden`}>
-        {dropdown_crypto}
+      {isOpen && isCurrencySelectable && <div className={`absolute right-[5px] top-[75px] z-50 rounded-[5px] overflow-hidden`}>
+        {dropdownList}
       </div>}
     </div>
   )

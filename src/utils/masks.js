@@ -4,7 +4,11 @@ export const maskCurrency = createNumberMask({
   allowDecimal: true,
   // integerLimit: 5,
 });
-export const unmaskCurrency = val => val.replace(/[$, ]+/g, '');
+export const unmaskCurrency = val => {
+  if (!isNaN(val))
+    return Number(val);
+  return Number(val.replace(/[$, ]+/g, ''));
+}
 
 export const maskPhoneNumber = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 export const matchPhoneNumber = /^\(([1-9][0-9][0-9])\)\s[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$/;
