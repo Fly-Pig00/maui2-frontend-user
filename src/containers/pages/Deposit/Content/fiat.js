@@ -90,7 +90,7 @@ function TabFiat (props) {
       return false;
     }
     const to = props.workflow.mauiAddress;
-    depositFiat(data.amount, to);
+    depositFiat(unmaskCurrency(data.amount), to);
 		return false;
 	}
   return (

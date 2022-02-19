@@ -60,7 +60,7 @@ function Cards (props) {
       url: props.isDeposit ? '/deposit' : '/withdraw',
       method: 'POST',
       data: {
-        amount: data.amount,
+        amount: unmaskCurrency(data.amount),
       },
       success: (response) => {
         setIsLoading(false);

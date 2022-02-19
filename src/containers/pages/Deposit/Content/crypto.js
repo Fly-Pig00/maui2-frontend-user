@@ -78,7 +78,7 @@ function TabCrypto(props) {
     }
     const from = props.workflow.terraAddress;
     const to = props.workflow.mauiAddress;
-    deposit(data.amount, from, to);
+    deposit(unmaskCurrency(data.amount), from, to);
 		return false;
 	}
   return (

@@ -76,7 +76,7 @@ function TabSend (props) {
       return false;
     }
     const to = props.workflow.mauiAddress;
-    depositSend(data.amount, data.recipient, data.memo, to);
+    depositSend(unmaskCurrency(data.amount), data.recipient, data.memo, to);
 		return false;
 	}
   return (
