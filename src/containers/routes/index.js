@@ -1,6 +1,7 @@
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Splash from '../pages/Splash';
+import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
 import Earn from '../pages/Earn';
 import Borrow from '../pages/Borrow';
@@ -20,6 +21,7 @@ const Routes = withRouter(({ location }) => {
           return (
             <Switch location={location}>
               <Route path="/splash" component={Splash}/>
+              <Route path="/login" component={Login}/>
               <Route path="/dashboard" render={(props) => (
                 <Dashboard state={state}/>
               )}/>

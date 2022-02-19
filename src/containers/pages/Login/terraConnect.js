@@ -1,15 +1,17 @@
 import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 import { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { toast } from "react-toastify";
-import { apiSignIn, signOut, updateBalance } from "../../saga/actions/workflow";
+import { apiSignIn, signOut, updateBalance } from "../../../saga/actions/workflow";
 import 'react-toastify/dist/ReactToastify.css';
-import Button from "../Button";
+import Button from "../../../components/Button";
 
 const EXTENSION = 'EXTENSION';
 
 function TerraConnect(props) {
+  const history = useHistory();
   const {
     connect,
     status,
@@ -21,41 +23,40 @@ function TerraConnect(props) {
     signBytes,
   } = useWallet();
 
-  const [ label, setLabel ] = useState('LOGIN');
   const [ isConnecting, setIsConnecting ] = useState(false);
   const [ isGettingSignature, setIsGettingSignature ] = useState(false);
   const apiSignIn = props.apiSignIn;
   const updateBalance = props.updateBalance;
-  const isLogged = props.workflow.isLogged;
 
-  useEffect(() => {
-    if (isLogged) {
-      setLabel('LOGOUT');
-    } else {
-      console.log('wallet status', status, availableInstallTypes, availableConnectTypes);
-      switch(status) {
-        case WalletStatus.WALLET_NOT_CONNECTED:
-          if (availableInstallTypes.indexOf(EXTENSION) >= 0) { // should install
-            setLabel('INSTALL');
-          } else {
-            if (availableConnectTypes.indexOf(EXTENSION) >= 0) {
-              setLabel('LOGIN');
-            } else {
-              setLabel('ERROR');
-            }
-          }
-          break;
-        case WalletStatus.WALLET_CONNECTED:
-          setLabel('LOGIN');
-          break;
-        case WalletStatus.INITIALIZING:
-          setLabel('...');
-          break;
-        default:
-          break;
-      }
-    }
-  }, [status, availableInstallTypes, availableConnectTypes, isLogged]);
+  // const isLogged = props.workflow.isLogged;
+  // useEffect(() => {
+  //   if (isLogged) {
+  //     setLabel('LOGOUT');
+  //   } else {
+  //     console.log('wallet status', status, availableInstallTypes, availableConnectTypes);
+  //     switch(status) {
+  //       case WalletStatus.WALLET_NOT_CONNECTED:
+  //         if (availableInstallTypes.indexOf(EXTENSION) >= 0) { // should install
+  //           setLabel('INSTALL');
+  //         } else {
+  //           if (availableConnectTypes.indexOf(EXTENSION) >= 0) {
+  //             setLabel('LOGIN');
+  //           } else {
+  //             setLabel('ERROR');
+  //           }
+  //         }
+  //         break;
+  //       case WalletStatus.WALLET_CONNECTED:
+  //         setLabel('LOGIN');
+  //         break;
+  //       case WalletStatus.INITIALIZING:
+  //         setLabel('...');
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   }
+  // }, [status, availableInstallTypes, availableConnectTypes, isLogged]);
 
   useEffect(() => {
     if (isConnecting && status === WalletStatus.WALLET_CONNECTED && !isGettingSignature) { // user clicked on login button and then wallet connection has been completed from disconnected state.
@@ -88,10 +89,10 @@ function TerraConnect(props) {
             localStorage.setItem('token', response.token);
             // console.log('response', response);
             toast.success("Login Success!");
-            setLabel('LOGOUT');
             setIsConnecting(false);
             setIsGettingSignature(false);
             updateBalance(response.mauiAddress);
+            history.push('/dashboard');
           },
           fail: (error) => {
             console.log('signIn error', error);
@@ -105,7 +106,7 @@ function TerraConnect(props) {
       setIsGettingSignature(true);
       getSignature(); // get signature
     }
-  }, [status, isConnecting, isGettingSignature, wallets, signBytes, apiSignIn, updateBalance]);
+  }, [status, history, isConnecting, isGettingSignature, wallets, signBytes, apiSignIn, updateBalance]);
 
   /**
    * Handle events
@@ -146,12 +147,12 @@ function TerraConnect(props) {
   const isLoading = status === WalletStatus.INITIALIZING || isConnecting;
   return (
     <Button
-      className="rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#745FF2] w-[93px] h-[42px] bg-[#F3F3FB] dark:bg-transparent"
+      className={props.className}
       onClick={handleClick}
       isLoading={isLoading}
       isDisabled={isLoading}
     >
-      <span className='font-semibold text-[16px] leading-[24px] text-[#745FF2] dark:text-[#745FF2] transition-all duration-1000'>{label}</span>
+      {props.label}
     </Button>
   );
 }

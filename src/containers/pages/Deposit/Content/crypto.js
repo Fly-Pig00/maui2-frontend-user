@@ -120,7 +120,7 @@ function TabCrypto(props) {
           type="submit"
           isDisabled={!isAgreed}
           isLoading={isLoading}
-          className='bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
+          className='mt-[10px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
         >
           Deposit
         </Button>

@@ -26,6 +26,15 @@ module.exports = {
         'splash-righttop': "url('../images/splash/righttop.png')",
         'splash-righttop-dark': "url('../images/splash/righttop-dark.png')",
         'splash-rightbottom': "url('../images/splash/rightbottom.svg')",
+        // login
+        'login-background': 'radial-gradient(58.43% 103.88% at 56.74% 50%, #DEE2E8 14.58%, #929CEE 63.66%, #E6C8E7 100%);',
+        'login-background-dark': 'linear-gradient(287.56deg, #32283C 8.81%, #3B3054 52.57%, #32283C 100%);',
+        'login-leftbottom': "url('../images/login/leftbottom.png')",
+        'login-middletop': "url('../images/login/middletop.png')",
+        'login-middlemiddle': "url('../images/login/middlemiddle.png')",
+        'login-middlebottom': "url('../images/login/middlebottom.png')",
+        'login-rightbottom': "url('../images/login/rightbottom.png')",
+        'login-righttop': "url('../images/login/righttop.png')",
         // dashboard
         'main-background': "url('../images/dashboard/background.svg')",
         'main-background-dark': "url('../images/dashboard/background-dark.svg')",

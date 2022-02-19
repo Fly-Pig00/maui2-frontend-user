@@ -2,9 +2,12 @@ import { withRouter, useHistory } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { useWallet } from "@terra-money/wallet-provider";
+
 import AnimatedTab from '../AnimatedTab';
 import DarkMode from '../DarkMode';
-import TerraConnect from './terraConnect';
+import { signOut } from "../../saga/actions/workflow";
+import Button from '../Button';
 
 const MENU = [
   { title: 'Dashboard', url: '/dashboard' },
@@ -40,6 +43,29 @@ function DepositStatus({symbol, balance, kind}) {
   )
 }
 
+function LoginButton({isLogged, signOut}) {
+  const { disconnect } = useWallet();
+  let history = useHistory();
+  function handleClick() {
+    if (isLogged) {
+      localStorage.clear();
+      disconnect();
+      signOut();
+    } else {
+      history.push('/login');
+    }
+  }
+  const label = isLogged ? 'LOGOUT' : 'LOGIN';
+  return (
+    <Button
+      className="rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#745FF2] w-[93px] h-[42px] bg-[#F3F3FB] dark:bg-transparent"
+      onClick={handleClick}
+    >
+      <span className='font-semibold text-[16px] leading-[24px] text-[#745FF2] dark:text-[#745FF2] transition-all duration-1000'>{label}</span>
+    </Button>
+  )
+}
+
 function Header(props) {
   const { location } = props;
   let history = useHistory();
@@ -49,6 +75,7 @@ function Header(props) {
 
   switch(location.pathname) {
     case '/splash':
+    case '/login':
       return null;
     case '/deposit':
       return (
@@ -66,7 +93,7 @@ function Header(props) {
                 <div className='w-[10px]' />
                 <DepositStatus symbol="$" balance={props.workflow.balance} kind="USD" />
                 <div className='w-[30px]' />
-                <TerraConnect />
+                <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} />
               </div>
             </div>
           </div>
@@ -94,19 +121,20 @@ function Header(props) {
                   <span className='font-semibold text-[16px] leading-[24px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2] dark:from-[#F9D3B4] dark:to-[#F9D3B4] transition-all duration-1000'>DEPOSIT</span>
                 </button>
                 <DepositStatus symbol="$" balance={props.workflow.balance} kind="USD" />
-                <TerraConnect />
+                <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} />
               </div>
             </div>
           </div>
           <div className='mt-[20px]'>
             <AnimatedTab tabs={MENU}/>
           </div>
-          {location.pathname !== '/dashboard1' &&
+          {/* {location.pathname === '/dashboard' && */}
           <div className='text-right mt-[25px]'>
             <div className='w-[100px] inline-block'>
               <DarkMode />
             </div>
-          </div>}
+          </div>
+          {/* } */}
         </div>
       );
   }
@@ -119,6 +147,7 @@ export default compose(
       workflow: state.workflow
     }),
     {
+      signOut,
     }
   )
 )(Header);

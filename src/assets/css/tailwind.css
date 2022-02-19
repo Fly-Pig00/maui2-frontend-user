@@ -133,3 +133,6 @@
 .borrow-span-soon-dark {
   text-shadow: 3px 24px 4px rgba(112, 112, 112, 0.36);
 }
+.login-text-shadow {
+  text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.56);
+}
