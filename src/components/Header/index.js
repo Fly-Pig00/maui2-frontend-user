@@ -18,10 +18,14 @@ const MENU = [
 ];
 
 function Logo() {
+  let history = useHistory();
   const strDate = moment().format('dddd, D MMMM, YYYY');
+  const handleClick = () => {
+    history.push('/dashboard');
+  }
   return (
     <div className='w-full'>
-      <div className='bg-splash-logo dark:bg-splash-logo-dark bg-center bg-cover w-[120px] h-[40px] transition-all duration-1000'></div>
+      <div className='bg-splash-logo dark:bg-splash-logo-dark bg-center bg-cover w-[120px] h-[40px] transition-all duration-1000 cursor-pointer' onClick={handleClick}></div>
       <div className='mt-[10px] text-[#929daf] dark:text-[#F9D3B4] font-medium text-[12px] leading-[12px] pl-2 transition-all duration-1000'>{strDate}</div>
     </div>
   );
