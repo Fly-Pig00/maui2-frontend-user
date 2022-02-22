@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { toast } from "react-toastify";
-import Checkbox from '../../../../components/Form/Checkbox';
 import Input from '../../../../components/Form/Input';
 import InputAmount from '../../../../components/Form/InputAmount';
 import { unmaskCurrency } from '../../../../utils/masks';

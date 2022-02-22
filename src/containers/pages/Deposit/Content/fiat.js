@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import transakSDK from "@transak/transak-sdk";
 
 import { appConfig } from '../../../../appConfig';
-import Checkbox from '../../../../components/Form/Checkbox';
 import InputAmount from '../../../../components/Form/InputAmount';
 import SelectCurrency from '../../../../components/Form/SelectCurrency';
 import SelectWallet from '../../../../components/Form/SelectWallet';

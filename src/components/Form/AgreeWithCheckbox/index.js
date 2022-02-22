@@ -40,9 +40,9 @@ function AgreeWithCheckbox({className, checked, onChange, position='top', align=
                 <div className='h-[8px]'/>
                 <p>There are risks involved with supplying funds or digital assets to the Anchor, Mirror and Alchemix protocols via Maui UAB™.  Customers may lose all funds. For more information about information and risk relating to the Anchor, Mirror and Alchemix Protocols, please refer to: </p>
                 <div className='h-[8px]'/>
-                <p><a href='https://docs.anchorprotocol.com' className='underline cursor-pointer' target="_blank">https://docs.anchorprotocol.com</a></p>
-                <p><a href='https://alchemix-finance.gitbook.io/alchemix-finance/' className='underline cursor-pointer' target="_blank">https://alchemix-finance.gitbook.io/alchemix-finance/</a></p>
-                <p><a href='https://docs.mirror.finance/' className='underline cursor-pointer' target="_blank">https://docs.mirror.finance/</a></p>
+                <p><a rel="noreferrer" href='https://docs.anchorprotocol.com' className='underline cursor-pointer' target="_blank">https://docs.anchorprotocol.com</a></p>
+                <p><a rel="noreferrer" href='https://alchemix-finance.gitbook.io/alchemix-finance/' className='underline cursor-pointer' target="_blank">https://alchemix-finance.gitbook.io/alchemix-finance/</a></p>
+                <p><a rel="noreferrer" href='https://docs.mirror.finance/' className='underline cursor-pointer' target="_blank">https://docs.mirror.finance/</a></p>
               </div>
               <span className='arrow left-2 hidden md:block' />
             </>

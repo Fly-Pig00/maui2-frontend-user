@@ -45,7 +45,7 @@ function Login() {
           <p>For new Accounts: </p>
           <br/>
           <p>1. Open Chrome browser</p>
-          <p>2. Open <a href='http://station.terra.money' target='_blank' className='underline cursor-pointer'>http://station.terra.money</a></p>
+          <p>2. Open <a rel="noreferrer" href='http://station.terra.money' target='_blank' className='underline cursor-pointer'>http://station.terra.money</a></p>
           <p>3. Connect to the Terra Station extension</p>
           <p>4. Sign transactions</p>
         </div>

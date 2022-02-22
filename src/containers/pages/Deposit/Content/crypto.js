@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { toast } from "react-toastify";
 import { useWallet } from "@terra-money/wallet-provider";
 
-import Checkbox from '../../../../components/Form/Checkbox';
 import InputAmount from '../../../../components/Form/InputAmount';
 import SelectCurrency from '../../../../components/Form/SelectCurrency';
 import SelectWallet from '../../../../components/Form/SelectWallet';
