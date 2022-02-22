@@ -13,8 +13,8 @@ const FIAT = [
 ];
 
 const CRYPTO = [
-  {img: 'bg-common-wallet-tera', symbol: 'Terra wallet', fee: '15'},
-  {img: 'bg-common-wallet-eth', symbol: 'Ethereum wallet', fee: '2'},
+  {img: 'bg-common-wallet-tera', symbol: 'Terra wallet', fee: '0'},
+  // {img: 'bg-common-wallet-eth', symbol: 'Ethereum wallet', fee: '2'},
 ];
 
 

@@ -14,6 +14,7 @@ import { unmaskCurrency } from '../../../../utils/masks';
 import Button from '../../../../components/Button';
 import { updateBalance } from '../../../../saga/actions/workflow';
 import RightBar from './rightbar';
+import AgreeWithCheckbox from '../../../../components/Form/AgreeWithCheckbox';
 
 let preventSeveralCalling = false;
 function TabFiat (props) {
@@ -118,7 +119,7 @@ function TabFiat (props) {
           hookForm={hookForm}
           validate={validateAmount}
         />
-        <div className='ml-5 mt-[30px]'>
+        {/* <div className='ml-5 mt-[30px]'>
           <div className='flex text-[14px] items-center'>
             <div className='text-[#6B8CFF]'>Fee</div>
             <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>4</div>
@@ -127,14 +128,12 @@ function TabFiat (props) {
             <div className='text-[#6B8CFF]'>You will get</div>
             <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>196</div>
           </div>
-        </div>
-        <Checkbox
+        </div> */}
+        <AgreeWithCheckbox
           className="ml-4 mb-3 mt-[30px]"
           checked={isAgreed}
           onChange={handleAgreeChange}
-        >
-          <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
-        </Checkbox>
+        />
         <Button
           type="submit"
           isDisabled={!isAgreed}

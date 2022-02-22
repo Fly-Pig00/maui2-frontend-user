@@ -9,6 +9,7 @@ import InputAmount from '../../../../components/Form/InputAmount';
 import { unmaskCurrency } from '../../../../utils/masks';
 import Button from '../../../../components/Button';
 import { updateBalance, apiDepositSend } from '../../../../saga/actions/workflow';
+import AgreeWithCheckbox from '../../../../components/Form/AgreeWithCheckbox';
 
 function TabSend (props) {
   // get functions to build form with useForm() hook
@@ -105,7 +106,7 @@ function TabSend (props) {
           label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Memo <span className='text-[#888]'>(optional)</span></div>}
           hookForm={hookForm}
         />
-        <div className='ml-5 mt-[30px]'>
+        {/* <div className='ml-5 mt-[30px]'>
           <div className='flex text-[14px] items-center'>
             <div className='text-[#6B8CFF]'>Fee</div>
             <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>4</div>
@@ -118,14 +119,12 @@ function TabSend (props) {
             <div className='text-[#6B8CFF]'>Balance after Tax</div>
             <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>3,545.635.48</div>
           </div>
-        </div>
-        <Checkbox
+        </div> */}
+        <AgreeWithCheckbox
           className="ml-4 mb-3 mt-[30px]"
           checked={isAgreed}
           onChange={handleAgreeChange}
-        >
-          <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
-        </Checkbox>
+        />
         <Button
           type="submit"
           isDisabled={!isAgreed}

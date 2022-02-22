@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
-import Checkbox from '../../../components/Form/Checkbox';
 import InputAmount from '../../../components/Form/InputAmount';
 import { unmaskCurrency } from '../../../utils/masks';
 import { compose } from 'redux';
@@ -10,6 +9,7 @@ import { Dec } from "@terra-money/terra.js";
 import { apiEarnDeposit } from '../../../saga/actions/workflow';
 import Button from '../../../components/Button';
 import { appConfig } from '../../../appConfig';
+import AgreeWithCheckbox from '../../../components/Form/AgreeWithCheckbox';
 
 function Cards (props) {
 	// get functions to build form with useForm() hook
@@ -93,9 +93,13 @@ function Cards (props) {
         hookForm={hookForm}
         validate={validateAmount}
       />
-      <Checkbox className="ml-4 mb-3 mt-[30px]" onChange={handleAgreeChange} checked={isAgreed}>
-        <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
-      </Checkbox>
+      <AgreeWithCheckbox
+        className="ml-4 mb-3 mt-[30px]"
+        checked={isAgreed}
+        onChange={handleAgreeChange}
+        position="right"
+        align="center"
+      />
       <Button
         type="submit"
         isDisabled={!isAgreed}

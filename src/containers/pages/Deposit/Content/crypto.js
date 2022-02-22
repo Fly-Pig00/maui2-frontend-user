@@ -14,6 +14,7 @@ import Button from '../../../../components/Button';
 import { updateBalance } from '../../../../saga/actions/workflow';
 import RightBar from './rightbar';
 import { depositCrypto } from '../../../../utils/wallet';
+import AgreeWithCheckbox from '../../../../components/Form/AgreeWithCheckbox';
 
 function TabCrypto(props) {  
   const { sign } = useWallet();
@@ -109,13 +110,11 @@ function TabCrypto(props) {
           isCurrencySelectable={true}
           onCurrencyChange={handleCryptoFiatChange}
         />
-        <Checkbox
+        <AgreeWithCheckbox
           className="ml-4 mb-3 mt-[30px]"
           checked={isAgreed}
           onChange={handleAgreeChange}
-        >
-          <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
-        </Checkbox>
+        />
         <Button
           type="submit"
           isDisabled={!isAgreed}

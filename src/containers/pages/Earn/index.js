@@ -56,7 +56,7 @@ function Earn(props) {
   }
 
   return (
-    <div className='relative w-full min-h-[1520px] bg-[#DEE2E8] dark:bg-[#32283C]'>
+    <div className='relative w-full min-h-[1280px] bg-[#DEE2E8] dark:bg-[#32283C]'>
       {/* bg images */}
       <div className='bg-earn-rightbottom bg-center bg-cover absolute left-0 top-0 w-[1024px] h-[768px]'></div>
       <div className='bg-earn-rightbottom bg-center bg-cover absolute right-0 bottom-0 w-[1024px] h-[768px]'></div>
@@ -71,11 +71,11 @@ function Earn(props) {
           <div className='w-[35%]'>
             <div className='mt-[20px] w-full bg-earn-right-panel dark:bg-earn-right-panel-dark border border-[#FFFFFF] dark:border-[#FFFFFF34] rounded-[20px] p-[20px]'>
               <div className='flex items-center justify-center'>
-                <div className='text-[#707070] dark:text-[#F9D3B4]'>AVAILABLE: USD</div>
+                <div className='text-[#707070] dark:text-[#F9D3B4]'>AVAILABLE USD</div>
                 <div className='w-[100px] ml-[20px] rounded-[14px] border border-[#728AB7] p-[2px] pl-[13px] pr-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>{props.workflow.balance}</div>
               </div>
               <div className='flex items-center justify-center mt-[15px]'>
-                <div className='text-[#707070] dark:text-[#F9D3B4]'>DEPOSITED: USD</div>
+                <div className='text-[#707070] dark:text-[#F9D3B4]'>YIELD DEPOSIT USD</div>
                 <div className='w-[100px] ml-[20px] rounded-[14px] border border-[#728AB7] p-[2px] pl-[13px] pr-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>{depositedAmount}</div>
               </div>
             </div>
@@ -92,7 +92,7 @@ function Earn(props) {
             </div>
           </div>
         </div>
-        <div className='w-full flex justify-between mt-[30px]'>
+        <div className='w-full flex justify-between mt-[30px] mb-[10px]'>
           <div className='w-[60%] flex flex-row-reverse'>
             <div className='w-[80%]'>
               <div className='ml-[15px] text-[#273855] font-semibold dark:text-[#745FF2] text-[24px] transition-all duration-1000'>Your Expected Earnings</div>
@@ -107,12 +107,12 @@ function Earn(props) {
             <AnimatedTab tabs={TABS_TIME} onChange={handleTimeChange} selected={timePeriod} className="p-[2px]"/>
           </div>
         </div>
-        <div className='mt-[50px] w-[80%] ml-[10%]'>
+        {/* <div className='mt-[50px] w-[80%] ml-[10%]'>
           <div className='text-[#5A5A5A] dark:text-[#F9D3B4] text-[14px]'>Expected <strong>APY</strong> based on your deposit</div>
           <div className=' flex flex-col justify-center items-center'>
             <div className='bg-earn-chart bg-cover bg-center w-[690px] h-[252px]'></div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

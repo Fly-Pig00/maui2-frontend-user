@@ -20,8 +20,11 @@ function Login() {
         className='absolute top-[calc(50%-400px)] left-[calc(50%-450px)] text-[30px] cursor-pointer text-[#FFFFFF] dark:text-[#FFFFFF]'
       >&lt;</span>
       {/* card */}
-      <div className='absolute w-[900px] h-[700px] top-[calc(50%-330px)] left-[calc(50%-450px)] bg-[#5882C140] dark:bg-[#FFFFFF1A] backdrop-blur-[25px] border-[3px] border-[#5882C1] dark:border-[#FFFFFFB0] rounded-[40px] p-[20px] text-center'>
-        <div className='bg-splash-logo dark:bg-splash-logo-dark bg-center bg-cover w-[120px] h-[40px] transition-all duration-1000'></div>
+      <div className='absolute w-[900px] h-[750px] top-[calc(50%-330px)] left-[calc(50%-450px)] bg-[#5882C140] dark:bg-[#FFFFFF1A] backdrop-blur-[25px] border-[3px] border-[#5882C1] dark:border-[#FFFFFFB0] rounded-[40px] p-[20px] text-center'>
+        <div
+          className='bg-splash-logo dark:bg-splash-logo-dark bg-center bg-cover w-[120px] h-[40px] transition-all duration-1000 cursor-pointer'
+          onClick={handleGoBack}
+        />
         <div className='mt-[70px] text-[28px] leading-[42px] text-[#FFFFFF] font-semibold text-center tracking-[4px] login-text-shadow'>
           We offer <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Revolutionary Banking</span><br />services based on blockchain.
         </div>
@@ -38,6 +41,14 @@ function Login() {
           className="mt-[30px] rounded-[50px] border-2 border-[#003465] dark:border-[#745FF2] w-[60%] h-[50px] bg-[#003465] dark:bg-[#745FF2]"
           label={<span className='font-semibold text-[20px] leading-[24px] tracking-[1px] text-[#FFFFFF] dark:text-[#FFFFFF] transition-all duration-1000'>New Account</span>}
         />
+        <div className='mt-[20px] text-center text-[#FFFFFF]'>
+          <p>For new Accounts: </p>
+          <br/>
+          <p>1. Open Chrome browser</p>
+          <p>2. Open <a href='http://station.terra.money' target='_blank' className='underline cursor-pointer'>http://station.terra.money</a></p>
+          <p>3. Connect to the Terra Station extension</p>
+          <p>4. Sign transactions</p>
+        </div>
       </div>
     </div>
   )

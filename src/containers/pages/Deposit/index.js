@@ -17,7 +17,7 @@ function Deposit() {
   }
 
   return (
-    <div className='relative w-full min-h-[1040px] bg-[#DEE2E8] dark:bg-[#32283C]'>
+    <div className='relative w-full min-h-[1000px] bg-[#DEE2E8] dark:bg-[#32283C]'>
       {/* bg images */}
       <div className='bg-deposit-leftbottom bg-center bg-cover absolute left-0 bottom-0 w-[530px] h-[436px]'></div>
       <div className='bg-main-center dark:bg-main-center-dark pointer-events-none bg-center bg-cover absolute right-0 top-[200px] w-[550px] h-[450px] z-10'></div>
