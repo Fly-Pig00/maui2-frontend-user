@@ -29,7 +29,7 @@ function TabCrypto(props) {
   const [ isLoading, setIsLoading ] = useState(false);
   const [ selectedCrypto, setSelectedCrypto ] = useState('BTC');
   const [ selectedCryptoWallet, setSelectedCryptoWallet ] = useState('BTC');
-  const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
+  // const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
 
   const deposit = async (amount, from, to) => {
     setIsLoading(true);
@@ -51,9 +51,9 @@ function TabCrypto(props) {
   function handleCryptoWalletChange(symbol) {
     setSelectedCryptoWallet(symbol);
   }
-  function handleCryptoFiatChange(symbol) {
-    setSelectedCryptoFiat(symbol);
-  }
+  // function handleCryptoFiatChange(symbol) {
+  //   setSelectedCryptoFiat(symbol);
+  // }
   function handleAgreeChange(e) {
     setIsAgreed(e.target.checked);
   }
@@ -105,9 +105,6 @@ function TabCrypto(props) {
           label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Enter amount</div>}
           hookForm={hookForm}
           validate={validateAmount}
-          selectedCurrency={selectedCryptoFiat}
-          isCurrencySelectable={true}
-          onCurrencyChange={handleCryptoFiatChange}
         />
         <AgreeWithCheckbox
           className="ml-4 mb-3 mt-[30px]"

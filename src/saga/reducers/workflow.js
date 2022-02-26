@@ -7,7 +7,7 @@
  import { handleActions } from 'redux-actions';
  import { WorkflowConstants } from '../constants/workflowConstants';
  import { requestPending, requestSuccess, requestFail } from '../../utils/fetch';
-import { actionChannel } from 'redux-saga/effects';
+// import { actionChannel } from 'redux-saga/effects';
  
  const initialState = {
    balance: 0,
