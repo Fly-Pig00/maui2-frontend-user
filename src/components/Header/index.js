@@ -17,11 +17,13 @@ const MENU = [
   { title: 'Cards', url: '/cards' },
 ];
 
-function Logo() {
+function Logo(props) {
   let history = useHistory();
   const strDate = moment().format('dddd, D MMMM, YYYY');
   const handleClick = () => {
-    history.push('/dashboard');
+    if (props.pathname !== '/dashboard') {
+      history.push('/dashboard');
+    }
   }
   return (
     <div className='w-full'>
@@ -85,7 +87,7 @@ function Header(props) {
       return (
         <div className='absolute top-0 left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
           <div className='mt-[20px]'>
-            <Logo />
+            <Logo pathname={location.pathname}/>
           </div>
           <div className='w-full mt-[24px] h-[50px] md:h-[74px] p-[6px] md:p-4 rounded-[14px] bg-[#E5E9ED] dark:bg-[#2A1B31] drop-shadow-[0_0px_7px_rgba(116,95,242,0.28)] border-2 dark:border-transparent'>
             <div className='flex justify-between items-center pl-5'>
@@ -112,7 +114,7 @@ function Header(props) {
       return (
         <div className='absolute top-0 left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
           <div className='mt-[20px] flex justify-between'>
-            <Logo />
+            <Logo pathname={location.pathname}/>
             <div className='w-full '>
               <div className='text-center'>
                 <Balance />
