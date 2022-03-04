@@ -33,6 +33,7 @@ function TabSend (props) {
         amount: amount,
         recipient: recipient,
         memo: memo,
+        network: props.workflow.network
       },
       success: (response) => {
         setIsLoading(false);

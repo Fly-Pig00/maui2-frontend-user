@@ -61,6 +61,7 @@ function Cards (props) {
       method: 'POST',
       data: {
         amount: unmaskCurrency(data.amount),
+        network: props.workflow.network,
       },
       success: (response) => {
         setIsLoading(false);
