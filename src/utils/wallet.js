@@ -2,21 +2,23 @@ import { LCDClient, Dec, MsgSend } from "@terra-money/terra.js";
 import { appConfig } from "../appConfig";
 
 export const EXTENSION = 'EXTENSION';
-
-const terra = new LCDClient({
-  URL: appConfig.lcdURL,
-  chainID: appConfig.lcdChainId,
-});
-
-function sleep(ms) {
+const sleep = (ms) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+const getTerraClient = (network) => {
+  return new LCDClient({
+    URL: network ? network.lcd : appConfig.lcdURL,
+    chainID: network ? network.chainID : appConfig.lcdChainId,
+  });
+}
 
-export const fetchBalance = async (address) => {
+export const fetchBalance = async (address, network) => {
   // this one should be called to refresh the amount as terra.bank.balance is not being updated well.
   // await terra.wasm.contractQuery(appConfig.marketAddress, { epoch_state: { block_height: undefined } }) //balance: { address: address }
 
   // we need to call terra.bank.balance twice to solve the issue
+  // console.log('fetch', address, network);
+  const terra = getTerraClient(network);
   await terra.bank.balance(address);
   await sleep(3000);
   const currentBalance = await terra.bank.balance(address);
@@ -31,8 +33,9 @@ export const fetchBalance = async (address) => {
   }
 };
 
-export const fetchExpectedInterest = async (mauiAddress, callback) => {
+export const fetchExpectedInterest = async (mauiAddress, network, callback) => {
   // aUST balance
+  const terra = getTerraClient(network);
   const uaUST = new Promise((resolve, reject) => {
     resolve(
       terra.wasm.contractQuery(
@@ -101,7 +104,8 @@ export const fetchExpectedInterest = async (mauiAddress, callback) => {
     });
 };
 
-export const depositCrypto = async (amount, from, to, sign, callbackSuccess, callbackError) => {
+export const depositCrypto = async (amount, from, to, network, sign, callbackSuccess, callbackError) => {
+  const terra = getTerraClient(network);
   try {
     const pool_contract = new MsgSend(from, to, {
       uusd: new Dec(amount).mul(appConfig.MICRO).toNumber(),

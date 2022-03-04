@@ -3,15 +3,16 @@ import { useEffect, useState } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-import { apiSignIn, updateBalance } from "../../saga/actions/workflow";
+import { apiSignIn, updateBalance, updateNetwork } from "../../saga/actions/workflow";
 import LoadingIcon from './loading';
 import { useWallet } from "@terra-money/wallet-provider";
 import { EXTENSION } from '../../utils/wallet';
 
-function RecoverLogin(props) {
+function BackgroundWorker(props) {
   const [ isLoading, setIsLoading ] = useState(true);
   const apiSignIn = props.apiSignIn;
   const updateBalance = props.updateBalance;
+  const updateNetwork = props.updateNetwork;
   const { network, connect, disconnect } = useWallet();
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -48,8 +49,10 @@ function RecoverLogin(props) {
   }, [apiSignIn, updateBalance, disconnect, connect]);
 
   useEffect(() => {
-    console.log('network', network);
-  }, [network]);
+    if (network) {
+      updateNetwork(network);
+    }
+  }, [network, updateNetwork]);
 
   return isLoading ? (
     <div className='absolute left-0 top-0 w-full h-full flex bg-[#00000020] z-[99999]'>
@@ -66,7 +69,8 @@ export default compose(
     }),
     {
       apiSignIn,
-      updateBalance
+      updateBalance,
+      updateNetwork
     }
   )
-)(RecoverLogin);
+)(BackgroundWorker);

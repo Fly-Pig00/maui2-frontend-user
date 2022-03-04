@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Routes from './routes';
 
 import { ToastContainer } from "react-toastify";
-import RecoverLogin from '../components/RecoverLogin';
+import BackgroundWorker from '../components/BackgroundWorker';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Routes />
       </Router>
       <ToastContainer />
-      <RecoverLogin />
+      <BackgroundWorker />
     </div>
   );
 }

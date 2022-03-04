@@ -14,6 +14,7 @@
    mauiAddress: null, 
    terraAddress: null,
    isLogged: false,
+   network: null,
  };
  
  export default handleActions({
@@ -48,6 +49,14 @@
    [requestSuccess(WorkflowConstants.UPDATEBALANCE_ACTION)]: (state, action) => ({
      ...state,
      balance: action.payload,
+   }),
+   [requestSuccess(WorkflowConstants.UPDATENETWORK_ACTION)]: (state, action) => ({
+     ...state,
+     network: action.payload,
+   }),
+   [requestFail(WorkflowConstants.UPDATENETWORK_ACTION)]: (state, action) => ({
+     ...state,
+     network: null,
    }),
  }, initialState);
  

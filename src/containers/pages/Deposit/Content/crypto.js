@@ -31,9 +31,9 @@ function TabCrypto(props) {
   const [ selectedCryptoWallet, setSelectedCryptoWallet ] = useState('BTC');
   // const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
 
-  const deposit = async (amount, from, to) => {
+  const deposit = async (amount, from, to, network) => {
     setIsLoading(true);
-    depositCrypto(amount, from, to, sign, () => {
+    depositCrypto(amount, from, to, network, sign, () => {
       props.updateBalance(to);
       setIsLoading(false);
       resetForm();
@@ -78,7 +78,8 @@ function TabCrypto(props) {
     }
     const from = props.workflow.terraAddress;
     const to = props.workflow.mauiAddress;
-    deposit(unmaskCurrency(data.amount), from, to);
+    const network = props.workflow.network;
+    deposit(unmaskCurrency(data.amount), from, to, network);
 		return false;
 	}
   return (

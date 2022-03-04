@@ -60,7 +60,6 @@ function TerraConnect(props) {
             localStorage.setItem('token', response.token);
             localStorage.setItem('terraAddress', terraAddress);
             localStorage.setItem('signature', signature);
-            // console.log('response', response);
             toast.success("Login Success!");
             setIsConnecting(false);
             setIsGettingSignature(false);

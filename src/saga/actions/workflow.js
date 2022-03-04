@@ -8,3 +8,4 @@ export const apiDepositSend = createAction(WorkflowConstants.DEPOSITSEND_ACTION)
 
 export const signOut = createAction(WorkflowConstants.SIGNOUT_ACTION);
 export const updateBalance = createAction(WorkflowConstants.UPDATEBALANCE_ACTION);
+export const updateNetwork = createAction(WorkflowConstants.UPDATENETWORK_ACTION);

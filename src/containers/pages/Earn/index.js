@@ -17,12 +17,13 @@ function Earn(props) {
   const [marketExchangeRate, setMarketExchangeRate] = React.useState(1);
   const isLogged = props.workflow.isLogged;
   const mauiAddress = props.workflow.mauiAddress;
+  const network = props.workflow.network;
   useEffect(() => {
     if (isLogged) {
       console.log('fetchExpectedInterest....');
-      fetchExpectedInterest(mauiAddress, callbackFetchExpectedInterest);
+      fetchExpectedInterest(mauiAddress, network, callbackFetchExpectedInterest);
     }
-  }, [isLogged, mauiAddress]);
+  }, [isLogged, mauiAddress, network]);
   useEffect(() => {
     setExpectedInterest(
       new Dec(annualExpectedInterest)
@@ -44,8 +45,8 @@ function Earn(props) {
     // console.log('handleAfterSubmit called');
     if (!isLogged)
       return;
-    props.updateBalance(props.workflow.mauiAddress);
-    fetchExpectedInterest(props.workflow.mauiAddress, callbackFetchExpectedInterest);
+    props.updateBalance(mauiAddress);
+    fetchExpectedInterest(mauiAddress, network, callbackFetchExpectedInterest);
   }
 
   function callbackFetchExpectedInterest({exchangeRate, austVal, annualExpectedInterest, depositedAmount}) {
