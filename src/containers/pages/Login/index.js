@@ -1,8 +1,15 @@
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import TerraConnect from './terraConnect';
 
 function Login() {
   const history = useHistory();
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      history.push('/dashboard');
+    }
+  }, [history]);
   function handleGoBack(){
     history.push('/dashboard');
   }

@@ -7,8 +7,7 @@ import { toast } from "react-toastify";
 import { apiSignIn, signOut, updateBalance } from "../../../saga/actions/workflow";
 import 'react-toastify/dist/ReactToastify.css';
 import Button from "../../../components/Button";
-
-const EXTENSION = 'EXTENSION';
+import { EXTENSION } from "../../../utils/wallet";
 
 function TerraConnect(props) {
   const history = useHistory();
@@ -27,37 +26,7 @@ function TerraConnect(props) {
   const [ isGettingSignature, setIsGettingSignature ] = useState(false);
   const apiSignIn = props.apiSignIn;
   const updateBalance = props.updateBalance;
-
-  // const isLogged = props.workflow.isLogged;
-  // useEffect(() => {
-  //   if (isLogged) {
-  //     setLabel('LOGOUT');
-  //   } else {
-  //     console.log('wallet status', status, availableInstallTypes, availableConnectTypes);
-  //     switch(status) {
-  //       case WalletStatus.WALLET_NOT_CONNECTED:
-  //         if (availableInstallTypes.indexOf(EXTENSION) >= 0) { // should install
-  //           setLabel('INSTALL');
-  //         } else {
-  //           if (availableConnectTypes.indexOf(EXTENSION) >= 0) {
-  //             setLabel('LOGIN');
-  //           } else {
-  //             setLabel('ERROR');
-  //           }
-  //         }
-  //         break;
-  //       case WalletStatus.WALLET_CONNECTED:
-  //         setLabel('LOGIN');
-  //         break;
-  //       case WalletStatus.INITIALIZING:
-  //         setLabel('...');
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   }
-  // }, [status, availableInstallTypes, availableConnectTypes, isLogged]);
-
+  
   useEffect(() => {
     if (isConnecting && status === WalletStatus.WALLET_CONNECTED && !isGettingSignature) { // user clicked on login button and then wallet connection has been completed from disconnected state.
       const getSignature = async () => {
@@ -65,6 +34,8 @@ function TerraConnect(props) {
         try{
           const { result } = await signBytes(BYTES);
           const signature = result.signature.toString();
+          console.log('getting signature done, signin...')
+          connect(EXTENSION); // must be called as users can change the network.
           processSignIn(wallets[0].terraAddress, signature);
         }
         catch(e) {
@@ -87,6 +58,8 @@ function TerraConnect(props) {
           },
           success: (response) => {
             localStorage.setItem('token', response.token);
+            localStorage.setItem('terraAddress', terraAddress);
+            localStorage.setItem('signature', signature);
             // console.log('response', response);
             toast.success("Login Success!");
             setIsConnecting(false);
@@ -102,11 +75,11 @@ function TerraConnect(props) {
           }
         })
       }
-      console.log('getting signature');
+      console.log('getting signature started');
       setIsGettingSignature(true);
       getSignature(); // get signature
     }
-  }, [status, history, isConnecting, isGettingSignature, wallets, signBytes, apiSignIn, updateBalance]);
+  }, [status, history, connect, isConnecting, isGettingSignature, wallets, signBytes, apiSignIn, updateBalance]);
 
   /**
    * Handle events

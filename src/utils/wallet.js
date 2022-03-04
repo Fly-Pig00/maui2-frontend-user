@@ -1,6 +1,8 @@
 import { LCDClient, Dec, MsgSend } from "@terra-money/terra.js";
 import { appConfig } from "../appConfig";
 
+export const EXTENSION = 'EXTENSION';
+
 const terra = new LCDClient({
   URL: appConfig.lcdURL,
   chainID: appConfig.lcdChainId,

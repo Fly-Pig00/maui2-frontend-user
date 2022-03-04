@@ -4,8 +4,9 @@ import Header from '../components/Header';
 import Routes from './routes';
 
 import { ToastContainer } from "react-toastify";
+import RecoverLogin from '../components/RecoverLogin';
 
-function App() {  
+function App() {
   return (
     <div className="relative font-poppins w-full h-full min-h-screen bg-[#DEE2E8] dark:bg-[#000000] transition-all duration-1000">
       <Router history={history}>
@@ -13,6 +14,7 @@ function App() {
         <Routes />
       </Router>
       <ToastContainer />
+      <RecoverLogin />
     </div>
   );
 }
