@@ -8,12 +8,17 @@ const terra = new LCDClient({
   chainID: appConfig.lcdChainId,
 });
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export const fetchBalance = async (address) => {
   // this one should be called to refresh the amount as terra.bank.balance is not being updated well.
   // await terra.wasm.contractQuery(appConfig.marketAddress, { epoch_state: { block_height: undefined } }) //balance: { address: address }
 
   // we need to call terra.bank.balance twice to solve the issue
   await terra.bank.balance(address);
+  await sleep(3000);
   const currentBalance = await terra.bank.balance(address);
   const uusdAmount = currentBalance[0]._coins.uusd?.amount;
   if (uusdAmount) {
