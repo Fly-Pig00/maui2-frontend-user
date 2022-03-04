@@ -11,7 +11,7 @@ export const fetchBalance = async (address) => {
   // await terra.wasm.contractQuery(appConfig.marketAddress, { epoch_state: { block_height: undefined } }) //balance: { address: address }
 
   // we need to call terra.bank.balance twice to solve the issue
-  const currentBalance_pre = await terra.bank.balance(address);
+  await terra.bank.balance(address);
   const currentBalance = await terra.bank.balance(address);
   const uusdAmount = currentBalance[0]._coins.uusd?.amount;
   if (uusdAmount) {
