@@ -23,11 +23,14 @@ function walletInfoAction(address, network) {
 
 function* updateBalance(action) {  
   const state = yield select(getWorkflow);
+  yield put({ type: `${WorkflowConstants.UPDATEBALANCE_ACTION}_DOING` });
   try {
     const balance = yield call(walletInfoAction, action.payload, state?.network);
     yield put({ type: `${WorkflowConstants.UPDATEBALANCE_ACTION}_SUCCESS`, payload: balance });
+    yield put({ type: `${WorkflowConstants.UPDATEBALANCE_ACTION}_DONE` });
   } catch (err) {
     yield put({ type: `${WorkflowConstants.UPDATEBALANCE_ACTION}_FAILURE` });
+    yield put({ type: `${WorkflowConstants.UPDATEBALANCE_ACTION}_DONE` });
   }
 }
 

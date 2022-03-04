@@ -15,6 +15,7 @@
    terraAddress: null,
    isLogged: false,
    network: null,
+   isUpdatingBalance: false,
  };
  
  export default handleActions({
@@ -58,5 +59,13 @@
      ...state,
      network: null,
    }),
+   [`${WorkflowConstants.UPDATEBALANCE_ACTION}_DOING`]: (state) => ({
+     ...state,
+     isUpdatingBalance: true,
+   }),
+   [`${WorkflowConstants.UPDATEBALANCE_ACTION}_DONE`]: (state) => ({
+    ...state,
+    isUpdatingBalance: false,
+  }),
  }, initialState);
  
