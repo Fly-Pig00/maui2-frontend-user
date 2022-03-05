@@ -77,6 +77,7 @@ function LoginButton({isLogged, signOut}) {
 }
 
 function Header(props) {
+  console.log('header network', props.workflow.network);
   const { location } = props;
   let history = useHistory();
   const handleDepositClick = () => {
