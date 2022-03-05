@@ -6,7 +6,7 @@ import { useWallet } from "@terra-money/wallet-provider";
 
 import AnimatedTab from '../AnimatedTab';
 import DarkMode from '../DarkMode';
-import { signOut } from "../../saga/actions/workflow";
+import { signOut, updateBalance } from "../../saga/actions/workflow";
 import Button from '../Button';
 
 const MENU = [
@@ -37,9 +37,13 @@ function Balance() {
   return <div className='inline-block bg-header-balance w-[60px] h-[14px] bg-cover bg-center'/>
 }
 
-function DepositStatus({symbol, balance, isLoading, kind}) {
+function DepositStatus({symbol, balance, isLoading, kind, onClick}) {
   return (
-    <div className='bg-[#DEE2E8] dark:bg-[#31303650] dark:bg-header-login-btn-dark rounded-[14px] w-[206px] h-[42px] border border-[#728AB7A0] p-1 flex justify-evenly items-center'>
+    <div
+      onClick={onClick}
+      className='bg-[#DEE2E8] dark:bg-[#31303650] dark:bg-header-login-btn-dark rounded-[14px] w-[206px] h-[42px] border border-[#728AB7A0] p-1 flex justify-evenly items-center cursor-pointer'
+      title="Click here to update balance"
+    >
       <span className='text-[#707070] text-[18px]'>{symbol}</span>
       <span className='font-semibold w-[100px] text-[18px] leading-[24px] mt-[1px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2] transition-all duration-1000'>
         {isLoading ? '...' : balance}
@@ -78,6 +82,9 @@ function Header(props) {
   const handleDepositClick = () => {
     history.push('/deposit');
   }
+  const handleUpdateBalance = () => {
+    props.updateBalance(props.workflow.mauiAddress);
+  }
 
   switch(location.pathname) {
     case '/splash':
@@ -97,7 +104,13 @@ function Header(props) {
               <div className='flex justify-between items-center'>
                 <Balance />
                 <div className='w-[10px]' />
-                <DepositStatus symbol="$" balance={props.workflow.balance} isLoading={props.workflow.isUpdatingBalance} kind="USD" />
+                <DepositStatus
+                  symbol="$"
+                  balance={props.workflow.balance}
+                  isLoading={props.workflow.isUpdatingBalance}
+                  kind="USD"
+                  onClick={handleUpdateBalance}
+                />
                 <div className='w-[30px]' />
                 <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} />
               </div>
@@ -126,7 +139,13 @@ function Header(props) {
                 '>
                   <span className='font-semibold text-[16px] leading-[24px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2] dark:from-[#F9D3B4] dark:to-[#F9D3B4] transition-all duration-1000'>DEPOSIT</span>
                 </button>
-                <DepositStatus symbol="$" balance={props.workflow.balance} isLoading={props.workflow.isUpdatingBalance} kind="USD" />
+                <DepositStatus
+                  symbol="$"
+                  balance={props.workflow.balance}
+                  isLoading={props.workflow.isUpdatingBalance}
+                  kind="USD"
+                  onClick={handleUpdateBalance}
+                />
                 <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} />
               </div>
             </div>
@@ -154,6 +173,7 @@ export default compose(
     }),
     {
       signOut,
+      updateBalance
     }
   )
 )(Header);
