@@ -22,6 +22,7 @@ export const fetchBalance = async (address, network) => {
   await terra.bank.balance(address);
   await sleep(3000);
   const currentBalance = await terra.bank.balance(address);
+  console.log('balance', currentBalance);
   const uusdAmount = currentBalance[0]._coins.uusd?.amount;
   if (uusdAmount) {
     return new Dec(currentBalance[0]._coins.uusd.amount)
