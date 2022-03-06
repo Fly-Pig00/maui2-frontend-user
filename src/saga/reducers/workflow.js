@@ -14,7 +14,13 @@
    mauiAddress: null, 
    terraAddress: null,
    isLogged: false,
-   network: null,
+   network: {
+    chainID: "bombay-12",
+    lcd: "https://bombay-lcd.terra.dev",
+    mantle: "https://bombay-mantle.terra.dev",
+    name: "testnet",
+    walletconnectID: 0,
+   },
    isUpdatingBalance: false,
  };
  

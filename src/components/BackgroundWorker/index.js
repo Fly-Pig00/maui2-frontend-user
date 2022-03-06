@@ -12,8 +12,8 @@ function BackgroundWorker(props) {
   const [ isLoading, setIsLoading ] = useState(true);
   const apiSignIn = props.apiSignIn;
   const updateBalance = props.updateBalance;
-  const updateNetwork = props.updateNetwork;
-  const { network, connect, disconnect } = useWallet();
+  // const updateNetwork = props.updateNetwork;
+  const { /*network,*/ connect, disconnect } = useWallet();
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) { // recover login
@@ -48,11 +48,11 @@ function BackgroundWorker(props) {
     }
   }, [apiSignIn, updateBalance, disconnect, connect]);
 
-  useEffect(() => {
-    if (network) {
-      updateNetwork(network);
-    }
-  }, [network, updateNetwork]);
+  // useEffect(() => {
+  //   if (network) {
+  //     updateNetwork(network);
+  //   }
+  // }, [network, updateNetwork]);
 
   return isLoading ? (
     <div className='absolute left-0 top-0 w-full h-full flex bg-[#00000020] z-[99999]'>

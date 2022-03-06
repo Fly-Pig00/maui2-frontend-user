@@ -24,10 +24,10 @@ function Login() {
       <div className='mix-blend-luminosity dark:mix-blend-normal bg-login-rightbottom bg-center bg-cover absolute right-0 bottom-0 w-[662px] h-[347px]'></div>
       <span
         onClick={handleGoBack}
-        className='absolute top-[calc(50%-400px)] left-[calc(50%-450px)] text-[30px] cursor-pointer text-[#FFFFFF] dark:text-[#FFFFFF]'
+        className='absolute top-[calc(50%-480px)] left-[calc(50%-450px)] text-[30px] cursor-pointer text-[#FFFFFF] dark:text-[#FFFFFF]'
       >&lt;</span>
       {/* card */}
-      <div className='absolute w-[900px] h-[750px] top-[calc(50%-330px)] left-[calc(50%-450px)] bg-[#5882C140] dark:bg-[#FFFFFF1A] backdrop-blur-[25px] border-[3px] border-[#5882C1] dark:border-[#FFFFFFB0] rounded-[40px] p-[20px] text-center'>
+      <div className='absolute w-[900px] h-[750px] top-[calc(50%-430px)] left-[calc(50%-450px)] bg-[#5882C140] dark:bg-[#FFFFFF1A] backdrop-blur-[25px] border-[3px] border-[#5882C1] dark:border-[#FFFFFFB0] rounded-[40px] p-[20px] text-center'>
         <div
           className='bg-splash-logo dark:bg-splash-logo-dark bg-center bg-cover w-[120px] h-[40px] transition-all duration-1000 cursor-pointer'
           onClick={handleGoBack}

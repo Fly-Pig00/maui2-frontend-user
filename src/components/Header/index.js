@@ -6,6 +6,7 @@ import { useWallet } from "@terra-money/wallet-provider";
 
 import AnimatedTab from '../AnimatedTab';
 import DarkMode from '../DarkMode';
+import NetworkSwitch from '../NetworkSwitch';
 import { signOut, updateBalance } from "../../saga/actions/workflow";
 import Button from '../Button';
 
@@ -117,8 +118,11 @@ function Header(props) {
               </div>
             </div>
           </div>
-          <div className='text-right mt-[25px]'>
-            <div className='w-[100px] inline-block'>
+          <div className='flex justify-end mt-[25px]'>
+            <div className='w-[150px] mr-[20px]'>
+              <NetworkSwitch />
+            </div>
+            <div className='w-[100px]'>
               <DarkMode />
             </div>
           </div>
@@ -155,8 +159,11 @@ function Header(props) {
             <AnimatedTab tabs={MENU}/>
           </div>
           {/* {location.pathname === '/dashboard' && */}
-          <div className='text-right mt-[25px]'>
-            <div className='w-[100px] inline-block'>
+          <div className='flex justify-end mt-[25px]'>
+            <div className='w-[150px] mr-[20px]'>
+              <NetworkSwitch />
+            </div>
+            <div className='w-[100px]'>
               <DarkMode />
             </div>
           </div>
