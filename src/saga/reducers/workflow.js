@@ -48,6 +48,7 @@
      isLoading: false,
    }),
    [requestSuccess(WorkflowConstants.SIGNOUT_ACTION)]: state => ({
+     ...state,
      balance: 0,
      isLogged: false,
      mauiAddress: null,

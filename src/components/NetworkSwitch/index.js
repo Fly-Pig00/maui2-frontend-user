@@ -8,7 +8,9 @@ function NetworkSwitch(props) {
   const [label, setLabel] = useState('TestNet');
   const network = props.workflow?.network;
   useEffect(() => {
-    setLabel(network.name === 'testnet' ? 'TestNet': 'MainNet');
+    if (network) {
+      setLabel(network.name === 'testnet' ? 'TestNet': 'MainNet');
+    }
   }, [network]);
   const handleCheckChange = (e) => {
     if (!e.target.checked) {
