@@ -11,6 +11,9 @@ const getTerraClient = (network) => {
     chainID: network ? network.chainID : appConfig.lcdChainId,
   });
 }
+const isMainNet = (network) => {
+  return network && network.name === 'mainnet';
+}
 
 export const fetchBalance = async (address, network) => {
   // this one should be called to refresh the amount as terra.bank.balance is not being updated well.
@@ -37,10 +40,13 @@ export const fetchBalance = async (address, network) => {
 export const fetchExpectedInterest = async (mauiAddress, network, callback) => {
   // aUST balance
   const terra = getTerraClient(network);
+  const austTokenAddress = isMainNet(network) ? appConfig.austTokenAddress_main: appConfig.austTokenAddress_test;
+  const marketAddress = isMainNet(network) ? appConfig.marketAddress_main : appConfig.marketAddress_test;
+  const oracleAddress = isMainNet(network) ? appConfig.oracleAddress_main : appConfig.oracleAddress_test;
   const uaUST = new Promise((resolve, reject) => {
     resolve(
       terra.wasm.contractQuery(
-        appConfig.austTokenAddress, //terra1hzh9vpxhsk8253se0vv5jj6etdvxu3nv8z07zu
+        austTokenAddress,
         {
           balance: {
             address: mauiAddress,
@@ -53,7 +59,7 @@ export const fetchExpectedInterest = async (mauiAddress, network, callback) => {
   const exchangeRate = new Promise((resolve, reject) => {
     resolve(
       terra.wasm.contractQuery(
-        appConfig.marketAddress, // terra1sepfj7s0aeg5967uxnfk4thzlerrsktkpelm5s
+        marketAddress,
         {
           epoch_state: {
             block_height: undefined,
@@ -66,7 +72,7 @@ export const fetchExpectedInterest = async (mauiAddress, network, callback) => {
   const depositRate = new Promise((resolve, reject) => {
     resolve(
       terra.wasm.contractQuery(
-        appConfig.oracleAddress, // terra1tmnqgvg567ypvsvk6rwsga3srp7e3lg6u0elp8
+        oracleAddress,
         {
           epoch_state: {
             block_height: undefined,

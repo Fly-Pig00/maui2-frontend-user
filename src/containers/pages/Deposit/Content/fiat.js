@@ -35,7 +35,7 @@ function TabFiat (props) {
     preventSeveralCalling = false;
     let transak = new transakSDK({
       apiKey: appConfig.transakAPIKey, // Your API Key
-      environment: "STAGING", // STAGING/PRODUCTION
+      environment: "PRODUCTION", // STAGING/PRODUCTION
       defaultCryptoCurrency: "UST",
       network: "terra",
       walletAddress: to, // Your customer's wallet address
