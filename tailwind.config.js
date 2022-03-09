@@ -12,6 +12,8 @@ module.exports = {
         'header-deposit-btn-dark': 'linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%), rgba(49, 48, 54, 0.3);',
         'header-login-btn-dark': 'linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%);',
         'header-balance': "url('../images/header/balance.svg')",
+        'header-history': "url('../images/header/history.svg')",
+        'header-history-dark': "url('../images/header/history-dark.svg')",
         // splash
         'splash-logo': "url('../images/splash/logo.png')",
         'splash-logo-dark': "url('../images/splash/logo-dark.png')",

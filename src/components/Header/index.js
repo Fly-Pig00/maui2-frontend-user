@@ -27,24 +27,22 @@ function Logo(props) {
     }
   }
   return (
-    <div className='w-full'>
+    <div className='w-full h-[70px]'>
       <div className='bg-splash-logo dark:bg-splash-logo-dark bg-center bg-cover w-[120px] h-[40px] transition-all duration-1000 cursor-pointer' onClick={handleClick}></div>
       <div className='mt-[10px] text-[#929daf] dark:text-[#F9D3B4] font-medium text-[12px] leading-[12px] pl-2 transition-all duration-1000'>{strDate}</div>
     </div>
   );
 };
 
-function Balance() {
-  return <div className='inline-block bg-header-balance w-[60px] h-[14px] bg-cover bg-center'/>
-}
-
-function DepositStatus({symbol, balance, isLoading, kind, onClick}) {
+function DepositStatus({isDepositPage, symbol, balance, isLoading, kind, onClick}) {
+  const balanceClass = `absolute  ${isDepositPage ? 'left-[-80px] top-[13px]' : 'left-[60px] top-[-23px]'} bg-header-balance w-[60px] h-[14px] bg-cover bg-center`
   return (
     <div
-      onClick={onClick}
-      className='bg-[#DEE2E8] dark:bg-[#31303650] dark:bg-header-login-btn-dark rounded-[14px] w-[206px] h-[42px] border border-[#728AB7A0] p-1 flex justify-evenly items-center cursor-pointer'
+      className='relative ml-[15px] bg-[#DEE2E8] dark:bg-[#31303650] dark:bg-header-login-btn-dark rounded-[14px] w-[206px] h-[42px] border border-[#728AB7A0] p-1 flex justify-evenly items-center cursor-pointer'
       title="Click here to update balance"
+      onClick={onClick}
     >
+      <div className={balanceClass}/>
       <span className='text-[#707070] text-[18px]'>{symbol}</span>
       <span className='font-semibold w-[100px] text-[18px] leading-[24px] mt-[1px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2] transition-all duration-1000'>
         {isLoading ? '...' : balance}
@@ -69,7 +67,7 @@ function LoginButton({isLogged, signOut}) {
   const label = isLogged ? 'LOGOUT' : 'LOGIN';
   return (
     <Button
-      className="rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#745FF2] w-[93px] h-[42px] bg-[#F3F3FB] dark:bg-transparent"
+      className="ml-[15px] rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#745FF2] w-[93px] h-[42px] bg-[#F3F3FB] dark:bg-transparent"
       onClick={handleClick}
     >
       <span className='font-semibold text-[16px] leading-[24px] text-[#745FF2] dark:text-[#745FF2] transition-all duration-1000'>{label}</span>
@@ -88,89 +86,74 @@ function Header(props) {
     props.updateBalance(props.workflow.mauiAddress);
   }
 
-  switch(location.pathname) {
-    case '/splash':
-    case '/login':
-      return null;
-    case '/deposit':
-      return (
-        <div className='absolute top-0 left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
-          <div className='mt-[20px]'>
-            <Logo pathname={location.pathname}/>
-          </div>
+  if (location.pathname === '/splash' || location.pathname === '/login')
+    return null;
+
+  const isDeposit = location.pathname === '/deposit';
+  const htmlToolbar = (
+    <div className='flex justify-between items-center'>
+      {props.workflow.isLogged && !isDeposit &&
+        <button
+          onClick={handleDepositClick}
+          className='rounded-[20px] shadow-header-deposit-btn dark:shadow-header-deposit-btn-dark w-[110px] h-[32px] bg-[#FFFFFF50] bg-header-deposit-btn dark:bg-header-deposit-btn-dark text-[#000000]
+        '>
+          <span className='font-semibold text-[16px] leading-[24px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2] dark:from-[#F9D3B4] dark:to-[#F9D3B4] transition-all duration-1000'>DEPOSIT</span>
+        </button>
+      }
+      {props.workflow.isLogged &&
+        <DepositStatus
+          isDepositPage={isDeposit}
+          symbol="$"
+          balance={props.workflow.balance}
+          isLoading={props.workflow.isUpdatingBalance}
+          kind="USD"
+          onClick={handleUpdateBalance}
+        />
+      }
+      {props.workflow.isLogged &&
+        <div
+          className='bg-header-history dark:bg-header-history-dark m-[5px] ml-[10px] w-[30px] h-[30px] bg-cover bg-center cursor-pointer'
+          title="Transaction Log"
+        />
+      }
+      <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} />
+    </div>
+  );
+  
+  return (
+    <div className='absolute top-0 left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
+      <div className='mt-[20px] flex justify-between items-end'>
+        <Logo pathname={location.pathname}/>
+        {!isDeposit && htmlToolbar}
+      </div>
+      { isDeposit ?
+        (
           <div className='w-full mt-[24px] h-[50px] md:h-[74px] p-[6px] md:p-4 rounded-[14px] bg-[#E5E9ED] dark:bg-[#2A1B31] drop-shadow-[0_0px_7px_rgba(116,95,242,0.28)] border-2 dark:border-transparent'>
             <div className='flex justify-between items-center pl-5'>
               <div className='text-center'>
                 <span className='font-semibold text-[24px] leading-[24px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Deposit</span>
               </div>
-              <div className='flex justify-between items-center'>
-                <Balance />
-                <div className='w-[10px]' />
-                <DepositStatus
-                  symbol="$"
-                  balance={props.workflow.balance}
-                  isLoading={props.workflow.isUpdatingBalance}
-                  kind="USD"
-                  onClick={handleUpdateBalance}
-                />
-                <div className='w-[30px]' />
-                <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} />
-              </div>
+              {htmlToolbar}
             </div>
           </div>
-          <div className='flex justify-end mt-[25px]'>
-            <div className='w-[150px] mr-[20px]'>
-              <NetworkSwitch />
-            </div>
-            <div className='w-[100px]'>
-              <DarkMode />
-            </div>
-          </div>
-        </div>
-      );
-    default:
-      return (
-        <div className='absolute top-0 left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
-          <div className='mt-[20px] flex justify-between'>
-            <Logo pathname={location.pathname}/>
-            <div className='w-full '>
-              <div className='text-center'>
-                <Balance />
-              </div>
-              <div className='flex justify-between items-center'>
-                <button
-                  onClick={handleDepositClick}
-                  className='rounded-[20px] shadow-header-deposit-btn dark:shadow-header-deposit-btn-dark w-[110px] h-[32px] bg-[#FFFFFF50] bg-header-deposit-btn dark:bg-header-deposit-btn-dark text-[#000000]
-                '>
-                  <span className='font-semibold text-[16px] leading-[24px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2] dark:from-[#F9D3B4] dark:to-[#F9D3B4] transition-all duration-1000'>DEPOSIT</span>
-                </button>
-                <DepositStatus
-                  symbol="$"
-                  balance={props.workflow.balance}
-                  isLoading={props.workflow.isUpdatingBalance}
-                  kind="USD"
-                  onClick={handleUpdateBalance}
-                />
-                <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} />
-              </div>
-            </div>
-          </div>
+        )
+      :
+        (
           <div className='mt-[20px]'>
             <AnimatedTab tabs={MENU}/>
           </div>
-          {/* {location.pathname === '/dashboard' && */}
-          <div className='flex justify-end mt-[25px]'>
-            <div className='w-[150px] mr-[20px]'>
-              <NetworkSwitch />
-            </div>
-            <div className='w-[100px]'>
-              <DarkMode />
-            </div>
-          </div>
-          {/* } */}
+        )
+      }
+      <div className='flex justify-end mt-[20px]'>
+        <div className='w-[150px] mr-[20px]'>
+          <NetworkSwitch />
         </div>
-      );
-  }
+        <div className='w-[100px]'>
+          <DarkMode />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default compose(
