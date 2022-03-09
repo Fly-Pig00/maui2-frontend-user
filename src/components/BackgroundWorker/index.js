@@ -2,16 +2,20 @@ import { withRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { useIdleTimer } from 'react-idle-timer';
 
-import { apiSignIn, updateBalance, updateNetwork } from "../../saga/actions/workflow";
+import { apiSignIn, signOut, updateBalance, updateNetwork } from "../../saga/actions/workflow";
 import LoadingIcon from './loading';
 import { useWallet } from "@terra-money/wallet-provider";
 import { EXTENSION } from '../../utils/wallet';
+
+const IDLETIME = 30 * 60 * 1000; // 30min
 
 function BackgroundWorker(props) {
   const [ isLoading, setIsLoading ] = useState(true);
   const apiSignIn = props.apiSignIn;
   const updateBalance = props.updateBalance;
+  const signOut = props.signOut;
   // const updateNetwork = props.updateNetwork;
   const { /*network,*/ connect, disconnect } = useWallet();
   useEffect(() => {
@@ -53,6 +57,17 @@ function BackgroundWorker(props) {
   //     updateNetwork(network);
   //   }
   // }, [network, updateNetwork]);
+  
+  const handleOnIdle = () => {
+    console.log('isIdleSet');
+    localStorage.clear();
+    disconnect();
+    signOut();
+  }
+  useIdleTimer({
+    timeout: IDLETIME,
+    onIdle: handleOnIdle
+  });
 
   return isLoading ? (
     <div className='absolute left-0 top-0 w-full h-full flex bg-[#00000020] z-[99999]'>
@@ -69,6 +84,7 @@ export default compose(
     }),
     {
       apiSignIn,
+      signOut,
       updateBalance,
       updateNetwork
     }
