@@ -119,12 +119,22 @@ function Header(props) {
       <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} />
     </div>
   );
+  const htmlOptionBar = (
+    <div className='flex justify-end mt-[20px]'>
+      <div className='w-[150px] mr-[20px]'>
+        <NetworkSwitch />
+      </div>
+      <div className='w-[100px]'>
+        <DarkMode />
+      </div>
+    </div>
+  );
   
   return (
     <div className='absolute top-0 left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
       <div className='mt-[20px] flex justify-between items-end'>
         <Logo pathname={location.pathname}/>
-        {!isDeposit && htmlToolbar}
+        {!isDeposit ? htmlToolbar : htmlOptionBar}
       </div>
       { isDeposit ?
         (
@@ -141,17 +151,10 @@ function Header(props) {
         (
           <div className='mt-[20px]'>
             <AnimatedTab tabs={MENU}/>
+            {htmlOptionBar}
           </div>
         )
       }
-      <div className='flex justify-end mt-[20px]'>
-        <div className='w-[150px] mr-[20px]'>
-          <NetworkSwitch />
-        </div>
-        <div className='w-[100px]'>
-          <DarkMode />
-        </div>
-      </div>
     </div>
   );
 }
