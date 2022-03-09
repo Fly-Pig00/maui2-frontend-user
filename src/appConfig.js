@@ -5,7 +5,7 @@ export const appConfig = {
   BLOCKSPERYEAR: 4_656_810,
 
   mauiFee: 0.04167,
-  transakAPIKey: 'ccf6dab2-7abc-4efa-ad9e-aa5f66ff0db3', //'34e9c772-b44d-4ab8-a702-9f62ea910d1b',
+  transakAPIKey: '05bd6a97-eaa2-4c98-b9fb-aec7a4eb9b2d', //'34e9c772-b44d-4ab8-a702-9f62ea910d1b',
   
   lcdURL: 'https://bombay-lcd.terra.dev',
   lcdChainId: 'bombay-12',
