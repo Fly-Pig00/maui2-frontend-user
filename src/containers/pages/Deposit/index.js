@@ -28,7 +28,7 @@ function Deposit() {
           className='absolute top-[25px] left-[30px] text-[30px] cursor-pointer text-[#000000] dark:text-[#FFFFFF]'
         >&lt;</span>
         <Tab
-          className={'absolute top-[-25px] left-[calc(50%-110px)] flex items-center'}
+          className={'absolute top-[-25px] left-[calc(50%-165px)] flex items-center'}
           tabIndex={tabIndex}
           onChange={handleTabChange}
         />
