@@ -8,6 +8,7 @@ import Borrow from '../pages/Borrow';
 import Stocks from '../pages/Stocks';
 import Cards from '../pages/Cards';
 import Deposit from '../pages/Deposit';
+import History from '../pages/History';
 
 const Routes = withRouter(({ location }) => {
   return (
@@ -30,6 +31,7 @@ const Routes = withRouter(({ location }) => {
               <Route path="/stocks" component={Stocks}/>
               <Route path="/cards" component={Cards}/>
               <Route path="/deposit" component={Deposit}/>
+              <Route path="/history" component={History}/>
               <Redirect to="/splash" />
             </Switch>
           )

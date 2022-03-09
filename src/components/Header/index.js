@@ -82,34 +82,34 @@ function Header(props) {
   const handleDepositClick = () => {
     history.push('/deposit');
   }
+  const handleHistoryClick = () => {
+    history.push('/history');
+  }
   const handleUpdateBalance = () => {
     props.updateBalance(props.workflow.mauiAddress);
   }
 
   if (location.pathname === '/splash' || location.pathname === '/login')
     return null;
-  const isDeposit = location.pathname === '/deposit';
+  const isTheme2 = location.pathname === '/deposit' || location.pathname === '/history';
+  const theme2Title = location.pathname === '/deposit' ? 'Deposit' : 'History';
   
   return (
     <div className='absolute top-0 left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
       <div className='mt-[25px] flex justify-between items-end'>
         <Logo pathname={location.pathname}/>
       </div>
-      { isDeposit ?
-        (
-          <div className='relative w-full mt-[20px] h-[50px] md:h-[74px] p-[6px] md:p-4 rounded-[14px] bg-[#E5E9ED] dark:bg-[#2A1B31] drop-shadow-[0_0px_7px_rgba(116,95,242,0.28)] border-2 dark:border-transparent'>
-            <span className='absolute left-[30px] top-[23px] font-semibold text-[24px] leading-[24px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Deposit</span>
-          </div>
-        )
+      { isTheme2 ?
+        <div className='relative w-full mt-[20px] h-[50px] md:h-[74px] p-[6px] md:p-4 rounded-[14px] bg-[#E5E9ED] dark:bg-[#2A1B31] drop-shadow-[0_0px_7px_rgba(116,95,242,0.28)] border-2 dark:border-transparent'>
+          <span className='absolute left-[30px] top-[23px] font-semibold text-[24px] leading-[24px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>{theme2Title}</span>
+        </div>
       :
-        (
-          <div className='mt-[15px]'>
-            <AnimatedTab tabs={MENU}/>
-          </div>
-        )
+        <div className='mt-[15px]'>
+          <AnimatedTab tabs={MENU}/>
+        </div>
       }
-      <div className={`absolute transition-all duration-1000 flex justify-between items-center ${isDeposit ? 'top-[130px] right-[20px]': 'top-[50px] right-[0px]'}`}>
-        {props.workflow.isLogged && !isDeposit &&
+      <div className={`absolute transition-all duration-1000 flex justify-between items-center ${isTheme2 ? 'top-[130px] right-[20px]': 'top-[50px] right-[0px]'}`}>
+        {props.workflow.isLogged && !isTheme2 &&
           <button
             onClick={handleDepositClick}
             className='rounded-[20px] shadow-header-deposit-btn dark:shadow-header-deposit-btn-dark w-[110px] h-[32px] bg-[#FFFFFF50] bg-header-deposit-btn dark:bg-header-deposit-btn-dark text-[#000000]
@@ -119,7 +119,7 @@ function Header(props) {
         }
         {props.workflow.isLogged &&
           <DepositStatus
-            isDepositPage={isDeposit}
+            isDepositPage={isTheme2}
             symbol="$"
             balance={props.workflow.balance}
             isLoading={props.workflow.isUpdatingBalance}
@@ -131,11 +131,12 @@ function Header(props) {
           <div
             className='bg-header-history dark:bg-header-history-dark m-[5px] ml-[10px] w-[30px] h-[30px] bg-cover bg-center cursor-pointer'
             title="Transaction Log"
+            onClick={handleHistoryClick}
           />
         }
         <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} />
       </div>
-      <div className={`absolute right-0 transition-all duration-1000 flex justify-end ${isDeposit ? 'top-[60px]': 'top-[195px]'}`}>
+      <div className={`absolute right-0 transition-all duration-1000 flex justify-end ${isTheme2 ? 'top-[60px]': 'top-[195px]'}`}>
         <div className='w-[150px] mr-[20px]'>
           <NetworkSwitch />
         </div>
