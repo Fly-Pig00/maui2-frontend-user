@@ -27,8 +27,8 @@ function TabFiat (props) {
 
   const [ isAgreed, setIsAgreed ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
-  const [ selectedFiat, setSelectedFiat ] = useState('USD');
-  const [ selectedFiatWallet, setSelectedFiatWallet ] = useState('USD');
+  const [ selectedFiat, setSelectedFiat ] = useState('EUR');
+  const [ selectedFiatWallet, setSelectedFiatWallet ] = useState('EUR');
 
   const depositFiat = (amount, to) => {
     setIsLoading(true);
@@ -115,6 +115,7 @@ function TabFiat (props) {
           name="amount"
           className="mt-[40px]"
           label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Enter amount</div>}
+          selectedCurrency="EUR"
           hookForm={hookForm}
           validate={validateAmount}
         />

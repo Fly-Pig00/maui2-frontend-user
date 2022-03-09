@@ -5,7 +5,7 @@ import useOutsideClick from "../../../utils/useOutsideClick";
 
 const FIAT = [
   {img: 'bg-common-transfer-from', symbol: 'USD', fee: '2'},
-  {img: 'bg-common-transfer-from', symbol: 'EUR', fee: '2'},
+  {img: 'bg-common-transfer-from', symbol: 'EUR', fee: '0'},
   {img: 'bg-common-transfer-from', symbol: 'SGD', fee: '2'},
   {img: 'bg-common-transfer-from', symbol: 'CAD', fee: '2'},
   {img: 'bg-common-transfer-from', symbol: 'AUD', fee: '2'},
