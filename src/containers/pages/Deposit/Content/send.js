@@ -7,8 +7,9 @@ import Input from '../../../../components/Form/Input';
 import InputAmount from '../../../../components/Form/InputAmount';
 import { unmaskCurrency } from '../../../../utils/masks';
 import Button from '../../../../components/Button';
-import { updateBalance, apiDepositSend } from '../../../../saga/actions/workflow';
 import AgreeWithCheckbox from '../../../../components/Form/AgreeWithCheckbox';
+import { updateBalance, apiDepositSend, apiHistoryRecord } from '../../../../saga/actions/workflow';
+import { CURRENCY_USD, HISTORY_DEPOSIT_SEND } from '../../../../utils/appConstants';
 
 function TabSend (props) {
   // get functions to build form with useForm() hook
@@ -39,6 +40,25 @@ function TabSend (props) {
         setIsLoading(false);
         resetForm();
         props.updateBalance(to);
+        props.apiHistoryRecord({
+          url: '/recordHistory',
+          method: 'POST',
+          data: {
+            type: HISTORY_DEPOSIT_SEND,
+            terraAddress: recipient,
+            mauiAddress: to,
+            amount: amount,
+            currency: CURRENCY_USD,
+            network: `${props.workflow.network.name}:${props.workflow.network.chainID}`,
+            note: 'DONE',
+          },
+          success: (res) => {
+            console.log('recordSuccess', res);
+          },
+          fail: (error) => {
+            console.log('recordError', error);
+          }
+        });
         toast.success("Transaction success");
       },
       fail: (error) => {
@@ -145,6 +165,7 @@ export default compose(
     }),
     {
       apiDepositSend,
+      apiHistoryRecord,
       updateBalance
     }
   )

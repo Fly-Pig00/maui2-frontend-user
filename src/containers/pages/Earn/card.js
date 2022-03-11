@@ -10,8 +10,9 @@ import Button from '../../../components/Button';
 import InputAmount from '../../../components/Form/InputAmount';
 import AgreeWithCheckbox from '../../../components/Form/AgreeWithCheckbox';
 import { unmaskCurrency } from '../../../utils/masks';
-import { apiEarnDeposit } from '../../../saga/actions/workflow';
+import { apiHistoryRecord, apiEarnDeposit } from '../../../saga/actions/workflow';
 import { appConfig } from '../../../appConfig';
+import { CURRENCY_USD, HISTORY_EARN_DEPOSIT, HISTORY_EARN_WITHDRAW } from '../../../utils/appConstants';
 
 function Cards (props) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -63,14 +64,33 @@ function Cards (props) {
       return false;
     }
     setIsLoading(true);
+    const amount = unmaskCurrency(data.amount);
     props.apiEarnDeposit({
       url: props.isDeposit ? '/deposit' : '/withdraw',
       method: 'POST',
       data: {
-        amount: unmaskCurrency(data.amount),
+        amount: amount,
         network: props.workflow.network,
       },
       success: (response) => {
+        props.apiHistoryRecord({
+          url: '/recordHistory',
+          method: 'POST',
+          data: {
+            type: props.isDeposit ? HISTORY_EARN_DEPOSIT : HISTORY_EARN_WITHDRAW,
+            mauiAddress: props.workflow.mauiAddress,
+            amount: amount,
+            currency: CURRENCY_USD,
+            network: `${props.workflow.network.name}:${props.workflow.network.chainID}`,
+            note: 'DONE',
+          },
+          success: (res) => {
+            console.log('recordSuccess', res);
+          },
+          fail: (error) => {
+            console.log('recordError', error);
+          }
+        });
         setIsLoading(false);
         props.handleAfterSubmit();
         resetForm();
@@ -145,6 +165,7 @@ export default compose(
       workflow: state.workflow
     }),
     {
+      apiHistoryRecord,
       apiEarnDeposit
     }
   )

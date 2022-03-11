@@ -11,5 +11,6 @@ export const WorkflowConstants = keyMirror({
   UPDATENETWORK_ACTION: undefined,
   EARNDEPOSIT_ACTION: undefined,
   DEPOSITSEND_ACTION: undefined,
+  HISTORYRECORD_ACTION: undefined,
   GET_IP_ADDRESS: undefined,
 });

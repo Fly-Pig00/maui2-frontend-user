@@ -11,9 +11,10 @@ import SelectCurrency from '../../../../components/Form/SelectCurrency';
 import SelectWallet from '../../../../components/Form/SelectWallet';
 import { unmaskCurrency } from '../../../../utils/masks';
 import Button from '../../../../components/Button';
-import { updateBalance } from '../../../../saga/actions/workflow';
-import RightBar from './rightbar';
 import AgreeWithCheckbox from '../../../../components/Form/AgreeWithCheckbox';
+import RightBar from './rightbar';
+import { CURRENCY_EUR, HISTORY_DEPOSIT_FIAT } from '../../../../utils/appConstants';
+import { apiHistoryRecord, updateBalance } from '../../../../saga/actions/workflow';
 
 let preventSeveralCalling = false;
 function TabFiat (props) {
@@ -57,6 +58,22 @@ function TabFiat (props) {
       setIsLoading(false);
       resetForm();
       props.updateBalance(to);
+      props.apiHistoryRecord({
+        url: '/recordHistory',
+        method: 'POST',
+        data: {
+          type: HISTORY_DEPOSIT_FIAT,
+          mauiAddress: to,
+          currency: CURRENCY_EUR,
+          note: 'PENDING',
+        },
+        success: (res) => {
+          console.log('recordSuccess', res);
+        },
+        fail: (error) => {
+          console.log('recordError', error);
+        }
+      });
       transak.close();
     });
   };
@@ -156,6 +173,7 @@ export default compose(
       workflow: state.workflow
     }),
     {
+      apiHistoryRecord,
       updateBalance
     }
   )

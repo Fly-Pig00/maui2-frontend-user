@@ -10,10 +10,11 @@ import SelectCurrency from '../../../../components/Form/SelectCurrency';
 import SelectWallet from '../../../../components/Form/SelectWallet';
 import { unmaskCurrency } from '../../../../utils/masks';
 import Button from '../../../../components/Button';
-import { updateBalance } from '../../../../saga/actions/workflow';
 import RightBar from './rightbar';
 import { depositCrypto } from '../../../../utils/wallet';
 import AgreeWithCheckbox from '../../../../components/Form/AgreeWithCheckbox';
+import { apiHistoryRecord, updateBalance } from '../../../../saga/actions/workflow';
+import { CURRENCY_USD, HISTORY_DEPOSIT_CRYPTO } from '../../../../utils/appConstants';
 
 function TabCrypto(props) {  
   const { sign } = useWallet();
@@ -34,6 +35,25 @@ function TabCrypto(props) {
   const deposit = async (amount, from, to, network) => {
     setIsLoading(true);
     depositCrypto(amount, from, to, network, sign, () => {
+      props.apiHistoryRecord({
+        url: '/recordHistory',
+        method: 'POST',
+        data: {
+          type: HISTORY_DEPOSIT_CRYPTO,
+          terraAddress: from,
+          mauiAddress: to,
+          amount: amount,
+          currency: CURRENCY_USD,
+          network: `${props.workflow.network.name}:${props.workflow.network.chainID}`,
+          note: 'DONE',
+        },
+        success: (res) => {
+          console.log('recordSuccess', res);
+        },
+        fail: (error) => {
+          console.log('recordError', error);
+        }
+      });
       props.updateBalance(to);
       setIsLoading(false);
       resetForm();
@@ -134,6 +154,7 @@ export default compose(
       workflow: state.workflow
     }),
     {
+      apiHistoryRecord,
       updateBalance
     }
   )
