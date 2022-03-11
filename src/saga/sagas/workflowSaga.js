@@ -66,6 +66,14 @@ function* historyRecord(action) {
   }), action);
 }
 
+function* historyFetchall(action) {
+  yield call(request({
+    type: WorkflowConstants.HISTORYFETCHALL_ACTION,
+    method: 'GET',
+    url: action.payload.url,
+  }), action);
+}
+
 function* getIPAddress(action) {
   yield call(request({
     type: WorkflowConstants.GET_IP_ADDRESS,
@@ -84,4 +92,5 @@ export default function* workflowSaga() {
   yield takeEvery(WorkflowConstants.EARNDEPOSIT_ACTION, earnDeposit);
   yield takeEvery(WorkflowConstants.DEPOSITSEND_ACTION, depositSend);
   yield takeEvery(WorkflowConstants.HISTORYRECORD_ACTION, historyRecord);
+  yield takeEvery(WorkflowConstants.HISTORYFETCHALL_ACTION, historyFetchall);
 }

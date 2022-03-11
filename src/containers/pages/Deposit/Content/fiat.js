@@ -63,6 +63,7 @@ function TabFiat (props) {
         method: 'POST',
         data: {
           type: HISTORY_DEPOSIT_FIAT,
+          terraAddress: props.workflow.terraAddress,
           mauiAddress: to,
           currency: CURRENCY_EUR,
           note: 'PENDING',

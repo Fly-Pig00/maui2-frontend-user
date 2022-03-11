@@ -63,6 +63,9 @@ function BackgroundWorker(props) {
     localStorage.clear();
     disconnect();
     signOut();
+    if (props.pathname !== '/dashboard') {
+      window.location.href= '/dashboard';
+    }
   }
   useIdleTimer({
     timeout: IDLETIME,

@@ -78,6 +78,7 @@ function Cards (props) {
           method: 'POST',
           data: {
             type: props.isDeposit ? HISTORY_EARN_DEPOSIT : HISTORY_EARN_WITHDRAW,
+            terraAddress: props.workflow.terraAddress,
             mauiAddress: props.workflow.mauiAddress,
             amount: amount,
             currency: CURRENCY_USD,
