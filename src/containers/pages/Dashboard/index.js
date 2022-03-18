@@ -28,16 +28,16 @@ function Main(props) {
     return function unmount() {}
   }, [props.state]);
   return (
-    <div className='relative bg-main-background dark:bg-main-background-dark bg-center bg-cover w-full min-h-[1200px] transition-all duration-1000'>
-      <div id='main-lefttop' className='bg-main-lefttop dark:bg-main-lefttop-dark bg-center bg-cover absolute top-[210px] left-[10%] w-[464px] h-[260px]'></div>
-      <div id='main-leftbottom' className='bg-main-leftbottom dark:bg-main-leftbottom-dark bg-center bg-cover absolute bottom-0 left-[10%] w-[672px] h-[633px]'></div>
-      <div id='main-righttop' className='bg-main-righttop dark:bg-main-righttop-dark bg-center bg-cover absolute top-[71px] right-[12px] w-[750px] h-[797px]'></div>
-      <div id='main-center' className='bg-main-center dark:bg-main-center-dark bg-center bg-cover absolute left-[calc(50%-280px)] top-[calc(50%-170px)]  w-[550px] h-[450px] z-10 pointer-events-none'></div>
+    <div className='relative bg-main-background dark:bg-main-background-dark bg-center bg-cover w-full min-h-[1200px] transition-all duration-1000 pt-[200px] pb-[30px] md:pb-0 md:pt-0'>
+      <div id='main-lefttop' className='absolute top-[100px] right-0 w-[232px] h-[130px] md:top-[210px] md:left-[10%] md:w-[464px] md:h-[260px] bg-main-lefttop dark:bg-main-lefttop-dark bg-center bg-cover'></div>
+      <div id='main-leftbottom' className='absolute top-[50%] right-0 w-[300px] h-[290px] md:bottom-0 md:left-[10%] md:w-[672px] md:h-[633px] bg-main-leftbottom dark:bg-main-leftbottom-dark bg-center bg-cover'></div>
+      <div id='main-righttop' className='absolute bottom-0 right-0 w-[300px] h-[325px] md:top-[71px] md:right-[12px] md:w-[750px] md:h-[797px] bg-main-righttop dark:bg-main-righttop-dark bg-center bg-cover'></div>
+      <div id='main-center' className='absolute left-[-50px] top-[20%] w-[275px] h-[225px] md:left-[calc(50%-280px)] md:top-[calc(50%-170px)] md:w-[550px] md:h-[450px] bg-main-center dark:bg-main-center-dark bg-center bg-cover z-10 pointer-events-none'></div>
       <Card
         id='main-card-earn'
         url='/earn'
-        img="bg-main-card-earn-banner w-[117px] h-[168px] shadow-main-card-banner"
-        className="left-[calc(50%-450px)] top-[250px]"
+        img="bg-main-card-earn-banner w-[84px] md:w-[117px] h-[120px] md:h-[168px] shadow-main-card-banner"
+        className="relative ml-[20px] md:ml-0 md:absolute md:left-[calc(50%-450px)] md:top-[250px] z-20 md:z-10"
         title1="Earn with 15% APY"
         btnTitle="Earn"
         description={<div><span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Earn</span> on your deposits. Withdraw anytime.</div>}
@@ -45,8 +45,8 @@ function Main(props) {
       <Card
         id='main-card-borrow'
         url='/borrow'
-        img="bg-main-card-borrow-banner w-[160px] h-[133px]"
-        className="right-[calc(50%-450px)] top-[320px]"
+        img="bg-main-card-borrow-banner w-[120px] md:w-[160px] h-[100px] md:h-[133px]"
+        className="relative ml-[calc(100%-300px)] md:ml-0 mt-[30px] md:mt-0 md:absolute md:right-[calc(50%-450px)] md:top-[320px]"
         title1="Borrow instantly"
         title2="Loan repays itself"
         btnTitle="Borrow"
@@ -55,8 +55,8 @@ function Main(props) {
       <Card
         id='main-card-cards'
         url='/cards'
-        img="bg-main-card-cards-banner w-[168px] h-[246px]"
-        className="left-[calc(50%-450px)] top-[650px]"
+        img="bg-main-card-cards-banner w-[123px] md:w-[168px] h-[180px] md:h-[246px]"
+        className="relative ml-[20px] md:ml-0 mt-[30px] md:mt-0 md:absolute md:left-[calc(50%-450px)] md:top-[650px]"
         title1="No Fees. Crypto"
         title2="Mastercards"
         btnTitle="Cards"
@@ -66,7 +66,7 @@ function Main(props) {
         id='main-card-stocks'
         url='/stocks'
         img="bg-main-card-stocks-banner w-[146px] h-[143px]"
-        className="right-[calc(50%-450px)] top-[720px] z-20"
+        className="relative ml-[calc(100%-300px)] mb-[150px] md:mb-0 md:ml-0 mt-[30px] md:mt-0 md:absolute md:right-[calc(50%-450px)] md:top-[720px] z-20"
         title1="Neutral strategy"
         btnTitle="Stocks"
         description={<div><span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Delta Neutral</span><br/>Strategy with one click.</div>}
