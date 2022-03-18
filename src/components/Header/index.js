@@ -136,7 +136,7 @@ function Header(props) {
         }
         <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} />
       </div>
-      <div className={`absolute right-0 transition-all duration-1000 flex justify-end ${isTheme2 ? 'top-[60px]': 'top-[195px]'}`}>
+      <div className={`absolute right-0 transition-all duration-1000 flex justify-end ${isTheme2 ? 'top-[30px] md:top-[60px]': 'top-[100px] md:top-[195px]'}`}>
         <div className='w-[150px] mr-[20px]'>
           <NetworkSwitch />
         </div>
