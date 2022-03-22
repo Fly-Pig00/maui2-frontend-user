@@ -57,7 +57,7 @@ function Earn(props) {
   }
 
   return (
-    <div className='relative w-full min-h-[1600px] md:min-h-[1280px] bg-[#DEE2E8] dark:bg-[#32283C]'>
+    <div className='relative w-full min-h-[1610px] md:min-h-[1280px] bg-[#DEE2E8] dark:bg-[#32283C]'>
       {/* bg images */}
       <div className='bg-earn-rightbottom bg-center bg-cover absolute left-0 top-0 w-[360px] h-[270px] md:w-[1024px] md:h-[768px]'></div>
       <div className='bg-earn-rightbottom bg-center bg-cover absolute right-0 bottom-0 w-[360px] h-[270px] md:w-[1024px] md:h-[768px]'></div>
