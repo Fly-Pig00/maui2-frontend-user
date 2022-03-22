@@ -30,7 +30,7 @@ function Main(props) {
   return (
     <div className='relative bg-main-background dark:bg-main-background-dark bg-center bg-cover w-full min-h-[1200px] transition-all duration-1000 pt-[200px] pb-[30px] md:pb-0 md:pt-0'>
       <div id='main-lefttop' className='absolute top-[100px] right-0 w-[232px] h-[130px] md:top-[210px] md:left-[10%] md:w-[464px] md:h-[260px] bg-main-lefttop dark:bg-main-lefttop-dark bg-center bg-cover'></div>
-      <div id='main-leftbottom' className='absolute top-[50%] right-0 w-[300px] h-[290px] md:bottom-0 md:left-[10%] md:w-[672px] md:h-[633px] bg-main-leftbottom dark:bg-main-leftbottom-dark bg-center bg-cover'></div>
+      <div id='main-leftbottom' className='absolute top-[40%] right-0 w-[300px] h-[290px] md:bottom-0 md:left-[10%] md:w-[672px] md:h-[633px] bg-main-leftbottom dark:bg-main-leftbottom-dark bg-center bg-cover'></div>
       <div id='main-righttop' className='absolute bottom-0 right-0 w-[300px] h-[325px] md:top-[71px] md:right-[12px] md:w-[750px] md:h-[797px] bg-main-righttop dark:bg-main-righttop-dark bg-center bg-cover'></div>
       <div id='main-center' className='absolute left-[-50px] top-[20%] w-[275px] h-[225px] md:left-[calc(50%-280px)] md:top-[calc(50%-170px)] md:w-[550px] md:h-[450px] bg-main-center dark:bg-main-center-dark bg-center bg-cover z-10 pointer-events-none'></div>
       <Card

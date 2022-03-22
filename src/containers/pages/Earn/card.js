@@ -108,7 +108,7 @@ function Cards (props) {
 	}
 
   return (
-    <form name={props.name} id={props.name} className='w-full bg-earn-card rounded-[40px] p-[15px] md:p-[30px] md:pl-[50px] border dark:border-[#FFFFFF30]' onSubmit={handleSubmit(onSubmit)}>
+    <form name={props.name} id={props.name} className='w-full bg-earn-card rounded-[40px] p-[20px] md:p-[30px] md:pl-[50px] border dark:border-[#FFFFFF30]' onSubmit={handleSubmit(onSubmit)}>
       { props.isDeposit ?
         <div className='font-semibold pl-4 md:pl-0 text-[14px] md:text-[24px] text-[#273855] dark:text-[#F9D3B4]'>Enter an amount for 15% APY
           <Popover
