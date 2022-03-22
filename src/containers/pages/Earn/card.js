@@ -108,9 +108,9 @@ function Cards (props) {
 	}
 
   return (
-    <form name={props.name} id={props.name} className='w-full bg-earn-card rounded-[40px] p-[30px] pl-[50px] border dark:border-[#FFFFFF30]' onSubmit={handleSubmit(onSubmit)}>
+    <form name={props.name} id={props.name} className='w-full bg-earn-card rounded-[40px] p-[15px] md:p-[30px] md:pl-[50px] border dark:border-[#FFFFFF30]' onSubmit={handleSubmit(onSubmit)}>
       { props.isDeposit ?
-        <div className=' font-semibold text-[24px] text-[#273855] dark:text-[#F9D3B4]'>Enter an amount for 15% APY
+        <div className='font-semibold pl-4 md:pl-0 text-[14px] md:text-[24px] text-[#273855] dark:text-[#F9D3B4]'>Enter an amount for 15% APY
           <Popover
             containerClassName='z-[999999] pl-[20px]'
             isOpen={isPopoverOpen}
@@ -131,7 +131,7 @@ function Cards (props) {
           </Popover>
         </div>
       :
-        <div className=' font-semibold text-[24px] text-[#273855] dark:text-[#F9D3B4]'>How much would you like to <span className='text-transparent bg-clip-text bg-gradient-to-b from-[#FF0000FF] to-[#FF000010]'>Withdraw</span> ?</div>
+        <div className='font-semibold pl-4 md:pl-0 text-[14px] md:text-[24px] text-[#273855] dark:text-[#F9D3B4]'>How much would you like to <span className='text-transparent bg-clip-text bg-gradient-to-b from-[#FF0000FF] to-[#FF000010]'>Withdraw</span> ?</div>
       }
       
       <InputAmount
@@ -142,7 +142,7 @@ function Cards (props) {
         validate={validateAmount}
       />
       <AgreeWithCheckbox
-        className="ml-4 mb-3 mt-[30px]"
+        className="ml-0 md:ml-4 mb-3 mt-[30px]"
         checked={isAgreed}
         onChange={handleAgreeChange}
         position="right"
@@ -152,7 +152,7 @@ function Cards (props) {
         type="submit"
         isDisabled={!isAgreed}
         isLoading={isLoading}
-        className={`${props.isDeposit ? 'bg-deposit-card-btn': 'bg-earn-withdraw-card-btn'} shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full mt-[20px]`}
+        className={`${props.isDeposit ? 'bg-deposit-card-btn': 'bg-earn-withdraw-card-btn'} shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full mt-[20px]`}
       >
         {props.isDeposit ? 'Deposit' : 'Withdraw'}
       </Button>

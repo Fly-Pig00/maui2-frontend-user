@@ -14,7 +14,7 @@ function Login() {
     history.push('/dashboard');
   }
   return (
-    <div className='relative w-full min-h-[800px] md:min-h-[1000px] bg-login-background dark:bg-login-background-dark transition-all duration-1000'>
+    <div className='relative w-full min-h-[900px] md:min-h-[1000px] bg-login-background dark:bg-login-background-dark transition-all duration-1000'>
       {/* bg images */}
       <div className='mix-blend-luminosity dark:mix-blend-normal bg-login-leftbottom bg-center bg-cover absolute left-0 bottom-0 w-[206px] h-[201px] md:w-[412px] md:h-[402px]'></div>
       <div className='mix-blend-luminosity dark:mix-blend-normal bg-login-middletop bg-center bg-cover absolute left-0 md:left-[25%] top-0 w-[135px] h-[63px] md:w-[270px] md:h-[125px]'></div>
