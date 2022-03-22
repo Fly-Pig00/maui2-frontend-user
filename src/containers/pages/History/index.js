@@ -78,14 +78,14 @@ function History(props) {
 	);
 
   return (
-    <div className='relative w-full min-h-[1000px] bg-main-background dark:bg-main-background-dark bg-center bg-cover'>
+    <div className='relative w-full min-h-[800px] md:min-h-[1000px] bg-main-background dark:bg-main-background-dark bg-center bg-cover'>
       {/* card */}
-      <div className='absolute w-[1020px] min-h-[700px] top-[220px] left-[calc(50%-510px)] bg-deposit-card dark:bg-deposit-card-dark shadow-stocks-card dark:shadow-stocks-card-dark border border-[#FFFFFF] rounded-[33px] p-[30px]'>
+      <div className='absolute w-[350px] top-[150px] left-[calc(50%-175px)] md:w-[1020px] min-h-[500px] md:min-h-[700px] md:top-[220px] md:left-[calc(50%-510px)] bg-deposit-card dark:bg-deposit-card-dark shadow-stocks-card dark:shadow-stocks-card-dark border border-[#FFFFFF] rounded-[33px] p-[30px]'>
         <span
           onClick={handleGoBack}
           className='absolute top-[25px] left-[30px] text-[30px] cursor-pointer text-[#000000] dark:text-[#FFFFFF]'
         >&lt;</span>
-        <div className='mt-[50px] h-[600px] overflow-y-auto'>
+        <div className='mt-[50px] h-[500px] md:h-[600px] overflow-y-auto'>
           {isLoading ?
             <LoadingIcon />
           :
