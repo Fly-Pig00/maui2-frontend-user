@@ -112,12 +112,12 @@ function TabFiat (props) {
 		return false;
 	}
   return (
-    <form className='flex p-20 justify-between' onSubmit={handleSubmit(onSubmit)}>
-      <div className='w-[45%]'>
+    <form className='flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between' onSubmit={handleSubmit(onSubmit)}>
+      <div className='w-full md:w-[45%]'>
         <SelectCurrency
           isCrypto={false}
-          className="mt-[10px]"
-          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Select currency and payment method</div>}
+          className="mt-[40px] md:mt-[10px]"
+          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Select currency and payment method</div>}
           selectedSymbol={selectedFiat}
           onChange={handleFiatChange}
         />
@@ -125,14 +125,14 @@ function TabFiat (props) {
         <SelectWallet
           isCrypto={false}
           className="mt-[10px]"
-          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Bank transfer <span className='text-[#888888]'>(reccomended)</span></div>}
+          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Bank transfer <span className='text-[#888888]'>(reccomended)</span></div>}
           selectedSymbol={selectedFiatWallet}
           onChange={handleFiatWalletChange}
         />
         <InputAmount
           name="amount"
           className="mt-[40px]"
-          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Enter amount</div>}
+          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Enter amount</div>}
           selectedCurrency="EUR"
           hookForm={hookForm}
           validate={validateAmount}
@@ -148,7 +148,7 @@ function TabFiat (props) {
           </div>
         </div> */}
         <AgreeWithCheckbox
-          className="ml-4 mb-3 mt-[30px]"
+          className="ml-2 md:ml-4 mb-3 mt-[30px]"
           checked={isAgreed}
           onChange={handleAgreeChange}
         />
@@ -156,12 +156,12 @@ function TabFiat (props) {
           type="submit"
           isDisabled={!isAgreed}
           isLoading={isLoading}
-          className='mt-[10px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
+          className='mt-[10px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
         >
           Deposit
         </Button>
       </div>
-      <div className='w-[45%]'>
+      <div className='w-full mt-[10px] md:mt-0 md:w-[45%]'>
         <RightBar isCrypto={false} />
       </div>
     </form>

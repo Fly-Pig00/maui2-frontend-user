@@ -101,19 +101,19 @@ function TabSend (props) {
 		return false;
 	}
   return (
-    <form className='flex p-20 justify-between' onSubmit={handleSubmit(onSubmit)}>
-      <div className='w-[60%] m-auto'>
+    <form className='flex p-5 md:p-20 justify-between' onSubmit={handleSubmit(onSubmit)}>
+      <div className='w-[90%] md:w-[60%] m-auto'>
         <Input
           name="recipient"
-          className="mt-[40px]"
-          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Recipient</div>}
+          className="mt-[60px] md:mt-[40px]"
+          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Recipient</div>}
           hookForm={hookForm}
           registerOptions={{required: 'This field is required.'}}
         />
         <InputAmount
           name="amount"
           className="mt-[40px]"
-          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>How much would you like to <span className='font-bold text-[#FF1C1C]'>Send</span>?</div>}
+          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>How much would you like to <span className='font-bold text-[#FF1C1C]'>Send</span>?</div>}
           hookForm={hookForm}
           validate={validateAmount}
           selectedCurrency={selectedFiat}
@@ -123,7 +123,7 @@ function TabSend (props) {
         <Input
           name="memo"
           className="mt-[40px]"
-          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Memo <span className='text-[#888]'>(optional)</span></div>}
+          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Memo <span className='text-[#888]'>(optional)</span></div>}
           hookForm={hookForm}
         />
         {/* <div className='ml-5 mt-[30px]'>
@@ -141,7 +141,7 @@ function TabSend (props) {
           </div>
         </div> */}
         <AgreeWithCheckbox
-          className="ml-4 mb-3 mt-[30px]"
+          className="ml-2 md:ml-4 mb-3 mt-[30px]"
           checked={isAgreed}
           onChange={handleAgreeChange}
         />
@@ -149,7 +149,7 @@ function TabSend (props) {
           type="submit"
           isDisabled={!isAgreed}
           isLoading={isLoading}
-          className='mt-[10px] bg-earn-withdraw-card-btn shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
+          className='mt-[10px] bg-earn-withdraw-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
         >
           Send
         </Button>

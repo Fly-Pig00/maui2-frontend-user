@@ -142,7 +142,7 @@ function Cards (props) {
         validate={validateAmount}
       />
       <AgreeWithCheckbox
-        className="ml-0 md:ml-4 mb-3 mt-[30px]"
+        className="ml-2 md:ml-4 mb-3 mt-[30px]"
         checked={isAgreed}
         onChange={handleAgreeChange}
         position="right"

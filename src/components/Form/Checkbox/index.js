@@ -9,9 +9,9 @@ function Checkbox({id, className, checked, children, onChange}) {
     attributes.checked = checked;
   }
   return (    
-    <label className={`checkbox-container ${className}`}>
+    <label className={`checkbox-container !pl-[36px] ${className}`}>
       <input {...attributes}/>
-      <span className="checkmark"></span>
+      <span className="checkmark !w-[20px] !h-[20px] !md:w-[28px] !md:h-[28px]"></span>
       {children}
     </label>
   )

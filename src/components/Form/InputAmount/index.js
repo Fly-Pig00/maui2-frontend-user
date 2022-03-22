@@ -73,7 +73,7 @@ function InputAmount({name, className, label, hookForm, validate, isCurrencySele
       }
       {isCurrencySelectable ?
         <div
-          className="absolute flex flex-row-reverse w-[60px] cursor-pointer text-right right-[10px] top-[53px]"
+          className="absolute flex flex-row-reverse w-[60px] cursor-pointer text-right right-[10px] top-[49px] md:top-[53px]"
           onClick={handleOpen}
         >
           <div

@@ -103,12 +103,12 @@ function TabCrypto(props) {
 		return false;
 	}
   return (
-    <form className='flex p-20 justify-between' onSubmit={handleSubmit(onSubmit)}>
-      <div className='w-[45%]'>
+    <form className='flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between' onSubmit={handleSubmit(onSubmit)}>
+      <div className='w-full md:w-[45%]'>
         <SelectCurrency
           isCrypto={true}
-          className="mt-[10px]"
-          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Select crypto you want to <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Deposit</span></div>}
+          className="mt-[40px] md:mt-[10px]"
+          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Select crypto you want to <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Deposit</span></div>}
           selectedSymbol={selectedCrypto}
           onChange={handleCryptoChange}
         />
@@ -116,19 +116,19 @@ function TabCrypto(props) {
         <SelectWallet
           isCrypto={true}
           className="mt-[10px]"
-          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Transfer from</div>}
+          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Transfer from</div>}
           selectedSymbol={selectedCryptoWallet}
           onChange={handleCryptoWalletChange}
         />
         <InputAmount
           name="amount"
           className="mt-[40px]"
-          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Enter amount</div>}
+          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Enter amount</div>}
           hookForm={hookForm}
           validate={validateAmount}
         />
         <AgreeWithCheckbox
-          className="ml-4 mb-3 mt-[30px]"
+          className="ml-2 md:ml-4 mb-3 mt-[30px]"
           checked={isAgreed}
           onChange={handleAgreeChange}
         />
@@ -136,12 +136,12 @@ function TabCrypto(props) {
           type="submit"
           isDisabled={!isAgreed}
           isLoading={isLoading}
-          className='mt-[10px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
+          className='mt-[10px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
         >
           Deposit
         </Button>
       </div>
-      <div className='w-[45%]'>
+      <div className='w-full mt-[10px] md:mt-0 md:w-[45%]'>
         <RightBar isCrypto={true} />
       </div>
     </form>
