@@ -2,7 +2,7 @@ import React from 'react';
 
 function Cards() {
   return (
-    <div className='relative w-full min-h-[980px] md:min-h-[1700px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
+    <div className='relative w-full min-h-[970px] md:min-h-[1700px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
       {/* bg images */}
       <div className='bg-cards-leftbottom bg-center bg-cover absolute left-0 bottom-0 w-[318px] h-[270px] md:w-[636px] md:h-[541px]'></div>
       <div className='bg-cards-leftmiddle bg-center bg-cover absolute left-0 top-[250px] md:top-[500px] w-[178px] h-[298px] md:w-[357px] md:h-[596px]'></div>

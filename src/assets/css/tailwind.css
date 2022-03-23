@@ -111,6 +111,13 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+@media only screen and (max-width: 600px) {
+  .checkbox-container .checkmark:after {
+    left: 6px;
+    width: 7px;
+    height: 12px;
+  }
+}
 .dark .checkbox-container .checkmark:after {
   border: solid #745FF2;
   border-width: 0 3px 3px 0;

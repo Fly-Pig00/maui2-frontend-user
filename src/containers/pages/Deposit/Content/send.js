@@ -101,8 +101,8 @@ function TabSend (props) {
 		return false;
 	}
   return (
-    <form className='flex p-5 md:p-20 justify-between' onSubmit={handleSubmit(onSubmit)}>
-      <div className='w-[90%] md:w-[60%] m-auto'>
+    <form className='flex p-10 md:p-20 justify-between' onSubmit={handleSubmit(onSubmit)}>
+      <div className='w-full md:w-[60%] m-auto'>
         <Input
           name="recipient"
           className="mt-[60px] md:mt-[40px]"
