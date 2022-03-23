@@ -57,12 +57,13 @@ function Earn(props) {
   }
 
   return (
-    <div className='relative w-full min-h-[1570px] md:min-h-[1280px] bg-[#DEE2E8] dark:bg-[#32283C]'>
+    <div className='relative w-full min-h-[1610px] md:min-h-[1280px] bg-[#DEE2E8] dark:bg-[#32283C]'>
       {/* bg images */}
       <div className='bg-earn-rightbottom bg-center bg-cover absolute left-0 top-0 w-[360px] h-[270px] md:w-[1024px] md:h-[768px]'></div>
       <div className='bg-earn-rightbottom bg-center bg-cover absolute right-0 bottom-0 w-[360px] h-[270px] md:w-[1024px] md:h-[768px]'></div>
+      <span className='absolute top-[100px] w-full text-center block md:hidden font-semibold text-[40px] leading-[48px] tracking-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>EARN</span>
       {/* card */}
-      <div className='absolute w-[350px] top-[120px] left-[calc(50%-175px)] md:w-[1020px] md:top-[250px] md:left-[calc(50%-510px)] bg-deposit-card dark:bg-deposit-card-dark shadow-stocks-card dark:shadow-stocks-card-dark border border-[#FFFFFF] dark:border-[#000000] rounded-[33px] p-[25px]'>
+      <div className='absolute w-[350px] top-[160px] left-[calc(50%-175px)] md:w-[1020px] md:top-[250px] md:left-[calc(50%-510px)] bg-deposit-card dark:bg-deposit-card-dark shadow-stocks-card dark:shadow-stocks-card-dark border border-[#FFFFFF] dark:border-[#000000] rounded-[33px] p-[25px]'>
         <div className='w-full flex flex-col md:flex-row justify-between'>
           <div className='w-full md:w-[60%]'>
             <Card name='frmDeposit' isDeposit={true} handleAfterSubmit={handleAfterSubmit}/>

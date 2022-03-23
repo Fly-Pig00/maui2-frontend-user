@@ -2,14 +2,15 @@ import React from 'react';
 
 function Cards() {
   return (
-    <div className='relative w-full min-h-[950px] md:min-h-[1700px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
+    <div className='relative w-full min-h-[980px] md:min-h-[1700px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
       {/* bg images */}
       <div className='bg-cards-leftbottom bg-center bg-cover absolute left-0 bottom-0 w-[318px] h-[270px] md:w-[636px] md:h-[541px]'></div>
       <div className='bg-cards-leftmiddle bg-center bg-cover absolute left-0 top-[250px] md:top-[500px] w-[178px] h-[298px] md:w-[357px] md:h-[596px]'></div>
       <div className='bg-cards-rightbottom bg-center bg-cover absolute right-0 bottom-0 w-[214px] h-[291px] md:w-[427px] md:h-[582px]'></div>
       <div className='bg-cards-rightmiddle bg-center bg-cover absolute right-0 top-[155px] md:top-[310px] w-[230px] h-[298px] md:w-[459px] md:h-[597px]'></div>
+      <span className='absolute top-[100px] w-full text-center block md:hidden font-semibold text-[40px] leading-[48px] tracking-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>CARDS</span>
       {/* card */}
-      <div className='absolute w-[320px] top-[110px] left-[calc(50%-160px)] md:w-[1020px] md:top-[230px] md:left-[calc(50%-510px)] bg-borrow-card dark:bg-borrow-card-dark shadow-borrow-card dark:shadow-borrow-card-dark border border-[#FFFFFF] rounded-[33px] p-[20px] md:p-[40px]'>
+      <div className='absolute w-[320px] top-[160px] left-[calc(50%-160px)] md:w-[1020px] md:top-[230px] md:left-[calc(50%-510px)] bg-borrow-card dark:bg-borrow-card-dark shadow-borrow-card dark:shadow-borrow-card-dark border border-[#FFFFFF] rounded-[33px] p-[20px] md:p-[40px]'>
         <div className='text-[#000000] dark:text-[#FFFFFF] text-[14px] md:text-[18px] leading-[2px] transition-all duration-1000'>Introducing</div>
         <div className='pl-5'>
           <span className='font-semibold text-[32px] md:text-[64px] leading-[48px] md:leading-[96px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Cards</span>

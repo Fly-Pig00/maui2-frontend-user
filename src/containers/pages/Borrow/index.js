@@ -31,15 +31,16 @@ function Borrow() {
   };
   
   return (
-    <div className='relative w-full min-h-[1600px] md:min-h-[1750px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
+    <div className='relative w-full min-h-[1640px] md:min-h-[1750px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
       {/* bg images */}
       <div className='bg-borrow-left bg-center bg-cover absolute left-0 md:left-[-143px] top-[200px] w-[300px] h-[280px] md:w-[1024px] md:h-[768px]'></div>
       <div className='bg-borrow-leftbottom bg-center bg-cover absolute left-0 bottom-0 w-[336px] h-[383px] md:w-[677px] md:h-[766px]'></div>
       <div className='bg-borrow-righttop bg-center bg-cover absolute right-0 top-[100px] w-[162px] h-[156px] md:w-[325px] md:h-[313px]'></div>
       <div className='bg-borrow-rightbottom bg-center bg-cover absolute right-0 top-[300px] w-[274px] h-[290px] md:w-[549px] md:h-[581px]'></div>
       <div className='bg-borrow-rightbottom2 bg-center bg-cover absolute right-0 bottom-0 w-[280px] h-[454px] md:w-[559px] md:h-[909px]'></div>
+      <span className='absolute top-[100px] w-full text-center block md:hidden font-semibold text-[40px] leading-[48px] tracking-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>BORROW</span>
       {/* card */}
-      <div className='absolute w-[350px] top-[110px] left-[calc(50%-175px)] md:w-[1020px] md:top-[230px] md:left-[calc(50%-510px)] bg-borrow-card dark:bg-borrow-card-dark shadow-borrow-card dark:shadow-borrow-card-dark border border-[#FFFFFF] rounded-[33px]'>
+      <div className='absolute w-[350px] top-[160px] left-[calc(50%-175px)] md:w-[1020px] md:top-[230px] md:left-[calc(50%-510px)] bg-borrow-card dark:bg-borrow-card-dark shadow-borrow-card dark:shadow-borrow-card-dark border border-[#FFFFFF] rounded-[33px]'>
           <div className='mt-[30px] text-[14px] md:text-[30px] text-[#273855] dark:text-[#728AB7] text-center transition-all duration-1000'>Get access up to <span className='text-[#273855] dark:text-[#FFFFFF] font-bold transition-all duration-1000'>50%</span> of your collateral with</div>
           <div className='text-[14px] md:text-[30px] text-center'>
             <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#39C6D9]'>no repayments</span>

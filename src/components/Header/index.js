@@ -35,7 +35,7 @@ function Logo(props) {
 };
 
 function DepositStatus({isDepositPage, symbol, balance, isLoading, kind, onClick}) {
-  const balanceClass = `absolute ${isDepositPage ? 'left-[-70px] top-[2px] md:left-[-80px] top-[13px]' : 'left-[30px] md:left-[60px] top-[-23px]'} bg-header-balance w-[60px] h-[14px] bg-cover bg-center`
+  const balanceClass = `absolute ${isDepositPage ? 'left-[-70px] top-[2px] md:left-[-80px] md:top-[13px]' : 'left-[30px] md:left-[60px] top-[-23px]'} bg-header-balance w-[60px] h-[14px] bg-cover bg-center`
   return (
     <div
       className='relative ml-[5px] md:ml-[15px] bg-[#DEE2E8] dark:bg-[#31303650] dark:bg-header-login-btn-dark rounded-[7px] md:rounded-[14px] w-[103px] h-[21px] md:w-[206px] md:h-[42px] border border-[#728AB7A0] p-1 flex justify-evenly items-center cursor-pointer'
@@ -70,7 +70,7 @@ function LoginButton({isLogged, signOut}) {
       className="flex justify-center items-center ml-[5px] md:ml-[15px] rounded-[5px] md:rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#745FF2] w-[45px] h-[21px] md:w-[93px] md:h-[42px] bg-[#F3F3FB] dark:bg-transparent"
       onClick={handleClick}
     >
-      <span className='font-semibold text-[10px] leading-[12px] md:text-[16px] md:leading-[24px] text-[#745FF2] dark:text-[#745FF2] transition-all duration-1000'>{label}</span>
+      <span className='font-semibold text-[10px] leading-[12px] mt-[2px] md:mt-0 md:text-[16px] md:leading-[24px] text-[#745FF2] dark:text-[#745FF2] transition-all duration-1000'>{label}</span>
     </Button>
   )
 }
@@ -104,7 +104,7 @@ function Header(props) {
           <span className='absolute left-[10px] top-[10px] md:left-[30px] md:top-[23px] font-semibold text-[14px] md:text-[24px] leading-[24px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>{theme2Title}</span>
         </div>
       :
-        <div className='fixed bottom-[50px] md:absolute md:top-[105px] left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
+        <div className='fixed bottom-[30px] md:absolute md:top-[105px] left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
           <AnimatedTab tabs={MENU}/>
         </div>
       }
