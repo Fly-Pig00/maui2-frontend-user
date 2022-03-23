@@ -51,10 +51,10 @@ module.exports = {
         'main-card': 'linear-gradient(160.71deg, #EFF0FB 9.07%, #E1DEF1 92.22%)',
         'main-card-dark': 'linear-gradient(160.71deg, #392F40 9.07%, #3E3C4E 92.22%)',
         'main-card-btn': 'linear-gradient(124.08deg, #745FF2 3.96%, #00DDA2 94.96%)',
-        'main-card-earn-banner': "url('../images/dashboard/card-earn-banner.gif')",
-        'main-card-borrow-banner': "url('../images/dashboard/card-borrow-banner.gif')",
+        'main-card-earn-banner': "url('../images/dashboard/card-earn-banner.jpg')",
+        'main-card-borrow-banner': "url('../images/dashboard/card-borrow-banner.jpg')",
         'main-card-cards-banner': "url('../images/dashboard/card-cards-banner.png')",
-        'main-card-stocks-banner': "url('../images/dashboard/card-stocks-banner.gif')",
+        'main-card-stocks-banner': "url('../images/dashboard/card-stocks-banner.jpg')",
         // borrow
         'borrow-left': "url('../images/borrow/left.png')",
         'borrow-righttop': "url('../images/borrow/righttop.png')",
@@ -101,7 +101,7 @@ module.exports = {
         'deposit-card-btn': 'linear-gradient(160.71deg, #745FF2 3.96%, #00DDA2 94.96%)',
         'deposit-arrow-back': "url('../images/deposit/arrow-back.svg')",
         'deposit-crypto-bitcoin': "url('../images/deposit/crypto-bitcoin.png')",
-        'deposit-crypto-saly': "url('../images/deposit/crypto-saly.gif')",
+        'deposit-crypto-saly': "url('../images/deposit/crypto-saly.jpg')",
         'deposit-fiat-saly': "url('../images/deposit/fiat-saly.gif')",
         'deposit-leftbottom': "url('../images/deposit/leftbottom.png')",
         'deposit-transfer-from': "url('../images/deposit/transfer-from.png')",
@@ -131,6 +131,7 @@ module.exports = {
         'common-transfer-from': "url('../images/_common/transfer-from.svg')",
         'common-wallet-eth': "url('../images/_common/wallet-eth.svg')",
         'common-wallet-tera': "url('../images/_common/wallet-tera.png')",
+        'common-video-play': "url('../images/_common/video-play.png')",
       }),
       boxShadow: {
         // header

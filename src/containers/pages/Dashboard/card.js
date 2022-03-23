@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 
-function Card({id, className, img, title1, title2, description, btnTitle, url}) {
+function Card({id, className, img, img2, title1, title2, description, btnTitle, url}) {
   const history = useHistory();
   function handleClick(){
     history.push(url);
@@ -19,7 +19,15 @@ function Card({id, className, img, title1, title2, description, btnTitle, url}) 
       </div>
       
       <div className='mt-[12px] md:mt-[20px] flex items-center justify-evenly'>
-        <div className={`bg-cover bg-center rounded-[22px] ${img}`}/>
+        {img &&
+          <div className="relative w-[120px] h-[100px] md:w-[140px] md:h-[120px]">
+            <div className={`${img} w-full h-full rounded-[22px] bg-cover bg-center`} />
+            <div className='absolute bg-common-video-play w-[53px] h-[53px] bg-cover bg-center top-[26px] left-[34px] md:left-[44px] md:top-[38px]' />
+          </div>
+        }
+        {img2 &&
+          <div className={`bg-cover bg-center rounded-[22px] ${img2}`}/>
+        }
         <div className='w-[38%] text-[14px] leading-[25px] text-[#000000] dark:text-[#EDEDF9] transition-colors duration-1000'>
           {description}
         </div>

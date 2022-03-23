@@ -37,7 +37,7 @@ function Main(props) {
       <Card
         id='main-card-earn'
         url='/earn'
-        img="bg-main-card-earn-banner w-[84px] md:w-[117px] h-[120px] md:h-[168px] shadow-main-card-banner"
+        img='bg-main-card-earn-banner'
         className="relative ml-[20px] md:ml-0 md:absolute md:left-[calc(50%-450px)] md:top-[250px] z-20 md:z-10"
         title1="Earn with 15% APY"
         btnTitle="Earn"
@@ -46,7 +46,7 @@ function Main(props) {
       <Card
         id='main-card-borrow'
         url='/borrow'
-        img="bg-main-card-borrow-banner w-[120px] md:w-[160px] h-[100px] md:h-[133px]"
+        img='bg-main-card-borrow-banner'
         className="relative ml-[calc(100%-300px)] md:ml-0 mt-[30px] md:mt-0 md:absolute md:right-[calc(50%-450px)] md:top-[320px]"
         title1="Borrow instantly"
         title2="Loan repays itself"
@@ -56,7 +56,7 @@ function Main(props) {
       <Card
         id='main-card-cards'
         url='/cards'
-        img="bg-main-card-cards-banner w-[123px] md:w-[168px] h-[180px] md:h-[246px]"
+        img2="bg-main-card-cards-banner w-[123px] md:w-[168px] h-[180px] md:h-[246px]"
         className="relative ml-[20px] md:ml-0 mt-[30px] md:mt-0 md:absolute md:left-[calc(50%-450px)] md:top-[650px]"
         title1="No Fees. Crypto"
         title2="Mastercards"
@@ -66,7 +66,7 @@ function Main(props) {
       <Card
         id='main-card-stocks'
         url='/stocks'
-        img="bg-main-card-stocks-banner w-[146px] h-[143px]"
+        img='bg-main-card-stocks-banner'
         className="relative ml-[calc(100%-300px)] mb-[70px] md:mb-0 md:ml-0 mt-[30px] md:mt-0 md:absolute md:right-[calc(50%-450px)] md:top-[720px] z-20"
         title1="Neutral strategy"
         btnTitle="Stocks"
