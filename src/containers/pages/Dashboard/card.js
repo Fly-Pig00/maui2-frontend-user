@@ -22,7 +22,7 @@ function Card({id, className, img, img2, title1, title2, description, btnTitle, 
         {img &&
           <div className="relative w-[120px] h-[100px] md:w-[140px] md:h-[120px]">
             <div className={`${img} w-full h-full rounded-[22px] bg-cover bg-center`} />
-            <div className='absolute bg-common-video-play w-[53px] h-[53px] bg-cover bg-center top-[26px] left-[34px] md:left-[44px] md:top-[38px]' />
+            <div className='absolute bg-common-video-play w-[40px] h-[40px] bg-cover bg-center top-[32px] left-[40px] md:left-[50px] md:top-[44px]' />
           </div>
         }
         {img2 &&

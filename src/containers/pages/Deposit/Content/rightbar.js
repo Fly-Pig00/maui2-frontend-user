@@ -12,7 +12,7 @@ function RightBar({isCrypto}) {
           <div className='w-[45%] md:w-[200px] h-[150px] mt-[10px] flex flex-col justify-center items-center'>
             <div className="relative w-[120px] h-[100px] md:w-[140px] md:h-[120px]">
               <div className='bg-deposit-crypto-saly w-full h-full rounded-[12px] bg-cover bg-center transition-all duration-1000' />
-              <div className='absolute bg-common-video-play w-[53px] h-[53px] bg-cover bg-center top-[26px] left-[34px] md:left-[44px] md:top-[38px]' />
+              <div className='absolute bg-common-video-play w-[40px] h-[40px] bg-cover bg-center top-[32px] left-[40px] md:left-[50px] md:top-[44px]' />
             </div>
           </div>
           <div className="w-[45%] md:w-full">
@@ -26,7 +26,7 @@ function RightBar({isCrypto}) {
         </div>
       }
       {!isCrypto &&
-        <div className='flex flex-row md:flex-col justify-between items-center'>
+        <div className='flex flex-row md:flex-col justify-between items-center md:items-baseline'>
           <div className='w-[45%] md:w-[200px] h-[150px] mt-[10px] flex flex-col justify-center items-center'>
             <div className='bg-deposit-fiat-saly rounded-[25px] w-[100px] h-[103px] md:w-[142px] md:h-[145px] bg-cover bg-center transition-all duration-1000' />
           </div>

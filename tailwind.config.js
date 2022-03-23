@@ -109,7 +109,7 @@ module.exports = {
         'deposit-tab-inactive-dark': 'linear-gradient(180deg, #393140 0%, #393141 100%)',
         // earn
         'earn-rightbottom': "url('../images/earn/rightbottom.png')",
-        'earn-banner': "url('../images/earn/banner.gif')",
+        'earn-banner': "url('../images/earn/banner.jpg')",
         'earn-chart': "url('../images/earn/chart.png')",
         'earn-card': 'linear-gradient(107.49deg, rgba(116, 95, 242, 0.05) 9.82%, rgba(116, 95, 242, 0.06) 61.98%);',
         'earn-withdraw-card-btn': 'linear-gradient(160.71deg, #EA6D96 3.96%, #BC81CF 94.96%)',
