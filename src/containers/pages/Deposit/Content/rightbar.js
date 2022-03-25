@@ -1,3 +1,6 @@
+import ImgVideoBanner from "../../../../components/ImgVideoBanner";
+import VIDEO_DEPOSIT from '../../../../assets/videos/deposit.mp4';
+
 function RightBar({isCrypto}) {
   return (
     <div className='w-full border-b-[1px] border-b-[#777] pb-[10px] md:pb-0 md:border-0'>
@@ -8,21 +11,22 @@ function RightBar({isCrypto}) {
         </div>
       </div>
       {isCrypto &&
-        <div className='flex flex-row md:flex-col justify-between items-center md:items-baseline'>
-          <div className='w-[45%] md:w-[200px] h-[150px] mt-[10px] flex flex-col justify-center items-center'>
-            <div className="relative w-[120px] h-[100px] md:w-[140px] md:h-[120px]">
-              <div className='bg-deposit-crypto-saly w-full h-full rounded-[12px] bg-cover bg-center transition-all duration-1000' />
-              <div className='absolute bg-common-video-play w-[40px] h-[40px] bg-cover bg-center top-[32px] left-[40px] md:left-[50px] md:top-[44px]' />
-            </div>
-          </div>
-          <div className="w-[45%] md:w-full">
-            <div className='w-full md:w-[240px] text-[10px] md:text-[14px] leading-[21px] text-[#7E7E7E] dark:text-[#EDEDF9] transition-all duration-1000'>
-              You can now deposit your asset as per your convience. 
-            </div>
-            <div className='w-full md:w-[240px] text-[10px] md:text-[14px] leading-[21px] text-[#7E7E7E] dark:text-[#EDEDF9] transition-all duration-1000'>
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Crypto or Fiat</span>, Your choice.
-            </div>
-          </div>
+        <div className="mt-[20px] w-full md:w-[320px]">
+          <ImgVideoBanner
+            className="flex flex-row md:flex-col justify-evenly items-center md:items-baseline"
+            video={VIDEO_DEPOSIT}
+            img="bg-deposit-crypto-saly"
+            description={
+              <div className="mt-0 md:mt-[20px] tracking-[-0.5px]">
+                <div className='w-full md:w-[240px] text-[10px] md:text-[14px] leading-[21px] text-[#7E7E7E] dark:text-[#EDEDF9] transition-all duration-1000'>
+                  You can now deposit your asset as per your convience. 
+                </div>
+                <div className='w-full md:w-[240px] text-[10px] md:text-[14px] leading-[21px] text-[#7E7E7E] dark:text-[#EDEDF9] transition-all duration-1000'>
+                  <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Crypto or Fiat</span>, Your choice.
+                </div>
+              </div>
+            }
+          />
         </div>
       }
       {!isCrypto &&

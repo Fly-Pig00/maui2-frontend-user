@@ -85,7 +85,7 @@ function Borrow() {
             <span className='hidden dark:block font-medium leading-[75px] text-[75px] md:leading-[250px] md:text-[250px] borrow-span-borrow-dark'>Borrow</span>
             <div className='absolute w-full top-[50px] md:top-[100px] text-center'>
               <span className='block dark:hidden font-medium text-[72px] md:text-[144px] text-[#728AB7] dark:text-[#FFFFFF] borrow-span-soon'>SOON</span>
-              <span className='hidden dark:block font-medium text-[72px] md:ext-[144px] text-[#728AB7] dark:text-[#FFFFFF] borrow-span-soon-dark'>SOON</span>
+              <span className='hidden dark:block font-medium text-[72px] md:text-[144px] text-[#728AB7] dark:text-[#FFFFFF] borrow-span-soon-dark'>SOON</span>
             </div>
           </div>
           <div className='mt-[60px] mb-[35px] md:mt-[120px] md:mb-[70px] text-center tracking-[4px]'>

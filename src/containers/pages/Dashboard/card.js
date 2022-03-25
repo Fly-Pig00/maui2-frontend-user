@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
+import ImgVideoBanner from "../../../components/ImgVideoBanner";
 
-function Card({id, className, img, img2, title1, title2, description, btnTitle, url}) {
+function Card({id, className, img, video, title1, title2, description, btnTitle, url}) {
   const history = useHistory();
   function handleClick(){
     history.push(url);
@@ -18,19 +19,12 @@ function Card({id, className, img, img2, title1, title2, description, btnTitle, 
         </span>
       </div>
       
-      <div className='mt-[12px] md:mt-[20px] flex items-center justify-evenly'>
-        {img &&
-          <div className="relative w-[120px] h-[100px] md:w-[140px] md:h-[120px]">
-            <div className={`${img} w-full h-full rounded-[22px] bg-cover bg-center`} />
-            <div className='absolute bg-common-video-play w-[40px] h-[40px] bg-cover bg-center top-[32px] left-[40px] md:left-[50px] md:top-[44px]' />
-          </div>
-        }
-        {img2 &&
-          <div className={`bg-cover bg-center rounded-[22px] ${img2}`}/>
-        }
-        <div className='w-[38%] text-[14px] leading-[25px] text-[#000000] dark:text-[#EDEDF9] transition-colors duration-1000'>
-          {description}
-        </div>
+      <div className='mt-[12px] md:mt-[20px]'>
+        <ImgVideoBanner
+          img={img}
+          video={video}
+          description={description}
+        />
       </div>
       <div className='mt-[12px] md:mt-[20px] pl-[5px] pr-[5px] md:p-0 w-full'>
         {id === 'main-card-stocks' &&

@@ -7,6 +7,8 @@ import { updateBalance } from '../../../saga/actions/workflow';
 import { fetchExpectedInterest } from '../../../utils/wallet';
 import AnimatedTab from '../../../components/AnimatedTab';
 import Card from './card';
+import ImgVideoBanner from '../../../components/ImgVideoBanner';
+import VIDEO_EARN from '../../../assets/videos/earn.mp4';
 
 function Earn(props) {
   const [ timePeriod, setTimePeriod ] = useState('year');
@@ -85,14 +87,16 @@ function Earn(props) {
               <span className='font-semibold text-[16px] md:text-[24px] leading-[36px] text-transparent bg-clip-text bg-gradient-to-r from-[#39C6D9] via-[#B84ADE] to-[#DE1F4D]'>
                 Earn with 15% APY
               </span>
-              <div className='mt-[20px] flex items-center justify-evenly'>
-                <div className="relative w-[120px] h-[100px] md:w-[140px] md:h-[120px]">
-                  <div className='bg-earn-banner w-full h-full rounded-[22px] bg-cover bg-center transition-all duration-1000' />
-                  <div className='absolute bg-common-video-play w-[40px] h-[40px] bg-cover bg-center top-[32px] left-[40px] md:left-[50px] md:top-[44px]' />
-                </div>
-                <div className='w-[38%] text-[14px] leading-[25px] text-[#000000] dark:text-[#EDEDF9] transition-colors duration-1000'>
-                  <div><span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Earn</span> on your deposits. Withdraw anytime.</div>
-                </div>
+              <div className='mt-[20px]'>
+                <ImgVideoBanner
+                  img="bg-earn-banner"
+                  video={VIDEO_EARN}
+                  description={
+                    <div>
+                      <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Earn</span> on your deposits. Withdraw anytime.
+                    </div>
+                  }
+                />
               </div>
             </div>
           </div>
