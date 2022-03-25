@@ -2,10 +2,6 @@ import React, { useEffect } from 'react';
 import { gsap, Power3 } from 'gsap';
 import Card from './card';
 
-import VIDEO_BANNER_EARN from '../../../assets/videos/dashboard-banner-earn.mp4';
-import VIDEO_BANNER_STOCKS from '../../../assets/videos/dashboard-banner-stocks.mp4';
-import VIDEO_BANNER_BORROW from '../../../assets/videos/dashboard-banner-borrow.mp4';
-
 function Main(props) {
   useEffect(() => {
     if (props.state === 'entering') {
@@ -42,7 +38,7 @@ function Main(props) {
         id='main-card-earn'
         url='/earn'
         img='bg-main-card-earn-banner'
-        video={VIDEO_BANNER_EARN}
+        video="/video/dashboard-banner-earn.mp4"
         className="relative ml-[20px] md:ml-0 md:absolute md:left-[calc(50%-450px)] md:top-[250px] z-20 md:z-10"
         title1="Earn with 15% APY"
         btnTitle="Earn"
@@ -52,7 +48,7 @@ function Main(props) {
         id='main-card-borrow'
         url='/borrow'
         img='bg-main-card-borrow-banner'
-        video={VIDEO_BANNER_BORROW}
+        video="/video/dashboard-banner-borrow.mp4"
         className="relative ml-[calc(100%-300px)] md:ml-0 mt-[30px] md:mt-0 md:absolute md:right-[calc(50%-450px)] md:top-[320px]"
         title1="Borrow instantly"
         title2="Loan repays itself"
@@ -73,7 +69,7 @@ function Main(props) {
         id='main-card-stocks'
         url='/stocks'
         img='bg-main-card-stocks-banner'
-        video={VIDEO_BANNER_STOCKS}
+        video="/video/dashboard-banner-stocks.mp4"
         className="relative ml-[calc(100%-300px)] mb-[70px] md:mb-0 md:ml-0 mt-[30px] md:mt-0 md:absolute md:right-[calc(50%-450px)] md:top-[720px] z-20"
         title1="Neutral strategy"
         btnTitle="Stocks"
