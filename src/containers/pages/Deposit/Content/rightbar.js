@@ -13,7 +13,7 @@ function RightBar({isCrypto}) {
         <div className="mt-[20px] w-full md:w-[320px]">
           <ImgVideoBanner
             className="flex flex-row md:flex-col justify-evenly items-center md:items-baseline"
-            video="/video/deposit.mp4"
+            video="/deposit.mp4"
             img="bg-deposit-crypto-saly"
             description={
               <div className="mt-0 md:mt-[20px] tracking-[-0.5px]">

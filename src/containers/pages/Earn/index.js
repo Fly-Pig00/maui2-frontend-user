@@ -89,7 +89,7 @@ function Earn(props) {
               <div className='mt-[20px]'>
                 <ImgVideoBanner
                   img="bg-earn-banner"
-                  video="/video/earn.mp4"
+                  video="/earn.mp4"
                   description={
                     <div>
                       <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Earn</span> on your deposits. Withdraw anytime.
