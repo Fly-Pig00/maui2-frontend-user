@@ -5,7 +5,8 @@ import IMG_EXCHANGE_OKEX from '../../../../assets/images/deposit/external/okex.s
 import IMG_EXCHANGE_FTX from '../../../../assets/images/deposit/external/ftx.svg';
 import IMG_EXCHANGE_KADO from '../../../../assets/images/deposit/external/kado.svg';
 import IMG_EXCHANGE_TRANSAK from '../../../../assets/images/deposit/external/transak.svg';
-import { appConfig } from '../../../../appConfig';
+// import { appConfig } from '../../../../appConfig';
+
 function LinkItem({title, img, url}) {
   const handleClick= () => {
     window.open(url, "_blank");
