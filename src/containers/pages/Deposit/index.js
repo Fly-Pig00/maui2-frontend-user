@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Tab from './tab';
 import TabCrypto from './Content/crypto';
-import TabFiat from './Content/fiat';
+// import TabFiat from './Content/fiat';
 import TabSend from './Content/send';
+import TabExternal from './Content/external';
 
 function Deposit() {
   const history = useHistory();
@@ -36,8 +37,8 @@ function Deposit() {
         {tabIndex === 0 && // Crypto
           <TabCrypto />
         }
-        {tabIndex === 1 && // Fiat
-          <TabFiat />
+        {tabIndex === 1 && // External
+          <TabExternal />
         }
         {tabIndex === 2 && // Send
           <TabSend />
