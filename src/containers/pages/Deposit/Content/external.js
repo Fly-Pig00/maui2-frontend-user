@@ -31,7 +31,7 @@ function External() {
       <div className="w-full md:w-[45%] mt-[10px] md:mt-0">
         <div className='text-center mb-[20px] text-[#273855] dark:text-[#F9D3B4] text-[14px] md:text-[16px] font-semibold tracking-[1px] transition-all duration-1000'>Fiat Exchanges</div>
         <LinkItem title="Kado Ramp" img={IMG_EXCHANGE_KADO} url="https://ramp.kado.money" />
-        <LinkItem title="Transak" img={IMG_EXCHANGE_TRANSAK} url={`https://global.transak.com/?apiKey=${appConfig.transakAPIKey}&cryptoCurrencyList=UST,LUNA&defaultCryptoCurrency=UST&networks=terra`} />
+        <LinkItem title="Transak" img={IMG_EXCHANGE_TRANSAK} url="https://global.transak.com/" />
       </div>
     </div>
   )
