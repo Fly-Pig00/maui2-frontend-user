@@ -8,6 +8,25 @@
     transform: translateX(100%);
     background-color: #745FF2;
   }
+  .scrollbar::-webkit-scrollbar {
+    width: 12px;
+  }
+  .scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+    height: 30px;
+  }
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #666;
+  }
+
+  /* Scroll track styles (Background) */
+  .scrollbar::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
 }
 /* poppins-regular - latin */
 @font-face {
@@ -149,8 +168,13 @@
   line-height: 1.47059;
 }
 .text-container ol{
-  padding-left:40px;
+  padding-left: 40px;
   list-style: auto;
+}
+@media only screen and (max-width: 600px) {
+  .text-container ol{
+    padding-left: 20px;
+  }
 }
 .text-container a{
   text-decoration: none;
