@@ -7,6 +7,8 @@ import Earn from '../pages/Earn';
 import Borrow from '../pages/Borrow';
 import Stocks from '../pages/Stocks';
 import Cards from '../pages/Cards';
+import Privacy from '../pages/Privacy';
+import Terms from '../pages/Terms';
 import Deposit from '../pages/Deposit';
 import History from '../pages/History';
 
@@ -30,6 +32,8 @@ const Routes = withRouter(({ location }) => {
               <Route path="/borrow" component={Borrow}/>
               <Route path="/stocks" component={Stocks}/>
               <Route path="/cards" component={Cards}/>
+              <Route path="/privacy" component={Privacy}/>
+              <Route path="/terms" component={Terms}/>
               <Route path="/deposit" component={Deposit}/>
               <Route path="/history" component={History}/>
               <Redirect to="/splash" />

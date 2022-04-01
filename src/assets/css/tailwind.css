@@ -143,3 +143,20 @@
 .login-text-shadow {
   text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.56);
 }
+.text-container {
+  font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+  letter-spacing: -.022em;
+  line-height: 1.47059;
+}
+.text-container ol{
+  padding-left:40px;
+  list-style: auto;
+}
+.text-container a{
+  text-decoration: none;
+  color: #06c;
+  letter-spacing: inherit;
+}
+.text-container strong{
+  font-weight: 600;
+}
