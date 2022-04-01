@@ -2,6 +2,7 @@ import { Router } from 'react-router-dom';
 import { history } from '../utils/history';
 import Header from '../components/Header';
 import Routes from './routes';
+import Footer from '../components/Footer';
 
 import { ToastContainer } from "react-toastify";
 import BackgroundWorker from '../components/BackgroundWorker';
@@ -12,6 +13,7 @@ function App() {
       <Router history={history}>
         <Header />
         <Routes />
+        <Footer />
       </Router>
       <ToastContainer />
       <BackgroundWorker />

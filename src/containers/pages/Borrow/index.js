@@ -31,7 +31,7 @@ function Borrow() {
   };
   
   return (
-    <div className='relative w-full min-h-[1590px] md:min-h-[1750px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
+    <div className='relative w-full min-h-[1610px] md:min-h-[1760px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000'>
       {/* bg images */}
       <div className='bg-borrow-left bg-center bg-cover absolute left-0 md:left-[-143px] top-[200px] w-[300px] h-[280px] md:w-[1024px] md:h-[768px]'></div>
       <div className='bg-borrow-leftbottom bg-center bg-cover absolute left-0 bottom-0 w-[336px] h-[383px] md:w-[677px] md:h-[766px]'></div>

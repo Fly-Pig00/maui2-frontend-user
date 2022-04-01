@@ -104,7 +104,7 @@ function Header(props) {
           <span className='absolute left-[10px] top-[10px] md:left-[30px] md:top-[23px] font-semibold text-[14px] md:text-[24px] leading-[24px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>{theme2Title}</span>
         </div>
       :
-        <div className='fixed bottom-[30px] md:absolute md:top-[105px] left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
+        <div className='fixed bottom-[90px] md:absolute md:top-[105px] left-[calc(50%-180px)] md:left-[calc(50%-450px)] w-[360px] md:w-[900px] z-50'>
           <AnimatedTab tabs={MENU}/>
         </div>
       }
