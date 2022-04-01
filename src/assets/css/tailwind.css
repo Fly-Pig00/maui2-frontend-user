@@ -20,6 +20,14 @@
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: #666;
   }
+  @media only screen and (max-width: 600px) {
+    .scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .scrollbar::-webkit-scrollbar-thumb {
+      height: 15px;
+    }
+  }
 
   /* Scroll track styles (Background) */
   .scrollbar::-webkit-scrollbar-track {
