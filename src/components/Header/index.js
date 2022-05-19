@@ -134,7 +134,7 @@ function Header(props) {
             onClick={handleHistoryClick}
           />
         }
-        <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} />
+        {/* <LoginButton isLogged={props.workflow.isLogged} signOut={props.signOut} /> */}
       </div>
       <div className={`absolute right-[10px] md:right-0 transition-all duration-1000 flex justify-end ${isTheme2 ? 'top-[30px] md:top-[60px]': 'top-[70px] md:top-[195px]'}`}>
         <div className='w-[100px] md:w-[150px] mr-[20px]'>

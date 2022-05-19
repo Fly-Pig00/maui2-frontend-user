@@ -84,7 +84,7 @@ function Earn(props) {
             </div>
             <div className='mt-[30px] md:mt-[130px] text-center bg-deposit-card dark:bg-deposit-card-dark shadow-earn-panel dark:shadow-earn-panel-dark border border-[#FFFFFF30] dark:border-[#745FF220] rounded-[26px] p-[25px]'>
               <span className='font-semibold text-[16px] md:text-[24px] leading-[36px] text-transparent bg-clip-text bg-gradient-to-r from-[#39C6D9] via-[#B84ADE] to-[#DE1F4D]'>
-                Earn with 15% APY
+                Earn with 8% APY
               </span>
               <div className='mt-[20px]'>
                 <ImgVideoBanner

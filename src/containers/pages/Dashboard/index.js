@@ -40,7 +40,7 @@ function Main(props) {
         img='bg-main-card-earn-banner'
         video="/dashboard-banner-earn.mp4"
         className="relative ml-[20px] md:ml-0 md:absolute md:left-[calc(50%-450px)] md:top-[250px] z-20 md:z-10"
-        title1="Earn with 15% APY"
+        title1="Earn with 8% APY"
         btnTitle="Earn"
         description={<div><span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Earn</span> on your deposits. Withdraw anytime.</div>}
       />

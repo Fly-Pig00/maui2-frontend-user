@@ -16,7 +16,7 @@ function AgreeWithCheckbox({className, checked, onChange, position='top', align=
       onChange={onChange}
     >
       <div className='text-[12px] md:text-[16px] pt-[4px] md:pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;
-        <Popover
+        {/* <Popover
           containerClassName='z-[999999] pl-[20px]'
           isOpen={isPopoverOpen}
           positions={[position]} // preferred positions by priority
@@ -49,7 +49,7 @@ function AgreeWithCheckbox({className, checked, onChange, position='top', align=
           }
         >
           <span className='underline text-[#745FF2]' onClick={handleClick}>Terms and conditions</span>
-        </Popover>
+        </Popover> */}
       </div>
     </Checkbox>
   )
