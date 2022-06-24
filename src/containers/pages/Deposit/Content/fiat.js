@@ -6,14 +6,15 @@ import { toast } from "react-toastify";
 import transakSDK from "@transak/transak-sdk";
 
 import { appConfig } from '../../../../appConfig';
-import Checkbox from '../../../../components/Form/Checkbox';
 import InputAmount from '../../../../components/Form/InputAmount';
 import SelectCurrency from '../../../../components/Form/SelectCurrency';
 import SelectWallet from '../../../../components/Form/SelectWallet';
 import { unmaskCurrency } from '../../../../utils/masks';
 import Button from '../../../../components/Button';
-import { updateBalance } from '../../../../saga/actions/workflow';
+import AgreeWithCheckbox from '../../../../components/Form/AgreeWithCheckbox';
 import RightBar from './rightbar';
+import { CURRENCY_EUR, HISTORY_DEPOSIT_FIAT } from '../../../../utils/appConstants';
+import { apiHistoryRecord, updateBalance } from '../../../../saga/actions/workflow';
 
 let preventSeveralCalling = false;
 function TabFiat (props) {
@@ -27,15 +28,15 @@ function TabFiat (props) {
 
   const [ isAgreed, setIsAgreed ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(false);
-  const [ selectedFiat, setSelectedFiat ] = useState('USD');
-  const [ selectedFiatWallet, setSelectedFiatWallet ] = useState('USD');
+  const [ selectedFiat, setSelectedFiat ] = useState('EUR');
+  const [ selectedFiatWallet, setSelectedFiatWallet ] = useState('EUR');
 
   const depositFiat = (amount, to) => {
     setIsLoading(true);
     preventSeveralCalling = false;
     let transak = new transakSDK({
       apiKey: appConfig.transakAPIKey, // Your API Key
-      environment: "STAGING", // STAGING/PRODUCTION
+      environment: "PRODUCTION", // STAGING/PRODUCTION
       defaultCryptoCurrency: "UST",
       network: "terra",
       walletAddress: to, // Your customer's wallet address
@@ -57,6 +58,23 @@ function TabFiat (props) {
       setIsLoading(false);
       resetForm();
       props.updateBalance(to);
+      props.apiHistoryRecord({
+        url: '/recordHistory',
+        method: 'POST',
+        data: {
+          type: HISTORY_DEPOSIT_FIAT,
+          terraAddress: props.workflow.terraAddress,
+          mauiAddress: to,
+          currency: CURRENCY_EUR,
+          note: 'PENDING',
+        },
+        success: (res) => {
+          console.log('recordSuccess', res);
+        },
+        fail: (error) => {
+          console.log('recordError', error);
+        }
+      });
       transak.close();
     });
   };
@@ -90,16 +108,16 @@ function TabFiat (props) {
       return false;
     }
     const to = props.workflow.mauiAddress;
-    depositFiat(data.amount, to);
+    depositFiat(unmaskCurrency(data.amount), to);
 		return false;
 	}
   return (
-    <form className='flex p-20 justify-between' onSubmit={handleSubmit(onSubmit)}>
-      <div className='w-[45%]'>
+    <form className='flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between' onSubmit={handleSubmit(onSubmit)}>
+      <div className='w-full md:w-[45%]'>
         <SelectCurrency
           isCrypto={false}
-          className="mt-[10px]"
-          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Select currency and payment method</div>}
+          className="mt-[40px] md:mt-[10px]"
+          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Select currency and payment method</div>}
           selectedSymbol={selectedFiat}
           onChange={handleFiatChange}
         />
@@ -107,18 +125,19 @@ function TabFiat (props) {
         <SelectWallet
           isCrypto={false}
           className="mt-[10px]"
-          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Bank transfer <span className='text-[#888888]'>(reccomended)</span></div>}
+          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Bank transfer <span className='text-[#888888]'>(reccomended)</span></div>}
           selectedSymbol={selectedFiatWallet}
           onChange={handleFiatWalletChange}
         />
         <InputAmount
           name="amount"
           className="mt-[40px]"
-          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Enter amount</div>}
+          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Enter amount</div>}
+          selectedCurrency="EUR"
           hookForm={hookForm}
           validate={validateAmount}
         />
-        <div className='ml-5 mt-[30px]'>
+        {/* <div className='ml-5 mt-[30px]'>
           <div className='flex text-[14px] items-center'>
             <div className='text-[#6B8CFF]'>Fee</div>
             <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>4</div>
@@ -127,24 +146,22 @@ function TabFiat (props) {
             <div className='text-[#6B8CFF]'>You will get</div>
             <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>196</div>
           </div>
-        </div>
-        <Checkbox
-          className="ml-4 mb-3 mt-[30px]"
+        </div> */}
+        <AgreeWithCheckbox
+          className="ml-2 md:ml-4 mb-3 mt-[30px]"
           checked={isAgreed}
           onChange={handleAgreeChange}
-        >
-          <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
-        </Checkbox>
+        />
         <Button
           type="submit"
           isDisabled={!isAgreed}
           isLoading={isLoading}
-          className='bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
+          className='mt-[10px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
         >
           Deposit
         </Button>
       </div>
-      <div className='w-[45%]'>
+      <div className='w-full mt-[10px] md:mt-0 md:w-[45%]'>
         <RightBar isCrypto={false} />
       </div>
     </form>
@@ -157,6 +174,7 @@ export default compose(
       workflow: state.workflow
     }),
     {
+      apiHistoryRecord,
       updateBalance
     }
   )

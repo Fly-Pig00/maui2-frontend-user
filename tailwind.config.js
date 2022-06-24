@@ -12,6 +12,8 @@ module.exports = {
         'header-deposit-btn-dark': 'linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%), rgba(49, 48, 54, 0.3);',
         'header-login-btn-dark': 'linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%);',
         'header-balance': "url('../images/header/balance.svg')",
+        'header-history': "url('../images/header/history.svg')",
+        'header-history-dark': "url('../images/header/history-dark.svg')",
         // splash
         'splash-logo': "url('../images/splash/logo.png')",
         'splash-logo-dark': "url('../images/splash/logo-dark.png')",
@@ -26,6 +28,15 @@ module.exports = {
         'splash-righttop': "url('../images/splash/righttop.png')",
         'splash-righttop-dark': "url('../images/splash/righttop-dark.png')",
         'splash-rightbottom': "url('../images/splash/rightbottom.svg')",
+        // login
+        'login-background': 'radial-gradient(58.43% 103.88% at 56.74% 50%, #DEE2E8 14.58%, #929CEE 63.66%, #E6C8E7 100%);',
+        'login-background-dark': 'linear-gradient(287.56deg, #32283C 8.81%, #3B3054 52.57%, #32283C 100%);',
+        'login-leftbottom': "url('../images/login/leftbottom.png')",
+        'login-middletop': "url('../images/login/middletop.png')",
+        'login-middlemiddle': "url('../images/login/middlemiddle.png')",
+        'login-middlebottom': "url('../images/login/middlebottom.png')",
+        'login-rightbottom': "url('../images/login/rightbottom.png')",
+        'login-righttop': "url('../images/login/righttop.png')",
         // dashboard
         'main-background': "url('../images/dashboard/background.svg')",
         'main-background-dark': "url('../images/dashboard/background-dark.svg')",
@@ -40,10 +51,10 @@ module.exports = {
         'main-card': 'linear-gradient(160.71deg, #EFF0FB 9.07%, #E1DEF1 92.22%)',
         'main-card-dark': 'linear-gradient(160.71deg, #392F40 9.07%, #3E3C4E 92.22%)',
         'main-card-btn': 'linear-gradient(124.08deg, #745FF2 3.96%, #00DDA2 94.96%)',
-        'main-card-earn-banner': "url('../images/dashboard/card-earn-banner.gif')",
-        'main-card-borrow-banner': "url('../images/dashboard/card-borrow-banner.png')",
+        'main-card-earn-banner': "url('../images/dashboard/card-earn-banner.jpg')",
+        'main-card-borrow-banner': "url('../images/dashboard/card-borrow-banner.jpg')",
         'main-card-cards-banner': "url('../images/dashboard/card-cards-banner.png')",
-        'main-card-stocks-banner': "url('../images/dashboard/card-stocks-banner.gif')",        
+        'main-card-stocks-banner': "url('../images/dashboard/card-stocks-banner.jpg')",
         // borrow
         'borrow-left': "url('../images/borrow/left.png')",
         'borrow-righttop': "url('../images/borrow/righttop.png')",
@@ -90,7 +101,7 @@ module.exports = {
         'deposit-card-btn': 'linear-gradient(160.71deg, #745FF2 3.96%, #00DDA2 94.96%)',
         'deposit-arrow-back': "url('../images/deposit/arrow-back.svg')",
         'deposit-crypto-bitcoin': "url('../images/deposit/crypto-bitcoin.png')",
-        'deposit-crypto-saly': "url('../images/deposit/crypto-saly.gif')",
+        'deposit-crypto-saly': "url('../images/deposit/crypto-saly.jpg')",
         'deposit-fiat-saly': "url('../images/deposit/fiat-saly.gif')",
         'deposit-leftbottom': "url('../images/deposit/leftbottom.png')",
         'deposit-transfer-from': "url('../images/deposit/transfer-from.png')",
@@ -98,7 +109,7 @@ module.exports = {
         'deposit-tab-inactive-dark': 'linear-gradient(180deg, #393140 0%, #393141 100%)',
         // earn
         'earn-rightbottom': "url('../images/earn/rightbottom.png')",
-        'earn-banner': "url('../images/earn/banner.gif')",
+        'earn-banner': "url('../images/earn/banner.jpg')",
         'earn-chart': "url('../images/earn/chart.png')",
         'earn-card': 'linear-gradient(107.49deg, rgba(116, 95, 242, 0.05) 9.82%, rgba(116, 95, 242, 0.06) 61.98%);',
         'earn-withdraw-card-btn': 'linear-gradient(160.71deg, #EA6D96 3.96%, #BC81CF 94.96%)',
@@ -111,6 +122,7 @@ module.exports = {
         'common-crypto-mtc': "url('../images/_common/crypto-mtc.svg')",
         'common-crypto-sbu': "url('../images/_common/crypto-sbu.svg')",
         'common-crypto-swrv': "url('../images/_common/crypto-swrv.svg')",
+        'common-crypto-usdt': "url('../images/_common/crypto-usdt.png')",
         'common-fiat-usd': "url('../images/_common/fiat-usd.svg')",
         'common-caret-up': "url('../images/_common/caret-up.svg')",
         'common-caret-up-dark': "url('../images/_common/caret-up-dark.svg')",
@@ -119,6 +131,7 @@ module.exports = {
         'common-transfer-from': "url('../images/_common/transfer-from.svg')",
         'common-wallet-eth': "url('../images/_common/wallet-eth.svg')",
         'common-wallet-tera': "url('../images/_common/wallet-tera.png')",
+        'common-video-play': "url('../images/_common/video-play.png')",
       }),
       boxShadow: {
         // header

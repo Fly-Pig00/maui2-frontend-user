@@ -1,6 +1,6 @@
 {
   "name": "maui2-frontend-user",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^2.4.0",
@@ -25,8 +25,11 @@
     "react": "^17.0.2",
     "react-app-rewired": "^2.1.11",
     "react-confirm-alert": "^2.8.0",
+    "react-data-table-component": "^7.4.7",
+    "react-device-detect": "^2.1.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.2.1",
+    "react-idle-timer": "^4.6.4",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.2.0",
     "react-router-redux": "^5.0.0-alpha.9",
@@ -41,6 +44,7 @@
     "redux-saga": "^1.1.3",
     "stream": "0.0.2",
     "stream-browserify": "^3.0.0",
+    "styled-components": "^5.3.3",
     "tailwindcss": "^3.0.13",
     "text-mask-addons": "^3.7.1",
     "web-vitals": "^2.1.3",

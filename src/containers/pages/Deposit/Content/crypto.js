@@ -5,15 +5,16 @@ import { connect } from 'react-redux';
 import { toast } from "react-toastify";
 import { useWallet } from "@terra-money/wallet-provider";
 
-import Checkbox from '../../../../components/Form/Checkbox';
 import InputAmount from '../../../../components/Form/InputAmount';
 import SelectCurrency from '../../../../components/Form/SelectCurrency';
 import SelectWallet from '../../../../components/Form/SelectWallet';
 import { unmaskCurrency } from '../../../../utils/masks';
 import Button from '../../../../components/Button';
-import { updateBalance } from '../../../../saga/actions/workflow';
 import RightBar from './rightbar';
 import { depositCrypto } from '../../../../utils/wallet';
+import AgreeWithCheckbox from '../../../../components/Form/AgreeWithCheckbox';
+import { apiHistoryRecord, updateBalance } from '../../../../saga/actions/workflow';
+import { CURRENCY_USD, HISTORY_DEPOSIT_CRYPTO } from '../../../../utils/appConstants';
 
 function TabCrypto(props) {  
   const { sign } = useWallet();
@@ -29,11 +30,30 @@ function TabCrypto(props) {
   const [ isLoading, setIsLoading ] = useState(false);
   const [ selectedCrypto, setSelectedCrypto ] = useState('BTC');
   const [ selectedCryptoWallet, setSelectedCryptoWallet ] = useState('BTC');
-  const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
+  // const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
 
-  const deposit = async (amount, from, to) => {
+  const deposit = async (amount, from, to, network) => {
     setIsLoading(true);
-    depositCrypto(amount, from, to, sign, () => {
+    depositCrypto(amount, from, to, network, sign, () => {
+      props.apiHistoryRecord({
+        url: '/recordHistory',
+        method: 'POST',
+        data: {
+          type: HISTORY_DEPOSIT_CRYPTO,
+          terraAddress: from,
+          mauiAddress: to,
+          amount: amount,
+          currency: CURRENCY_USD,
+          network: `${props.workflow.network.name}:${props.workflow.network.chainID}`,
+          note: 'DONE',
+        },
+        success: (res) => {
+          console.log('recordSuccess', res);
+        },
+        fail: (error) => {
+          console.log('recordError', error);
+        }
+      });
       props.updateBalance(to);
       setIsLoading(false);
       resetForm();
@@ -51,9 +71,9 @@ function TabCrypto(props) {
   function handleCryptoWalletChange(symbol) {
     setSelectedCryptoWallet(symbol);
   }
-  function handleCryptoFiatChange(symbol) {
-    setSelectedCryptoFiat(symbol);
-  }
+  // function handleCryptoFiatChange(symbol) {
+  //   setSelectedCryptoFiat(symbol);
+  // }
   function handleAgreeChange(e) {
     setIsAgreed(e.target.checked);
   }
@@ -78,16 +98,17 @@ function TabCrypto(props) {
     }
     const from = props.workflow.terraAddress;
     const to = props.workflow.mauiAddress;
-    deposit(data.amount, from, to);
+    const network = props.workflow.network;
+    deposit(unmaskCurrency(data.amount), from, to, network);
 		return false;
 	}
   return (
-    <form className='flex p-20 justify-between' onSubmit={handleSubmit(onSubmit)}>
-      <div className='w-[45%]'>
+    <form className='flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between' onSubmit={handleSubmit(onSubmit)}>
+      <div className='w-full md:w-[45%]'>
         <SelectCurrency
           isCrypto={true}
-          className="mt-[10px]"
-          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Select crypto you want to <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Deposit</span></div>}
+          className="mt-[40px] md:mt-[10px]"
+          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Select crypto you want to <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Deposit</span></div>}
           selectedSymbol={selectedCrypto}
           onChange={handleCryptoChange}
         />
@@ -95,37 +116,32 @@ function TabCrypto(props) {
         <SelectWallet
           isCrypto={true}
           className="mt-[10px]"
-          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Transfer from</div>}
+          label={<div className='text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Transfer from</div>}
           selectedSymbol={selectedCryptoWallet}
           onChange={handleCryptoWalletChange}
         />
         <InputAmount
           name="amount"
           className="mt-[40px]"
-          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Enter amount</div>}
+          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Enter amount</div>}
           hookForm={hookForm}
           validate={validateAmount}
-          selectedCurrency={selectedCryptoFiat}
-          isCurrencySelectable={true}
-          onCurrencyChange={handleCryptoFiatChange}
         />
-        <Checkbox
-          className="ml-4 mb-3 mt-[30px]"
+        <AgreeWithCheckbox
+          className="ml-2 md:ml-4 mb-3 mt-[30px]"
           checked={isAgreed}
           onChange={handleAgreeChange}
-        >
-          <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
-        </Checkbox>
+        />
         <Button
           type="submit"
           isDisabled={!isAgreed}
           isLoading={isLoading}
-          className='bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
+          className='mt-[10px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
         >
           Deposit
         </Button>
       </div>
-      <div className='w-[45%]'>
+      <div className='w-full mt-[10px] md:mt-0 md:w-[45%]'>
         <RightBar isCrypto={true} />
       </div>
     </form>
@@ -138,6 +154,7 @@ export default compose(
       workflow: state.workflow
     }),
     {
+      apiHistoryRecord,
       updateBalance
     }
   )

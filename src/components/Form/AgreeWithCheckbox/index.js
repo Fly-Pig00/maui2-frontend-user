@@ -1,21 +1,24 @@
-import { useState } from 'react';
-import { Popover } from 'react-tiny-popover';
-import Checkbox from '../Checkbox';
-function AgreeWithCheckbox({className, checked, onChange, position='top', align='start'}) {
+import { useState } from "react";
+import { Popover } from "react-tiny-popover";
+import Checkbox from "../Checkbox";
+function AgreeWithCheckbox({
+  className,
+  checked,
+  onChange,
+  position = "top",
+  align = "start",
+}) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  function handleClick (e) {
-    console.log('here');
+  function handleClick(e) {
+    console.log("here");
     e.stopPropagation();
     e.preventDefault();
     setIsPopoverOpen(!isPopoverOpen);
   }
   return (
-    <Checkbox
-      className={className}
-      checked={checked}
-      onChange={onChange}
-    >
-      <div className='text-[12px] md:text-[16px] pt-[4px] md:pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;
+    <Checkbox className={className} checked={checked} onChange={onChange}>
+      <div className="text-[12px] md:text-[16px] pt-[4px] md:pt-[6px] text-[#000] dark:text-[#FFF]">
+        I Agree with&nbsp;
         {/* <Popover
           containerClassName='z-[999999] pl-[20px]'
           isOpen={isPopoverOpen}
@@ -52,7 +55,7 @@ function AgreeWithCheckbox({className, checked, onChange, position='top', align=
         </Popover> */}
       </div>
     </Checkbox>
-  )
+  );
 }
 
 export default AgreeWithCheckbox;

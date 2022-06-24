@@ -1,54 +1,6 @@
 import React, { useEffect } from 'react';
-import { useHistory } from "react-router-dom";
 import { gsap, Power3 } from 'gsap';
-
-function Card({id, className, img, title1, title2, description, btnTitle, url}) {
-  const history = useHistory();
-  function handleClick(){
-    history.push(url);
-  }
-  return (
-    <div id={id} className={`w-[340px] bg-main-card dark:bg-main-card-dark absolute rounded-[26px] border border-[#FFFFFF68] shadow-main-card dark:shadow-main-card-dark p-[24px] ${className}`}>
-      <div className='text-center'>
-        <span className='font-semibold text-[24px] leading-[36px] text-transparent bg-clip-text bg-gradient-to-r from-[#39C6D9] via-[#B84ADE] to-[#DE1F4D]'>
-          {title1}
-        </span>
-      </div>
-      <div className='text-center'>
-        <span className='font-semibold text-[24px] leading-[36px] text-transparent bg-clip-text bg-gradient-to-r from-[#39C6D9] via-[#B84ADE] to-[#DE1F4D]'>
-          {title2}
-        </span>
-      </div>
-      
-      <div className='mt-[20px] flex items-center justify-evenly'>
-        <div className={`bg-cover bg-center rounded-[22px] ${img}`}/>
-        <div className='w-[38%] text-[14px] leading-[25px] text-[#000000] dark:text-[#EDEDF9] transition-colors duration-1000'>
-          {description}
-        </div>
-      </div>
-      <div className='mt-[20px] w-full'>
-        {id === 'main-card-stocks' &&
-          <button
-            onClick={handleClick}
-            className='bg-gradient-to-r from-[#745FF2] to-[#00DDA2] shadow-main-card-btn rounded-[16px] text-[20px] text-[#F0F5F9] tracking-[3px] p-[2px] w-full'
-          >
-            <div className='bg-[#ffffff] dark:bg-[#32283C] rounded-[16px] text-[#000000] p-2'>
-              <span className='font-semibold text-[20px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>{btnTitle}</span>
-            </div>
-          </button>
-        }
-        {id !== 'main-card-stocks' &&
-          <button
-            onClick={handleClick}
-            className='bg-main-card-btn shadow-main-card-btn rounded-[16px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
-          >
-            {btnTitle}
-          </button>
-        }
-      </div>
-    </div>
-  )
-}
+import Card from './card';
 
 function Main(props) {
   useEffect(() => {
@@ -76,25 +28,28 @@ function Main(props) {
     return function unmount() {}
   }, [props.state]);
   return (
-    <div className='relative bg-main-background dark:bg-main-background-dark bg-center bg-cover w-full min-h-[1200px] transition-all duration-1000'>
-      <div id='main-lefttop' className='bg-main-lefttop dark:bg-main-lefttop-dark bg-center bg-cover absolute top-[210px] left-[10%] w-[464px] h-[260px]'></div>
-      <div id='main-leftbottom' className='bg-main-leftbottom dark:bg-main-leftbottom-dark bg-center bg-cover absolute bottom-0 left-[10%] w-[672px] h-[633px]'></div>
-      <div id='main-righttop' className='bg-main-righttop dark:bg-main-righttop-dark bg-center bg-cover absolute top-[71px] right-[12px] w-[750px] h-[797px]'></div>
-      <div id='main-center' className='bg-main-center dark:bg-main-center-dark bg-center bg-cover absolute left-[calc(50%-280px)] top-[calc(50%-170px)]  w-[550px] h-[450px] z-10 pointer-events-none'></div>
+    <div className='relative w-full min-h-[1200px] pt-[170px] pb-[110px] md:pb-[40px] md:pt-0 bg-main-background dark:bg-main-background-dark bg-center bg-cover transition-all duration-1000'>
+      <div id='main-lefttop' className='absolute top-[100px] right-0 w-[232px] h-[130px] md:top-[210px] md:left-[10%] md:w-[464px] md:h-[260px] bg-main-lefttop dark:bg-main-lefttop-dark bg-center bg-cover'></div>
+      <div id='main-leftbottom' className='absolute top-[40%] right-0 w-[300px] h-[290px] md:bottom-0 md:left-[10%] md:w-[672px] md:h-[633px] bg-main-leftbottom dark:bg-main-leftbottom-dark bg-center bg-cover'></div>
+      <div id='main-righttop' className='absolute bottom-0 right-0 w-[300px] h-[325px] md:top-[71px] md:right-[12px] md:w-[750px] md:h-[797px] bg-main-righttop dark:bg-main-righttop-dark bg-center bg-cover'></div>
+      <div id='main-center' className='absolute left-[-50px] top-[20%] w-[275px] h-[225px] md:left-[calc(50%-280px)] md:top-[calc(50%-170px)] md:w-[550px] md:h-[450px] bg-main-center dark:bg-main-center-dark bg-center bg-cover z-10 pointer-events-none'></div>
+      <span className='absolute top-[100px] w-full text-center block md:hidden font-semibold text-[40px] leading-[48px] tracking-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Dashboard</span>
       <Card
         id='main-card-earn'
         url='/earn'
-        img="bg-main-card-earn-banner w-[117px] h-[168px] shadow-main-card-banner"
-        className="left-[calc(50%-450px)] top-[250px]"
-        title1="Earn with 15% APY"
+        img='bg-main-card-earn-banner'
+        video="/dashboard-banner-earn.mp4"
+        className="relative ml-[20px] md:ml-0 md:absolute md:left-[calc(50%-450px)] md:top-[250px] z-20 md:z-10"
+        title1="Earn with 8% APY"
         btnTitle="Earn"
         description={<div><span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Earn</span> on your deposits. Withdraw anytime.</div>}
       />
       <Card
         id='main-card-borrow'
         url='/borrow'
-        img="bg-main-card-borrow-banner w-[160px] h-[133px]"
-        className="right-[calc(50%-450px)] top-[320px]"
+        img='bg-main-card-borrow-banner'
+        video="/dashboard-banner-borrow.mp4"
+        className="relative ml-[calc(100%-300px)] md:ml-0 mt-[30px] md:mt-0 md:absolute md:right-[calc(50%-450px)] md:top-[320px]"
         title1="Borrow instantly"
         title2="Loan repays itself"
         btnTitle="Borrow"
@@ -103,8 +58,8 @@ function Main(props) {
       <Card
         id='main-card-cards'
         url='/cards'
-        img="bg-main-card-cards-banner w-[168px] h-[246px]"
-        className="left-[calc(50%-450px)] top-[650px]"
+        img="bg-main-card-cards-banner w-[123px] md:w-[168px] h-[180px] md:h-[246px]"
+        className="relative ml-[20px] md:ml-0 mt-[30px] md:mt-0 md:absolute md:left-[calc(50%-450px)] md:top-[650px]"
         title1="No Fees. Crypto"
         title2="Mastercards"
         btnTitle="Cards"
@@ -113,8 +68,9 @@ function Main(props) {
       <Card
         id='main-card-stocks'
         url='/stocks'
-        img="bg-main-card-stocks-banner w-[146px] h-[143px]"
-        className="right-[calc(50%-450px)] top-[720px] z-20"
+        img='bg-main-card-stocks-banner'
+        video="/dashboard-banner-stocks.mp4"
+        className="relative ml-[calc(100%-300px)] mb-[70px] md:mb-0 md:ml-0 mt-[30px] md:mt-0 md:absolute md:right-[calc(50%-450px)] md:top-[720px] z-20"
         title1="Neutral strategy"
         btnTitle="Stocks"
         description={<div><span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Delta Neutral</span><br/>Strategy with one click.</div>}

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import Toggle from '../Toggle';
+import React, { useEffect, useState } from "react";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import Toggle from "../Toggle";
 import { updateNetwork, updateBalance } from "../../saga/actions/workflow";
 
-function NetworkSwitch(props) { 
-  const [label, setLabel] = useState('TestNet');
+function NetworkSwitch(props) {
+  const [label, setLabel] = useState("TestNet");
   const network = props.workflow?.network;
   useEffect(() => {
     if (network) {
-      setLabel(network.name === 'testnet' ? 'TestNet': 'MainNet');
+      setLabel(network.name === "testnet" ? "TestNet" : "MainNet");
     }
   }, [network]);
   const handleCheckChange = (e) => {
@@ -30,24 +30,29 @@ function NetworkSwitch(props) {
         walletconnectID: 1,
       });
     }
-    if (props.workflow.mauiAddress){
+    if (props.workflow.mauiAddress) {
       props.updateBalance(props.workflow.mauiAddress);
     }
-  }
+  };
 
   return (
-    <Toggle id="testnet" label={label} defaultChecked={false} handleCheckChange={handleCheckChange}/>
-  )
+    <Toggle
+      id="testnet"
+      label={label}
+      defaultChecked={false}
+      handleCheckChange={handleCheckChange}
+    />
+  );
 }
 
 export default compose(
   connect(
-    state => ({
-      workflow: state.workflow
+    (state) => ({
+      workflow: state.workflow,
     }),
     {
       updateBalance,
-      updateNetwork
+      updateNetwork,
     }
   )
 )(NetworkSwitch);

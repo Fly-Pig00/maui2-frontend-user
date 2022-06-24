@@ -7,13 +7,21 @@
  import { handleActions } from 'redux-actions';
  import { WorkflowConstants } from '../constants/workflowConstants';
  import { requestPending, requestSuccess, requestFail } from '../../utils/fetch';
-import { actionChannel } from 'redux-saga/effects';
+// import { actionChannel } from 'redux-saga/effects';
  
  const initialState = {
    balance: 0,
    mauiAddress: null, 
    terraAddress: null,
    isLogged: false,
+   network: {
+    chainID: "bombay-12",
+    lcd: "https://bombay-lcd.terra.dev",
+    mantle: "https://bombay-mantle.terra.dev",
+    name: "testnet",
+    walletconnectID: 0,
+   },
+   isUpdatingBalance: false,
  };
  
  export default handleActions({
@@ -40,6 +48,7 @@ import { actionChannel } from 'redux-saga/effects';
      isLoading: false,
    }),
    [requestSuccess(WorkflowConstants.SIGNOUT_ACTION)]: state => ({
+     ...state,
      balance: 0,
      isLogged: false,
      mauiAddress: null,
@@ -49,5 +58,21 @@ import { actionChannel } from 'redux-saga/effects';
      ...state,
      balance: action.payload,
    }),
+   [requestSuccess(WorkflowConstants.UPDATENETWORK_ACTION)]: (state, action) => ({
+     ...state,
+     network: action.payload,
+   }),
+   [requestFail(WorkflowConstants.UPDATENETWORK_ACTION)]: (state, action) => ({
+     ...state,
+     network: null,
+   }),
+   [`${WorkflowConstants.UPDATEBALANCE_ACTION}_DOING`]: (state) => ({
+     ...state,
+     isUpdatingBalance: true,
+   }),
+   [`${WorkflowConstants.UPDATEBALANCE_ACTION}_DONE`]: (state) => ({
+    ...state,
+    isUpdatingBalance: false,
+  }),
  }, initialState);
  

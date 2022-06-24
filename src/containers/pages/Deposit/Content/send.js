@@ -3,12 +3,13 @@ import { useForm } from "react-hook-form";
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { toast } from "react-toastify";
-import Checkbox from '../../../../components/Form/Checkbox';
 import Input from '../../../../components/Form/Input';
 import InputAmount from '../../../../components/Form/InputAmount';
 import { unmaskCurrency } from '../../../../utils/masks';
 import Button from '../../../../components/Button';
-import { updateBalance, apiDepositSend } from '../../../../saga/actions/workflow';
+import AgreeWithCheckbox from '../../../../components/Form/AgreeWithCheckbox';
+import { updateBalance, apiDepositSend, apiHistoryRecord } from '../../../../saga/actions/workflow';
+import { CURRENCY_USD, HISTORY_DEPOSIT_SEND } from '../../../../utils/appConstants';
 
 function TabSend (props) {
   // get functions to build form with useForm() hook
@@ -33,11 +34,31 @@ function TabSend (props) {
         amount: amount,
         recipient: recipient,
         memo: memo,
+        network: props.workflow.network
       },
       success: (response) => {
         setIsLoading(false);
         resetForm();
         props.updateBalance(to);
+        props.apiHistoryRecord({
+          url: '/recordHistory',
+          method: 'POST',
+          data: {
+            type: HISTORY_DEPOSIT_SEND,
+            terraAddress: recipient,
+            mauiAddress: to,
+            amount: amount,
+            currency: CURRENCY_USD,
+            network: `${props.workflow.network.name}:${props.workflow.network.chainID}`,
+            note: 'DONE',
+          },
+          success: (res) => {
+            console.log('recordSuccess', res);
+          },
+          fail: (error) => {
+            console.log('recordError', error);
+          }
+        });
         toast.success("Transaction success");
       },
       fail: (error) => {
@@ -76,23 +97,23 @@ function TabSend (props) {
       return false;
     }
     const to = props.workflow.mauiAddress;
-    depositSend(data.amount, data.recipient, data.memo, to);
+    depositSend(unmaskCurrency(data.amount), data.recipient, data.memo, to);
 		return false;
 	}
   return (
-    <form className='flex p-20 justify-between' onSubmit={handleSubmit(onSubmit)}>
-      <div className='w-[60%] m-auto'>
+    <form className='flex p-10 md:p-20 justify-between' onSubmit={handleSubmit(onSubmit)}>
+      <div className='w-full md:w-[60%] m-auto'>
         <Input
           name="recipient"
-          className="mt-[40px]"
-          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Recipient</div>}
+          className="mt-[60px] md:mt-[40px]"
+          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Recipient</div>}
           hookForm={hookForm}
           registerOptions={{required: 'This field is required.'}}
         />
         <InputAmount
           name="amount"
           className="mt-[40px]"
-          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>How much would you like to <span className='font-bold text-[#FF1C1C]'>Send</span>?</div>}
+          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>How much would you like to <span className='font-bold text-[#FF1C1C]'>Send</span>?</div>}
           hookForm={hookForm}
           validate={validateAmount}
           selectedCurrency={selectedFiat}
@@ -102,10 +123,10 @@ function TabSend (props) {
         <Input
           name="memo"
           className="mt-[40px]"
-          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[16px] transition-all duration-1000'>Memo <span className='text-[#888]'>(optional)</span></div>}
+          label={<div className='ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000'>Memo <span className='text-[#888]'>(optional)</span></div>}
           hookForm={hookForm}
         />
-        <div className='ml-5 mt-[30px]'>
+        {/* <div className='ml-5 mt-[30px]'>
           <div className='flex text-[14px] items-center'>
             <div className='text-[#6B8CFF]'>Fee</div>
             <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>4</div>
@@ -118,19 +139,17 @@ function TabSend (props) {
             <div className='text-[#6B8CFF]'>Balance after Tax</div>
             <div className='ml-[10px] text-black dark:text-white text-[16px] font-semibold'>3,545.635.48</div>
           </div>
-        </div>
-        <Checkbox
-          className="ml-4 mb-3 mt-[30px]"
+        </div> */}
+        <AgreeWithCheckbox
+          className="ml-2 md:ml-4 mb-3 mt-[30px]"
           checked={isAgreed}
           onChange={handleAgreeChange}
-        >
-          <div className='text-[16px] pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;<span className='underline text-[#745FF2]'>Terms and conditions</span></div>
-        </Checkbox>
+        />
         <Button
           type="submit"
           isDisabled={!isAgreed}
           isLoading={isLoading}
-          className='bg-earn-withdraw-card-btn shadow-main-card-btn rounded-[26px] text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
+          className='mt-[10px] bg-earn-withdraw-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full'
         >
           Send
         </Button>
@@ -146,6 +165,7 @@ export default compose(
     }),
     {
       apiDepositSend,
+      apiHistoryRecord,
       updateBalance
     }
   )
