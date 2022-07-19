@@ -38,3 +38,4 @@ awsconfiguration.json
 firebase.json
 .firebase
 /firebase-debug.log
+package-lock.json
