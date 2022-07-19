@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 function Splash() {
   let history = useHistory();
   function handleClick(){
-    history.push('/dashboard');
+    history.push('/introdashboard');
   }
   return (
     <div className='fixed w-full h-screen cursor-pointer' onClick={handleClick}>

@@ -14,6 +14,9 @@ module.exports = {
         'header-balance': "url('../images/header/balance.svg')",
         'header-history': "url('../images/header/history.svg')",
         'header-history-dark': "url('../images/header/history-dark.svg')",
+        //intro header
+        "introheader-logoimage": "url('../images/_intro/introheader/logoimage.png')",
+        "introheader-mobiletab": "url('../images/_intro/introheader/mobiletab.png')",
         // splash
         'splash-logo': "url('../images/splash/logo.png')",
         'splash-logo-dark': "url('../images/splash/logo-dark.png')",
