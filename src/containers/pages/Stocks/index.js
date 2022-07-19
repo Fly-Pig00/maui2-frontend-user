@@ -48,7 +48,7 @@ function Stocks() {
           <div className='ml-[-10px] md:ml-[-100px] relative'>
             <div className='bg-stocks-tooltip dark:bg-stocks-tooltip-dark bg-center bg-cover w-[360px] h-[112px] md:w-[1100px] md:h-[350px]'></div>
             <div className='absolute top-[10px] md:top-[30px] w-full left-[10px] md:left-[40px] flex items-center dark:text-[#F9D3B4] text-[#273855] text-[8px] md:text-[12px] transition-all duration-1000'>
-              <div className='w-[40px] md:w-[200px]'>Ticker</div>
+              <div className='w-[40px] md:w-[200px]'>Ticker1</div>
               <div className='w-[70px] md:w-[130px]'>Terraswap Price</div>
               <div className='w-[60px] md:w-[130px]'>Oracle Price</div>
               <div className='w-[50px] md:w-[130px]'>Premium</div>
