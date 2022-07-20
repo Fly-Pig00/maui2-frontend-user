@@ -195,7 +195,7 @@ function IntroHeader(props) {
     return null;
 
   return (
-    <div className="fixed top-0 w-full h-[56px] md:h-[82px] md:top-[6.31vh] bg-[#061121] z-30">
+    <div className="fixed md:absolute top-0 w-full h-[56px] md:h-[82px] md:top-[6.31vh] bg-[#061121] z-30">
       <div className="px-[31px] py-[1px] md:px-[14.62%] md:py-[21px] flex items-center justify-between">
         <Logo pathname={location.pathname} />
         <NavBar tabs={MENU} pathname={location.pathname} />

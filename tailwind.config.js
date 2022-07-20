@@ -21,6 +21,17 @@ module.exports = {
         //intro dashboard
         "introdashboard-logoimage":"url('../images/_intro/introdashboard/logo.png')",
         "introdashboard-fullscreenimage":"url('../images/_intro/introdashboard/ep_full-screen.png')",
+        "introdashboard-starimage":"url('../images/_intro/introdashboard/stars.png')",
+        "introdashboard-iphonecut":"url('../images/_intro/introdashboard/iPhone_cut.png')",
+        "introdashboard-fullphone":"url('../images/_intro/introdashboard/iPhone-13-Pro-Front.png')",
+        "introdashboard-iPhone-2":"url('../images/_intro/introdashboard/iPhone-2.png')",
+        "introdashboard-phone-photo":"url('../images/_intro/introdashboard/phone-photo.png')",
+        "introdashboard-arrow":"url('../images/_intro/introdashboard/arrow.png')",
+        "introdashboard-linegroup":"url('../images/_intro/introdashboard/linegroup.png')",
+        "introdashboard-earn-back":"url('../images/_intro/introdashboard/earn_title.png')",
+        "introdashboard-borrow-back":"url('../images/_intro/introdashboard/BORROW.png')",
+        "introdashboard-card":"url('../images/_intro/introdashboard/card.png')",
+        "introdashboard-maccom":"url('../images/_intro/introdashboard/MacStudio.png')",
         // splash
         'splash-logo': "url('../images/splash/logo.png')",
         'splash-logo-dark': "url('../images/splash/logo-dark.png')",
