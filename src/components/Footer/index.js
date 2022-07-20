@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
+import useWindowSize from "../../utils/useWindowSize";
 
 function Footer(props) {
   const { location } = props;
   const history = useHistory();
 
+  const [isMobile, setIsMobile] = useState(false);
   const [mouseEntered, setMouseEntered] = useState(false);
+
+  const size = useWindowSize();
+
+  useEffect(() => {
+    if (size.width < 768) setIsMobile(true);
+    else setIsMobile(false);
+  }, [size]);
   const handlePrivacyClick = () => {
     history.push("/privacy");
   };
@@ -15,70 +24,83 @@ function Footer(props) {
   if (location.pathname === "/splash" || location.pathname === "/login")
     return null;
   return (
-    <div className="relative md:w-full md:h-[818px] bg-[#001535]">
-      <div className="md:px-[14.62%] md:pt-[160px] text-[32px] text-[#FFFFFF] font-[500] leading-[38px]">
+    <div className="relative h-[655px] md:w-full md:h-[818px] bg-[#001535]">
+      <div className="pt-[49px] px-[31px] text-[24px] leading-[29px] md:px-[14.62%] md:pt-[160px] md:text-[32px] text-[#FFFFFF] font-[500] md:leading-[38px]">
         Get updates on Maui Finance
       </div>
       <div
-        className={`md:mt-[26px] md:mx-[14.62%] ${
-          mouseEntered ? "md:h-[79px]" : "md:h-[59px]"
+        className={`mt-[24px] mx-[31px] md:mt-[26px] md:mx-[14.62%] ${
+          mouseEntered ? "h-[53px] md:h-[79px]" : "h-[43px] md:h-[59px]"
         } flex items-center transition-all duration-1000`}
         onMouseEnter={() => setMouseEntered(true)}
         onMouseLeave={() => setMouseEntered(false)}
       >
         <input
-          className="md:w-[76.92%] h-[59px] md:pl-[19px] bg-transparent md:border-l-[1px] md:border-t-[1px] md:border-b-[1px] text-[16px] text-[#FFFFFF]"
+          className="w-[65%] text-[14px] md:w-[76.92%] h-[43px] pl-[13px] md:h-[59px] md:pl-[19px] bg-transparent border-l-[1px] border-t-[1px] border-b-[1px] md:text-[16px] text-[#FFFFFF]"
           placeholder="Enter your email address"
         />
         <div
-          className={`md:w-[23.08%] h-full leading-[33px] text-[28px] font-[400] flex items-center justify-center ${
+          className={`w-[35%] text-[20px] md:w-[23.08%] h-full leading-[33px] md:text-[28px] font-[500] flex items-center justify-center ${
             mouseEntered ? "bg-[#1199FA]" : "bg-[#FFFFFF]"
           } cursor-pointer transition-all duration-1000`}
         >
           Subscribe
         </div>
       </div>
-      <div className="absolute md:left-[42.3%] md:top-[350px] md:w-[39%] flex justify-between">
+      <div
+        className={`relative mt-[46px] px-[31px] md:absolute md:mt-0 md:left-[42.3%] md:px-0 md:top-[350px] md:w-[39%] flex justify-between`}
+      >
         <div className="">
-          <div className="md:mb-[13.9px] leading-[33px] text-[28px] text-[#FFFFFF] font-[500]">
+          <div className="mb-[10px] leading-[29px] text-[24px] font-[600] md:mb-[13.9px] md:leading-[33px] md:text-[28px] text-[#FFFFFF] md:font-[500]">
             Quick Links
           </div>
-          <div className="text-[24px] text-[#707070] font-[300] leading-[29px]">
+          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introdashboard")}>
             Maui
           </div>
-          <div className="text-[24px] text-[#707070] font-[300] leading-[29px]">
+          {isMobile && (
+            <>
+              <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introearn")}>
+                Earn
+              </div>
+              <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introborrow")}>
+                Borrow
+              </div>
+            </>
+          )}
+          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introcards")}>
             Cards
           </div>
-          <div className="text-[24px] text-[#707070] font-[300] leading-[29px]">
+          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/dashboard")}>
             Start now
           </div>
         </div>
         <div className="">
-          <div className="md:mb-[13.9px] leading-[33px] text-[28px] text-[#FFFFFF] font-[500]">
+          <div className="mb-[10px] leading-[29px] text-[24px] font-[600] md:mb-[13.9px] md:leading-[33px] md:text-[28px] text-[#FFFFFF] md:font-[500]">
             Developers
           </div>
-          <div className="text-[24px] text-[#707070] font-[300] leading-[29px]">
+          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introteam")}>
             Team
           </div>
         </div>
-        <div className="">
-          <div className="md:mb-[13.9px] leading-[33px] text-[28px] text-[#FFFFFF] font-[500]">
-            Learn
+        {!isMobile && (
+          <div className="">
+            <div className="md:mb-[13.9px] leading-[33px] text-[28px] text-[#FFFFFF] font-[500]">
+              Learn
+            </div>
+            <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introearn")}>
+              Earn
+            </div>
+            <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introborrow")}>
+              Borrow
+            </div>
           </div>
-          <div className="text-[24px] text-[#707070] font-[300] leading-[29px]">
-            Earn
-          </div>
-          <div className="text-[24px] text-[#707070] font-[300] leading-[29px]">
-            Borrow
-          </div>
-        </div>
+        )}
       </div>
-      <div className="absolute flex flex-col md:flex-row items-center justify-between w-[360px] md:w-[65.22%] bottom-[104px] left-[calc(50%-180px)] md:left-[17.39%]">
-        <div className="mb-[5px] text-[12px] md:text-[14px] dark:text-[#F9D3B4] text-[#ffffff70]">
-          Copyright © 2022 Maui Finance. All rights reserved. Privacy Policy
-          Terms and Conditions Legal
+      <div className="absolute flex flex-col bottom-[36px] w-full md:flex-row items-center justify-between w-[360px] md:w-[65.22%] md:bottom-[104px] px-[31px] md:left-[17.39%]">
+        <div className="text-[10px] mb-[16px] md:mb-[5px] md:text-[14px] dark:text-[#F9D3B4] text-[#ffffff70] text-center">
+          Copyright © 2022 Maui Finance. All rights reserved. 
         </div>
-        <div className="mb-[5px] flex items-center text-[12px] md:text-[14px] dark:text-[#F9D3B4] text-[#ffffff70]">
+        <div className="mb-[5px] flex flex-wrap  items-center text-[12px] md:text-[14px] dark:text-[#F9D3B4] text-[#ffffff70]">
           <span
             onClick={handlePrivacyClick}
             className="cursor-pointer mr-[2px] pr-[2px]"
@@ -89,7 +111,7 @@ function Footer(props) {
             onClick={handleTermsClick}
             className="cursor-pointer mr-[2px] pr-[2px]"
           >
-            Terms and Conditions /
+            Terms and Conditions / 
           </span>
           <span onClick={handleTermsClick} className="cursor-pointer">
             Legal

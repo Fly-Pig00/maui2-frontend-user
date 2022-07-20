@@ -17,6 +17,10 @@ module.exports = {
         //intro header
         "introheader-logoimage": "url('../images/_intro/introheader/logoimage.png')",
         "introheader-mobiletab": "url('../images/_intro/introheader/mobiletab.png')",
+        "introheader-mobilemenuclose": "url('../images/_intro/introheader/mobilemenuclose.png')",
+        //intro dashboard
+        "introdashboard-logoimage":"url('../images/_intro/introdashboard/logo.png')",
+        "introdashboard-fullscreenimage":"url('../images/_intro/introdashboard/ep_full-screen.png')",
         // splash
         'splash-logo': "url('../images/splash/logo.png')",
         'splash-logo-dark': "url('../images/splash/logo-dark.png')",
