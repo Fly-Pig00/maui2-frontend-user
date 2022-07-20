@@ -32,6 +32,7 @@ module.exports = {
         "introdashboard-borrow-back":"url('../images/_intro/introdashboard/BORROW.png')",
         "introdashboard-card":"url('../images/_intro/introdashboard/card.png')",
         "introdashboard-maccom":"url('../images/_intro/introdashboard/MacStudio.png')",
+        "introdashboard-phone-photo-mobile":"url('../images/_intro/introdashboard/phone-photo-mobile.png')",
         // splash
         'splash-logo': "url('../images/splash/logo.png')",
         'splash-logo-dark': "url('../images/splash/logo-dark.png')",
