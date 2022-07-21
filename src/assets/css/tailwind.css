@@ -54,6 +54,7 @@
   transition: opacity 1000ms ease-out;
 }
 
+
 .transition-fade-enter {
   opacity: 0;
 }

@@ -58,7 +58,11 @@ const NavBar = withRouter((props) => {
   }, [size]);
 
   useEffect(() => {
-    if (props.location.pathname === "/introdashboard") setCurrentSelected(5);
+    let navIndex = MENU.map(
+      (menu) => menu.url === props.location.pathname
+    ).indexOf(true);
+    if (navIndex > -1) setCurrentSelected(navIndex);
+    else setCurrentSelected(5);
   }, [props.location]);
 
   const handleClick = (dest) => {
