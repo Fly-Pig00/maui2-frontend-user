@@ -6,7 +6,6 @@ import _ from "lodash";
 
 import { signOut, updateBalance } from "../../saga/actions/workflow";
 import useWindowSize from "../../utils/useWindowSize";
-import { isMobile } from "react-device-detect";
 
 const MENU = [
   { title: "Earn", url: "/introearn" },
@@ -18,6 +17,7 @@ const MENU = [
 function Logo(props) {
   let history = useHistory();
   const handleClick = () => {
+    props.closeMobileMenu();
     if (props.pathname !== "/introdashboard") {
       history.push("/introdashboard");
     }
@@ -82,37 +82,43 @@ const NavBar = withRouter((props) => {
   if (isMobile)
     return (
       <>
-        <div
-          className={`w-[56px] h-[54px] ${
-            mobileMenuOpen
-              ? "bg-introheader-mobilemenuclose"
-              : "bg-introheader-mobiletab"
-          } bg-cover bg-center transition-all duration-500`}
-          onClick={handleMobileMenu}
-        ></div>
-        {mobileMenuOpen && (
-          <MobileNavBar tabs={MENU} closeMobileMenu={closeMobileMenu} />
-        )}
+        <div className="px-[31px] py-[1px] md:px-[14.62%] md:py-[21px] flex items-center justify-between">
+          <Logo pathname={props.pathname} closeMobileMenu={closeMobileMenu} />
+          <div
+            className={`w-[56px] h-[54px] ${
+              mobileMenuOpen
+                ? "bg-introheader-mobilemenuclose"
+                : "bg-introheader-mobiletab"
+            } bg-cover bg-center transition-all duration-500`}
+            onClick={handleMobileMenu}
+          ></div>
+          {mobileMenuOpen && (
+            <MobileNavBar tabs={MENU} closeMobileMenu={closeMobileMenu} />
+          )}
+        </div>
       </>
     );
   return (
-    <div className="min-w-[400px] w-[46.82%] h-[40px] flex items-center justify-between">
-      {_.map(props.tabs, (tab, index) => {
-        return (
-          <NavItem
-            key={index}
-            newIndex={index}
-            title={props.tabs[index].title}
-            handleClick={handleClick}
-            isSelected={index === currentSelected}
-          />
-        );
-      })}
-      <div
-        className="w-[120px] h-[30px] bg-[#1199FA] rounded-[18px] flex justify-center items-center text-[#FFFFFF] text-[16px] cursor-pointer"
-        onClick={() => history.push("/dashboard")}
-      >
-        Start Now
+    <div className="px-[31px] py-[1px] md:px-[14.62%] md:py-[21px] flex items-center justify-between">
+      <Logo pathname={props.pathname} closeMobileMenu={closeMobileMenu} />
+      <div className="min-w-[400px] w-[46.82%] h-[40px] flex items-center justify-between">
+        {_.map(props.tabs, (tab, index) => {
+          return (
+            <NavItem
+              key={index}
+              newIndex={index}
+              title={props.tabs[index].title}
+              handleClick={handleClick}
+              isSelected={index === currentSelected}
+            />
+          );
+        })}
+        <div
+          className="w-[120px] h-[30px] bg-[#1199FA] rounded-[18px] flex justify-center items-center text-[#FFFFFF] text-[16px] cursor-pointer"
+          onClick={() => history.push("/dashboard")}
+        >
+          Start Now
+        </div>
       </div>
     </div>
   );
@@ -200,10 +206,7 @@ function IntroHeader(props) {
 
   return (
     <div className="fixed md:absolute top-0 w-full h-[56px] md:h-[82px] md:top-[6.31vh] bg-[#061121] z-30">
-      <div className="px-[31px] py-[1px] md:px-[14.62%] md:py-[21px] flex items-center justify-between">
-        <Logo pathname={location.pathname} />
-        <NavBar tabs={MENU} pathname={location.pathname} />
-      </div>
+      <NavBar tabs={MENU} pathname={location.pathname} />
     </div>
   );
 }

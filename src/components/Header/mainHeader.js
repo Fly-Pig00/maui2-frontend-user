@@ -22,8 +22,8 @@ function Logo(props) {
   let history = useHistory();
   const strDate = moment().format('dddd, D MMMM, YYYY');
   const handleClick = () => {
-    if (props.pathname !== '/dashboard') {
-      history.push('/dashboard');
+    if (props.pathname !== '/introdashboard') {
+      history.push('/introdashboard');
     }
   }
   return (

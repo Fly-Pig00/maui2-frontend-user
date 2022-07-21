@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import useWindowSize from "../../../../utils/useWindowSize";
 
 function IntroEarn() {
-  let history = useHistory();
   const size = useWindowSize();
 
   const [isMobile, setIsMobile] = useState(false);
   const [isExplore, setIsExplore] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    document.body.style.overflow = "hidden"
     return () => (document.body.style.overflow = "auto");
   }, []);
 

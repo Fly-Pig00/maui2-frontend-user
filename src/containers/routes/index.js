@@ -3,6 +3,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Splash from '../pages/Splash';
 import IntroDashBoard from '../pages/_intro/IntroDashBoard';
 import IntroEarn from '../pages/_intro/introEarn';
+import IntroBorrow from '../pages/_intro/introBorrow';
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
 import Earn from '../pages/Earn';
@@ -28,7 +29,7 @@ const Routes = withRouter(({ location }) => {
               <Route path="/splash" component={Splash}/>
               <Route path="/introdashboard" component={IntroDashBoard}/>
               <Route path="/introearn" component={IntroEarn}/>
-              <Route path="/introborrow" component={IntroDashBoard}/>
+              <Route path="/introborrow" component={IntroBorrow}/>
               <Route path="/introcards" component={IntroDashBoard}/>
               <Route path="/introteam" component={IntroDashBoard}/>
               <Route path="/login" component={Login}/>

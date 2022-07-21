@@ -9,6 +9,10 @@ function IntroDashBoard() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (size.width <= 768) setIsMobile(true);
     else setIsMobile(false);
   }, [size]);
@@ -234,9 +238,10 @@ function IntroDashBoard() {
         )}
         <div className="relative mt-[150px] md:mt-[50vh] mx-auto w-[90%] md:w-[70%] h-[40vh] md:h-[60vh]">
           <div className="text-[40px] md:text-[80px] leading-[48px] md:leading-[116px] font-[600] text-[#FFF]">
-            <span className="text-[#1199FA] md:text-[#FFF]">B</span>e part of Maui{" "}
-            {isMobile && <br />}
-            <span className="text-[#1199FA] md:text-[#FFF]">B</span>anking {isMobile && <br />}{" "}
+            <span className="text-[#1199FA] md:text-[#FFF]">B</span>e part of
+            Maui {isMobile && <br />}
+            <span className="text-[#1199FA] md:text-[#FFF]">B</span>anking{" "}
+            {isMobile && <br />}{" "}
             <span className="text-[#1199FA] md:text-[#FFF]">R</span>evolution.
           </div>
           <div className="w-[45%] mt-[20px] text-[#FFF] text-[14px] md:text-[20px] leading-[17px] md:leading-[24px] md:font-[400]">
@@ -254,7 +259,10 @@ function IntroDashBoard() {
         </div>
         {isMobile && (
           <div className="mt-[40px] flex justify-center">
-            <div className="bg-[#1199FA] text-[#FFF] py-[17px] px-[87px] rounded-[10px] text-[18px] leading-[21px] font-[600]" onClick={()=>history.push("/dashboard")}>
+            <div
+              className="bg-[#1199FA] text-[#FFF] py-[17px] px-[87px] rounded-[10px] text-[18px] leading-[21px] font-[600]"
+              onClick={() => history.push("/dashboard")}
+            >
               Start Now
             </div>
           </div>
