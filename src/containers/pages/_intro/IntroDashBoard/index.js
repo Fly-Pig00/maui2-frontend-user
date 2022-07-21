@@ -129,7 +129,7 @@ function IntroDashBoard() {
             <div className="bg-introdashboard-arrow bg-cover bg-center w-[30px] md:w-[49px] h-[10px] md:h-[15px]"></div>
           </div>
         )}
-        <div className="bg-introdashboard-linegroup bg-cover bg-center w-[100vw] h-[calc(100vw*313/1512)]"></div>
+        <div className="bg-introdashboard-linegroup bg-cover bg-center w-[100%] h-[calc(100vw*313/1512)]"></div>
         <div className="flex flex-col md:flex-row items-center mt-[90px] md:mx-auto md:bg-introdashboard-borrow-back md:bg-contain md:bg-no-repeat md:bg-center md:w-[80%] md:h-[25vh]">
           {isMobile && (
             <div className="text-[74px] leading-[88px] font-[600] text-[#1199FA] mb-[30px]">
@@ -187,7 +187,7 @@ function IntroDashBoard() {
             <div className="bg-introdashboard-arrow bg-cover bg-center w-[30px] md:w-[49px] h-[10px] md:h-[15px]"></div>
           </div>
         )}
-        <div className="flex items-center justify-center bg-introdashboard-phone-photo-mobile md:bg-introdashboard-phone-photo bg-cover bg-center w-[100vw] h-[calc(100vw*660/390)] md:h-[calc(100vw*1154/1512)]">
+        <div className="flex items-center justify-center bg-introdashboard-phone-photo-mobile md:bg-introdashboard-phone-photo bg-cover bg-center w-[100%] h-[calc(100vw*660/390)] md:h-[calc(100vw*1154/1512)]">
           <div className="w-[55%] md:w-[45%] md:mx-auto text-[#FFF] text-[32px] md:text-[64px] md:leading-[110px] font-[600] drop-shadow-[0_4px_26px_rgba(0,0,0,0.25)] text-center">
             {!isMobile && (
               <>
