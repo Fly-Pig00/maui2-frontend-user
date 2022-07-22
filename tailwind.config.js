@@ -52,6 +52,13 @@ module.exports = {
         "introborrow-switchcolor":"url('../images/_intro/introborrow/switchcolor.png')",
         'introborrow-calculate-gradient': 'linear-gradient(124.08deg, #745FF2 3.96%, #00DDA2 94.96%)',
         "introborrow-chart":"url('../images/_intro/introborrow/chart.png')",
+        //intro cards
+        "introborrow-card4":"url('../images/_intro/introcards/card4.png')",
+        "introborrow-card1":"url('../images/_intro/introcards/card1.png')",
+        "introborrow-ivancard":"url('../images/_intro/introcards/ivancard.png')",
+        "introborrow-maccom":"url('../images/_intro/introcards/maccom.png')",
+        "introborrow-iPhone":"url('../images/_intro/introcards/iPhone.png')",
+        "introborrow-comimage":"url('../images/_intro/introcards/comimage.png')",
         // splash
         'splash-logo': "url('../images/splash/logo.png')",
         'splash-logo-dark': "url('../images/splash/logo-dark.png')",
