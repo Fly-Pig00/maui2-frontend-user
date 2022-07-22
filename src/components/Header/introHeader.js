@@ -67,7 +67,8 @@ const NavBar = withRouter((props) => {
 
   const handleClick = (dest) => {
     setCurrentSelected(dest);
-    history.push(props.tabs[dest].url);
+    if (props.location.pathname !== props.tabs[dest].url)
+      history.push(props.tabs[dest].url);
   };
 
   const handleMobileMenu = () => {
@@ -142,13 +143,6 @@ function MobileNavItem(props) {
 const MobileNavBar = withRouter((props) => {
   let history = useHistory();
   const [currentSelected, setCurrentSelected] = useState(5);
-  const [isMobile, setIsMobile] = useState(false);
-  const size = useWindowSize();
-
-  useEffect(() => {
-    if (size.width <= 768) setIsMobile(true);
-    else setIsMobile(false);
-  }, [size]);
 
   useEffect(() => {
     if (props.location.pathname === "/introdashboard") setCurrentSelected(5);
@@ -157,6 +151,7 @@ const MobileNavBar = withRouter((props) => {
   const handleClick = (dest) => {
     setCurrentSelected(dest);
     props.closeMobileMenu();
+    if (props.location.pathname !== props.tabs[dest].url)
     history.push(props.tabs[dest].url);
   };
 

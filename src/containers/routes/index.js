@@ -5,6 +5,7 @@ import IntroDashBoard from "../pages/_intro/IntroDashBoard";
 import IntroEarn from "../pages/_intro/introEarn";
 import IntroBorrow from "../pages/_intro/introBorrow";
 import IntroCards from "../pages/_intro/introCards";
+import IntroTeam from "../pages/_intro/introTeam";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import Earn from "../pages/Earn";
@@ -32,7 +33,7 @@ const Routes = withRouter(({ location }) => {
               <Route path="/introearn" component={IntroEarn} />
               <Route path="/introborrow" component={IntroBorrow} />
               <Route path="/introcards" component={IntroCards} />
-              <Route path="/introteam" component={IntroDashBoard} />
+              <Route path="/introteam" component={IntroTeam} />
               <Route path="/login" component={Login} />
               <Route
                 path="/dashboard"

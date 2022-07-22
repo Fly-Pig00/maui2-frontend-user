@@ -7,6 +7,10 @@ function IntroCards() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (size.width <= 768) setIsMobile(true);
     else setIsMobile(false);
   }, [size]);

@@ -59,6 +59,18 @@ module.exports = {
         "introborrow-maccom":"url('../images/_intro/introcards/maccom.png')",
         "introborrow-iPhone":"url('../images/_intro/introcards/iPhone.png')",
         "introborrow-comimage":"url('../images/_intro/introcards/comimage.png')",
+        //intro team
+        "introteam-starlight1":"url('../images/_intro/introteam/starlight1.png')",
+        "introteam-starlight2":"url('../images/_intro/introteam/starlight2.png')",
+        "introteam-chunhu":"url('../images/_intro/introteam/chunhu.png')",
+        "introteam-william":"url('../images/_intro/introteam/william.png')",
+        "introteam-dev":"url('../images/_intro/introteam/dev.png')",
+        "introteam-ivan":"url('../images/_intro/introteam/ivan.png')",
+        "introteam-cofounder":"url('../images/_intro/introteam/cofounder.png')",
+        "introteam-eric":"url('../images/_intro/introteam/eric.png')",
+        "introteam-arrowcurve":"url('../images/_intro/introteam/arrowcurve.png')",
+        "introteam-clickhere":"url('../images/_intro/introteam/clickhere.png')",
+        'introteam-title-gradient': 'linear-gradient(124.08deg, #2708E4 3.96%, #00DDA2 94.96%, #0F6B53 94.96%);',
         // splash
         'splash-logo': "url('../images/splash/logo.png')",
         'splash-logo-dark': "url('../images/splash/logo-dark.png')",
