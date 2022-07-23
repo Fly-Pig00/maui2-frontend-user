@@ -18,7 +18,12 @@ function Header(props) {
     location.pathname === "/introearn" ||
     location.pathname === "/introborrow" ||
     location.pathname === "/introcards" ||
-    location.pathname === "/introteam"
+    location.pathname === "/introteam" ||
+    location.pathname === "/terms" ||
+    location.pathname === "/risks" ||
+    location.pathname === "/useragreement" ||
+    location.pathname === "/assetprotect" ||
+    location.pathname === "/privacy"
   )
     return <IntroHeader />;
   if (
@@ -26,10 +31,8 @@ function Header(props) {
     location.pathname === "/earn" ||
     location.pathname === "/borrow" ||
     location.pathname === "/stocks" ||
-    location.pathname === "/cards"||
-    location.pathname === "/privacy"||
-    location.pathname === "/terms"||
-    location.pathname === "/deposit"||
+    location.pathname === "/cards" ||
+    location.pathname === "/deposit" ||
     location.pathname === "/history"
   )
     return <MainHeader />;

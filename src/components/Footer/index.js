@@ -21,6 +21,15 @@ function Footer(props) {
   const handleTermsClick = () => {
     history.push("/terms");
   };
+  const handleAssetProtectClick = () => {
+    history.push("/assetprotect");
+  };
+  const handleUserAgreementClick = () => {
+    history.push("/useragreement");
+  };
+  const handleRisksClick = () => {
+    history.push("/risks");
+  };
   if (location.pathname === "/splash" || location.pathname === "/login")
     return null;
   return (
@@ -96,11 +105,23 @@ function Footer(props) {
           </div>
         )}
       </div>
-      <div className="absolute flex flex-col bottom-[36px] w-full md:flex-row items-center justify-between w-[360px] md:w-[65.22%] md:bottom-[104px] px-[31px] md:left-[17.39%]">
+      <div className="absolute flex flex-col bottom-[36px] w-full md:flex-row items-center justify-between w-[360px] md:w-[65.22%] md:bottom-[104px] mx-[calc((100vw-360px)/2)] md:mx-0 px-[31px] md:left-[17.39%]">
         <div className="text-[10px] mb-[16px] md:mb-[5px] md:text-[14px] dark:text-[#F9D3B4] text-[#ffffff70] text-center">
           Copyright © 2022 Maui Finance. All rights reserved. 
         </div>
-        <div className="mb-[5px] flex flex-wrap  items-center text-[12px] md:text-[14px] dark:text-[#F9D3B4] text-[#ffffff70]">
+        <div className="mb-[5px] flex flex-wrap  items-center justify-center text-[12px] md:text-[14px] dark:text-[#F9D3B4] text-[#ffffff70]">
+          <span
+            onClick={handleTermsClick}
+            className="cursor-pointer mr-[2px] pr-[2px]"
+          >
+            Terms of Service / 
+          </span>
+          <span
+            onClick={handleUserAgreementClick}
+            className="cursor-pointer mr-[2px] pr-[2px]"
+          >
+            User Agreement / 
+          </span>
           <span
             onClick={handlePrivacyClick}
             className="cursor-pointer mr-[2px] pr-[2px]"
@@ -108,13 +129,13 @@ function Footer(props) {
             Privacy Policy /
           </span>
           <span
-            onClick={handleTermsClick}
+            onClick={handleAssetProtectClick}
             className="cursor-pointer mr-[2px] pr-[2px]"
           >
-            Terms and Conditions / 
+            Asset Protection / 
           </span>
-          <span onClick={handleTermsClick} className="cursor-pointer">
-            Legal
+          <span onClick={handleRisksClick} className="cursor-pointer">
+            Risks
           </span>
         </div>
       </div>

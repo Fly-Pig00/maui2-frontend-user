@@ -14,6 +14,9 @@ import Stocks from "../pages/Stocks";
 import Cards from "../pages/Cards";
 import Privacy from "../pages/Privacy";
 import Terms from "../pages/Terms";
+import AssetProtect from "../pages/AssetProtect";
+import UserAgreement from "../pages/UserAgreement";
+import Risks from "../pages/Risks";
 import Deposit from "../pages/Deposit";
 import History from "../pages/History";
 
@@ -35,6 +38,11 @@ const Routes = withRouter(({ location }) => {
               <Route path="/introcards" component={IntroCards} />
               <Route path="/introteam" component={IntroTeam} />
               <Route path="/login" component={Login} />
+              <Route path="/privacy" component={Privacy} />
+              <Route path="/terms" component={Terms} />
+              <Route path="/assetprotect" component={AssetProtect} />
+              <Route path="/useragreement" component={UserAgreement} />
+              <Route path="/risks" component={Risks} />
               <Route
                 path="/dashboard"
                 render={(props) => <Dashboard state={state} />}
@@ -43,8 +51,6 @@ const Routes = withRouter(({ location }) => {
               <Route path="/borrow" component={Borrow} />
               <Route path="/stocks" component={Stocks} />
               <Route path="/cards" component={Cards} />
-              <Route path="/privacy" component={Privacy} />
-              <Route path="/terms" component={Terms} />
               <Route path="/deposit" component={Deposit} />
               <Route path="/history" component={History} />
               <Redirect to="/splash" />

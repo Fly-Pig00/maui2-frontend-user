@@ -1,513 +1,666 @@
+import React, { useEffect } from "react";
+
 function Privacy() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="relative w-full min-h-[920px] md:min-h-[1000px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000">
       {/* card */}
-      <div className='absolute w-[320px] top-[130px] left-[calc(50%-160px)] md:w-[1020px] md:top-[240px] md:left-[calc(50%-510px)] bg-borrow-card dark:bg-borrow-card-dark shadow-borrow-card dark:shadow-borrow-card-dark border border-[#FFFFFF] rounded-[33px] p-[20px] md:p-[40px] md:pt-[20px]'>
-        <span className='font-semibold text-[18px] md:text-[32px] leading-[36px] md:leading-[48px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>PRIVACY POLICY</span>
+      <div className="absolute w-[320px] top-[130px] left-[calc(50%-160px)] md:w-[1020px] md:top-[240px] md:left-[calc(50%-510px)] bg-borrow-card dark:bg-borrow-card-dark shadow-borrow-card dark:shadow-borrow-card-dark border border-[#FFFFFF] rounded-[33px] p-[20px] md:p-[40px] md:pt-[20px]">
+        <span className="font-semibold text-[18px] md:text-[32px] leading-[36px] md:leading-[48px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]">
+          Maui Privacy Policy
+        </span>
         <div className="mt-[20px] h-[540px] overflow-y-scroll scrollbar">
           <pre className="whitespace-pre-wrap break-words text-[11px] md:text-[14px] text-container">
-            <p>New Update: March 31, 2022</p>
+            <p>
+              <strong>GENERAL</strong>
+            </p>
 
+            <p>
+              This privacy policy ("policy") will help you understand how Maui
+              ("us", "we", "our") uses and protects the data you provide to us
+              when you visit and use mauibank.io ("website", "service"). We
+              reserve the right to change this policy at any given time, at
+              which time this page, https://mauibank.io/privacy-policy, will be
+              promptly updated. If you want to make sure that you are up to date
+              with the latest changes, we advise you to frequently visit this
+              page. You may also email us with any privacy related questions you
+              have at support@mauibank.io .
+            </p>
+            <p>
+              By using or accessing the Services in any manner, you acknowledge
+              that you accept the practices and policies outlined in this
+              Privacy Policy, and you hereby consent that we will collect, use
+              and share your personal information as set forth below.
+            </p>
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>WHAT USER DATA WE COLLECT</strong>
+            </p>
+            <p>
+              <br />
+              &nbsp;
+            </p>
+            <p>
+              <strong>Information You Provide to Us</strong>
+            </p>
+
+            <p>
+              Personal information is data that can be used to identify you
+              directly or indirectly, or to contact you. Our Privacy Policy
+              covers all personal information that you voluntarily submit to us
+              and that we obtain from our partners. This Privacy Policy does not
+              apply to anonymized data that cannot be used to identify you.
+            </p>
+            <p>
+              We will only collect personal information with your expressed
+              consent and by first notifying you of the purposes for our doing
+              so. For every purpose, you will have the option to provide consent
+              or not. We collect personal information to provide you with our
+              Services. When we require certain personal information from users
+              it is because we are required by applicable law to collect this
+              information or it is relevant for specified purposes. Any
+              information you provide to us that is not required is voluntary.
+              You are free to choose whether to provide us with the types of
+              personal information requested, but we may not be able to serve
+              you as effectively or offer you all of our Services when you do
+              choose not to share certain information with us.
+            </p>
+            <p>
+              For example, we collect personal information which is required
+              under the law to open an account. We also collect personal
+              information when you use or request information about our
+              Services, subscribe to communications, request support, or sign up
+              for Maui promotions. We may also collect personal information from
+              you offline, such as when you contact customer support. We may use
+              this information in combination with other information we collect
+              about you, as set forth in the Privacy Policy.
+            </p>
+            <p>
+              <br />
+              &nbsp;
+            </p>
+            <p>
+              <strong>
+                Information We Collect Through Use of Our Services
+              </strong>
+            </p>
+
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>Personal Data</strong>
+            </p>
+
+            <p>
+              When you use our Services, we may collect information about you in
+              the following general categories:
+            </p>
+
+            <ol>
+              <li>
+                Identity Information: When you create an account or use Maui
+                Services, we, or our vendors acting on our behalf may collect
+                the following types of information to meet our legal
+                obligations: your name, date of birth, social security number,
+                driver’s license number, personal ID, address, phone, email. We
+                may also collect biometric data to verify the authenticity of
+                your identity documents. Maui will use this information to
+                fulfill your requests and provide the relevant Services.
+              </li>
+              <li>
+                Transaction Information: We collect transaction details related
+                to your use of our Services, including the type of service
+                requested, date and time the service was provided, amount
+                charged, and other related transaction details.
+              </li>
+              <li>
+                Usage and Preference Information: We collect information about
+                how you and site visitors interact with our Services,
+                preferences expressed, and settings chosen. In some cases, we do
+                this through the use of cookies, pixel tags, and similar
+                technologies that create and maintain unique identifiers. To
+                learn more about these technologies, please see the Section of
+                the Privacy Policy titled “Our Cookie Policy” below.
+              </li>
+              <li>
+                Device Information: We may collect information about your mobile
+                device, including, for example, the hardware model, operating
+                system and version, software and file names and versions,
+                preferred language, unique device identifier, advertising
+                identifiers, serial number, device motion information, and
+                mobile network information.
+              </li>
+              <li>
+                Log Information: When you interact with the Services, we collect
+                server logs, which may include information like device IP
+                address, access dates and times, app features or pages viewed,
+                app crashes and other system activity, type of browser, and the
+                third-party site or service you were using before interacting
+                with our Services.
+              </li>
+            </ol>
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>Important Information about Platform Permissions</strong>
+            </p>
+
+            <p>
+              Most mobile platforms (iOS, Android, etc.) have defined certain
+              types of device data that apps cannot access without your consent.
+              And these platforms have different permission systems for
+              obtaining your consent. The iOS platform will alert you the first
+              time the Maui app wants permission to access certain types of data
+              and will let you consent (or not consent) to that request. Android
+              devices will notify you of the permissions that the Maui app seeks
+              before you first use the app, and your use of the app constitutes
+              your consent.
+            </p>
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>USE OF INFORMATION</strong>
+            </p>
+
+            <p>
+              Our primary purpose in collecting personal information is to
+              provide you with a legally compliant, secure, smooth, efficient,
+              and customized experience. In general, we use personal information
+              to create, develop, operate, deliver, and improve our Services,
+              content and advertising, and for loss prevention and anti-fraud
+              purposes. Examples of how we may use this information include:
+            </p>
+
+            <ol>
+              <li>To comply with our legal obligations.</li>
+              <li>
+                To prevent and investigate potentially prohibited or illegal
+                activities, and/or violations of our terms and conditions.
+              </li>
+              <li>
+                To process transactions and send notices about your
+                transactions.
+              </li>
+              <li>
+                To verify your identity by comparing your personal information
+                against third-party databases.
+              </li>
+              <li>
+                To send administrative or account-related information to you.
+              </li>
+              <li>To enforce our agreements with third parties.</li>
+              <li>To resolve disputes and troubleshoot problems.</li>
+              <li>For quality control and staff training.</li>
+              <li>
+                To enhance security, monitor and verify identity or service
+                access, combat spam or other malware or security risks.
+              </li>
+              <li>
+                To provide you with Maui Services and customer support that you
+                request.
+              </li>
+              <li>
+                To provide a personalized experience, and implement the
+                preferences you request.
+              </li>
+            </ol>
+            <p>
+              <br />
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>SAFEGUARDING AND SECURING USER DATA</strong>
+            </p>
+
+            <p>
+              Maui is committed to securing your data and keeping it
+              confidential. Maui has done all in its power to prevent data
+              theft, unauthorized access, and disclosure by implementing the
+              latest technologies and software, which help us safeguard all the
+              information we collect online.
+            </p>
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>OUR COOKIE POLICY</strong>
+            </p>
+
+            <p>
+              Once you agree to allow our website to use cookies, you also agree
+              to use the data it collects regarding your online behaviour
+              (analyse web traffic, web pages you spend the most time on, and
+              websites you visit).
+            </p>
+
+            <p>
+              The data we collect by using cookies is used to customize our
+              website to your needs. After we use the data for statistical
+              analysis, the data is completely removed from our systems.
+            </p>
+
+            <p>
+              Please note that cookies don't allow us to gain control of your
+              computer in any way. They are strictly used to monitor which pages
+              you find useful and which you do not so that we can provide a
+              better experience for you.
+            </p>
+            <p>
+              If you want to disable cookies, you can do so by accessing the
+              settings of your internet browser.
+            </p>
+
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>
+                CALIFORNIA RESIDENTS - YOUR CALIFORNIA PRIVACY RIGHTS:
+              </strong>
+            </p>
+
+            <p>
+              California Consumer Privacy Act (CCPA): This part serves as a
+              privacy notice for California residents and applies solely to
+              residents of California. Any terms defined in the CCPA have the
+              same meaning when used in this part. Note that provision of this
+              CCPA notice is not an admission on our part that we are a
+              “business” within the meaning of the CCPA, and nothing in this
+              policy may be construed as such an admission.
+            </p>
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>Personal Information We Collect</strong>
+            </p>
+
+            <p>
+              We collect certain “Personal Information” as defined by the CCPA
+              and as listed below and have done so within the last 12 months.
+            </p>
+
+            <p>
+              Personal Information does not include: (a) publicly available
+              information from government records; or (b) de-identified
+              information or aggregate consumer information.
+            </p>
+
+            <p>
+              We obtain the categories of Personal Information listed in Section
+              II from the following categories of sources
+            </p>
+            <ol>
+              <li>Directly from you</li>
+              <li>
+                Indirectly when you use our Services (e.g., cookies when using
+                our website)
+              </li>
+              <li>From any other sources listed in this policy.</li>
+            </ol>
+
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>Our use of Personal Information</strong>
+            </p>
+
+            <p>
+              We may use and have disclosed the Personal Information we collect
+              for the purposes detailed below. We will not collect additional
+              categories of Personal Information or use the Personal Information
+              we collected for materially different, unrelated, or incompatible
+              purposes as those set out in these sections without providing you
+              notice.
+            </p>
+            <p>
+              We do not sell Personal Information as the term “sell” is defined
+              in the CCPA.
+            </p>
+
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>Sharing Personal Information</strong>
+            </p>
+
+            <p>
+              We may disclose any or all of the categories above of your
+              Personal Information to third parties for a business purpose, as
+              set forth in this policy, and we have done so in the last 12
+              months.
+            </p>
+
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>Your Rights and Choices</strong>
+            </p>
+
+            <p>
+              You have the right to request that we disclose certain information
+              to you about our collection and use of your Personal Information
+              over the past 12 months. Once we receive and confirm your
+              verifiable consumer request (as described below), we will disclose
+              to you (unless an exception applies):
+            </p>
+
+            <ol>
+              <li>
+                the categories of Personal Information we collected about you;
+              </li>
+              <li>
+                the categories of sources for the Personal Information we
+                collected about you;
+              </li>
+              <li>
+                our business or commercial purpose for collecting that Personal
+                Information;
+              </li>
+              <li>
+                the categories of third parties with whom we share that Personal
+                Information;
+              </li>
+              <li>
+                the specific pieces of Personal Information we collected about
+                you (also called a Personal Information portability request);
+              </li>
+              <li>
+                if we disclosed your Personal Information for a business
+                purpose, a list of disclosures for a business
+              </li>
+            </ol>
+
+            <p>
+              purpose, identifying the Personal Information categories that each
+              category of recipient obtained;
+            </p>
+            <p>
+              We do not provide these Personal Information access and
+              portability rights for B2B Personal Information to the extent such
+              an exception remains in effect under the CCPA.
+            </p>
+
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>Deletion Request Rights</strong>
+            </p>
+
+            <p>
+              California residents have the right under the CCPA to request that
+              we delete any of their Personal Information that we have collected
+              and retained, subject to certain exceptions. Once we receive and
+              confirm a verifiable consumer request (see below), we will delete
+              (and direct our service providers to delete) relevant Personal
+              Information from our records, unless an exception applies (such as
+              the B2B exception referenced above).
+            </p>
+
+            <p>
+              We may deny California residents’ deletion request if doing so is
+              permitted or required by applicable law, or if retaining the
+              Personal Information is necessary for us or our service
+              provider(s) to:
+            </p>
+
+            <ol>
+              <li>
+                complete the transaction for which we collected the Personal
+                Information, provide a good or service that you requested, take
+                actions reasonably anticipated within the context of our ongoing
+                business relationship with the requesting individual, or
+                otherwise perform our contract with a requesting individual;
+              </li>
+              <li>
+                detect security incidents, protect against malicious, deceptive,
+                fraudulent, or illegal activity, or prosecute those responsible
+                for such activities;
+              </li>
+              <li>
+                debug products to identify and repair errors that impair
+                existing intended functionality;
+              </li>
+              <li>
+                exercise free speech, ensure the right of another to exercise
+                their free speech rights, or exercise another right provided for
+                by law; public
+              </li>
+              <li>
+                engage in public or peer-reviewed scientific, historical, or
+                statistical research in the public interest that adheres to all
+                other applicable ethics and privacy laws, when the Personal
+                Information's deletion may likely render impossible or seriously
+                impair the research's achievement, if you previously provided
+                informed consent;
+              </li>
+              <li>
+                enable solely internal uses that are reasonably aligned with
+                consumer expectations;
+              </li>
+              <li>comply with a legal obligation; and</li>
+              <li>
+                make other internal and lawful uses of that Personal Information
+                that are compatible with the context in which you provided it.
+              </li>
+            </ol>
+
+            <p>
+              <br />
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>Verifiable Consumer Request</strong>
+            </p>
+
+            <p>
+              To exercise the access, portability, and deletion rights under the
+              CCPA described above, please submit to us a verifiable consumer
+              request.
+            </p>
+            <p>
+              Only a California resident may make a verifiable consumer request
+              related to their Personal Information. A California resident may
+              also make a verifiable consumer request on behalf of their minor
+              child.
+            </p>
+            <p>
+              A verifiable consumer request for Personal Information access or
+              portability can only be made twice within a 12-month period. The
+              verifiable consumer request must provide sufficient information
+              that allows us to reasonably verify the California resident about
+              whom we collected Personal Information or an authorized
+              representative, and contain sufficient detail that allows us to
+              properly understand, evaluate, and respond to it. We cannot
+              respond to your request or provide Personal Information if we
+              cannot verify your identity or authority to make the request and
+              confirm the Personal Information relates to you.
+            </p>
+            <p>
+              Making a verifiable consumer request does not require you to
+              create an account on our website. However, we do consider requests
+              made through your password protected account sufficiently verified
+              when the request relates to Personal Information associated with
+              that specific account. We will only use Personal Information
+              provided in a verifiable consumer request to verify the
+              requestor's identity or authority to make the request.
+            </p>
+            <p>
+              We will endeavour to respond to a verifiable consumer request
+              within 45 days of its receipt. If we require more time (up to 90
+              days), we will inform you of the reason and extension period in
+              writing. If you have an account with us, we will deliver our
+              written response to that account. If you do not have an account
+              with us, we will deliver our written response by mail or
+              electronically.
+            </p>
+            <p>
+              Any disclosures we provide will only cover the 12-month period
+              preceding the verifiable consumer request’s receipt. The response
+              we provide will also explain the reasons we cannot comply with a
+              request, if applicable. For Personal Information portability
+              requests, we will select a format to provide your Personal
+              Information that is readily useable and should allow you to
+              transmit the Personal Information from one entity to another
+              entity without hindrance.
+            </p>
+            <p>
+              We do not charge a fee to process or respond to your verifiable
+              consumer request unless it is excessive, repetitive, or manifestly
+              unfounded. If we determine that the request warrants a fee, we
+              will tell you why we made that decision and provide you with a
+              cost estimate before completing your request.
+            </p>
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>Non-Discrimination</strong>
+            </p>
+
+            <p>
+              We will not discriminate against you for exercising any of your
+              CCPA rights. Except as permitted by the CCPA, we will not:
+            </p>
+            <ol>
+              <li>Deny you goods or services;</li>
+              <li>
+                Charge you different prices or rates for goods or services,
+                including through granting discounts or other benefits or
+                imposing penalties;
+              </li>
+              <li>
+                Provide you a different level or quality of goods or services;
+                and
+              </li>
+              <li>
+                Suggest that you may receive a different price or rate for goods
+                or services or a different level or quality of goods or
+                services.
+              </li>
+            </ol>
+
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>LINKS TO OTHER WEBSITES</strong>
+            </p>
+
+            <p>
+              Our website contains links that lead to other websites. If you
+              click on these links Maui is not held responsible for your data
+              and privacy protection. Visiting those websites is not governed by
+              this privacy policy agreement. Make sure to read the privacy
+              policy documentation of the website you go to from our website.
+            </p>
+
+            <p>
+              <br />
+              &nbsp;
+            </p>
+
+            <p>
+              <strong>RESTRICTING THE COLLECTION OF YOUR PERSONAL DATA</strong>
+            </p>
+
+            <p>
+              If you wish to restrict the use and collection of your personal
+              data. You can achieve this by doing the following:
+            </p>
+
+            <ol>
+              <li>
+                When you are filling the forms on the website, make sure to
+                check if there is a box which you can leave unchecked, if you
+                don't want to disclose your personal information.
+              </li>
+              <li>
+                If you have already agreed to share your information with us,
+                feel free to contact us via email at{" "}
+                <a href="mailto:john@intellabridge.com">support@mauibank.io</a>{" "}
+                and we will be more than happy to change this for you.
+              </li>
+            </ol>
+            <p>
+              Maui will not lease, sell or distribute your personal information
+              to any third parties, unless we have your permission. We might do
+              so if the law forces us. Your personal information will be used
+              when we need to send you promotional materials if you agree to
+              this privacy policy.
+            </p>
+            <p>
+              <br />
+              <br />
+              &nbsp;
+            </p>
+
+            <p><strong>MAUI CONTACT DETAILS</strong></p>
+            <p>Address:</p>
+            <p>US - 2100 Geng Road. Palo Alto, CA 94303, USA</p>
+            <p>EU - Place de la Synagogue 5 1204 Geneve, SWITZERLAND</p>
+            <p style={{ marginRight: "8px" }}>Email</p>
+            <p>
+              <a href="mailto:john@intellabridge.com">ivan@maui.finance</a>
+            </p>
+            <p style={{ marginRight: "8px" }}>&nbsp;</p>
+            <p style={{ marginRight: "8px" }}>Tel.</p>
+            <p>
+              <a href="tel:+13038005333"> +1 650 600 1357</a>
+            </p>
+            <p style={{ marginRight: "8px" }}>&nbsp;</p>
+            <p style={{ marginRight: "8px" }}>Website</p>
+            <p>
+              <a href="http://Mauibank.io">Mauibank.io</a>
+            </p>
             <p>&nbsp;</p>
-
-            <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
-
-            <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Interpretation and Definitions</strong></p>
-
-            <p><strong>Interpretation</strong></p>
-
-            <p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Definitions</strong></p>
-
-            <p>For the purposes of this Privacy Policy:</p>
-
-            <ol>
-              <li>Account means a unique account created for You to access our Service or parts of our Service.</li>
-              <li>Business, refers to the Company as the legal entity that collects Consumers&#39; personal information and determines the purposes and means of the processing of Consumers&#39; personal information, or on behalf of which such information is collected and that alone, or jointly with others, determines the purposes and means of the processing of consumers&#39; personal information.</li>
-              <li>Company (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to MAUI UAB,&nbsp;Mėsinių st. 5,LT-01133 Vilnius, Lithuania.&nbsp;For the purpose of the GDPR, the Company is the Data Controller.</li>
-              <li>Consumer, resident, as defined in the law, includes (1) every individual who is EU and US for other than a temporary or transitory purpose, and (2) every individual who is domiciled in the EU and US who is outside the EU and US for a temporary or transitory purpose.</li>
-              <li>Cookies are small files that are placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history on that website among its many uses.</li>
-              <li>Country refers to: Lithuania, EU.</li>
-              <li>Data Controller, for the purposes of the GDPR (General Data Protection Regulation), refers to the Company as the legal person which alone or jointly with others determines the purposes and means of the processing of Personal Data.</li>
-              <li>Device means any device that can access the Service such as a computer, a cellphone or a digital tablet.</li>
-              <li>Do Not Track (DNT) is a concept that has been promoted by US regulatory authorities, in particular the U.S. Federal Trade Commission (FTC), for the Internet industry to develop and implement a mechanism for allowing internet users to control the tracking of their online activities across websites.</li>
-              <li>Personal Data is any information that relates to an identified or identifiable individual.</li>
-              <li>For the purposes for GDPR, Personal Data means any information relating to You such as a name, an identification number, location data, online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity.</li>
-              <li>Sale, means selling, renting, releasing, disclosing, disseminating, making available, transferring, or otherwise communicating orally, in writing, or by electronic or other means, a Consumer&#39;s personal information to another business or a third party for monetary or other valuable consideration.</li>
-              <li>Service refers to the Website.</li>
-              <li>Service Provider means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used. For the purpose of the GDPR, Service Providers are considered Data Processors.</li>
-              <li>Third-party Social Media Service refers to any website or any social network website through which a User can log in or create an account to use the Service.</li>
-              <li>Usage Data refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).</li>
-              <li>Website refers to&nbsp;<a href="http://mauibank.io">mauibank.io</a>, accessible from&nbsp;<a href="http://www.mauibank.io">www.mauibank.io</a></li>
-              <li>You, means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
-              <li>Under GDPR (General Data Protection Regulation), You can be referred to as the Data Subject or as the User as you are the individual using the Service.</li>
-            </ol>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p>Collecting and Using Your Personal Data</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Types of Data Collecte</strong></p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Personal Data</strong></p>
-
-            <p>While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:</p>
-
-            <ol>
-              <li>Email address</li>
-              <li>First name and last name</li>
-              <li>Bank account information in order to pay for products and/or services within the Service</li>
-              <li>Usage Data</li>
-            </ol>
-
-            <p>When You pay for a product and/or a service via bank transfer, We may ask You to provide information to facilitate this transaction and to verify Your identity. Such information may include, without limitation:</p>
-
-            <ol>
-              <li>Date of birth</li>
-              <li>Passport or National ID card</li>
-              <li>Bank card statement</li>
-              <li>Other information linking You to an address</li>
-            </ol>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Usage Data</strong></p>
-
-            <p>Usage Data is collected automatically when using the Service.</p>
-
-            <p>Usage Data may include information such as Your Device&#39;s Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.</p>
-
-            <p>When You access the Service by or through a mobile device, We may collect certain information automatically, including, but not limited to, the type of mobile device You use, Your mobile device unique ID, the IP address of Your mobile device, Your mobile operating system, the type of mobile Internet browser You use, unique device identifiers and other diagnostic data.</p>
-
-            <p>We may also collect information that Your browser sends whenever You visit our Service or when You access the Service by or through a mobile device.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Information from Third-Party Social Media Services</strong></p>
-
-            <p>The Company allows You to create an account and log in to use the Service through the following Third-party Social Media Services:</p>
-
-            <ol>
-              <li>Google</li>
-              <li>Facebook</li>
-              <li>Twitter</li>
-            </ol>
-
-            <p>If You decide to register through or otherwise grant us access to a Third-Party Social Media Service, We may collect Personal data that is already associated with Your Third-Party Social Media Service&#39;s account, such as Your name, Your email address, Your activities or Your contact list associated with that account.</p>
-
-            <p>You may also have the option of sharing additional information with the Company through Your Third-Party Social Media Service&#39;s account. If You choose to provide such information and Personal Data, during registration or otherwise, You are giving the Company permission to use, share, and store it in a manner consistent with this Privacy Policy.</p>
-
-            <p><br />
-            <br />
-            &nbsp;</p>
-
-            <p><strong>Tracking Technologies and Cookies</strong></p>
-
-            <p>We use Cookies and similar tracking technologies to track the activity on Our Service and store certain information. Tracking technologies used are beacons, tags, and scripts to collect and track information and to improve and analyze Our Service. The technologies We use may include:</p>
-
-            <ol>
-              <li>Cookies or Browser Cookies. A cookie is a small file placed on Your Device. You can instruct Your browser to refuse all Cookies or to indicate when a Cookie is being sent. However, if You do not accept Cookies, You may not be able to use some parts of our Service. Unless you have adjusted Your browser setting so that it will refuse Cookies, our Service may use Cookies.</li>
-              <li>Flash Cookies. Certain features of our Service may use local stored objects (or Flash Cookies) to collect and store information about Your preferences or Your activity on our Service. Flash Cookies are not managed by the same browser settings as those used for Browser Cookies. For more information on how You can delete Flash Cookies, please read &quot;Where can I change the settings for disabling, or deleting local shared objects?&quot; available at<br />
-              <a href="https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects_" target="_blank" rel="noreferrer">https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects_</a></li>
-              <li>Web Beacons. Certain sections of our Service and our emails may contain small electronic files known as web beacons (also referred to as clear gifs, pixel tags, and single-pixel gifs) that permit the Company, for example, to count users who have visited those pages or opened an email and for other related website statistics (for example, recording the popularity of a certain section and verifying system and server integrity).</li>
-            </ol>
-
-            <p>Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent Cookies remain on Your personal computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web browser. You can learn more about cookies here:&nbsp;<a href="https://www.termsfeed.com/blog/cookies/" target="_blank" rel="noreferrer">All About Cookies by TermsFeed</a>.</p>
-
-            <p>We use both Session and Persistent Cookies for the purposes set out below:</p>
-
-            <ol>
-              <li>Necessary / Essential Cookies<br />
-              Type: Session Cookies<br />
-              Administered by: Us<br />
-              Purpose: These Cookies are essential to provide You with services available through the Website and to enable You to use some of its features. They help to authenticate users and prevent fraudulent use of user accounts. Without these Cookies, the services that You have asked for cannot be provided, and We only use these Cookies to provide You with those services.</li>
-              <li>Cookies Policy / Notice Acceptance Cookies<br />
-              Type: Persistent Cookies<br />
-              Administered by: Us<br />
-              Purpose: These Cookies identify if users have accepted the use of cookies on the Website.</li>
-              <li>Functionality Cookies<br />
-              Type: Persistent Cookies<br />
-              Administered by: Us<br />
-              Purpose: These Cookies allow us to remember choices You make when You use the Website, such as remembering your login details or language preference. The purpose of these Cookies is to provide You with a more personal experience and to avoid You having to re-enter your preferences every time You use the Website.</li>
-              <li>Tracking and Performance Cookies<br />
-              Type: Persistent Cookies<br />
-              Administered by: Third-Parties<br />
-              Purpose: These Cookies are used to track information about traffic to the Website and how users use the Website. The information gathered via these Cookies may directly or indirectly identify you as an individual visitor. This is because the information collected is typically linked to a pseudonymous identifier associated with the device you use to access the Website. We may also use these Cookies to test new pages, features or new functionality of the Website to see how our users react to them.</li>
-            </ol>
-
-            <p>For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy or the Cookies section of our Privacy Policy.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Use of Your Personal Data</strong></p>
-
-            <p>The Company may use Personal Data for the following purposes:</p>
-
-            <ol>
-              <li>To provide and maintain our Service, including to monitor the usage of our Service.</li>
-              <li>To manage Your Account: to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.</li>
-              <li>For the performance of a contract: the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.</li>
-              <li>To contact You: To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application&#39;s push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</li>
-              <li>To provide You with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.</li>
-              <li>To manage Your requests: To attend and manage Your requests to Us.</li>
-              <li>To deliver targeted advertising to You: We may use Your information to develop and display content and advertising (and work with third-party vendors who do so) tailored to Your interests and/or location and to measure its effectiveness.</li>
-              <li>For business transfers: We may use Your information to evaluate or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Our assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which Personal Data held by Us about our Service users is among the assets transferred.</li>
-              <li>For other purposes: We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.</li>
-            </ol>
-
-            <p>We may share Your personal information in the following situations:</p>
-
-            <ol>
-              <li>With Service Providers: We may share Your personal information with Service Providers to monitor and analyze the use of our Service, to advertise on third party websites to You after You visited our Service, for payment processing, to contact You.</li>
-              <li>For business transfers: We may share or transfer Your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of Our business to another company.</li>
-              <li>With Affiliates: We may share Your information with Our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include Our parent company and any other subsidiaries, joint venture partners or other companies that We control or that are under common control with Us.</li>
-              <li>With business partners: We may share Your information with Our business partners to offer You certain products, services or promotions.</li>
-              <li>With other users: when You share personal information or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside. If You interact with other users or register through a Third-Party Social Media Service, Your contacts on the Third-Party Social Media Service may see Your name, profile, pictures and description of Your activity. Similarly, other users will be able to view descriptions of Your activity, communicate with You and view Your profile.</li>
-              <li>With Your consent: We may disclose Your personal information for any other purpose with Your consent.</li>
-            </ol>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Retention of Your Personal Data</strong></p>
-
-            <p>The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.</p>
-
-            <p>The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Transfer of Your Personal Data</strong></p>
-
-            <p>Your information, including Personal Data, is processed at the Company&#39;s operating offices and in any other places where the parties involved in the processing are located. It means that this information may be transferred to &mdash; and maintained on &mdash; computers located outside of Your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from Your jurisdiction.</p>
-
-            <p>Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer.</p>
-
-            <p>The Company will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy and no transfer of Your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of Your data and other personal information.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Disclosure of Your Personal Data</strong></p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Business Transactions</strong></p>
-
-            <p>If the Company is involved in a merger, acquisition or asset sale, Your Personal Data may be transferred. We will provide notice before Your Personal Data is transferred and becomes subject to a different Privacy Policy.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Law enforcement</strong></p>
-
-            <p>Under certain circumstances, the Company may be required to disclose Your Personal Data if required to do so by law or in response to valid requests by public authorities (e.g. a court or a government agency).</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Other legal requirements</strong></p>
-
-            <p>The Company may disclose Your Personal Data in the good faith belief that such action is necessary to:</p>
-
-            <ol>
-              <li>Comply with a legal obligation</li>
-              <li>Protect and defend the rights or property of the Company</li>
-              <li>Prevent or investigate possible wrongdoing in connection with the Service</li>
-              <li>Protect the personal safety of Users of the Service or the public</li>
-              <li>Protect against legal liability</li>
-            </ol>
-
-            <p><br />
-            <br />
-            &nbsp;</p>
-
-            <p><strong>Security of Your Personal Data</strong></p>
-
-            <p>The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Detailed Information on the Processing of Your Personal Data</strong></p>
-
-            <p>The Service Providers We use may have access to Your Personal Data. These third-party vendors collect, store, use, process and transfer information about Your activity on Our Service in accordance with their Privacy Policies.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Analytics</strong></p>
-
-            <p>We may use third-party Service providers to monitor and analyze the use of our Service.</p>
-
-            <ol>
-              <li>Google Analytics<br />
-              Google Analytics is a web analytics service offered by Google that tracks and reports website traffic. Google uses the data collected to track and monitor the use of our Service. This data is shared with other Google services. Google may use the collected data to contextualize and personalize the ads of its own advertising network.<br />
-              You can opt-out of having made your activity on the Service available to Google Analytics by installing the Google Analytics opt-out browser add-on. The add-on prevents the Google Analytics JavaScript (ga.js, analytics.js and dc.js) from sharing information with Google Analytics about visits activity.<br />
-              For more information on the privacy practices of Google, please visit the Google Privacy &amp; Terms web page:&nbsp;<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">https://policies.google.com/privacy</a></li>
-            </ol>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Email Marketing</strong></p>
-
-            <p>We may use Your Personal Data to contact You with newsletters, marketing or promotional materials and other information that may be of interest to You. You may opt-out of receiving any, or all, of these communications from Us by following the unsubscribe link or instructions provided in any email We send or by contacting Us.<br />
-            We may use Email Marketing Service Providers to manage and send emails to You.</p>
-
-            <p>Mailchimp</p>
-
-            <ol>
-              <li>Mailchimp is an email marketing sending service provided by The Rocket Science Group LLC.<br />
-              For more information on the privacy practices of Mailchimp, please visit their Privacy policy:&nbsp;<a href="https://mailchimp.com/legal/privacy/" target="_blank" rel="noreferrer">https://mailchimp.com/legal/privacy/</a></li>
-            </ol>
-
-            <p><br />
-            <br />
-            &nbsp;</p>
-
-            <p><strong>Payments</strong></p>
-
-            <p>We may provide paid products and/or services within the Service. In that case, we may use third-party services for payment processing (e.g. payment processors).</p>
-
-            <p>We will not store or collect Your payment card details. That information is provided directly to Our third-party payment processors whose use of Your personal information is governed by their Privacy Policy. These payment processors adhere to the standards set by PCI-DSS as managed by the PCI Security Standards Council, which is a joint effort of brands like Visa, Mastercard, American Express and Discover. PCI-DSS requirements help ensure the secure handling of payment information.</p>
-
-            <ol>
-              <li>Stripe<br />
-              Their Privacy Policy can be viewed at&nbsp;<a href="https://stripe.com/us/privacy" target="_blank" rel="noreferrer">https://stripe.com/us/privacy</a></li>
-              <li>PayPal<br />
-              Their Privacy Policy can be viewed at&nbsp;<a href="https://www.paypal.com/webapps/mpp/ua/privacy-full" target="_blank" rel="noreferrer">https://www.paypal.com/webapps/mpp/ua/privacy-full</a></li>
-            </ol>
-
-            <p>When You use Our Service to pay a product and/or service via bank transfer, We may ask You to provide information to facilitate this transaction and to verify Your identity.</p>
-
-            <p><br />
-            <br />
-            &nbsp;</p>
-
-            <p><strong>Behavioral Remarketing</strong></p>
-
-            <p>The Company uses remarketing services to advertise to You after You accessed or visited our Service. We and Our third-party vendors use cookies and non-cookie technologies to help Us recognize Your Device and understand how You use our Service so that We can improve our Service to reflect Your interests and serve You advertisements that are likely to be of more interest to You.</p>
-
-            <p>These third-party vendors collect, store, use, process and transfer information about Your activity on Our Service in accordance with their Privacy Policies and to enable Us to:</p>
-
-            <ol>
-              <li>Measure and analyze traffic and browsing activity on Our Service</li>
-              <li>Show advertisements for our products and/or services to You on third-party websites or apps</li>
-              <li>Measure and analyze the performance of Our advertising campaigns</li>
-            </ol>
-
-            <p>Some of these third-party vendors may use non-cookie technologies that may not be impacted by browser settings that block cookies. Your browser may not permit You to block such technologies. You can use the following third-party tools to decline the collection and use of information for the purpose of serving You interest-based advertising:</p>
-
-            <ol>
-              <li>The NAI&#39;s opt-out platform:&nbsp;<a href="http://www.networkadvertising.org/choices/" target="_blank" rel="noreferrer">http://www.networkadvertising.org/choices/</a></li>
-              <li>The EDAA&#39;s opt-out platform&nbsp;<a href="http://www.youronlinechoices.com/" target="_blank" rel="noreferrer">http://www.youronlinechoices.com/</a></li>
-              <li>The DAA&#39;s opt-out platform:&nbsp;<a href="http://optout.aboutads.info/?c=2&amp;lang=EN" target="_blank" rel="noreferrer">http://optout.aboutads.info/?c=2&amp;lang=EN</a></li>
-            </ol>
-
-            <p>You may opt-out of all personalized advertising by enabling privacy features on Your mobile device such as Limit Ad Tracking (iOS) and Opt Out of Ads Personalization (Android). See Your mobile device Help system for more information.</p>
-
-            <p>We may share information, such as hashed email addresses (if available) or other online identifiers collected on Our Service with these third-party vendors. This allows Our third-party vendors to recognize and deliver You ads across devices and browsers. To read more about the technologies used by these third-party vendors and their cross-device capabilities please refer to the Privacy Policy of each vendor listed below.</p>
-
-            <p>The third-party vendors We use are:</p>
-
-            <ol>
-              <li>Google Ads (AdWords)</li>
-              <li>Google Ads (AdWords) remarketing service is provided by Google Inc.<br />
-              You can opt-out of Google Analytics for Display Advertising and customise the Google Display Network ads by visiting the Google Ads Settings page:&nbsp;<a href="http://www.google.com/settings/ads" target="_blank" rel="noreferrer">http://www.google.com/settings/ads</a><br />
-              Google also recommends installing the Google Analytics Opt-out Browser Add-on -&nbsp;<a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noreferrer">https://tools.google.com/dlpage/gaoptout</a>&nbsp;- for your web browser. Google Analytics Opt-out Browser Add-on provides visitors with the ability to prevent their data from being collected and used by Google Analytics.<br />
-              For more information on the privacy practices of Google, please visit the Google Privacy &amp; Terms web page:&nbsp;<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">https://policies.google.com/privacy</a></li>
-              <li>Twitter<br />
-              Twitter remarketing service is provided by Twitter Inc.<br />
-              You can opt-out from Twitter&#39;s interest-based ads by following their instructions:&nbsp;<a href="https://support.twitter.com/articles/20170405" target="_blank" rel="noreferrer">https://support.twitter.com/articles/20170405</a><br />
-              You can learn more about the privacy practices and policies of Twitter by visiting their Privacy Policy page:&nbsp;<a href="https://twitter.com/privacy" target="_blank" rel="noreferrer">https://twitter.com/privacy</a></li>
-              <li>Facebook Facebook remarketing service is provided by Facebook Inc.<br />
-              You can learn more about interest-based advertising from Facebook by visiting this page:&nbsp;<a href="https://www.facebook.com/help/516147308587266" target="_blank" rel="noreferrer">https://www.facebook.com/help/516147308587266</a><br />
-              To opt-out from Facebook&#39;s interest-based ads, follow these instructions from Facebook:&nbsp;<a href="https://www.facebook.com/help/568137493302217" target="_blank" rel="noreferrer">https://www.facebook.com/help/568137493302217</a><br />
-              Facebook adheres to the Self-Regulatory Principles for Online Behavioural Advertising established by the Digital Advertising Alliance. You can also opt-out from Facebook and other participating companies through the Digital Advertising Alliance in the USA&nbsp;<a href="http://www.aboutads.info/choices/" target="_blank" rel="noreferrer">http://www.aboutads.info/choices/</a>, or the European Interactive Digital Advertising Alliance in Europe&nbsp;<a href="http://www.youronlinechoices.eu/" target="_blank" rel="noreferrer">http://www.youronlinechoices.eu/</a>, or opt-out using your mobile device settings.<br />
-              For more information on the privacy practices of Facebook, please visit Facebook&#39;s Data Policy:&nbsp;<a href="https://www.facebook.com/privacy/explanation" target="_blank" rel="noreferrer">https://www.facebook.com/privacy/explanation</a></li>
-            </ol>
-
-            <p><br />
-            <br />
-            &nbsp;</p>
-
-            <p><strong>GDPR Privacy</strong></p>
-
-            <p>Legal Basis for Processing Personal Data under GDPR</p>
-
-            <p>We may process Personal Data under the following conditions:</p>
-
-            <ol>
-              <li>Consent: You have given Your consent for processing Personal Data for one or more specific purposes.</li>
-              <li>Performance of a contract: Provision of Personal Data is necessary for the performance of an agreement with You and/or for any pre-contractual obligations thereof.</li>
-              <li>Legal obligations: Processing Personal Data is necessary for compliance with a legal obligation to which the Company is subject.</li>
-              <li>Vital interests: Processing Personal Data is necessary in order to protect Your vital interests or of another natural person.</li>
-              <li>Public interests: Processing Personal Data is related to a task that is carried out in the public interest or in the exercise of official authority vested in the Company.</li>
-              <li>Legitimate interests: Processing Personal Data is necessary for the purposes of the legitimate interests pursued by the Company.</li>
-            </ol>
-
-            <p>In any case, the Company will gladly help to clarify the specific legal basis that applies to the processing, and in particular whether the provision of Personal Data is a statutory or contractual requirement, or a requirement necessary to enter into a contract.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Your Rights under the GDPR</strong></p>
-
-            <p>The Company undertakes to respect the confidentiality of Your Personal Data and to guarantee You can exercise Your rights.</p>
-
-            <p>You have the right under this Privacy Policy, and by law if You are within the EU, to:</p>
-
-            <ol>
-              <li>Request access to Your Personal Data. The right to access, update or delete the information We have on You. Whenever made possible, you can access, update or request deletion of Your Personal Data directly within Your account settings section. If you are unable to perform these actions yourself, please contact Us to assist You. This also enables You to receive a copy of the Personal Data We hold about You.</li>
-              <li>Request correction of the Personal Data that We hold about You. You have the right to have any incomplete or inaccurate information We hold about You corrected.</li>
-              <li>Object to processing of Your Personal Data. This right exists where We are relying on a legitimate interest as the legal basis for Our processing and there is something about Your particular situation, which makes You want to object to our processing of Your Personal Data on this ground. You also have the right to object where We are processing Your Personal Data for direct marketing purposes.</li>
-              <li>Request erasure of Your Personal Data. You have the right to ask Us to delete or remove Personal Data when there is no good reason for Us to continue processing it.</li>
-              <li>Request the transfer of Your Personal Data. We will provide to You, or to a third-party You have chosen, Your Personal Data in a structured, commonly used, machine-readable format. Please note that this right only applies to automated information which You initially provided consent for Us to use or where We used the information to perform a contract with You.</li>
-              <li>Withdraw Your consent. You have the right to withdraw Your consent on using your Personal Data. If You withdraw Your consent, We may not be able to provide You with access to certain specific functionalities of the Service.</li>
-            </ol>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Exercising of Your GDPR Data Protection Rights</strong></p>
-
-            <p>You may exercise Your rights of access, rectification, cancellation and opposition by contacting Us. Please note that we may ask You to verify Your identity before responding to such requests. If You make a request, We will try our best to respond to You as soon as possible.</p>
-
-            <p>You have the right to complain to a Data Protection Authority about Our collection and use of Your Personal Data. For more information, if You are in the European Economic Area (EEA), please contact Your local data protection authority in the EEA.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Sources of Personal Information</strong></p>
-
-            <p>We obtain the categories of personal information listed above from the following categories of sources:</p>
-
-            <ol>
-              <li>Directly from You. For example, from the forms You complete on our Service, preferences You express or provide through our Service, or from Your purchases on our Service.</li>
-              <li>Indirectly from You. For example, from observing Your activity on our Service.</li>
-              <li>Automatically from You. For example, through cookies We or our Service Providers set on Your Device as You navigate through our Service.</li>
-              <li>From Service Providers. For example, third-party vendors to monitor and analyze the use of our Service, third-party vendors to deliver targeted advertising to You, third-party vendors for payment processing, or other third-party vendors that We use to provide the Service to You.</li>
-            </ol>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Use of Personal Information for Business Purposes or Commercial Purposes</strong></p>
-
-            <p>We obtain the categories of personal information listed above from the following categories of sources:</p>
-
-            <ol>
-              <li>To operate our Service and provide You with our Service.</li>
-              <li>To provide You with support and to respond to Your inquiries, including to investigate and address Your concerns and monitor and improve our Service.</li>
-              <li>To fulfill or meet the reason You provided the information. For example, if You share Your contact information to ask a question about our Service, We will use that personal information to respond to Your inquiry. If You provide Your personal information to purchase a product or service, We will use that information to process Your payment and facilitate delivery.</li>
-              <li>To respond to law enforcement requests and as required by applicable law, court order, or governmental regulations.</li>
-              <li>As described to You when collecting Your personal information.</li>
-              <li>For internal administrative and auditing purposes.</li>
-              <li>To detect security incidents and protect against malicious, deceptive, fraudulent or illegal activity, including, when necessary, to prosecute those responsible for such activities.</li>
-            </ol>
-
-            <p>Please note that the examples provided above are illustrative and not intended to be exhaustive. For more details on how we use this information, please refer to the &quot;Use of Your Personal Data&quot; section.</p>
-
-            <p>If We decide to collect additional categories of personal information or use the personal information We collected for materially different, unrelated, or incompatible purposes We will update this Privacy Policy.</p>
-
-            <p>Share of Personal Information</p>
-
-            <p>We may share Your personal information identified in the above categories with the following categories of third parties:</p>
-
-            <ol>
-              <li>Service Providers</li>
-              <li>Payment processors</li>
-              <li>Our affiliates</li>
-              <li>Our business partners</li>
-              <li>Third party vendors to whom You or Your agents authorize Us to disclose Your personal information in connection with products or services We provide to You</li>
-            </ol>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Sale of Personal Information of Minors Under 16 Years of Age</strong></p>
-
-            <p>We do not knowingly collect personal information from minors under the age of 16 through our Service, although certain third party websites that we link to may do so. These third-party websites have their own terms of use and privacy policies and we encourage parents and legal guardians to monitor their children&#39;s Internet usage and instruct their children to never provide information on other websites without their permission.</p>
-
-            <p>We do not sell the personal information of Consumers We actually know are less than 16 years of age, unless We receive affirmative authorization (the &quot;right to opt-in&quot;) from either the Consumer who is between 13 and 16 years of age, or the parent or guardian of a Consumer less than 13 years of age. Consumers who opt-in to the sale of personal information may opt-out of future sales at any time. To exercise the right to opt-out, You (or Your authorized representative) may submit a request to Us by contacting Us.</p>
-
-            <p>If You have reason to believe that a child under the age of 13 (or 16) has provided Us with personal information, please contact Us with sufficient detail to enable Us to delete that information.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Children&#39;s Privacy</strong></p>
-
-            <p>Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under the age of 13. If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us. If We become aware that We have collected Personal Data from anyone under the age of 13 without verification of parental consent, We take steps to remove that information from Our servers.</p>
-
-            <p>If We need to rely on consent as a legal basis for processing Your information and Your country requires consent from a parent, We may require Your parent&#39;s consent before We collect and use that information.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Links to Other Websites</strong></p>
-
-            <p>Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You will be directed to that third party&#39;s site. We strongly advise You to review the Privacy Policy of every site You visit.</p>
-
-            <p>We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Changes to this Privacy Policy</strong></p>
-
-            <p>We may update Our Privacy Policy from time to time. We will notify You of any changes by posting the new Privacy Policy on this page.</p>
-
-            <p>We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming effective and update the &quot;Last updated&quot; date at the top of this Privacy Policy.</p>
-
-            <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
-
-            <p><br />
-            &nbsp;</p>
-
-            <p><strong>Contact Us</strong></p>
-
-            <p>If you have any questions about this Privacy Policy, You can contact us:</p>
-
-            <p style={{marginRight:'8px'}}>By email:</p>
-
-            <p><a href="mailto:maria@intellabridge.com">ivan@maui.finance</a></p>
-
-            <p style={{marginRight:'8px'}}>By visiting this page on our website:</p>
-
-            <p><a href="https://personal.kash.io/www.kash.io">www.mauibank.io</a></p>
-
-            <p style={{marginRight:'8px'}}>By phone number:</p>
-
-            <p>+61 7 3102 3998</p>
-
           </pre>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Privacy;

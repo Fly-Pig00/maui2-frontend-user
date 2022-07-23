@@ -1,22 +1,19 @@
-import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 import React, { useState, useEffect } from "react";
 import useWindowSize from "../../../../utils/useWindowSize";
 
 function Avatar(props) {
   const [isClicked, setIsClicked] = useState(false);
-  return (
-    <div
-      className={`md:w-[${isClicked ? "250px" : "117px"}] md:h-[${
-        isClicked ? "250px" : "117px"
-      }] bg-cover bg-center cursor-pointer transition-all duration-1000 ${
-        props.className
-      } ${props.isFounder && " translate-x-[-50%] translate-y-[-50%]"}`}
-      onClick={() => setIsClicked(true)}
-      onMouseLeave={() => {
-        setIsClicked(false);
-      }}
-    ></div>
-  );
+  const className = `${ isClicked ? 'md:w-[250px]' :'md:w-[117px]' } ${isClicked ? 'md:h-[250px]': 'md:h-[117px]'} bg-cover bg-center cursor-pointer transition-all duration-1000 ${
+    props.className
+  } ${props.isFounder && " translate-x-[-50%] translate-y-[-50%]"}`;
+
+  return <div
+    className={className}
+    onClick={() => setIsClicked(true)}
+    onMouseLeave={() => {
+      setIsClicked(false);
+    }}>
+  </div>;
 }
 
 function IntroTeam() {
@@ -70,7 +67,8 @@ function IntroTeam() {
           </div>
         </div>
         <div className="relative mt-[20px] md:w-[100%] h-[100vh] md:h-[140vh]">
-          {/* <div className="bg-introteam-clickhere bg-cover bg-center md:w-[111px] md:h-[28px]"></div> */}
+          <div className="absolute left-[calc(33vw-230px)] top-[calc(39vh-150px)] bg-introteam-clickhere bg-cover bg-center md:w-[111px] md:h-[28px]"></div>
+          <div className="absolute left-[calc(33vw-180px)] top-[calc(39vh-120px)] bg-introteam-arrowcurve bg-cover bg-center md:w-[111.5px] md:h-[130px]"></div>
           <Avatar
             className="absolute left-[3vw] top-[16vh] bg-introteam-chunhu"
             isFounder={false}
@@ -144,7 +142,7 @@ function IntroTeam() {
               <div className="w-[100%] text-[128px] md:text-[150px] leading-[153px] md:leading-[179px] font-[600] text-[#1199FA] text-center">
                 7
               </div>
-              <div className="absolute left-[56%] bottom-[3px] md:bottom-[8px]w-[45%] text-[9px] md:text-[16px] leading-[11px] md-leading-[19px] font-[500] flex flex-col-reverse pb-[25px]">
+              <div className="absolute left-[56%] bottom-[3px] md:bottom-[8px] w-[45%] text-[9px] md:text-[16px] leading-[11px] md-leading-[19px] font-[500] flex flex-col-reverse pb-[25px]">
                 Seconds
               </div>
             </div>

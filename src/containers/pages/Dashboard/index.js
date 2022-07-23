@@ -3,6 +3,10 @@ import { gsap, Power3 } from 'gsap';
 import Card from './card';
 
 function Main(props) {
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[]);
+  
   useEffect(() => {
     if (props.state === 'entering') {
       // gsap.timeline().fromTo("#main-righttop", 1, {opacity: 0, scale: 0}, {opacity: 1, scale: 1, transformOrigin:"right top"});
