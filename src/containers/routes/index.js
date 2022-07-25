@@ -1,5 +1,7 @@
 import { Route, Redirect, Switch, withRouter } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { PrivateRoute, PublicRoute } from "./utils";
+
 import Splash from "../pages/Splash";
 import IntroDashBoard from "../pages/_intro/IntroDashBoard";
 import IntroEarn from "../pages/_intro/introEarn";
@@ -7,6 +9,7 @@ import IntroBorrow from "../pages/_intro/introBorrow";
 import IntroCards from "../pages/_intro/introCards";
 import IntroTeam from "../pages/_intro/introTeam";
 import Login from "../pages/Login";
+import SignIn from "../pages/SignIn";
 import Dashboard from "../pages/Dashboard";
 import Earn from "../pages/Earn";
 import Borrow from "../pages/Borrow";
@@ -38,6 +41,7 @@ const Routes = withRouter(({ location }) => {
               <Route path="/introcards" component={IntroCards} />
               <Route path="/introteam" component={IntroTeam} />
               <Route path="/login" component={Login} />
+              <Route path="/signin" component={SignIn} />
               <Route path="/privacy" component={Privacy} />
               <Route path="/terms" component={Terms} />
               <Route path="/assetprotect" component={AssetProtect} />
@@ -47,11 +51,11 @@ const Routes = withRouter(({ location }) => {
                 path="/dashboard"
                 render={(props) => <Dashboard state={state} />}
               />
-              <Route path="/earn" component={Earn} />
-              <Route path="/borrow" component={Borrow} />
-              <Route path="/stocks" component={Stocks} />
-              <Route path="/cards" component={Cards} />
-              <Route path="/deposit" component={Deposit} />
+              <PrivateRoute path="/earn" component={Earn} />
+              <PrivateRoute path="/borrow" component={Borrow} />
+              <PrivateRoute path="/stocks" component={Stocks} />
+              <PrivateRoute path="/cards" component={Cards} />
+              <PrivateRoute path="/deposit" component={Deposit} />
               <Route path="/history" component={History} />
               <Redirect to="/splash" />
             </Switch>

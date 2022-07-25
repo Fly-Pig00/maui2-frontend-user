@@ -12,7 +12,7 @@ export const FIAT = [
 ];
 
 export const CRYPTO = [
-  {img: 'bg-common-crypto-usdt', symbol: 'UST', desc: 'Terra USD', rate: '1.00'},
+  {img: 'bg-common-crypto-dai', symbol: 'DAI', desc: 'DAI', rate: '1.00'},
   // {img: 'bg-common-crypto-btc', symbol: 'BTC', desc: 'Bitcoin', rate: '45,000.87'},
   // {img: 'bg-common-crypto-sbu', symbol: 'SBU', desc: 'Shibu', rate: '45,000.87'},
   // {img: 'bg-common-crypto-mtc', symbol: 'MTC', desc: 'Matic', rate: '45,000.87'},

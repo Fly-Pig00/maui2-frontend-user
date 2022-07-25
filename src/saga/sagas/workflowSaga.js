@@ -13,6 +13,10 @@ function* signIn(action) {
   }), action);
 }
 
+function* tokenSignIn() {
+  yield put({ type: `${WorkflowConstants.TOKEN_SIGNIN_ACTION}_SUCCESS` });
+}
+
 function* signOut() {
   yield put({ type: `${WorkflowConstants.SIGNOUT_ACTION}_SUCCESS` });
 }
@@ -86,6 +90,7 @@ function* getIPAddress(action) {
 export default function* workflowSaga() {
   yield takeEvery(WorkflowConstants.GET_IP_ADDRESS, getIPAddress);
   yield takeEvery(WorkflowConstants.SIGNIN_ACTION, signIn);
+  yield takeEvery(WorkflowConstants.TOKEN_SIGNIN_ACTION, tokenSignIn);
   yield takeEvery(WorkflowConstants.SIGNOUT_ACTION, signOut);
   yield takeEvery(WorkflowConstants.UPDATEBALANCE_ACTION, updateBalance);
   yield takeEvery(WorkflowConstants.UPDATENETWORK_ACTION, updateNetwork);

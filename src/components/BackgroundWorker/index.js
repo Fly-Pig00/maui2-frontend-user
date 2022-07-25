@@ -39,7 +39,7 @@ function BackgroundWorker(props) {
           updateBalance(response.mauiAddress);
         },
         fail: (error) => {
-          localStorage.clear();
+          // localStorage.clear();
           setIsLoading(false);
         }
       })
@@ -47,7 +47,7 @@ function BackgroundWorker(props) {
       setTimeout(() => {
         disconnect();
       }, 1000);
-      localStorage.clear();
+      // localStorage.clear();
       setIsLoading(false);
     }
   }, [apiSignIn, updateBalance, disconnect, connect]);
@@ -60,7 +60,7 @@ function BackgroundWorker(props) {
   
   const handleOnIdle = () => {
     console.log('isIdleSet');
-    localStorage.clear();
+    // localStorage.clear();
     disconnect();
     signOut();
     if (props.pathname !== '/dashboard') {

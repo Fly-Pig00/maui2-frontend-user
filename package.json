@@ -19,6 +19,7 @@
     "fbjs": "^3.0.2",
     "function-plot": "^1.22.8",
     "gsap": "^3.9.1",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "postcss": "^8.4.5",

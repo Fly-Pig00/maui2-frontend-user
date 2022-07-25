@@ -1,57 +1,72 @@
 import React, { useState, useEffect } from "react";
-import useWindowSize from "../../../../utils/useWindowSize";
 
 function Avatar(props) {
   const [isClicked, setIsClicked] = useState(false);
-  const className = `${ isClicked ? 'md:w-[250px]' :'md:w-[117px]' } ${isClicked ? 'md:h-[250px]': 'md:h-[117px]'} bg-cover bg-center cursor-pointer transition-all duration-1000 ${
+  const className = `${isClicked ? "md:w-[250px]" : "md:w-[117px]"} ${
+    isClicked ? "md:h-[250px]" : "md:h-[117px]"
+  } bg-cover bg-center cursor-pointer transition-all duration-1000 ${
     props.className
   } ${props.isFounder && " translate-x-[-50%] translate-y-[-50%]"}`;
 
-  return <div
-    className={className}
-    onClick={() => setIsClicked(true)}
-    onMouseLeave={() => {
-      setIsClicked(false);
-    }}>
-  </div>;
+  return (
+    <div
+      className={className}
+      onClick={() => setIsClicked(true)}
+      onMouseLeave={() => {
+        setIsClicked(false);
+      }}
+    ></div>
+  );
 }
 
 function IntroTeam() {
-  const size = useWindowSize();
-
-  const [isMobile, setIsMobile] = useState(false);
   const [teamShow, setTeamShow] = useState(false);
+  const [chunhuClicked, setChunhuClicked] = useState(false);
+  const [devClicked, setDevClicked] = useState(false);
+  const [ivanClicked, setIvanClicked] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    if (size.width <= 768) setIsMobile(true);
-    else setIsMobile(false);
-  }, [size]);
+  // if (!teamShow)
+  //   return (
+  //     <div className="bg-[#10213f] w-full h-[100vh] flex justify-center items-center">
+  //       <div
+  //         className="w-[90%] md:w-[50%] flex flex-col items-center"
+  //         onMouseEnter={() => setTeamShow(true)}
+  //       >
+  //         <div className="relative text-[14px] md:text-[24px] leading-[17px] md:leading-[29px] font-[400] text-[#FFF]">
+  //           <div className="absolute left-[-5px] bg-introteam-starlight2 bg-cover bg-center w-[10px] h-[10px]"></div>
+  //           <div className="absolute left-[-5px] bg-introteam-starlight1 bg-cover bg-center w-[10px] h-[10px]"></div>
+  //           The Team
+  //         </div>
+  //         <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#745FF2]"></div>
+  //         <div className="text-[34.9px] md:text-[64px] leading-[42px] md:leading-[76px] md:font-[500] text-[#FFF] text-center">
+  //           Meet our team in journey of Maui.{" "}
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
 
-  if (!teamShow)
-    return (
-      <div className="bg-[#10213f] w-full h-[100vh] flex justify-center items-center">
-        <div
-          className="w-[90%] md:w-[50%] flex flex-col items-center"
-          onMouseEnter={() => setTeamShow(true)}
-        >
-          <div className="relative text-[14px] md:text-[24px] leading-[17px] md:leading-[29px] font-[400] text-[#FFF]">
-            <div className="absolute left-[-5px] bg-introteam-starlight2 bg-cover bg-center w-[10px] h-[10px]"></div>
-            <div className="absolute left-[-5px] bg-introteam-starlight1 bg-cover bg-center w-[10px] h-[10px]"></div>
-            The Team
-          </div>
-          <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#745FF2]"></div>
-          <div className="text-[34.9px] md:text-[64px] leading-[42px] md:leading-[76px] md:font-[500] text-[#FFF] text-center">
-            Meet our team in journey of Maui.{" "}
-          </div>
+  return !teamShow ? (
+    <div className="bg-[#10213f] w-full h-[100vh] flex justify-center items-center transition-all">
+      <div
+        className="w-[90%] md:w-[50%] flex flex-col items-center"
+        onMouseEnter={() => setTeamShow(true)}
+      >
+        <div className="relative text-[14px] md:text-[24px] leading-[17px] md:leading-[29px] font-[400] text-[#FFF]">
+          <div className="absolute left-[-5px] bg-introteam-starlight2 bg-cover bg-center w-[10px] h-[10px]"></div>
+          <div className="absolute left-[-5px] bg-introteam-starlight1 bg-cover bg-center w-[10px] h-[10px]"></div>
+          The Team
+        </div>
+        <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#745FF2]"></div>
+        <div className="text-[34.9px] md:text-[64px] leading-[42px] md:leading-[76px] md:font-[500] text-[#FFF] text-center">
+          Meet our team in journey of Maui.{" "}
         </div>
       </div>
-    );
-
-  return (
+    </div>
+  ) : (
     <div className="bg-[#10213f] w-full">
       <div className="h-[20vh] md:h-[30vh]"></div>
       <div className="px-[3%] md:px-[14.62%] mx-auto">
@@ -67,20 +82,98 @@ function IntroTeam() {
           </div>
         </div>
         <div className="relative mt-[20px] md:w-[100%] h-[100vh] md:h-[140vh]">
-          <div className="absolute left-[calc(33vw-230px)] top-[calc(39vh-150px)] bg-introteam-clickhere bg-cover bg-center md:w-[111px] md:h-[28px]"></div>
-          <div className="absolute left-[calc(33vw-180px)] top-[calc(39vh-120px)] bg-introteam-arrowcurve bg-cover bg-center md:w-[111.5px] md:h-[130px]"></div>
-          <Avatar
+          <div className="absolute left-[calc(33vw-200px)] top-[calc(39vh-110px)] bg-introteam-clickhere bg-cover bg-center md:w-[111px] md:h-[28px]"></div>
+          <div className="absolute left-[calc(33vw-140px)] top-[calc(39vh-65px)] bg-introteam-arrowcurve bg-cover bg-center md:w-[111.5px] md:h-[130px]"></div>
+          {/* <Avatar
             className="absolute left-[3vw] top-[16vh] bg-introteam-chunhu"
             isFounder={false}
-          />
-          <Avatar
+          /> */}
+          {!chunhuClicked ? (
+            <div
+              className="absolute  left-[3vw] top-[16vh] bg-introteam-chunhu bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              onClick={() => setChunhuClicked(true)}
+            ></div>
+          ) : (
+            <div
+              className="absolute  left-[3vw] top-[16vh] bg-introteam-chunhu2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000"
+              onMouseLeave={() => setChunhuClicked(false)}
+            ></div>
+          )}
+          {chunhuClicked ? (
+            <div className="absolute left-[calc(3vw+200px)] top-[calc(16vh+180px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000">
+              Cui ChunHu
+              <br />
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {chunhuClicked ? (
+            <div className="absolute left-[calc(3vw+200px)] top-[calc(16vh+210px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000">
+              Core developer
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {/* <Avatar
             className="absolute right-[4vw] top-[2vh] bg-introteam-dev"
             isFounder={false}
-          />
-          <Avatar
+          /> */}
+          {!devClicked ? (
+            <div
+              className="absolute  right-[4vw] top-[2vh] bg-introteam-dev bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              onClick={() => setDevClicked(true)}
+            ></div>
+          ) : (
+            <div
+              className="absolute  right-[4vw] top-[2vh] bg-introteam-dev2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000"
+              onMouseLeave={() => setDevClicked(false)}
+            ></div>
+          )}
+          {devClicked ? (
+            <div className="absolute right-[calc(4vw+200px)] top-[calc(2vh+180px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000">
+              Usama Malik
+              <br />
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {devClicked ? (
+            <div className="absolute right-[calc(4vw+200px)] top-[calc(2vh+210px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000">
+              Developer
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {/* <Avatar
             className="absolute left-[33vw] top-[39vh] bg-introteam-ivan"
             isFounder={true}
-          />
+          /> */}
+          {!ivanClicked ? (
+            <div
+              className="absolute  left-[33vw] top-[39vh] bg-introteam-ivan bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              onClick={() => setIvanClicked(true)}
+            ></div>
+          ) : (
+            <div
+              className="absolute  left-[33vw] top-[39vh] bg-introteam-ivan2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000 z-40"
+              onMouseLeave={() => setIvanClicked(false)}
+            ></div>
+          )}
+          {ivanClicked ? (
+            <div className="absolute left-[calc(33vw+200px)] top-[calc(39vh+180px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
+              Ivan Gonzalez
+              <br />
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {ivanClicked ? (
+            <div className="absolute left-[calc(33vw+200px)] top-[calc(39vh+210px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
+              Co-founder
+            </div>
+          ) : (
+            <div></div>
+          )}
           <Avatar
             className="absolute left-[10vw] top-[76vh] bg-introteam-cofounder"
             isFounder={true}

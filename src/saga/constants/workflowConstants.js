@@ -5,6 +5,7 @@ import keyMirror from 'fbjs/lib/keyMirror';
  * @memberof Application
  */
 export const WorkflowConstants = keyMirror({
+  TOKEN_SIGNIN_ACTION: undefined,
   SIGNIN_ACTION: undefined,
   SIGNOUT_ACTION: undefined,
   UPDATEBALANCE_ACTION: undefined,

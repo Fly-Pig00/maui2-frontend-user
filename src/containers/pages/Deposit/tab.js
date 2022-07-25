@@ -15,7 +15,7 @@ function Tab({className, tabIndex, onChange}) {
         className={`${tabIndex === 1 ? className_active: className_inactive}`}
         onClick={onChange.bind(this, 1)}
       >
-        Fiat
+        Withdraw
       </div>
       {tabIndex === 1 && <div className='w-[1px] h-[40px] pt-[5px] pb-[5px] bg-deposit-tab-inactive dark:bg-deposit-tab-inactive-dark'/>}
       {tabIndex === 0 && border}
@@ -23,7 +23,7 @@ function Tab({className, tabIndex, onChange}) {
         className={`${tabIndex === 2 ? className_active: className_inactive} rounded-tr-[12px]`}
         onClick={onChange.bind(this, 2)}
       >
-        Send
+        Transfer
       </div>
     </div>
   )
