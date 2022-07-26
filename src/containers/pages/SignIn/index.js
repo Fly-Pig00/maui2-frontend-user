@@ -4,6 +4,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { apiSignIn } from "../../../saga/actions/workflow";
+import Button from "../../../components/Button";
 
 function SignIn(props) {
   const history = useHistory();
@@ -11,6 +12,7 @@ function SignIn(props) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const apiSignIn = props.apiSignIn;
 
   useEffect(() => {
@@ -30,6 +32,7 @@ function SignIn(props) {
   }
 
   function handleSignIn() {
+    setIsLoading(true);
     apiSignIn({
       url: "/v1/auth/login",
       method: "POST",
@@ -42,9 +45,11 @@ function SignIn(props) {
         localStorage.setItem("refreshToken", response.tokens.refresh.token);
         toast.success("Login Success!");
         handleReset();
+        setIsLoading(false);
         history.push("/dashboard");
       },
       fail: (error) => {
+        setIsLoading(false);
         console.log("signIn error", error);
         toast.error("Login API Failed!");
       },
@@ -52,6 +57,7 @@ function SignIn(props) {
   }
 
   function handleSignUp() {
+    setIsLoading(true);
     apiSignIn({
       url: "/v1/auth/register",
       method: "POST",
@@ -63,13 +69,15 @@ function SignIn(props) {
       success: (response) => {
         localStorage.setItem("token", response.tokens.access.token);
         localStorage.setItem("refreshToken", response.tokens.refresh.token);
-        toast.success("Login Success!");
+        toast.success("Register Success! Auto login");
         handleReset();
+        setIsLoading(false);
         history.push("/dashboard");
       },
       fail: (error) => {
+        setIsLoading(false);
         console.log("signIn error", error);
-        toast.error("Login API Failed!");
+        toast.error("Register API Failed!");
       },
     });
   }
@@ -163,6 +171,7 @@ function SignIn(props) {
           <input
             className="h-[40px] w-[300px] border-[] rounded-[10px]"
             type="password"
+            autoComplete="off"
             placeholder="Enter password"
             value={password}
             onChange={(e) => {
@@ -170,19 +179,21 @@ function SignIn(props) {
             }}
           />
           {status === "signin" ? (
-            <div
+            <Button
+              isLoading={isLoading}
               className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#1199fa] cursor-pointer"
               onClick={handleSignIn}
             >
               SignIn
-            </div>
+            </Button>
           ) : (
-            <div
+            <Button
+              isLoading={isLoading}
               className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#1199fa] cursor-pointer"
               onClick={handleSignUp}
             >
               SignUp
-            </div>
+            </Button>
           )}
         </div>
       </div>

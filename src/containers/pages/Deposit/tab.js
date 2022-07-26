@@ -8,7 +8,7 @@ function Tab({className, tabIndex, onChange}) {
         className={`${tabIndex === 0 ? className_active: className_inactive} rounded-tl-[12px]`}
         onClick={onChange.bind(this, 0)}
       >
-        Crypto
+        Deposit
       </div>
       {tabIndex === 2 && border}
       <div

@@ -5,6 +5,12 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { useWallet } from "@terra-money/wallet-provider";
+import {
+  CountryDropdown,
+  CountryRegionData,
+} from "react-country-region-selector";
+import PhoneInput from "react-phone-input-2";
+// import "react-phone-input-2/lib/style.css";
 
 import InputAmount from "../../../../components/Form/InputAmount";
 import SelectCurrency from "../../../../components/Form/SelectCurrency";
@@ -22,6 +28,8 @@ import {
   CURRENCY_USD,
   HISTORY_DEPOSIT_CRYPTO,
 } from "../../../../utils/appConstants";
+import { appConfig } from "../../../../appConfig";
+import { shortenAddress } from "../../../../utils/shortenAddress";
 
 function TabCrypto(props) {
   const { sign } = useWallet();
@@ -40,14 +48,13 @@ function TabCrypto(props) {
   const [selectedCrypto, setSelectedCrypto] = useState("BTC");
   const [selectedCryptoWallet, setSelectedCryptoWallet] = useState(0);
   // const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
-  const [secondPanelShow, setSecondPanelShow] = useState(true);
+  const [stage, setStage] = useState(0);
   const [reservation, setReservation] = useState("");
   const [givenName, setGivenName] = useState("");
   const [familyName, setFamilyName] = useState("");
-  const [cardNum, setCardNum] = useState("");
   const [number, setNumber] = useState("");
-  const [expiration, setExpiration] = useState("");
   const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
   const [cvv, setCvv] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -57,13 +64,21 @@ function TabCrypto(props) {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
   const [amount, setAmount] = useState("");
+  const [dest, setDest] = useState("");
+  const [received, setReceived] = useState("");
+  const [testCountry, setTestCountry] = useState("");
+  const [isFiat, setIsFiat] = useState(false);
 
-  axios.defaults.baseURL = "http://192.168.116.26:3000";
+  axios.defaults.baseURL = appConfig.apiUrl;
   axios.defaults.headers.common["Authorization"] = token;
 
   useEffect(() => {
-    if (reservation.length > 0) setSecondPanelShow(true);
+    if (reservation.length > 0) setStage(1);
   }, [reservation]);
+
+  useEffect(() => {
+    if (received !== "") setStage(2);
+  }, [received]);
 
   const deposit = async (amount, from, to, network) => {
     setIsLoading(true);
@@ -137,37 +152,42 @@ function TabCrypto(props) {
       toast.error("Please login first.");
       return false;
     }
-    if (unmaskCurrency(data.amount) >= 5)
-      // const from = props.workflow.terraAddress;
-      // const to = props.workflow.mauiAddress;
-      // const network = props.workflow.network;
-      // deposit(unmaskCurrency(data.amount), from, to, network);
-      // return false;
+    setAmount(unmaskCurrency(data.amount));
+    if (unmaskCurrency(data.amount) >= 5) setIsLoading(true);
+    // const from = props.workflow.terraAddress;
+    // const to = props.workflow.mauiAddress;
+    // const network = props.workflow.network;
+    // deposit(unmaskCurrency(data.amount), from, to, network);
+    // return false;
 
-      axios({
-        method: "POST",
-        headers: { Authorization: `bearer ${token}` },
-        data: {
-          amount: unmaskCurrency(data.amount),
-          paymentMethod: selectedCryptoWallet,
-        },
-        url: "http://192.168.116.26:3000/v1/reserve",
+    axios({
+      method: "POST",
+      headers: { Authorization: `bearer ${token}` },
+      data: {
+        amount: unmaskCurrency(data.amount),
+        paymentMethod: selectedCryptoWallet,
+      },
+      url: `${appConfig.apiUrl}/v1/reserve`,
+    })
+      .then((result) => {
+        // const url = result.data?.url || "";
+        const reserve = result.data.reservation;
+        console.log(result);
+        setReservation(reserve);
+        //   if (url) {
+        //     window.open(
+        //       url,
+        //       "_blank",
+        //       "toolbar=yes,scrollbars=yes,resizable=yes,right=0,width=450,height=700"
+        //     );
+        //   }
+        setIsLoading(false);
       })
-        .then((result) => {
-          const url = result.data?.url || "";
-          const reserve = result.data.reservation;
-          setReservation(reserve);
-          //   if (url) {
-          //     window.open(
-          //       url,
-          //       "_blank",
-          //       "toolbar=yes,scrollbars=yes,resizable=yes,right=0,width=450,height=700"
-          //     );
-          //   }
-        })
-        .catch((err) => {
-          console.log("error", err);
-        });
+      .catch((err) => {
+        toast.error("Error");
+        setIsLoading(false);
+        console.log("error", err);
+      });
   };
 
   const onInfoSubmit = () => {
@@ -175,43 +195,83 @@ function TabCrypto(props) {
       toast.error("Please login first.");
       return false;
     }
+    setIsLoading(true);
     axios({
       method: "POST",
       headers: { Authorization: `bearer ${token}` },
       data: {
-        reservationId: "X337TFRQALWZYJREXARZ",
-        number: 88888888888,
+        reservationId: reservation,
+        number: 4111111111111111,
         year: 2023,
         month: 10,
         cvv: 555,
-        givenName: "JIm",
+        givenName: "Jim",
         familyName: "Smith",
         email: "wando0226@gmail.com",
-        phone: 12155366465,
+        phone: 12199644724,
         street1: "12 Test Ave",
         city: "Los Angeles",
         state: "CA",
         postalCode: 94123,
         country: "US",
-        amount: 10,
+        amount,
       },
-      url: "http://192.168.116.26:3000/v1/order",
+      url: `${appConfig.apiUrl}/v1/order`,
     })
       .then((result) => {
-        console.log("sss", result);
+        const tmpDest = result.data.dest.split("0x");
+        setDest(`0x${tmpDest[1]}`);
+        setReceived(result.data.purchaseAmount);
+        setIsLoading(false);
       })
       .catch((err) => {
-        console.log("error", err);
+        console.log("error", err.response?.data?.msg);
+        toast.error(err.response?.data?.msg);
+        setIsLoading(false);
       });
   };
-  return !secondPanelShow ? (
+  return stage === 0 ? (
     <form
       className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="w-full md:w-[45%]">
+        {/* <div className="w-[160px] h-[30px] bg-[#FFF] dark:bg-[#504e4e] p-[4px] flex flex-row dark:text-[#FFF]">
+          <div
+            className={`w-[50%] h-[100%] flex justify-center items-center cursor-pointer ${
+              !isFiat && "bg-deposit-card dark:bg-deposit-card-dark"
+            }`}
+            onClick={() => setIsFiat(false)}
+          >
+            Crypto
+          </div>
+          <div
+            className={`w-[50%] h-[100%] flex justify-center items-center cursor-pointer ${
+              isFiat && "bg-deposit-card dark:bg-deposit-card-dark"
+            }`}
+            onClick={() => setIsFiat(true)}
+          >
+            Fiat
+          </div>
+        </div> */}
+        <div className="dark:text-[#fff]"
+          onChange={(e) => {
+            if (e.target.value === "fiat") setIsFiat(true);
+            else setIsFiat(false);
+          }}
+        >
+          <input type="radio" id="crypto" name="payment" value="crypto" />
+          <label for="crypto" className="ml-[10px]">
+            Crypto
+          </label>
+          <div className="h-[10px]"></div>
+          <input type="radio" id="fiat" name="payment" value="fiat" />
+          <label for="fiat" className="ml-[10px]">
+            Fiat
+          </label>
+        </div>
         <SelectCurrency
-          isCrypto={true}
+          isCrypto={isFiat ? false : true}
           className="mt-[40px] md:mt-[10px]"
           label={
             <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
@@ -226,7 +286,7 @@ function TabCrypto(props) {
         />
         <div className="h-[30px]"></div>
         <SelectWallet
-          isCrypto={true}
+          isCrypto={isFiat ? false : true}
           className="mt-[10px]"
           label={
             <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
@@ -264,19 +324,20 @@ function TabCrypto(props) {
         <RightBar isCrypto={true} />
       </div>
     </form>
-  ) : (
+  ) : stage === 1 ? (
     <form
-      className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between"
+      className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between text-[#273855] dark:text-[#FFF]"
       onSubmit={handleSubmit(onInfoSubmit)}
     >
       <div className="w-full md:w-[45%]">
-        <div className="md:mt-[20px]">Card Info</div>
+        <div className="md:mt-[20px]">You deposited {amount} DAI</div>
+        <div className="md:mt-[10px]">Card Info</div>
         <div className="md:mt-[10px] flex justify-between">
           <div className="md:w-[45%]">
             <div>First Name*</div>
             <input
               type="text"
-              className="md:w-[100%]"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
               value={givenName}
               onChange={(e) => setGivenName(e.target.value)}
             />
@@ -285,7 +346,7 @@ function TabCrypto(props) {
             <div>Last Name*</div>
             <input
               type="text"
-              className="md:w-[100%]"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
               value={familyName}
               onChange={(e) => setFamilyName(e.target.value)}
             />
@@ -294,20 +355,29 @@ function TabCrypto(props) {
         <div className="md:mt-[10px]">Card Number*</div>
         <input
           type="text"
-          className="md:w-[100%]"
+          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
           value={number}
           onChange={(e) => setNumber(e.target.value)}
         />
         <div className="md:mt-[10px] flex justify-between">
           <div className="md:w-[45%]">
             <div>Expiration*</div>
-            <input type="date" className="md:w-[100%]" />
+            <input
+              type="date"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+              onChange={(e) => {
+                let tmpDate = e.target.value.split("-");
+                setYear(tmpDate[0]);
+                setMonth(tmpDate[1]);
+              }}
+            />
           </div>
           <div className="md:w-[45%]">
             <div>CVV*</div>
             <input
               type="password"
-              className="md:w-[100%]"
+              autoComplete="off"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
               value={cvv}
               onChange={(e) => setCvv(e.target.value)}
             />
@@ -317,18 +387,29 @@ function TabCrypto(props) {
         <div className="md:mt-[10px] flex justify-between">
           <div className="md:w-[45%]">
             <div>Country*</div>
-            <input
+            {/* <input
               type="text"
-              className="md:w-[100%]"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
+            /> */}
+            <CountryDropdown
+              className="w-[100%] rounded-[12px] border-transparent"
+              value={testCountry}
+              onChange={(val) => {
+                const countryShortName = CountryRegionData.filter(
+                  (country) => country[0] === val
+                );
+                setTestCountry(val);
+                setCountry(countryShortName[0][1]);
+              }}
             />
           </div>
           <div className="md:w-[45%]">
             <div>State*</div>
             <input
               type="text"
-              className="md:w-[100%]"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
               value={state}
               onChange={(e) => setState(e.target.value)}
             />
@@ -337,7 +418,7 @@ function TabCrypto(props) {
         <div className="md:mt-[10px]">Address*</div>
         <input
           type="text"
-          className="md:w-[100%]"
+          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
           value={street1}
           onChange={(e) => setStreet1(e.target.value)}
         />
@@ -346,7 +427,7 @@ function TabCrypto(props) {
             <div>Postal / ZIP code*</div>
             <input
               type="text"
-              className="md:w-[100%]"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
             />
@@ -355,7 +436,7 @@ function TabCrypto(props) {
             <div>City*</div>
             <input
               type="text"
-              className="md:w-[100%]"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
@@ -365,20 +446,31 @@ function TabCrypto(props) {
         <div className="md:mt-[10px]">Email*</div>
         <input
           type="text"
-          className="md:w-[100%]"
+          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <div className="md:mt-[10px]">Phone Number*</div>
-        <input
+        <div className="md:h-[10px]"></div>
+        <PhoneInput
+          specialLabel="Phone Number*"
+          inputClass="w-[100%] rounded-[12px] border-transparent"
+          country={"us"}
+          value={phone}
+          onChange={(phone) => {
+            console.log(phone);
+            setPhone(phone);
+          }}
+        />
+        {/* <input
           type="text"
-          className="md:w-[100%]"
+          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-        />
+        /> */}
         <Button
           type="submit"
-          className="md:mt-[20px] mx-auto w-[220px] h-[60px] flex justify-center items-center bg-[#1199fa] text-[#FFF] text-[24px] cursor-pointer"
+          isLoading={isLoading}
+          className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
         >
           Deposit
         </Button>
@@ -387,6 +479,52 @@ function TabCrypto(props) {
         <RightBar isCrypto={true} />
       </div>
     </form>
+  ) : (
+    <div className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between">
+      <div className="w-full md:w-[45%]">
+        <div className="md:mt-[10px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>Sent to</div>
+          </div>
+          <div className="md:w-[45%]">
+            <div>{shortenAddress(dest)}</div>
+          </div>
+        </div>
+        <div className="md:mt-[20px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>DAI Received</div>
+          </div>
+          <div className="md:w-[45%]">
+            <div>{received} DAI</div>
+          </div>
+        </div>
+        <div className="md:mt-[20px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>Wyre fees</div>
+          </div>
+          <div className="md:w-[45%]">
+            <div>{amount - received}</div>
+          </div>
+        </div>
+        <div className="md:mt-[20px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>Total USD paid</div>
+          </div>
+          <div className="md:w-[45%]">
+            <div>USD {amount}</div>
+          </div>
+        </div>
+        <div
+          className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full cursor-pointer flex justify-center items-center"
+          onClick={() => setStage(0)}
+        >
+          OK
+        </div>
+      </div>
+      <div className="w-full mt-[10px] md:mt-0 md:w-[45%]">
+        <RightBar isCrypto={true} />
+      </div>
+    </div>
   );
 }
 

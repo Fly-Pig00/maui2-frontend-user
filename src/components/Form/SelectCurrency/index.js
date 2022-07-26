@@ -3,8 +3,8 @@ import _ from "lodash";
 import useOutsideClick from "../../../utils/useOutsideClick";
 
 export const FIAT = [
-  // {img: 'bg-common-fiat-usd', symbol: 'USD', desc: 'USA Dollar'},
-  {img: 'bg-common-fiat-usd', symbol: 'EUR', desc: 'Euro'},
+  {img: 'bg-common-fiat-usd', symbol: 'USD', desc: 'USA Dollar'},
+  // {img: 'bg-common-fiat-usd', symbol: 'EUR', desc: 'Euro'},
   // {img: 'bg-common-fiat-usd', symbol: 'SGD', desc: 'Singapore Dollar'},
   // {img: 'bg-common-fiat-usd', symbol: 'CAD', desc: 'Canada Dollar'},
   // {img: 'bg-common-fiat-usd', symbol: 'AUD', desc: 'Australia Dollar'},

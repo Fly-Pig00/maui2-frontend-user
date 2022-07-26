@@ -40,14 +40,17 @@ export const request = ({ type, method, url, apiUrl, headers, success, fail, pay
         params,
         onUploadProgress,
       });
+      console.log("res date", res)
 
       if (type) {
+        console.log(1)
         yield put({
           type: requestSuccess(type),
           payload: payloadOnSuccess ? payloadOnSuccess(res.data, action) : res.data,
           originalType: type,
         });
       }
+      console.log(2)
 
       successCallback && successCallback(res.data);
       success && success(res.data, action);

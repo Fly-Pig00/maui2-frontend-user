@@ -8,7 +8,7 @@ import Routes from "./routes";
 import Footer from "../components/Footer";
 
 import { ToastContainer } from "react-toastify";
-import BackgroundWorker from "../components/BackgroundWorker";
+// import BackgroundWorker from "../components/BackgroundWorker";
 import { signOut, tokenSignIn } from "../saga/actions/workflow";
 
 function App() {

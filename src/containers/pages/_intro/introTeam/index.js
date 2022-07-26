@@ -21,9 +21,13 @@ function Avatar(props) {
 
 function IntroTeam() {
   const [teamShow, setTeamShow] = useState(false);
+  const [avatarClickable, setAvatarClickable] = useState(false);
   const [chunhuClicked, setChunhuClicked] = useState(false);
   const [devClicked, setDevClicked] = useState(false);
   const [ivanClicked, setIvanClicked] = useState(false);
+  const [cofounderClicked, setCofounderClicked] = useState(false);
+  const [williamClicked, setWilliamClicked] = useState(false);
+  const [ericClicked, setEricClicked] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -82,8 +86,12 @@ function IntroTeam() {
           </div>
         </div>
         <div className="relative mt-[20px] md:w-[100%] h-[100vh] md:h-[140vh]">
-          <div className="absolute left-[calc(33vw-200px)] top-[calc(39vh-110px)] bg-introteam-clickhere bg-cover bg-center md:w-[111px] md:h-[28px]"></div>
-          <div className="absolute left-[calc(33vw-140px)] top-[calc(39vh-65px)] bg-introteam-arrowcurve bg-cover bg-center md:w-[111.5px] md:h-[130px]"></div>
+          {!avatarClickable && (
+            <div className="absolute left-[calc(33vw-200px)] top-[calc(39vh-110px)] bg-introteam-clickhere bg-cover bg-center md:w-[111px] md:h-[28px]"></div>
+          )}
+          {!avatarClickable && (
+            <div className="absolute left-[calc(33vw-140px)] top-[calc(39vh-65px)] bg-introteam-arrowcurve bg-cover bg-center md:w-[111.5px] md:h-[130px]"></div>
+          )}
           {/* <Avatar
             className="absolute left-[3vw] top-[16vh] bg-introteam-chunhu"
             isFounder={false}
@@ -91,7 +99,7 @@ function IntroTeam() {
           {!chunhuClicked ? (
             <div
               className="absolute  left-[3vw] top-[16vh] bg-introteam-chunhu bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
-              onClick={() => setChunhuClicked(true)}
+              onClick={() => avatarClickable && setChunhuClicked(true)}
             ></div>
           ) : (
             <div
@@ -121,7 +129,7 @@ function IntroTeam() {
           {!devClicked ? (
             <div
               className="absolute  right-[4vw] top-[2vh] bg-introteam-dev bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
-              onClick={() => setDevClicked(true)}
+              onClick={() => avatarClickable && setDevClicked(true)}
             ></div>
           ) : (
             <div
@@ -151,7 +159,10 @@ function IntroTeam() {
           {!ivanClicked ? (
             <div
               className="absolute  left-[33vw] top-[39vh] bg-introteam-ivan bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
-              onClick={() => setIvanClicked(true)}
+              onClick={() => {
+                setAvatarClickable(true);
+                setIvanClicked(true);
+              }}
             ></div>
           ) : (
             <div
@@ -174,18 +185,96 @@ function IntroTeam() {
           ) : (
             <div></div>
           )}
-          <Avatar
+          {/* <Avatar
             className="absolute left-[10vw] top-[76vh] bg-introteam-cofounder"
             isFounder={true}
-          />
-          <Avatar
+          /> */}
+          {!cofounderClicked ? (
+            <div
+              className="absolute  left-[10vw] top-[76vh] bg-introteam-cofounder bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              onClick={() => avatarClickable && setCofounderClicked(true)}
+            ></div>
+          ) : (
+            <div
+              className="absolute  left-[10vw] top-[76vh] bg-introteam-cofounder2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000 z-40"
+              onMouseLeave={() => setCofounderClicked(false)}
+            ></div>
+          )}
+          {cofounderClicked ? (
+            <div className="absolute left-[10vw] top-[calc(76vh-50px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
+              Narciso Gonzalez
+              <br />
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {cofounderClicked ? (
+            <div className="absolute left-[10vw] top-[calc(76vh-20px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
+              Co-founder
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {/* <Avatar
             className="absolute right-0 top-[44vh] bg-introteam-william"
             isFounder={false}
-          />
-          <Avatar
+          /> */}
+          {!williamClicked ? (
+            <div
+              className="absolute  right-0 top-[44vh] bg-introteam-william bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              onClick={() => avatarClickable && setWilliamClicked(true)}
+            ></div>
+          ) : (
+            <div
+              className="absolute  right-0 top-[44vh] bg-introteam-william2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000 z-40"
+              onMouseLeave={() => setWilliamClicked(false)}
+            ></div>
+          )}
+          {williamClicked ? (
+            <div className="absolute right-[30px] top-[calc(44vh+220px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
+              William Yu
+              <br />
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {williamClicked ? (
+            <div className="absolute right-[30px] top-[calc(44vh+250px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
+              Core developer
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {/* <Avatar
             className="absolute right-[20vw] top-[66vh] bg-introteam-eric"
             isFounder={false}
-          />
+          /> */}
+          {!ericClicked ? (
+            <div
+              className="absolute  right-[20vw] top-[74vh] bg-introteam-eric bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              onClick={() => avatarClickable && setEricClicked(true)}
+            ></div>
+          ) : (
+            <div
+              className="absolute  right-[20vw] top-[74vh] bg-introteam-eric2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000 z-40"
+              onMouseLeave={() => setEricClicked(false)}
+            ></div>
+          )}
+          {ericClicked ? (
+            <div className="absolute right-[calc(20vw-160px)] top-[calc(74vh+190px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
+              Eric Liu
+              <br />
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {ericClicked ? (
+            <div className="absolute right-[calc(20vw-160px)] top-[calc(74vh+220px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
+              Core developer
+            </div>
+          ) : (
+            <div></div>
+          )}
           <div className="md:w-[70%] md:text-[24px] md:leading-[29px] md:font-[400] text-[#FFF]">
             To be the company our customers want us to be, it takes an eclectic
             group of passionate operators. Get to know the people leading the
