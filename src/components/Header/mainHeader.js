@@ -3,12 +3,15 @@ import { withRouter, useHistory } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
+import axios from "axios";
+import { ethers } from "ethers";
 
 import AnimatedTab from "../AnimatedTab";
 import DarkMode from "../DarkMode";
 import NetworkSwitch from "../NetworkSwitch";
 import { signOut, updateBalance } from "../../saga/actions/workflow";
 import Button from "../Button";
+import { appConfig } from "../../appConfig";
 
 const MENU = [
   { title: "Dashboard", url: "/dashboard" },
@@ -17,6 +20,13 @@ const MENU = [
   { title: "Stocks", url: "/stocks" },
   { title: "Cards", url: "/cards" },
 ];
+
+const provider = new ethers.providers.JsonRpcProvider(
+  "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+  4
+);
+// const DaiContract = new ethers.Contract(address, abi, provider);
+// const balance = DaiContract.balanceOf(walletAddress);
 
 function Logo(props) {
   let history = useHistory();
@@ -94,9 +104,8 @@ function UserSetting({ label, signOut }) {
   const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
-    if(modalShow)
-      document.body.style.overflow = "hidden";
-      else document.body.style.overflow = "auto";
+    if (modalShow) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "auto";
   }, [modalShow]);
 
   function handleSIgnOutClick() {
@@ -109,8 +118,29 @@ function UserSetting({ label, signOut }) {
     else setUserDropdownShow(true);
   }
 
-  function handleKYCModal() {
+  function handleKYC() {
     setUserDropdownShow(false);
+    const token = localStorage.getItem("token");
+    axios({
+      method: "get",
+      headers: { Authorization: `bearer ${token}` },
+      url: `${appConfig.apiUrl}/v1/kyc`,
+    })
+      .then((result) => {
+        // const url = result.data?.url || "";
+        const reserve = result.data;
+        console.log(result);
+        if (result.data?.onboardingUrl) {
+          window.open(
+            result.data?.onboardingUrl,
+            "_blank",
+            "toolbar=yes,scrollbars=yes,resizable=yes,right=0,width=450,height=700"
+          );
+        }
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
     // setModalShow(true);
   }
   // const label = props.label;
@@ -128,7 +158,7 @@ function UserSetting({ label, signOut }) {
         {userDropdownShow && (
           <div className="absolute left-[15px] top-[43px] w-[93px] py-[10px] bg-[#F3F3FB] dark:bg-[#1c1f21] text-[#745FF2] dark:text-[#745FF2] dark:border-2 dark:border-[#745FF2] font-[600] flex justify-center items-center z-50 rounded-[10px]">
             <div className="">
-              <div className="cursor-pointer" onClick={handleKYCModal}>
+              <div className="cursor-pointer" onClick={handleKYC}>
                 KYC
               </div>
               <div

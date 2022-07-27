@@ -41,10 +41,19 @@ function SelectCurrency({isCrypto = false, id, className, label, selectedSymbol,
     return (<div
       key={item.symbol}
       title={item.desc}
-      className={`cursor-pointer p-[3px] pl-[10px] pr-[10px] bg-[#232325] hover:bg-black hover:text-[#00DDA2] border border-[#62D1CD] text-center ${selected.symbol !== item.symbol?'text-white':'text-[#00DDA2]'}`}
+      className={`cursor-pointer p-[3px] pl-[10px] pr-[10px] bg-[#DDE5F5] dark:bg-[#282828] hover:bg-[#8D95A5] dark:hover:bg-black hover:text-[#00DDA2] border border-[#F6F8FA] text-center ${selected.symbol !== item.symbol?'text-black dark:text-white':'text-[#00DDA2]'}`}
       onClick={handleDropdownSelect.bind(this, item.symbol)}
     >
-      {item.symbol}
+      <div className="flex items-center justify-evenly">
+        <div className={`${item.img} bg-cover bg-center w-[30px] h-[30px]`} />
+        <div className="flex flex-col w-[40%]">
+          <div className="text-[#767070] dark:text-[#CCCDCD]">{item.symbol}</div>
+          <div className="text-black dark:text-white">{item.desc}</div>
+        </div>
+        <div className="w-[40%] text-right">
+          {/* {`${item.rate} usd`} */}
+        </div>
+      </div>
     </div>)
   })
   const dropdown_crypto = _.map(CRYPTO, item=>{
@@ -96,7 +105,7 @@ function SelectCurrency({isCrypto = false, id, className, label, selectedSymbol,
         <div className="absolute right-[10px]">
           <div className={`${caret} bg-cover bg-center w-[15px] h-[15px]`} />
         </div>
-        {isOpen && <div ref={ref} className={`absolute right-[5px] ${isCrypto? 'top-[45px] w-[350px]': 'top-[40px]'} z-50 rounded-[5px] overflow-hidden`}>
+        {isOpen && <div ref={ref} className={`absolute right-[5px] ${isCrypto? 'top-[45px] w-[350px]': 'top-[45px] w-[350px]'} z-50 rounded-[5px] overflow-hidden`}>
           {isCrypto ? dropdown_crypto : dropdown_fiat}
         </div>}
       </div>

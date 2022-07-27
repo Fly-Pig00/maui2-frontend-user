@@ -264,7 +264,7 @@ function TabCrypto(props) {
           <label for="crypto" className="ml-[10px]">
             Crypto
           </label>
-          <div className="h-[10px]"></div>
+          <div className="h-[20px]"></div>
           <input type="radio" id="fiat" name="payment" value="fiat" />
           <label for="fiat" className="ml-[10px]">
             Fiat
@@ -272,7 +272,7 @@ function TabCrypto(props) {
         </div>
         <SelectCurrency
           isCrypto={isFiat ? false : true}
-          className="mt-[40px] md:mt-[10px]"
+          className="mt-[40px] md:mt-[30px]"
           label={
             <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
               Select crypto you want to{" "}
