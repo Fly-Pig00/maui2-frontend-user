@@ -4,7 +4,6 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
 import axios from "axios";
-import { ethers } from "ethers";
 
 import AnimatedTab from "../AnimatedTab";
 import DarkMode from "../DarkMode";
@@ -20,13 +19,6 @@ const MENU = [
   { title: "Stocks", url: "/stocks" },
   { title: "Cards", url: "/cards" },
 ];
-
-const provider = new ethers.providers.JsonRpcProvider(
-  "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-  4
-);
-// const DaiContract = new ethers.Contract(address, abi, provider);
-// const balance = DaiContract.balanceOf(walletAddress);
 
 function Logo(props) {
   let history = useHistory();
@@ -250,7 +242,7 @@ function MainHeader(props) {
           <DepositStatus
             isDepositPage={isTheme2}
             symbol="$"
-            balance={props.workflow.balance}
+            balance={0}
             isLoading={props.workflow.isUpdatingBalance}
             kind="USD"
             onClick={handleUpdateBalance}
@@ -260,7 +252,11 @@ function MainHeader(props) {
           <DepositStatus
             isDepositPage={isTheme2}
             symbol="$"
-            balance={props.workflow.balance}
+            balance={
+              Math.floor(
+                props.workflow?.availableBalances.DAI * 1000
+              ) / 1000
+            }
             isLoading={props.workflow.isUpdatingBalance}
             kind="DAI"
             onClick={handleUpdateBalance}

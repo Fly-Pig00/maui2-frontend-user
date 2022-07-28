@@ -12,6 +12,7 @@ function SignIn(props) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const apiSignIn = props.apiSignIn;
 
@@ -57,6 +58,10 @@ function SignIn(props) {
   }
 
   function handleSignUp() {
+    if (password !== confirmPassword) {
+      toast.error("Password is not match");
+      return;
+    }
     setIsLoading(true);
     apiSignIn({
       url: "/v1/auth/register",
@@ -69,10 +74,10 @@ function SignIn(props) {
       success: (response) => {
         localStorage.setItem("token", response.tokens.access.token);
         localStorage.setItem("refreshToken", response.tokens.refresh.token);
-        toast.success("Register Success! Auto login");
+        toast.success("Successfully registerd!");
         handleReset();
         setIsLoading(false);
-        history.push("/dashboard");
+        // history.push("/dashboard");
       },
       fail: (error) => {
         setIsLoading(false);
@@ -98,7 +103,7 @@ function SignIn(props) {
         &lt;
       </span>
       {/* card */}
-      <div className="absolute w-[320px] h-[650px] left-[calc(50%-160px)] top-[90px] md:w-[900px] md:h-[750px] md:top-[calc(50%-430px)] md:left-[calc(50%-450px)] bg-[#5882C140] dark:bg-[#FFFFFF1A] backdrop-blur-[25px] border-[3px] border-[#5882C1] dark:border-[#FFFFFFB0] rounded-[40px] p-[20px] text-center">
+      <div className="absolute w-[320px] h-[650px] left-[calc(50%-160px)] top-[90px] md:w-[900px] md:h-[840px] md:top-[calc(50%-430px)] md:left-[calc(50%-450px)] bg-[#5882C140] dark:bg-[#FFFFFF1A] backdrop-blur-[25px] border-[3px] border-[#5882C1] dark:border-[#FFFFFFB0] rounded-[40px] p-[20px] text-center">
         <div
           className="bg-splash-logo dark:bg-splash-logo-dark bg-center bg-cover w-[120px] h-[40px] transition-all duration-1000 cursor-pointer"
           onClick={handleGoBack}
@@ -120,7 +125,7 @@ function SignIn(props) {
               status === "signin"
                 ? "bg-[rgba(255,255,255,0.21)] border-b-[2px]"
                 : ""
-            } hover:border-b-[1px] border-[#1199fa] cursor-pointer transition-[background] duration-500`}
+            } hover:border-b-[1px] border-[#00FF99] cursor-pointer transition-[background] duration-500`}
             onClick={() => {
               handleReset();
               setStatus("signin");
@@ -133,7 +138,7 @@ function SignIn(props) {
               status === "signup"
                 ? "bg-[rgba(255,255,255,0.21)] border-b-[2px]"
                 : ""
-            } hover:border-b-[1px] border-[#1199fa] cursor-pointer transition-[background] duration-500`}
+            } hover:border-b-[1px] border-[#00FF99] cursor-pointer transition-[background] duration-500`}
             onClick={() => {
               handleReset();
               setStatus("signup");
@@ -178,10 +183,24 @@ function SignIn(props) {
               setPassword(e.target.value);
             }}
           />
+          {status === "signup" && (
+            <>
+              <div className="flex text-[#FFF] mb-[10px]">confirm password</div>
+              <input
+                className="h-[40px] w-[300px] border-[] rounded-[10px]"
+                type="password"
+                placeholder="Enter username"
+                value={confirmPassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                }}
+              />
+            </>
+          )}
           {status === "signin" ? (
             <Button
               isLoading={isLoading}
-              className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#1199fa] cursor-pointer"
+              className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#00FF99] cursor-pointer"
               onClick={handleSignIn}
             >
               SignIn
@@ -189,7 +208,7 @@ function SignIn(props) {
           ) : (
             <Button
               isLoading={isLoading}
-              className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#1199fa] cursor-pointer"
+              className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#00FF99] cursor-pointer"
               onClick={handleSignUp}
             >
               SignUp

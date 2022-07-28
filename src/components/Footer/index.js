@@ -50,7 +50,7 @@ function Footer(props) {
         />
         <div
           className={`w-[35%] text-[20px] md:w-[23.08%] h-full leading-[33px] md:text-[28px] font-[500] flex items-center justify-center ${
-            mouseEntered ? "bg-[#1199FA]" : "bg-[#FFFFFF]"
+            mouseEntered ? "bg-[#00FF99]" : "bg-[#FFFFFF]"
           } cursor-pointer transition-all duration-1000`}
         >
           Subscribe

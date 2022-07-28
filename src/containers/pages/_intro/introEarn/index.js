@@ -52,7 +52,7 @@ function IntroEarn() {
         <div className="text-[20px] md:text-[48px] leading-[24px] md:leading-[57px] font-[500] md:font-[600] text-[#FFF] text-center">
           EARN
         </div>
-        <div className="text-[150px] md:text-[250px] leading-[179px] md:leading-[290px] font-[600] text-[#1199FA] text-center">
+        <div className="text-[150px] md:text-[250px] leading-[179px] md:leading-[290px] font-[600] text-[#00FF99] text-center">
           8%
         </div>
         <div className="w-[70%] mx-auto text-[20px] md:text-[32px] leading-[24px] md:leading-[38px] font-[500] md:font-[600] text-[#FFF] text-center">
@@ -61,7 +61,7 @@ function IntroEarn() {
       </div>
       <div className="relative w-full md:h-[calc(100vw*963/1512)] flex md:justify-center md:items-center bg-[#10213f] md:bg-introearn-section2 bg-cover bg-left  overflow-hidden">
         <div className="mt-[70px] md:mt-0 w-[90%] mx-auto md:w-[70%] flex flex-col md:items-center">
-          <div className="text-[64px] md:text-[74px] leading-[76px] md:leading-[88px] font-[600] text-[#1199FA] text-left md:text-center">
+          <div className="text-[64px] md:text-[74px] leading-[76px] md:leading-[88px] font-[600] text-[#00FF99] text-left md:text-center">
             Earn 8% p.a. Fixed Interest with No Fees
             {isMobile && <span className="text-[#FFF]">.</span>}
           </div>
@@ -71,7 +71,7 @@ function IntroEarn() {
             fees. No financial institution will be able to match 8% APY per year
             on your deposit.
           </div>
-          <div className="mt-[50px] md:mt-[80px] md:mx-auto py-[12px] md:py-[15px] md:px-[32px] text-[#FFF] text-center md:text-[32px] md:leading-[38px] md:font-[500] border-[1px] md:border-0 border-[#FFF] rounded-[4px] md:bg-[#1199FA]">
+          <div className="mt-[50px] md:mt-[80px] md:mx-auto py-[12px] md:py-[15px] md:px-[32px] text-[#FFF] text-center md:text-[32px] md:leading-[38px] md:font-[500] border-[1px] md:border-0 border-[#FFF] rounded-[4px] md:bg-[#00FF99]">
             Calculate Your Rewards
           </div>
           {isMobile && (
@@ -114,7 +114,7 @@ function IntroEarn() {
             <div className="mt-[25px] md:mt-0 md:w-[40%] text-[16px] md:text-[24px] leading-[19px] md:leadding-[29px] font-[500] text-[#FFF]">
               <div>Choose time period:</div>
               <div className="mt-[25px] p-[7px] flex justify-between items-center w-[80%] md:w-[70%] md:min-w-[300px] h-[40px] md:h-[56px] rounded-[9.25px] rounded-[13px] border-[2px] border-[#000000] md:bg-[#0B1A2F] shadow-[inset_1px_-6px_10px_rgba(112,112,112,0.15),inset_2px_6px_10px_rgba(0,0,0,0.13)]">
-                <div className="w-[23%] h-[28.5px] md:h-[40px] flex items-center justify-center text-[10px] leading-[15px] md:text-[14px] md:leading-[21px] md:font-[400] text-[#1199FA] rounded-[7.8px] md:rounded-[11px] bg-[#00000036] shadow-[-2px_-2px_4px_rgba(12,62,159,0.17),2px_4px_5px_rgba(12,62,159,0.21)] backdrop-blur-[4px]">
+                <div className="w-[23%] h-[28.5px] md:h-[40px] flex items-center justify-center text-[10px] leading-[15px] md:text-[14px] md:leading-[21px] md:font-[400] text-[#00FF99] rounded-[7.8px] md:rounded-[11px] bg-[#00000036] shadow-[-2px_-2px_4px_rgba(12,62,159,0.17),2px_4px_5px_rgba(12,62,159,0.21)] backdrop-blur-[4px]">
                   Year
                 </div>
                 <div className="w-[23%] h-[28.5px] md:h-[40px] flex items-center justify-center text-[10px] leading-[15px] md:text-[14px] md:leading-[21px] md:font-[400] text-[#ffffffd1]">

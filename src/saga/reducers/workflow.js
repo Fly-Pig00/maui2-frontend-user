@@ -10,7 +10,10 @@ import { requestPending, requestSuccess, requestFail } from "../../utils/fetch";
 // import { actionChannel } from 'redux-saga/effects';
 
 const initialState = {
-  balance: 0,
+  totalBalances: {},
+  availableBalances: {},
+  walletAddress: "",
+  paymentMethod: [],
   mauiAddress: null,
   terraAddress: null,
   isLogged: false,
@@ -34,6 +37,10 @@ export default handleActions(
     [requestSuccess(WorkflowConstants.SIGNIN_ACTION)]: (state, action) => ({
       ...state,
       ...action.payload,
+      totalBalances: action.payload?.wyreUser?.totalBalances,
+      availableBalances: action.payload?.wyreUser?.availableBalances,
+      walletAddress: action.payload.user?.ethWalletAddr,
+      paymentMethod: action.payload.user?.payMethods,
       isLogged: true,
       isLoading: false,
       error: null,
@@ -48,6 +55,10 @@ export default handleActions(
       ...state,
       isLogged: true,
       isLoading: false,
+    }),
+    [requestSuccess(WorkflowConstants.GET_PAYMENT_METHOD_ACTION)]: (state, action) => ({
+      ...state,
+      paymentMethod: state.paymentMethod.push(action.payload),
     }),
     [requestSuccess(WorkflowConstants.SIGNOUT_ACTION)]: (state) => ({
       ...state,

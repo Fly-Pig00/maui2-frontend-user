@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { compose } from "redux";
@@ -12,6 +13,7 @@ import {
 import PhoneInput from "react-phone-input-2";
 // import "react-phone-input-2/lib/style.css";
 
+import { getPaymentMethod } from "../../../../saga/actions/workflow";
 import InputAmount from "../../../../components/Form/InputAmount";
 import SelectCurrency from "../../../../components/Form/SelectCurrency";
 import SelectWallet from "../../../../components/Form/SelectWallet";
@@ -32,6 +34,9 @@ import { appConfig } from "../../../../appConfig";
 import { shortenAddress } from "../../../../utils/shortenAddress";
 
 function TabCrypto(props) {
+  const dispatch = useDispatch();
+  const paymentMethod = useSelector((state) => state.workflow.paymentMethod);
+
   const { sign } = useWallet();
   // get functions to build form with useForm() hook
   const hookForm = useForm();
@@ -68,6 +73,25 @@ function TabCrypto(props) {
   const [received, setReceived] = useState("");
   const [testCountry, setTestCountry] = useState("");
   const [isFiat, setIsFiat] = useState(false);
+  const [selectedPayment, setSelectedPayment] = useState(0);
+  const [paymentModalShow, setPaymentModalShow] = useState(false);
+  const [paymentModalStage, setPaymentModalStage] = useState(0);
+  const [isPlaidPayment, setIsPlaidPayment] = useState(true);
+  //add payment method
+  const [firstNameOnAccount, setFirstNameOnAccount] = useState("");
+  const [lastNameOnAccount, setLastNameOnAccount] = useState("");
+  const [beneficiaryAddress, setBeneficiaryAddress] = useState("");
+  const [beneficiaryCity, setBeneficiaryCity] = useState("");
+  const [beneficiaryPostal, setBeneficiaryPostal] = useState("");
+  const [beneficiaryPhoneNumber, setBeneficiaryPhoneNumber] = useState("");
+  const [beneficaryState, setBeneficaryState] = useState("");
+  const [beneficiaryDobDay, setBeneficiaryDobDay] = useState("");
+  const [beneficiaryDobMonth, setBeneficiaryDobMonth] = useState("");
+  const [beneficiaryDobYear, setBeneficiaryDobYear] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [routingNumber, setRoutingNumber] = useState("");
+  const [accountType, setAccountType] = useState("");
+  const [addPayLoading, setAddPayLoading] = useState(false);
 
   axios.defaults.baseURL = appConfig.apiUrl;
   axios.defaults.headers.common["Authorization"] = token;
@@ -79,6 +103,14 @@ function TabCrypto(props) {
   useEffect(() => {
     if (received !== "") setStage(2);
   }, [received]);
+
+  useEffect(() => {
+    if (paymentModalShow) document.body.style.overflow = "hidden";
+    else {
+      document.body.style.overflow = "auto";
+      setPaymentModalStage(0);
+    }
+  }, [paymentModalShow]);
 
   const deposit = async (amount, from, to, network) => {
     setIsLoading(true);
@@ -205,15 +237,15 @@ function TabCrypto(props) {
         year: 2023,
         month: 10,
         cvv: 555,
-        givenName: "Jim",
-        familyName: "Smith",
+        givenName: "Jaim",
+        familyName: "Samith",
         email: "wando0226@gmail.com",
         phone: 12199644724,
-        street1: "12 Test Ave",
+        street1: "132 Test Ave",
         city: "Los Angeles",
         state: "CA",
         postalCode: 94123,
-        country: "US",
+        country,
         amount,
       },
       url: `${appConfig.apiUrl}/v1/order`,
@@ -230,100 +262,338 @@ function TabCrypto(props) {
         setIsLoading(false);
       });
   };
+
+  const handleAddPayment = () => {
+    if (!props.workflow.isLogged) {
+      toast.error("Please login first.");
+      return false;
+    }
+    setAddPayLoading(true);
+    axios({
+      method: "POST",
+      headers: { Authorization: `bearer ${token}` },
+      data: {
+        firstNameOnAccount: "sally",
+        lastNameOnAccount: "smith",
+        beneficiaryAddress: "1234 Main St",
+        beneficiaryCity: "Los Angeles",
+        beneficiaryPostal: "91604",
+        beneficiaryPhoneNumber: "15555555555",
+        beneficaryState: "CA",
+        beneficiaryDobDay: 2,
+        beneficiaryDobMonth: 12,
+        beneficiaryDobYear: 1990,
+        accountNumber: "1234567890123",
+        routingNumber: "123412312",
+        accountType: 0,
+        // firstNameOnAccount,
+        // lastNameOnAccount,
+        // beneficiaryAddress,
+        // beneficiaryCity,
+        // beneficiaryPostal,
+        // beneficiaryPhoneNumber,
+        // beneficaryState,
+        // beneficiaryDobDay,
+        // beneficiaryDobMonth,
+        // beneficiaryDobYear,
+        // accountNumber,
+        // routingNumber,
+        // accountType: 0,
+      },
+      url: `${appConfig.apiUrl}/v1/createPayMethod`,
+    })
+      .then((result) => {
+        console.log("method", result);
+        // dispatch(getPaymentMethod("w2342wf32"));
+        setAddPayLoading(false);
+      })
+      .catch((err) => {
+        console.log("error", err.response?.data?.msg);
+        toast.error(err.response?.data?.msg);
+        setAddPayLoading(false);
+      });
+  };
   return stage === 0 ? (
-    <form
-      className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <div className="w-full md:w-[45%]">
-        {/* <div className="w-[160px] h-[30px] bg-[#FFF] dark:bg-[#504e4e] p-[4px] flex flex-row dark:text-[#FFF]">
+    <>
+      <form
+        className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="w-full md:w-[45%]">
           <div
-            className={`w-[50%] h-[100%] flex justify-center items-center cursor-pointer ${
-              !isFiat && "bg-deposit-card dark:bg-deposit-card-dark"
-            }`}
-            onClick={() => setIsFiat(false)}
+            className="dark:text-[#fff]"
+            onChange={(e) => {
+              // if (e.target.value === "fiat") setIsFiat(true);
+              // else setIsFiat(false);
+              setIsFiat(!isFiat);
+            }}
           >
-            Crypto
+            <input
+              type="radio"
+              id="crypto"
+              name="payment"
+              value={!isFiat}
+              defaultChecked
+            />
+            <label for="crypto" className="ml-[10px]">
+              Crypto
+            </label>
+            <div className="h-[20px]"></div>
+            <input type="radio" id="fiat" name="payment" value={isFiat} />
+            <label for="fiat" className="ml-[10px]">
+              Fiat
+            </label>
           </div>
-          <div
-            className={`w-[50%] h-[100%] flex justify-center items-center cursor-pointer ${
-              isFiat && "bg-deposit-card dark:bg-deposit-card-dark"
-            }`}
-            onClick={() => setIsFiat(true)}
+          <SelectCurrency
+            isCrypto={isFiat ? false : true}
+            className="mt-[40px] md:mt-[30px]"
+            label={
+              <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
+                Select crypto you want to{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]">
+                  Deposit
+                </span>
+              </div>
+            }
+            selectedSymbol={selectedCrypto}
+            onChange={handleCryptoChange}
+          />
+          <div className="h-[30px]"></div>
+          <SelectWallet
+            isCrypto={isFiat ? false : true}
+            className="mt-[10px]"
+            label={
+              <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
+                Payment Method
+              </div>
+            }
+            selectedSymbol={selectedCryptoWallet}
+            onChange={handleCryptoWalletChange}
+          />
+          <InputAmount
+            name="amount"
+            className="mt-[40px]"
+            label={
+              <div className="ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
+                Enter amount
+              </div>
+            }
+            hookForm={hookForm}
+            validate={validateAmount}
+          />
+          <AgreeWithCheckbox
+            className="ml-2 md:ml-4 mb-3 mt-[30px]"
+            checked={isAgreed}
+            onChange={handleAgreeChange}
+          />
+          <Button
+            isDisabled={!isAgreed}
+            isLoading={isLoading}
+            className="mt-[10px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
           >
-            Fiat
-          </div>
-        </div> */}
-        <div className="dark:text-[#fff]"
-          onChange={(e) => {
-            if (e.target.value === "fiat") setIsFiat(true);
-            else setIsFiat(false);
-          }}
-        >
-          <input type="radio" id="crypto" name="payment" value="crypto" />
-          <label for="crypto" className="ml-[10px]">
-            Crypto
-          </label>
-          <div className="h-[20px]"></div>
-          <input type="radio" id="fiat" name="payment" value="fiat" />
-          <label for="fiat" className="ml-[10px]">
-            Fiat
-          </label>
+            Continue
+          </Button>
         </div>
-        <SelectCurrency
-          isCrypto={isFiat ? false : true}
-          className="mt-[40px] md:mt-[30px]"
-          label={
-            <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
-              Select crypto you want to{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]">
-                Deposit
-              </span>
+        <div className="w-full mt-[10px] md:mt-0 md:w-[45%]">
+          {selectedCryptoWallet === 0 ? (
+            <RightBar isCrypto={true} />
+          ) : (
+            <div className="w-full border-b-[1px] border-b-[#777] pb-[10px] md:pb-0 md:border-0">
+              <div className="md:text-[24px] dark:text-[#fff]">
+                Payment Method
+              </div>
+              <div className=" max-h-[490px] overflow-auto">
+                {paymentMethod.map((payment, index) => (
+                  <div
+                    key={index}
+                    className={`md:w-full md:h-[80px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${
+                      selectedPayment === index
+                        ? " border-[3px] border-[#00FF99]"
+                        : ""
+                    }`}
+                    onClick={() => setSelectedPayment(index)}
+                  >
+                    {payment}
+                  </div>
+                ))}
+              </div>
+              <div
+                className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
+                onClick={() => setPaymentModalShow(!paymentModalShow)}
+              >
+                + New Payment Method
+              </div>
             </div>
-          }
-          selectedSymbol={selectedCrypto}
-          onChange={handleCryptoChange}
-        />
-        <div className="h-[30px]"></div>
-        <SelectWallet
-          isCrypto={isFiat ? false : true}
-          className="mt-[10px]"
-          label={
-            <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
-              Payment Method
+          )}
+        </div>
+      </form>
+      {paymentModalShow && (
+        <div>
+          <div className="fixed left-[50vw] top-0 w-[50vw] h-[100vh] bg-deposit-card dark:bg-deposit-card-dark z-[60]">
+            <div className="mt-[30px] flex justify-between md:h-[50px]">
+              <div className="flex justify-center items-center text-[30px] text-[#000] dark:text-[#FFF] font-[600] w-[90%] h-[100%]">
+                Add Payment Method
+              </div>
+              <div
+                className="flex justify-center items-center md:h-[100%] md:text-[40px] dark:text-[#FFF] md:w-[10%] cursor-pointer"
+                onClick={() => setPaymentModalShow(false)}
+              >
+                &times;
+              </div>
             </div>
-          }
-          selectedSymbol={selectedCryptoWallet}
-          onChange={handleCryptoWalletChange}
-        />
-        <InputAmount
-          name="amount"
-          className="mt-[40px]"
-          label={
-            <div className="ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
-              Enter amount
-            </div>
-          }
-          hookForm={hookForm}
-          validate={validateAmount}
-        />
-        <AgreeWithCheckbox
-          className="ml-2 md:ml-4 mb-3 mt-[30px]"
-          checked={isAgreed}
-          onChange={handleAgreeChange}
-        />
-        <Button
-          isDisabled={!isAgreed}
-          isLoading={isLoading}
-          className="mt-[10px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
-        >
-          Submit
-        </Button>
-      </div>
-      <div className="w-full mt-[10px] md:mt-0 md:w-[45%]">
-        <RightBar isCrypto={true} />
-      </div>
-    </form>
+            {paymentModalStage === 0 ? (
+              <div className="md:h-[calc(100vh-50px)] md:w-full flex justify-center items-center">
+                <div className="h-[400px] flex flex-col justify-between">
+                  <div
+                    className={`w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${
+                      isPlaidPayment
+                        ? "border-[2px] border-[#00FF99]"
+                        : "border-[1px] border-[#555555]"
+                    } flex justify-center items-center cursor-pointer`}
+                    onClick={() => setIsPlaidPayment(true)}
+                  >
+                    Plaid
+                  </div>
+                  <div
+                    className={`w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${
+                      !isPlaidPayment
+                        ? "border-[2px] border-[#00FF99]"
+                        : "border-[1px] border-[#555555]"
+                    } flex justify-center items-center cursor-pointer`}
+                    onClick={() => setIsPlaidPayment(false)}
+                  >
+                    Other
+                  </div>
+                  <div
+                    className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
+                    onClick={() => {
+                      if (!isPlaidPayment) setPaymentModalStage(1);
+                    }}
+                  >
+                    NEXT
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="md:h-[calc(100vh-50px)] md:w-full px-[30px] dark:text-[#FFF] overflow-auto">
+                <div className="md:mt-[10px] flex justify-between">
+                  <div className="md:w-[45%]">
+                    <div>First Name*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      value={firstNameOnAccount}
+                      onChange={(e) => setFirstNameOnAccount(e.target.value)}
+                    />
+                  </div>
+                  <div className="md:w-[45%]">
+                    <div>Last Name*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      value={lastNameOnAccount}
+                      onChange={(e) => setLastNameOnAccount(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="md:mt-[10px]">Address*</div>
+                <input
+                  type="text"
+                  className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                  value={beneficiaryAddress}
+                  onChange={(e) => setBeneficiaryAddress(e.target.value)}
+                />
+                <div className="md:mt-[10px] flex justify-between">
+                  <div className="md:w-[45%]">
+                    <div className="md:mt-[10px]">Account Number*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      value={accountNumber}
+                      onChange={(e) => setAccountNumber(e.target.value)}
+                    />
+                  </div>
+                  <div className="md:w-[45%]">
+                    <div className="md:mt-[10px]">Routing Number*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      value={routingNumber}
+                      onChange={(e) => setRoutingNumber(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="md:mt-[10px] flex justify-between">
+                  <div className="md:w-[45%]">
+                    <div>Birthday*</div>
+                    <input
+                      type="date"
+                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      onChange={(e) => {
+                        let tmpDate = e.target.value.split("-");
+                        setBeneficiaryDobYear(tmpDate[0]);
+                        setBeneficiaryDobMonth(tmpDate[1]);
+                        setBeneficiaryDobDay(tmpDate[2]);
+                      }}
+                    />
+                  </div>
+                  <div className="md:w-[45%]">
+                    <div>State*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100  text-[#000]"
+                      value={beneficaryState}
+                      onChange={(e) => setBeneficaryState(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="md:mt-[10px] flex justify-between">
+                  <div className="md:w-[45%]">
+                    <div>City*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                      value={beneficiaryCity}
+                      onChange={(e) => setBeneficiaryCity(e.target.value)}
+                    />
+                  </div>
+                  <div className="md:w-[45%]">
+                    <div>Postal / ZIP code*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                      value={beneficiaryPostal}
+                      onChange={(e) => setBeneficiaryPostal(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="md:h-[10px]"></div>
+                <PhoneInput
+                  specialLabel="Phone Number*"
+                  inputClass="w-[100%] rounded-[12px] border-transparent  text-[#000]"
+                  country={"us"}
+                  value={beneficiaryPhoneNumber}
+                  onChange={(phone) => {
+                    setBeneficiaryPhoneNumber(phone);
+                  }}
+                />
+                <Button
+                  isLoading={addPayLoading}
+                  className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
+                  onClick={handleAddPayment}
+                >
+                  ADD
+                </Button>
+              </div>
+            )}
+          </div>
+          <div
+            className="fixed left-0 top-0 w-[100vw] h-[100vh] bg-[#fff] z-[10] opacity-80"
+            onClick={() => setPaymentModalShow(false)}
+          ></div>
+        </div>
+      )}
+    </>
   ) : stage === 1 ? (
     <form
       className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between text-[#273855] dark:text-[#FFF]"
@@ -337,7 +607,7 @@ function TabCrypto(props) {
             <div>First Name*</div>
             <input
               type="text"
-              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+              className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
               value={givenName}
               onChange={(e) => setGivenName(e.target.value)}
             />
@@ -346,7 +616,7 @@ function TabCrypto(props) {
             <div>Last Name*</div>
             <input
               type="text"
-              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+              className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
               value={familyName}
               onChange={(e) => setFamilyName(e.target.value)}
             />
@@ -355,7 +625,7 @@ function TabCrypto(props) {
         <div className="md:mt-[10px]">Card Number*</div>
         <input
           type="text"
-          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+          className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
           value={number}
           onChange={(e) => setNumber(e.target.value)}
         />
@@ -364,7 +634,7 @@ function TabCrypto(props) {
             <div>Expiration*</div>
             <input
               type="date"
-              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+              className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
               onChange={(e) => {
                 let tmpDate = e.target.value.split("-");
                 setYear(tmpDate[0]);
@@ -377,7 +647,7 @@ function TabCrypto(props) {
             <input
               type="password"
               autoComplete="off"
-              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+              className="md:w-[100%] text-[#000] rounded-[12px] border-transparent transition-all duration-100"
               value={cvv}
               onChange={(e) => setCvv(e.target.value)}
             />
@@ -394,7 +664,7 @@ function TabCrypto(props) {
               onChange={(e) => setCountry(e.target.value)}
             /> */}
             <CountryDropdown
-              className="w-[100%] rounded-[12px] border-transparent"
+              className="w-[100%] rounded-[12px] border-transparent text-[#000]"
               value={testCountry}
               onChange={(val) => {
                 const countryShortName = CountryRegionData.filter(
@@ -409,7 +679,7 @@ function TabCrypto(props) {
             <div>State*</div>
             <input
               type="text"
-              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100  text-[#000]"
               value={state}
               onChange={(e) => setState(e.target.value)}
             />
@@ -418,7 +688,7 @@ function TabCrypto(props) {
         <div className="md:mt-[10px]">Address*</div>
         <input
           type="text"
-          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
           value={street1}
           onChange={(e) => setStreet1(e.target.value)}
         />
@@ -427,7 +697,7 @@ function TabCrypto(props) {
             <div>Postal / ZIP code*</div>
             <input
               type="text"
-              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
             />
@@ -436,7 +706,7 @@ function TabCrypto(props) {
             <div>City*</div>
             <input
               type="text"
-              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
@@ -446,14 +716,14 @@ function TabCrypto(props) {
         <div className="md:mt-[10px]">Email*</div>
         <input
           type="text"
-          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <div className="md:h-[10px]"></div>
         <PhoneInput
           specialLabel="Phone Number*"
-          inputClass="w-[100%] rounded-[12px] border-transparent"
+          inputClass="w-[100%] rounded-[12px] border-transparent  text-[#000]"
           country={"us"}
           value={phone}
           onChange={(phone) => {
@@ -461,12 +731,6 @@ function TabCrypto(props) {
             setPhone(phone);
           }}
         />
-        {/* <input
-          type="text"
-          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        /> */}
         <Button
           type="submit"
           isLoading={isLoading}
@@ -476,7 +740,7 @@ function TabCrypto(props) {
         </Button>
       </div>
       <div className="w-full mt-[10px] md:mt-0 md:w-[45%]">
-        <RightBar isCrypto={true} />
+        {<RightBar isCrypto={true} />}
       </div>
     </form>
   ) : (
