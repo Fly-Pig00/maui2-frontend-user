@@ -4,12 +4,8 @@ import Checkbox from "../Checkbox";
 import useOutsideClick from "../../../utils/useOutsideClick";
 
 const FIAT = [
-  { img: "bg-common-transfer-from", symbol: "USD", fee: "2", index: 0 },
-  { img: "bg-common-transfer-from", symbol: "EUR", fee: "0", index: 1 },
-  { img: "bg-common-transfer-from", symbol: "SGD", fee: "2", index: 2 },
-  { img: "bg-common-transfer-from", symbol: "CAD", fee: "2", index: 3 },
-  { img: "bg-common-transfer-from", symbol: "AUD", fee: "2", index: 4 },
-  { img: "bg-common-transfer-from", symbol: "BRL", fee: "2", index: 5 },
+  { img: "bg-common-debit-card", symbol: "Debit Card", fee: "3", index: 0 },
+  { img: "bg-common-debit-card", symbol: "ACH Transfer", fee: "0", index: 1 },
 ];
 
 const CRYPTO = [

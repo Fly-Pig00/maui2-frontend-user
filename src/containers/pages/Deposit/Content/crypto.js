@@ -45,7 +45,6 @@ function TabCrypto(props) {
   useEffect(() => {
     setValue("amount", 0);
   }, [props.data, setValue]);
-
   const token = localStorage.getItem("token");
 
   const [isAgreed, setIsAgreed] = useState(false);
@@ -92,6 +91,7 @@ function TabCrypto(props) {
   const [routingNumber, setRoutingNumber] = useState("");
   const [accountType, setAccountType] = useState("");
   const [addPayLoading, setAddPayLoading] = useState(false);
+  const [paymentMethods, setPaymentMethods] = useState([]);
 
   axios.defaults.baseURL = appConfig.apiUrl;
   axios.defaults.headers.common["Authorization"] = token;
@@ -111,6 +111,21 @@ function TabCrypto(props) {
       setPaymentModalStage(0);
     }
   }, [paymentModalShow]);
+
+  useEffect(() => {
+    if (paymentMethod.length > 0)
+      axios({
+        method: "GET",
+        headers: { Authorization: `bearer ${token}` },
+        url: `${appConfig.apiUrl}/v1/getpaymethods`,
+      })
+        .then((result) => {
+          setPaymentMethods(result.data);
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
+  }, [paymentMethod]);
 
   const deposit = async (amount, from, to, network) => {
     setIsLoading(true);
@@ -154,6 +169,7 @@ function TabCrypto(props) {
   };
 
   function handleCryptoChange(symbol) {
+    console.log(symbol)
     setSelectedCrypto(symbol);
   }
   function handleCryptoWalletChange(symbol) {
@@ -192,34 +208,71 @@ function TabCrypto(props) {
     // deposit(unmaskCurrency(data.amount), from, to, network);
     // return false;
 
-    axios({
-      method: "POST",
-      headers: { Authorization: `bearer ${token}` },
-      data: {
-        amount: unmaskCurrency(data.amount),
-        paymentMethod: selectedCryptoWallet,
-      },
-      url: `${appConfig.apiUrl}/v1/reserve`,
-    })
-      .then((result) => {
-        // const url = result.data?.url || "";
-        const reserve = result.data.reservation;
-        console.log(result);
-        setReservation(reserve);
-        //   if (url) {
-        //     window.open(
-        //       url,
-        //       "_blank",
-        //       "toolbar=yes,scrollbars=yes,resizable=yes,right=0,width=450,height=700"
-        //     );
-        //   }
-        setIsLoading(false);
+    if (!isFiat && selectedCryptoWallet === 0) {
+      //crypto & debit card method
+      axios({
+        method: "POST",
+        headers: { Authorization: `bearer ${token}` },
+        data: {
+          amount: unmaskCurrency(data.amount),
+          paymentMethod: selectedCryptoWallet,
+        },
+        url: `${appConfig.apiUrl}/v1/reserve`,
       })
-      .catch((err) => {
-        toast.error("Error");
-        setIsLoading(false);
-        console.log("error", err);
-      });
+        .then((result) => {
+          // const url = result.data?.url || "";
+          const reserve = result.data.reservation;
+          setReservation(reserve);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          toast.error("Error");
+          setIsLoading(false);
+          console.log("error", err);
+        });
+    } else if (isFiat && selectedCryptoWallet === 1) {
+      //crypto & debit card method
+      axios({
+        method: "POST",
+        headers: { Authorization: `bearer ${token}` },
+        data: {
+          srn: paymentMethods[selectedPayment].srn,
+          sourceAmount: unmaskCurrency(data.amount),
+          sourceCurrency: 'USD',
+        },
+        url: `${appConfig.apiUrl}/v1/fiatfrombank`,
+      })
+        .then((result) => {
+          console.log(result.data); // ...
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          toast.error(err.response?.data?.msg);
+          setIsLoading(false);
+        });
+    } else if (!isFiat && selectedCryptoWallet === 1) {
+      //crypto & debit card method
+      axios({
+        method: "POST",
+        headers: { Authorization: `bearer ${token}` },
+        data: {
+          srn: paymentMethods[selectedPayment].srn,
+          sourceAmount: unmaskCurrency(data.amount),
+          sourceCurrency: 'USD',
+        },
+        url: `${appConfig.apiUrl}/v1/cryptofrombank`,
+      })
+        .then((result) => {
+          console.log(result.data); // ...
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          toast.error(err.response?.data?.msg);
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
+    }
   };
 
   const onInfoSubmit = () => {
@@ -303,14 +356,42 @@ function TabCrypto(props) {
       url: `${appConfig.apiUrl}/v1/createPayMethod`,
     })
       .then((result) => {
-        console.log("method", result);
-        // dispatch(getPaymentMethod("w2342wf32"));
+        dispatch(getPaymentMethod(result.data?.payId));
         setAddPayLoading(false);
+        setPaymentModalStage(2);
       })
       .catch((err) => {
         console.log("error", err.response?.data?.msg);
         toast.error(err.response?.data?.msg);
         setAddPayLoading(false);
+      });
+  };
+
+  const deletePaymentMethod = (index) => {
+    axios({
+      method: "POST",
+      headers: { Authorization: `bearer ${token}` },
+      data: { srn: paymentMethods[selectedPayment].srn },
+      url: `${appConfig.apiUrl}/v1/deletepaymethod`,
+    })
+      .then((result) => {
+        if (result.data?.msg === "success")
+          axios({
+            method: "GET",
+            headers: { Authorization: `bearer ${token}` },
+            url: `${appConfig.apiUrl}/v1/getpaymethods`,
+          })
+            .then((res) => {
+              console.log(res);
+              setPaymentMethods(res.data);
+              toast.success("Successfully removed");
+            })
+            .catch((err) => {
+              console.log("error", err);
+            });
+      })
+      .catch((err) => {
+        console.log("error", err);
       });
   };
   return stage === 0 ? (
@@ -403,19 +484,50 @@ function TabCrypto(props) {
                 Payment Method
               </div>
               <div className=" max-h-[490px] overflow-auto">
-                {paymentMethod.map((payment, index) => (
-                  <div
-                    key={index}
-                    className={`md:w-full md:h-[80px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${
-                      selectedPayment === index
-                        ? " border-[3px] border-[#00FF99]"
-                        : ""
-                    }`}
-                    onClick={() => setSelectedPayment(index)}
-                  >
-                    {payment}
-                  </div>
-                ))}
+                {paymentMethods.length > 0 &&
+                  paymentMethods.map((payment, index) => (
+                    <div
+                      key={index}
+                      className={`md:w-full md:h-[120px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${
+                        selectedPayment === index
+                          ? " border-[3px] border-[#00FF99]"
+                          : ""
+                      }`}
+                      onClick={() => setSelectedPayment(index)}
+                    >
+                      <div className="relative h-[100%] flex items-center justify-between">
+                        <div
+                          className="absolute right-0 top-0"
+                          onClick={() => deletePaymentMethod(index)}
+                        >
+                          🗑️
+                        </div>
+                        <div className="text-center w-[80%]">
+                          {payment.name}
+                        </div>
+                        {payment.status === "AWAITING_FOLLOWUP" && (
+                          <div className="text-center text-[10px] overflow-hidden px-[10px] py-[5px] rounded-[30px] bg-orange-500 text-[#FFF]">
+                            awaiting
+                          </div>
+                        )}
+                        {payment.status === "PENDING" && (
+                          <div className="text-center text-[10px] overflow-hidden px-[10px] py-[5px] rounded-[30px] bg-teal-400 text-[#FFF]">
+                            pending
+                          </div>
+                        )}
+                        {payment.status === "ACTIVE" && (
+                          <div className="text-center text-[10px] overflow-hidden px-[10px] py-[5px] rounded-[30px] bg-[#00FF99] text-[#FFF]">
+                            active
+                          </div>
+                        )}
+                        {payment.status === "REJECTED" && (
+                          <div className="text-center text-[10px] overflow-hidden px-[10px] py-[5px] rounded-[30px] bg-red-800 text-[#FFF]">
+                            rejected
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
               </div>
               <div
                 className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
@@ -462,7 +574,7 @@ function TabCrypto(props) {
                     } flex justify-center items-center cursor-pointer`}
                     onClick={() => setIsPlaidPayment(false)}
                   >
-                    Other
+                    Bank Transfer
                   </div>
                   <div
                     className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
@@ -474,7 +586,7 @@ function TabCrypto(props) {
                   </div>
                 </div>
               </div>
-            ) : (
+            ) : paymentModalStage === 1 ? (
               <div className="md:h-[calc(100vh-50px)] md:w-full px-[30px] dark:text-[#FFF] overflow-auto">
                 <div className="md:mt-[10px] flex justify-between">
                   <div className="md:w-[45%]">
@@ -582,8 +694,24 @@ function TabCrypto(props) {
                   className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
                   onClick={handleAddPayment}
                 >
-                  ADD
+                  NEXT
                 </Button>
+              </div>
+            ) : (
+              <div className="md:h-[calc(100vh-50px)] md:w-full px-[30px] dark:text-[#FFF] flex justify-center items-center overflow-auto">
+                <div className="md:w-[300px] pb-[10vw]">
+                  <div className=" text-[150px] text-center">📄</div>
+                  <div className=" text-[20px] text-center">
+                    Upload document to activate your acocunt
+                  </div>
+                  <Button
+                    // isLoading={addPayLoading}
+                    className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
+                    // onClick={}
+                  >
+                    Upload
+                  </Button>
+                </div>
               </div>
             )}
           </div>
@@ -727,7 +855,6 @@ function TabCrypto(props) {
           country={"us"}
           value={phone}
           onChange={(phone) => {
-            console.log(phone);
             setPhone(phone);
           }}
         />
@@ -744,7 +871,7 @@ function TabCrypto(props) {
       </div>
     </form>
   ) : (
-    <div className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between">
+    <div className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between dark:text-[#FFF]">
       <div className="w-full md:w-[45%]">
         <div className="md:mt-[10px] flex justify-between">
           <div className="md:w-[45%]">

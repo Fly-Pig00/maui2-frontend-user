@@ -58,7 +58,7 @@ export default handleActions(
     }),
     [requestSuccess(WorkflowConstants.GET_PAYMENT_METHOD_ACTION)]: (state, action) => ({
       ...state,
-      paymentMethod: state.paymentMethod.push(action.payload),
+      paymentMethod: state.paymentMethod.concat(action.payload),
     }),
     [requestSuccess(WorkflowConstants.SIGNOUT_ACTION)]: (state) => ({
       ...state,

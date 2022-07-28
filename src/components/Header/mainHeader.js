@@ -253,9 +253,10 @@ function MainHeader(props) {
             isDepositPage={isTheme2}
             symbol="$"
             balance={
-              Math.floor(
-                props.workflow?.availableBalances.DAI * 1000
-              ) / 1000
+              props.workflow?.availableBalances?.DAI
+                ? Math.floor(props.workflow?.availableBalances.DAI * 1000) /
+                  1000
+                : 0
             }
             isLoading={props.workflow.isUpdatingBalance}
             kind="DAI"
