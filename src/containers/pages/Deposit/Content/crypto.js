@@ -350,7 +350,7 @@ function TabCrypto(props) {
             label={
               <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
                 Select crypto you want to{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2]">
                   Deposit
                 </span>
               </div>

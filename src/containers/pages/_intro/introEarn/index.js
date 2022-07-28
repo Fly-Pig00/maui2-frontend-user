@@ -9,7 +9,7 @@ function IntroEarn() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.body.style.overflow = "hidden"
+    document.body.style.overflow = "hidden";
     return () => (document.body.style.overflow = "auto");
   }, []);
 
@@ -53,26 +53,23 @@ function IntroEarn() {
           EARN
         </div>
         <div className="text-[150px] md:text-[250px] leading-[179px] md:leading-[290px] font-[600] text-[#00FF99] text-center">
-          8%
+          5% APY
         </div>
         <div className="w-[70%] mx-auto text-[20px] md:text-[32px] leading-[24px] md:leading-[38px] font-[500] md:font-[600] text-[#FFF] text-center">
-          Earn on your deposits. Withdraw anytime.{" "}
+          Earn 5% on your deposits. Withdraw anytime.
         </div>
       </div>
       <div className="relative w-full md:h-[calc(100vw*963/1512)] flex md:justify-center md:items-center bg-[#10213f] md:bg-introearn-section2 bg-cover bg-left  overflow-hidden">
         <div className="mt-[70px] md:mt-0 w-[90%] mx-auto md:w-[70%] flex flex-col md:items-center">
           <div className="text-[64px] md:text-[74px] leading-[76px] md:leading-[88px] font-[600] text-[#00FF99] text-left md:text-center">
-            Earn 8% p.a. Fixed Interest with No Fees
+            Earn 5% APY
             {isMobile && <span className="text-[#FFF]">.</span>}
           </div>
           <div className="w-[75%] md:mt-[50px] text-[16px] md:text-[20px] leading-[19px] md:leading-[24px] font-[400] md:font-[500] text-[#FFF] text-left md:text-center">
-            Since you are your own bank, you make money from your deposits and
-            from your borrowing. No fees/No annual, foreign-transaction, or late
-            fees. No financial institution will be able to match 8% APY per year
-            on your deposit.
+            No bank will be able to match 5% APY per year on your deposit.
           </div>
           <div className="mt-[50px] md:mt-[80px] md:mx-auto py-[12px] md:py-[15px] md:px-[32px] text-[#FFF] text-center md:text-[32px] md:leading-[38px] md:font-[500] border-[1px] md:border-0 border-[#FFF] rounded-[4px] md:bg-[#00FF99]">
-            Calculate Your Rewards
+            Calculate Your Yield
           </div>
           {isMobile && (
             <div className="mt-[160px] mx-auto w-[80vw] h-[calc(80vw*675/334)] bg-introdashboard-fullphone bg-cover bg-center"></div>
@@ -86,8 +83,8 @@ function IntroEarn() {
         </div>
         <div className="relative mt-[20px] md:mt-[50px] w-[90%] md:w-[55%] mx-auto text-[14px] md:text-[20px] leading-[17px] md:leading-[24px] font-[500] text-[#ffffffde] text-center">
           <div className="absolute left-[-4px] md:left-[-10vw] top-[calc(0px-20vw*128/441)] md:top-[-70px] w-[20vw] md:w-[28vw] h-[calc(20vw*128/441)] md:h-[calc(28vw*128/441)] bg-introearn-linegroup bg-cover bg-center"></div>
-          Make a deposit in any currency from anywhere in the world, now you are
-          earning 8% fixed rate p.a. on your deposit. You can access it anytime.
+          Make a deposit in any currency, now you are earning 5% APY on your
+          deposit. You can access it anytime.
         </div>
         <div className="mt-[60px] md:mt-[150px] mx-auto pt-[30px] md:pt-[70px] w-[88%] md:w-[80%] border-[1px] border-[#ffffff36]">
           <div className="flex flex-col md:flex-row md:justify-between px-[2%]">

@@ -167,8 +167,14 @@ function IntroDashBoard() {
             <div className="w-[60%] md:w-[55%]">
               {!isMobile && (
                 <div className="md:text-[45px] md:leading-[54px] text-[#00FF99] md:font-[600]">
-                  BORROW up to 50% of your deposit <span><strong>instantly</strong></span>{" "}
-                  and <span><strong>permissionless.</strong></span>
+                  BORROW up to 50% of your deposit{" "}
+                  <span>
+                    <strong>instantly</strong>
+                  </span>{" "}
+                  and{" "}
+                  <span>
+                    <strong>permissionless.</strong>
+                  </span>
                   No repayments.
                 </div>
               )}
@@ -215,21 +221,17 @@ function IntroDashBoard() {
         </div>
         <div className="mt-[120px] md:mt-[30vh] w-[80%] mx-auto md:w-full flex justify-center text-[36px] md:text-[72px] text-[#D9D9D9] md:text-[#00FF99] font-[600] capitalize md:leading-[120%]">
           <div className="md:border-b-[5px] border-[#00FF99] text-center">
-            Choose Your Maui Card
+            Select Your Maui Card
           </div>
         </div>
         <div className="flex flex-col-reverse md:flex-col">
           <div className="text-[#FFF] w-[90%] md:w-[75%] mt-[60px] mx-auto text-center text-[14px] md:text-[20px] md:leading-[24px] md:font-[500]">
-            Be one of the first cardholders of our titanium card and make
-            history. Make deposits and{" "}
-            <span className="text-[#00FF99]">receive 8% per year</span> yield,
-            that's a better return than most Hedge Funds and Superannuations
-            across the globe.{" "}
-            <span className="text-[#00FF99]">
-              Borrow up to 50% of your collateral instantly
-            </span>
-            . You could even compound it to your deposits to increase your
-            yields. That's the future of banking.
+            Be one of the first cardholders of Maui and make history. Make
+            deposits and <span className="text-[#00FF99]">receive 5% APY</span>,
+            that's a better return than any bank across the globe. Borrow up to
+            50% of your collateral{" "}
+            <span className="text-[#00FF99]">instantly</span> and{" "}
+            <span className="text-[#00FF99]">permissionless.</span>
           </div>
           <div className="mt-[30px] md:mt-[100px] mx-auto w-[80vw] md:w-[60vw] h-[calc(80vw*537/912)] md:h-[calc(60vw*537/912)] bg-introdashboard-card bg-center bg-cover"></div>
         </div>
@@ -246,11 +248,11 @@ function IntroDashBoard() {
             Maui {isMobile && <br />}
             <span className="text-[#00FF99] md:text-[#FFF]">B</span>anking{" "}
             {isMobile && <br />}{" "}
-            <span className="text-[#00FF99] md:text-[#FFF]">R</span>evolution.
+            <span className="text-[#00FF99] md:text-[#FFF]">E</span>evolution.
           </div>
           <div className="w-[45%] mt-[20px] text-[#FFF] text-[14px] md:text-[20px] leading-[17px] md:leading-[24px] md:font-[400]">
             Get access to unmatched high yields on your money impossible for
-            your legacy bank. A new banking system to serve YOU.*
+            your legacy bank. A new banking system to serve YOU.
           </div>
           {!isMobile && (
             <div className="md:mt-[30px] flex justify-start">

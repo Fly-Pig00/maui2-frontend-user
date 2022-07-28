@@ -19,7 +19,7 @@ const getSelected = (selectedCurrency) => {
 
 function InputAmount({name, className, label, hookForm, validate, isCurrencySelectable = false, selectedCurrency = 'USD', onCurrencyChange}) {
   const { formState: { errors }, control } = hookForm;
-  const cn = `mt-[13px] border-1 dark:border ${errors && errors[name] ? 'border border-[#ff0000] focus:border-[#ff0000]' : 'border-[#745FF2] focus:border-[#745FF2]'} rounded-[13px] w-full h-[46px] p-3 pl-4 pr-4 outline-none bg-[#FFFFFF] dark:bg-transparent text-black dark:text-white dark:bg-[#32283C]`;
+  const cn = `mt-[13px] border-1 dark:border ${errors && errors[name] ? 'border border-[#ff0000] focus:border-[#ff0000]' : 'border-[#00FF99] focus:border-[#00FF99]'} rounded-[13px] w-full h-[46px] p-3 pl-4 pr-4 outline-none bg-[#FFFFFF] dark:bg-transparent text-black dark:text-white dark:bg-[#32283C]`;
 
   const [isOpen, setIsOpen] = useState(false);
   const selected = getSelected(selectedCurrency);

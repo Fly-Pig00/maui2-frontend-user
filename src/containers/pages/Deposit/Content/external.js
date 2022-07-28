@@ -12,7 +12,7 @@ function LinkItem({title, img, url}) {
     window.open(url, "_blank");
   }
   return (
-    <div className="mt-[10px] mb-[10px] cursor-pointer flex p-[10px] pl-[30px] items-center rounded-[16px] border dark:border-transparent dark:border dark:border-[#745FF2] bg-white dark:bg-[#32283C] transition-all duration-1000" onClick={handleClick}>
+    <div className="mt-[10px] mb-[10px] cursor-pointer flex p-[10px] pl-[30px] items-center rounded-[16px] border dark:border-transparent dark:border dark:border-[#00FF99] bg-white dark:bg-[#32283C] transition-all duration-1000" onClick={handleClick}>
       <img src={img} alt={title} className="w-[30px] h-[30px] mr-[25px]"/>
       <div className='text-[14px] md:text-[16px] leading-[21px] text-[#7E7E7E] dark:text-[#EDEDF9] transition-all duration-1000'>{title}</div>
     </div>

@@ -21,7 +21,7 @@ function RightBar({isCrypto}) {
                   You can now deposit your asset as per your convience. 
                 </div>
                 <div className='w-full md:w-[240px] text-[10px] md:text-[14px] leading-[21px] text-[#7E7E7E] dark:text-[#EDEDF9] transition-all duration-1000'>
-                  <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]'>Crypto or Fiat</span>, Your choice.
+                  <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2]'>Crypto or Fiat</span>, Your choice.
                 </div>
               </div>
             }

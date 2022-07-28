@@ -119,7 +119,7 @@ function SelectWallet({
       {label && <div className="mb-[16px] ml-[16px]">{label}</div>}
       <div
         onClick={handleOpen}
-        className="cursor-pointer relative flex p-[8px] pl-[15px] items-center rounded-[16px] border dark:border-transparent dark:border dark:border-[#745FF2] bg-white dark:bg-[#32283C] transition-all duration-1000"
+        className="cursor-pointer relative flex p-[8px] pl-[15px] items-center rounded-[16px] border dark:border-transparent dark:border dark:border-[#00FF99] bg-white dark:bg-[#32283C] transition-all duration-1000"
       >
         <div
           className={`bg-cover bg-center ${selected.img} w-[30px] h-[30px]`}

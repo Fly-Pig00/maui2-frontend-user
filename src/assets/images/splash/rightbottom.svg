@@ -33,19 +33,19 @@
 <feGaussianBlur stdDeviation="3.5" result="effect1_foregroundBlur_515_7669"/>
 </filter>
 <linearGradient id="paint0_linear_515_7669" x1="466.551" y1="191.942" x2="624.079" y2="297.306" gradientUnits="userSpaceOnUse">
-<stop stop-color="#745FF2"/>
+<stop stop-color="#00FF99"/>
 <stop offset="1" stop-color="#00DDA2"/>
 </linearGradient>
 <linearGradient id="paint1_linear_515_7669" x1="7" y1="132.252" x2="148.92" y2="232.549" gradientUnits="userSpaceOnUse">
-<stop stop-color="#745FF2"/>
+<stop stop-color="#00FF99"/>
 <stop offset="1" stop-color="#00DDA2"/>
 </linearGradient>
 <linearGradient id="paint2_linear_515_7669" x1="277.25" y1="436.552" x2="329.76" y2="471.673" gradientUnits="userSpaceOnUse">
-<stop stop-color="#745FF2"/>
+<stop stop-color="#00FF99"/>
 <stop offset="1" stop-color="#00DDA2"/>
 </linearGradient>
 <linearGradient id="paint3_linear_515_7669" x1="403.035" y1="12.9398" x2="467.42" y2="58.6949" gradientUnits="userSpaceOnUse">
-<stop stop-color="#745FF2"/>
+<stop stop-color="#00FF99"/>
 <stop offset="1" stop-color="#00DDA2"/>
 </linearGradient>
 </defs>

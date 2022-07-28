@@ -110,7 +110,7 @@ function SignIn(props) {
         />
         <div className="mt-[40px] md:mt-[70px] text-[14px] leading-[21px] md:text-[28px] md:leading-[42px] text-[#FFFFFF] font-semibold text-center tracking-[4px] login-text-shadow">
           We offer{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#745FF2] to-[#00DDA2]">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2]">
             Revolutionary Banking
           </span>
           <br />

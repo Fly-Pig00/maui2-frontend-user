@@ -48,7 +48,7 @@ function AgreeWithCheckbox({className, checked, onChange, position='top', align=
             </>
           }
         >
-          <span className='underline text-[#745FF2]' onClick={handleClick}>Terms and conditions</span>
+          <span className='underline text-[#00FF99]' onClick={handleClick}>Terms and conditions</span>
         </Popover> */}
       </div>
     </Checkbox>

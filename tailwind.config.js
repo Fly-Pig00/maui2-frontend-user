@@ -45,12 +45,12 @@ module.exports = {
         "introearn-chart":"url('../images/_intro/introearn/chart.png')",
         "introearn-down-arrow":"url('../images/_intro/introearn/iconoir_nav-arrow-down.png')",
         'introearn-title-gradient': 'linear-gradient(95.29deg, #1F0A9C 7.4%, #00DDA2 84.23%, rgba(6, 136, 101, 0) 88.55%)',
-        'introearn-price-gradient': 'linear-gradient(124.08deg, #745FF2 3.96%, #00DDA2 94.96%)',
+        'introearn-price-gradient': 'linear-gradient(124.08deg, #00FF99 3.96%, #00DDA2 94.96%)',
         //intro borrow
         "introborrow-section2":"url('../images/_intro/introborrow/section2.png')",
         "introborrow-section2mobile":"url('../images/_intro/introborrow/section2mobile.png')",
         "introborrow-switchcolor":"url('../images/_intro/introborrow/switchcolor.png')",
-        'introborrow-calculate-gradient': 'linear-gradient(124.08deg, #745FF2 3.96%, #00DDA2 94.96%)',
+        'introborrow-calculate-gradient': 'linear-gradient(124.08deg, #00FF99 3.96%, #00DDA2 94.96%)',
         "introborrow-chart":"url('../images/_intro/introborrow/chart.png')",
         //intro cards
         "introborrow-card4":"url('../images/_intro/introcards/card4.png')",
@@ -113,7 +113,7 @@ module.exports = {
         'main-righttop-dark': "url('../images/dashboard/righttop-dark.png')",
         'main-card': 'linear-gradient(160.71deg, #EFF0FB 9.07%, #E1DEF1 92.22%)',
         'main-card-dark': 'linear-gradient(160.71deg, #392F40 9.07%, #3E3C4E 92.22%)',
-        'main-card-btn': 'linear-gradient(124.08deg, #745FF2 3.96%, #00DDA2 94.96%)',
+        'main-card-btn': 'linear-gradient(124.08deg, #00FF99 3.96%, #00DDA2 94.96%)',
         'main-card-earn-banner': "url('../images/dashboard/card-earn-banner.jpg')",
         'main-card-borrow-banner': "url('../images/dashboard/card-borrow-banner.jpg')",
         'main-card-cards-banner': "url('../images/dashboard/card-cards-banner.png')",
@@ -161,7 +161,7 @@ module.exports = {
         // deposit
         'deposit-card': 'linear-gradient(160.71deg, #EFF0FB 9.07%, #E1DEF1 92.22%)',
         'deposit-card-dark': 'linear-gradient(160.71deg, #393040 9.07%, #35303C 92.22%)',
-        'deposit-card-btn': 'linear-gradient(160.71deg, #745FF2 3.96%, #00DDA2 94.96%)',
+        'deposit-card-btn': 'linear-gradient(160.71deg, #00FF99 3.96%, #00DDA2 94.96%)',
         'deposit-arrow-back': "url('../images/deposit/arrow-back.svg')",
         'deposit-crypto-bitcoin': "url('../images/deposit/crypto-bitcoin.png')",
         'deposit-crypto-saly': "url('../images/deposit/crypto-saly.jpg')",
@@ -217,7 +217,7 @@ module.exports = {
         'stocks-card': '-9px -13px 37px rgba(255, 255, 255, 0.8), 9px 17px 37px rgba(0, 0, 0, 0.13)',
         'stocks-card-dark': '-9px -13px 37px rgba(116, 95, 242, 0.5), 9px 17px 37px rgba(116, 95, 242, 0.5)',
         // cards
-        'cards-card': '0px 0px 9px #745FF2',
+        'cards-card': '0px 0px 9px #00FF99',
         // deposit
         'deposit-tab': '0px 4px 4px rgba(116, 95, 242, 0.26)',
         // earn

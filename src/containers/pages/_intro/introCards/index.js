@@ -28,7 +28,7 @@ function IntroCards() {
           Hello, MAUI.
         </div>
         <div className="text-[30px] md:text-[75.4px] leading-[119.7%] font-[600] text-[#FFF] text-center">
-          <span className="drop-shadow-[0_0_4px_#FFFFFF] md:drop-shadow-[0_0_9.42466px_#745FF2]">
+          <span className="drop-shadow-[0_0_4px_#FFFFFF] md:drop-shadow-[0_0_9.42466px_#00FF99]">
             White{" "}
           </span>{" "}
           <span className="md:text-[72px] text-[#00FF99]">Card</span>
@@ -37,23 +37,21 @@ function IntroCards() {
           Your choice.
         </div>
         <div className="relative mt-[10vh] mx-auto w-[80%] md:w-[40%] h-[calc(80vw*246/391+50px)] md:h-[calc(40vw*246/391+100px)]">
-          <div className="absolute top-0 left-[10vw] w-[60vw] md:w-[30vw] h-[calc(60vw*250/373)] md:h-[calc(30vw*250/373)] bg-introborrow-card1 bg-cover bg-center"></div>
-          <div className="absolute top-[33px] w-[80vw] md:w-[40vw] h-[calc(80vw*246/391)] md:h-[calc(40vw*246/391)] bg-introborrow-card4 bg-cover bg-center"></div>
+          <div className="absolute top-0 left-[5vw] w-[60vw] md:w-[30vw] h-[calc(60vw*250/373)] md:h-[calc(30vw*250/373)] bg-introborrow-card1 bg-cover bg-center"></div>
+          <div className="absolute top-[60px] w-[80vw] md:w-[40vw] h-[calc(80vw*246/391)] md:h-[calc(40vw*246/391)] bg-introborrow-card4 bg-cover bg-center"></div>
         </div>
       </div>
       <div className="md:w-full h-[100vh] md:h-[80vh] md:px-[12%] flex flex-col md:flex-row justify-center md:justify-between items-center">
         <div className="w-[80%] md:w-[35vw]">
           <div className="text-[54px] md:text-[64px] leading-[119.7%] font-[600] text-[#00FF99] text-center md:text-left">
-            Choose your Maui Card
+            Select Your Maui Card
             <span className="text-[#FFF] md:text-[#d33b0e]">.</span>
           </div>
           <div className="mt-[15px] text-[14px] md:text-[18px] leading-[17px] md:leading-[21px] font-[400] text-[rgba(255,255,255,0.77)] text-center md:text-left">
-            Be one of the first cardholders of our titanium card and make
-            history. Make deposits and receive 8% per year yield, that's a
-            better return than most Hedge Funds and Superannuations across the
-            globe. Borrow up to 50% of your collateral instantly. You could even
-            compound it to your deposits to increase your yields. That's the
-            future of banking.
+            Be one of the first cardholders of Maui and make history. Make
+            deposits and receive 5% APY, that's a better return than any bank
+            across the globe. Borrow up to 50% of your collateral instantly and
+            permissionless.
           </div>
         </div>
         <div className="mt-[15px] md:mt-0 w-[90%] md:w-[35vw] h-[calc(90vw*249/378)] md:h-[calc(35vw*249/378)] bg-introborrow-ivancard bg-cover bg-center translate-x-[-2vw]"></div>

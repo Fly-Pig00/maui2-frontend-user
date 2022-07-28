@@ -45,7 +45,7 @@ function IntroTeam() {
   //           <div className="absolute left-[-5px] bg-introteam-starlight1 bg-cover bg-center w-[10px] h-[10px]"></div>
   //           The Team
   //         </div>
-  //         <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#745FF2]"></div>
+  //         <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#00FF99]"></div>
   //         <div className="text-[34.9px] md:text-[64px] leading-[42px] md:leading-[76px] md:font-[500] text-[#FFF] text-center">
   //           Meet our team in journey of Maui.{" "}
   //         </div>
@@ -58,15 +58,16 @@ function IntroTeam() {
       <div
         className="w-[90%] md:w-[50%] flex flex-col items-center"
         onMouseEnter={() => setTeamShow(true)}
+        onClick={() => setTeamShow(true)}
       >
         <div className="relative text-[14px] md:text-[24px] leading-[17px] md:leading-[29px] font-[400] text-[#FFF]">
           <div className="absolute left-[-5px] bg-introteam-starlight2 bg-cover bg-center w-[10px] h-[10px]"></div>
           <div className="absolute left-[-5px] bg-introteam-starlight1 bg-cover bg-center w-[10px] h-[10px]"></div>
-          The Team
+          Meet the Maui Team
         </div>
-        <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#745FF2]"></div>
+        <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#00FF99]"></div>
         <div className="text-[34.9px] md:text-[64px] leading-[42px] md:leading-[76px] md:font-[500] text-[#FFF] text-center">
-          Meet our team in journey of Maui.{" "}
+          Get to know the people leading the way at MAUI.
         </div>
       </div>
     </div>
@@ -78,19 +79,19 @@ function IntroTeam() {
           <div className="relative text-[14px] md:text-[24px] leading-[17px] md:leading-[29px] md:font-[400] text-[#FFF]">
             <div className="absolute left-[-25px] top-[-22px] bg-introteam-starlight2 bg-cover bg-center w-[50px] h-[50px]"></div>
             <div className="absolute left-[-25px] top-[-22px] bg-introteam-starlight1 bg-cover bg-center w-[50px] h-[50px]"></div>
-            The Team
+            Meet the Maui Team
           </div>
-          <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#745FF2]"></div>
-          <div className="text-[36px] md:text-[64px] leading-[43px] md:leading-[76px] md:font-[500] text-[#FFF] text-left">
-            Meet our team in journey of Maui.{" "}
+          <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#00FF99]"></div>
+          <div className="text-[36px] md:text-[54px] leading-[43px] md:leading-[66px] md:font-[500] text-[#FFF] text-left">
+            Get to know the people leading the way at MAUI.
           </div>
         </div>
-        <div className="relative mt-[20px] md:w-[100%] h-[100vh] md:h-[140vh]">
+        <div className="relative mt-[20px] md:w-[100%] h-[80vh] md:h-[140vh]">
           {!avatarClickable && (
-            <div className="absolute left-[calc(33vw-200px)] top-[calc(39vh-110px)] bg-introteam-clickhere bg-cover bg-center md:w-[111px] md:h-[28px]"></div>
+            <div className="absolute left-[calc(33vw-70px)] top-[calc(35vh-60px)] md:left-[calc(33vw-200px)] md:top-[calc(39vh-110px)] bg-introteam-clickhere bg-cover bg-center w-[56px] md:w-[111px] h-[14px] md:h-[28px]"></div>
           )}
           {!avatarClickable && (
-            <div className="absolute left-[calc(33vw-140px)] top-[calc(39vh-65px)] bg-introteam-arrowcurve bg-cover bg-center md:w-[111.5px] md:h-[130px]"></div>
+            <div className="absolute left-[calc(33vw-44px)] top-[calc(35vh-35px)] md:left-[calc(33vw-140px)] md:top-[calc(39vh-65px)] bg-introteam-arrowcurve bg-cover bg-center w-[56px] md:w-[111.5px] h-[65px] md:h-[130px]"></div>
           )}
           {/* <Avatar
             className="absolute left-[3vw] top-[16vh] bg-introteam-chunhu"
@@ -98,17 +99,17 @@ function IntroTeam() {
           /> */}
           {!chunhuClicked ? (
             <div
-              className="absolute  left-[3vw] top-[16vh] bg-introteam-chunhu bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              className="absolute left-[3vw] top-[30vh] md:top-[16vh] bg-introteam-chunhu bg-cover bg-center w-[56px] md:w-[117px] h-[56px] md:h-[117px] cursor-pointer transition-all duration-1000"
               onClick={() => avatarClickable && setChunhuClicked(true)}
             ></div>
           ) : (
             <div
-              className="absolute  left-[3vw] top-[16vh] bg-introteam-chunhu2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000"
+              className="absolute  left-[3vw] top-[30vh] md:top-[16vh] bg-introteam-chunhu2 bg-cover bg-center w-[128px] md:w-[250px] h-[128px] md:h-[250px] cursor-pointer transition-all duration-1000"
               onMouseLeave={() => setChunhuClicked(false)}
             ></div>
           )}
           {chunhuClicked ? (
-            <div className="absolute left-[calc(3vw+200px)] top-[calc(16vh+180px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000">
+            <div className="absolute left-[calc(3vw+10px)] md:left-[calc(3vw+200px)] top-[calc(30vh+120px)] md:top-[calc(16vh+180px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000">
               Cui ChunHu
               <br />
             </div>
@@ -116,7 +117,7 @@ function IntroTeam() {
             <div></div>
           )}
           {chunhuClicked ? (
-            <div className="absolute left-[calc(3vw+200px)] top-[calc(16vh+210px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000">
+            <div className="absolute left-[calc(3vw+10px)] md:left-[calc(3vw+200px)] top-[calc(30vh+140px)] md:top-[calc(16vh+210px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000">
               Core developer
             </div>
           ) : (
@@ -128,17 +129,17 @@ function IntroTeam() {
           /> */}
           {!devClicked ? (
             <div
-              className="absolute  right-[4vw] top-[2vh] bg-introteam-dev bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              className="absolute right-[4vw] md:right-[4vw] top-[20vh] md:top-[2vh] bg-introteam-dev bg-cover bg-center w-[56px] md:w-[117px] h-[56px] md:h-[117px] cursor-pointer transition-all duration-1000"
               onClick={() => avatarClickable && setDevClicked(true)}
             ></div>
           ) : (
             <div
-              className="absolute  right-[4vw] top-[2vh] bg-introteam-dev2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000"
+              className="absolute right-[4vw] md:right-[4vw] top-[20vh] md:top-[2vh] bg-introteam-dev2 bg-cover bg-center w-[128px] md:w-[250px] h-[128px] md:h-[250px] cursor-pointer transition-all duration-1000"
               onMouseLeave={() => setDevClicked(false)}
             ></div>
           )}
           {devClicked ? (
-            <div className="absolute right-[calc(4vw+200px)] top-[calc(2vh+180px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000">
+            <div className="absolute right-[calc(4vw+20px)] md:right-[calc(4vw+200px)] top-[calc(20vh-40px)] md:top-[calc(2vh+180px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000">
               Usama Malik
               <br />
             </div>
@@ -146,7 +147,7 @@ function IntroTeam() {
             <div></div>
           )}
           {devClicked ? (
-            <div className="absolute right-[calc(4vw+200px)] top-[calc(2vh+210px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000">
+            <div className="absolute right-[calc(4vw+20px)] md:right-[calc(4vw+200px)] top-[calc(20vh-20px)] md:top-[calc(2vh+210px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000">
               Developer
             </div>
           ) : (
@@ -158,7 +159,7 @@ function IntroTeam() {
           /> */}
           {!ivanClicked ? (
             <div
-              className="absolute  left-[33vw] top-[39vh] bg-introteam-ivan bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              className="absolute  left-[33vw] top-[35vh] md:left-[33vw] md:top-[39vh] bg-introteam-ivan bg-cover bg-center w-[56px] md:w-[117px] h-[56px] md:h-[117px] cursor-pointer transition-all duration-1000"
               onClick={() => {
                 setAvatarClickable(true);
                 setIvanClicked(true);
@@ -166,12 +167,12 @@ function IntroTeam() {
             ></div>
           ) : (
             <div
-              className="absolute  left-[33vw] top-[39vh] bg-introteam-ivan2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000 z-40"
+              className="absolute  left-[33vw] top-[35vh] md:left-[33vw] md:top-[39vh] bg-introteam-ivan2 bg-cover bg-center w-[128px] md:w-[250px] h-[128px] md:h-[250px] cursor-pointer transition-all duration-1000 z-40"
               onMouseLeave={() => setIvanClicked(false)}
             ></div>
           )}
           {ivanClicked ? (
-            <div className="absolute left-[calc(33vw+200px)] top-[calc(39vh+180px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
+            <div className="absolute left-[calc(33vw+10px)] top-[calc(35vh+120px)] md:left-[calc(33vw+200px)] md:top-[calc(39vh+180px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
               Ivan Gonzalez
               <br />
             </div>
@@ -179,7 +180,7 @@ function IntroTeam() {
             <div></div>
           )}
           {ivanClicked ? (
-            <div className="absolute left-[calc(33vw+200px)] top-[calc(39vh+210px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
+            <div className="absolute left-[calc(33vw+10px)] top-[calc(35vh+140px)] md:left-[calc(33vw+200px)] md:top-[calc(39vh+210px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
               Co-founder
             </div>
           ) : (
@@ -191,17 +192,17 @@ function IntroTeam() {
           /> */}
           {!cofounderClicked ? (
             <div
-              className="absolute  left-[10vw] top-[76vh] bg-introteam-cofounder bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              className="absolute left-[20vw] md:left-[10vw] top-[14vh] md:top-[76vh] bg-introteam-cofounder bg-cover bg-center w-[56px] md:w-[117px] h-[56px] md:h-[117px] cursor-pointer transition-all duration-1000"
               onClick={() => avatarClickable && setCofounderClicked(true)}
             ></div>
           ) : (
             <div
-              className="absolute  left-[10vw] top-[76vh] bg-introteam-cofounder2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000 z-40"
+              className="absolute left-[20vw] md:left-[10vw] top-[14vh] md:top-[76vh] bg-introteam-cofounder2 bg-cover bg-center w-[128px] md:w-[250px] h-[128px] md:h-[250px] cursor-pointer transition-all duration-1000 z-40"
               onMouseLeave={() => setCofounderClicked(false)}
             ></div>
           )}
           {cofounderClicked ? (
-            <div className="absolute left-[10vw] top-[calc(76vh-50px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
+            <div className="absolute left-[calc(20vw+120px)] md:left-[10vw] top-[calc(14vh+20px)] md:top-[calc(76vh-50px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
               Narciso Gonzalez
               <br />
             </div>
@@ -209,7 +210,7 @@ function IntroTeam() {
             <div></div>
           )}
           {cofounderClicked ? (
-            <div className="absolute left-[10vw] top-[calc(76vh-20px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
+            <div className="absolute left-[calc(20vw+120px)] md:left-[10vw] top-[calc(14vh+40px)] md:top-[calc(76vh-20px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
               Co-founder
             </div>
           ) : (
@@ -221,17 +222,17 @@ function IntroTeam() {
           /> */}
           {!williamClicked ? (
             <div
-              className="absolute  right-0 top-[44vh] bg-introteam-william bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              className="absolute  right-[7vw] top-[44vh] md:right-0 md:top-[44vh] bg-introteam-william bg-cover bg-center w-[56px] md:w-[117px] h-[56px] md:h-[117px] cursor-pointer transition-all duration-1000"
               onClick={() => avatarClickable && setWilliamClicked(true)}
             ></div>
           ) : (
             <div
-              className="absolute  right-0 top-[44vh] bg-introteam-william2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000 z-40"
+              className="absolute  right-[7vw] top-[44vh] md:right-0 md:top-[44vh] bg-introteam-william2 bg-cover bg-center w-[128px] md:w-[250px] h-[128px] md:h-[250px] cursor-pointer transition-all duration-1000 z-40"
               onMouseLeave={() => setWilliamClicked(false)}
             ></div>
           )}
           {williamClicked ? (
-            <div className="absolute right-[30px] top-[calc(44vh+220px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
+            <div className="absolute right-[calc(7vw+100px)] top-[calc(44vh+110px)] md:right-[30px] md:top-[calc(44vh+220px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
               William Yu
               <br />
             </div>
@@ -239,7 +240,7 @@ function IntroTeam() {
             <div></div>
           )}
           {williamClicked ? (
-            <div className="absolute right-[30px] top-[calc(44vh+250px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
+            <div className="absolute right-[calc(7vw+100px)] top-[calc(44vh+130px)] md:right-[30px] md:top-[calc(44vh+250px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
               Core developer
             </div>
           ) : (
@@ -251,17 +252,17 @@ function IntroTeam() {
           /> */}
           {!ericClicked ? (
             <div
-              className="absolute  right-[20vw] top-[74vh] bg-introteam-eric bg-cover bg-center w-[117px] h-[117px] cursor-pointer transition-all duration-1000"
+              className="absolute right-[60vw] top-[50vh] md:right-[20vw] md:top-[74vh] bg-introteam-eric bg-cover bg-center w-[56px] md:w-[117px] h-[56px] md:h-[117px] cursor-pointer transition-all duration-1000"
               onClick={() => avatarClickable && setEricClicked(true)}
             ></div>
           ) : (
             <div
-              className="absolute  right-[20vw] top-[74vh] bg-introteam-eric2 bg-cover bg-center w-[250px] h-[250px] cursor-pointer transition-all duration-1000 z-40"
+              className="absolute  right-[60vw] top-[50vh] md:right-[20vw] md:top-[74vh] bg-introteam-eric2 bg-cover bg-center w-[128px] md:w-[250px] h-[128px] md:h-[250px] cursor-pointer transition-all duration-1000 z-40"
               onMouseLeave={() => setEricClicked(false)}
             ></div>
           )}
           {ericClicked ? (
-            <div className="absolute right-[calc(20vw-160px)] top-[calc(74vh+190px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
+            <div className="absolute right-[calc(60vw-100px)] top-[calc(50vh+100px)] md:right-[calc(20vw-160px)] md:top-[calc(74vh+190px)] md:text-[32px] md:leading-[38px] md:font-[600] text-[#FFF] transitiona-all duration-1000 z-40">
               Eric Liu
               <br />
             </div>
@@ -269,7 +270,7 @@ function IntroTeam() {
             <div></div>
           )}
           {ericClicked ? (
-            <div className="absolute right-[calc(20vw-160px)] top-[calc(74vh+220px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
+            <div className="absolute right-[calc(60vw-100px)] top-[calc(50vh+120px)] md:right-[calc(20vw-160px)] md:top-[calc(74vh+220px)] text-[#FFF] md:text-[24px] md:leading-[29px] font-[400] transition-all duration-1000 z-40">
               Core developer
             </div>
           ) : (
@@ -282,16 +283,20 @@ function IntroTeam() {
           </div>
         </div>
         <div className="md:mt-[60px] text-[#FFF] text-[48px] md:text-[82px] font-[600] leading-[57px] md:leading-[98px] text-center">
-          We are built for you<span className="text-[#FF7262]">.</span>
+          Built for you<span className="text-[#FF7262]">.</span>
         </div>
-        <div className="mt-[40px] md:mt-[60px] text-[rgba(255,255,255,0.93)] md:w-[50%] mx-auto text-[14px] md:text-[18px] leading-[17px] md:leading-[21px] font-[400] text-center">
-          Banking accesible everyone on this planet, from institutional money
-          looking for higher to those unbanked in developing counteries.{" "}
+        <div className="mt-[15px] text-[rgba(255,255,255,0.93)] mx-auto text-[15px] md:text-[24px] leading-[18px] md:leading-[28px] md:font-[400] text-center">
+          Banking accesible to everyone.
+        </div>
+        <div className="text-[rgba(255,255,255,0.93)] mx-auto text-[15px] md:text-[24px] leading-[18px] md:leading-[28px] md:font-[400] text-center">
+          Maui, you are now the bank. Banking Reinvented.
+        </div>
+        <div className="mt-[30px] md:mt-[30px] text-[rgba(255,255,255,0.93)] md:w-[50%] mx-auto text-[14px] md:text-[18px] leading-[17px] md:leading-[21px] font-[400] text-center">
+          Banking accessible to everyone on the planet, from those unbanked in
+          developing countries to institutional money and corporate treasuries
+          looking for safer and higher yields.
         </div>
         <br />
-        <div className="text-[rgba(255,255,255,0.93)] mx-auto text-[15px] md:text-[24px] leading-[18px] md:leading-[28px] md:font-[400] text-center">
-          With Maui you are the bank.
-        </div>
         <div className="md:mt-[50px] w-[70%] md:w-[100%] mx-auto flex flex-col md:flex-row md:justify-between text-[#FFF]">
           <div className="md:w-[30%] flex flex-col">
             <div className="relative flex md:flex-row">
