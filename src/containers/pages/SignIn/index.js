@@ -51,8 +51,7 @@ function SignIn(props) {
       },
       fail: (error) => {
         setIsLoading(false);
-        console.log("signIn error", error);
-        toast.error("Login API Failed!");
+        toast.error(error.data?.message);
       },
     });
   }
@@ -81,8 +80,7 @@ function SignIn(props) {
       },
       fail: (error) => {
         setIsLoading(false);
-        console.log("signIn error", error);
-        toast.error("Register API Failed!");
+        toast.error(error.data?.message);
       },
     });
   }
