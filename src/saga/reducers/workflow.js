@@ -56,6 +56,15 @@ export default handleActions(
       isLogged: true,
       isLoading: false,
     }),
+    [requestSuccess(WorkflowConstants.UPDATE_ALL_BALANCE_ACTION)]: (state, action) => ({
+      ...state,
+      totalBalances: action.payload,
+      isUpdatingBalance: false,
+    }),
+    [requestPending(WorkflowConstants.UPDATE_ALL_BALANCE_ACTION)]: (state, action) => ({
+      ...state,
+      isUpdatingBalance: true,
+    }),
     [requestSuccess(WorkflowConstants.GET_PAYMENT_METHOD_ACTION)]: (state, action) => ({
       ...state,
       paymentMethod: state.paymentMethod.concat(action.payload),

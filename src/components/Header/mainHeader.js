@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import { compose } from "redux";
-import { connect } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import axios from "axios";
 
 import AnimatedTab from "../AnimatedTab";
 import DarkMode from "../DarkMode";
 import NetworkSwitch from "../NetworkSwitch";
-import { signOut, updateBalance } from "../../saga/actions/workflow";
+import { signOut, updateBalance, updateAllBalance } from "../../saga/actions/workflow";
 import Button from "../Button";
 import { appConfig } from "../../appConfig";
 
@@ -186,6 +186,7 @@ function UserSetting({ label, signOut }) {
 
 function MainHeader(props) {
   // console.log('header network', props.workflow.network);
+  const dispatch = useDispatch();
   const { location } = props;
   let history = useHistory();
   const handleDepositClick = () => {
@@ -195,7 +196,7 @@ function MainHeader(props) {
     history.push("/history");
   };
   const handleUpdateBalance = () => {
-    props.updateBalance(props.workflow.mauiAddress);
+    dispatch(updateAllBalance({ url: "/v1/balances" }));
   };
 
   if (location.pathname === "/splash" || location.pathname === "/login")
@@ -254,7 +255,7 @@ function MainHeader(props) {
             symbol="$"
             balance={
               props.workflow?.availableBalances?.DAI
-                ? Math.floor(props.workflow?.availableBalances.DAI * 1000) /
+                ? Math.floor(props.workflow?.totalBalances.DAI * 1000) /
                   1000
                 : 0
             }

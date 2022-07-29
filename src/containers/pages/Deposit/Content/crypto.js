@@ -127,49 +127,49 @@ function TabCrypto(props) {
         });
   }, [paymentMethod]);
 
-  const deposit = async (amount, from, to, network) => {
-    setIsLoading(true);
-    depositCrypto(
-      amount,
-      from,
-      to,
-      network,
-      sign,
-      () => {
-        props.apiHistoryRecord({
-          url: "/recordHistory",
-          method: "POST",
-          data: {
-            type: HISTORY_DEPOSIT_CRYPTO,
-            terraAddress: from,
-            mauiAddress: to,
-            amount: amount,
-            currency: CURRENCY_USD,
-            network: `${props.workflow.network.name}:${props.workflow.network.chainID}`,
-            note: "DONE",
-          },
-          success: (res) => {
-            console.log("recordSuccess", res);
-          },
-          fail: (error) => {
-            console.log("recordError", error);
-          },
-        });
-        props.updateBalance(to);
-        setIsLoading(false);
-        resetForm();
-        toast.success("Transaction success");
-      },
-      (err) => {
-        console.log("deposit error", err);
-        setIsLoading(false);
-        toast.error("Transaction fails");
-      }
-    );
-  };
+  // const deposit = async (amount, from, to, network) => {
+  //   setIsLoading(true);
+  //   depositCrypto(
+  //     amount,
+  //     from,
+  //     to,
+  //     network,
+  //     sign,
+  //     () => {
+  //       props.apiHistoryRecord({
+  //         url: "/recordHistory",
+  //         method: "POST",
+  //         data: {
+  //           type: HISTORY_DEPOSIT_CRYPTO,
+  //           terraAddress: from,
+  //           mauiAddress: to,
+  //           amount: amount,
+  //           currency: CURRENCY_USD,
+  //           network: `${props.workflow.network.name}:${props.workflow.network.chainID}`,
+  //           note: "DONE",
+  //         },
+  //         success: (res) => {
+  //           console.log("recordSuccess", res);
+  //         },
+  //         fail: (error) => {
+  //           console.log("recordError", error);
+  //         },
+  //       });
+  //       props.updateBalance(to);
+  //       setIsLoading(false);
+  //       resetForm();
+  //       toast.success("Transaction success");
+  //     },
+  //     (err) => {
+  //       console.log("deposit error", err);
+  //       setIsLoading(false);
+  //       toast.error("Transaction fails");
+  //     }
+  //   );
+  // };
 
   function handleCryptoChange(symbol) {
-    console.log(symbol)
+    console.log(symbol);
     setSelectedCrypto(symbol);
   }
   function handleCryptoWalletChange(symbol) {
@@ -238,7 +238,7 @@ function TabCrypto(props) {
         data: {
           srn: paymentMethods[selectedPayment].srn,
           sourceAmount: unmaskCurrency(data.amount),
-          sourceCurrency: 'USD',
+          sourceCurrency: "USD",
         },
         url: `${appConfig.apiUrl}/v1/fiatfrombank`,
       })
@@ -258,7 +258,7 @@ function TabCrypto(props) {
         data: {
           srn: paymentMethods[selectedPayment].srn,
           sourceAmount: unmaskCurrency(data.amount),
-          sourceCurrency: 'USD',
+          sourceCurrency: "USD",
         },
         url: `${appConfig.apiUrl}/v1/cryptofrombank`,
       })

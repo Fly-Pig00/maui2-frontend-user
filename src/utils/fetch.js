@@ -34,7 +34,7 @@ export const request = ({ type, method, url, apiUrl, headers, success, fail, pay
         url,
         method: method.toLowerCase(),
         headers: headers || {
-          Authorization: token || ''
+          Authorization: `Bearer ${token}` || ''
         },
         data: data || {},
         params,

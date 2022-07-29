@@ -43,6 +43,14 @@ function* updateBalance(action) {
   }
 }
 
+function* updateAllBalance(action){
+  yield call(request({
+    type: WorkflowConstants.UPDATE_ALL_BALANCE_ACTION,
+    method: 'GET',
+    url: action.payload.url,
+  }), action);
+}
+
 function* updateNetwork(action) {
   try {
     yield put({ type: `${WorkflowConstants.UPDATENETWORK_ACTION}_SUCCESS`, payload: action.payload });
@@ -99,6 +107,7 @@ export default function* workflowSaga() {
   yield takeEvery(WorkflowConstants.GET_PAYMENT_METHOD_ACTION, getPaymentMethod);
   yield takeEvery(WorkflowConstants.SIGNOUT_ACTION, signOut);
   yield takeEvery(WorkflowConstants.UPDATEBALANCE_ACTION, updateBalance);
+  yield takeEvery(WorkflowConstants.UPDATE_ALL_BALANCE_ACTION, updateAllBalance);
   yield takeEvery(WorkflowConstants.UPDATENETWORK_ACTION, updateNetwork);
   yield takeEvery(WorkflowConstants.EARNDEPOSIT_ACTION, earnDeposit);
   yield takeEvery(WorkflowConstants.DEPOSITSEND_ACTION, depositSend);
