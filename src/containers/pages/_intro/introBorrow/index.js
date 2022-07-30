@@ -23,7 +23,7 @@ function IntroBorrow() {
         <div className="text-[20px] md:text-[40px] leading-[24px] md:leading-[48px] font-[500] md:font-[600] text-[#FFF] text-center">
           BORROW UP TO
         </div>
-        <div className="text-[50px] md:text-[70px] leading-[79px] md:leading-[168px] font-[600] text-[#00FF99] text-center">
+        <div className="text-[50px] md:text-[70px] leading-[79px] md:leading-[168px] font-[600] text-[#1199FA] text-center">
           50% on your deposit
         </div>
         <div className="w-[70%] mx-auto md:text-[18px] md:leading-[21px] md:font-[500] text-[#FFF] text-center">
@@ -105,7 +105,7 @@ function IntroBorrow() {
             <div className="text-[16px] md:text-[20.5px] leading-[19px] md:leading-[24px] font-[500] text-[#FFF] text-center">
               UPTO
             </div>
-            <div className="text-[91px] md:text-[96px] leading-[118px] md:leading-[125px] font-[700] text-[#00FF99] text-center">
+            <div className="text-[91px] md:text-[96px] leading-[118px] md:leading-[125px] font-[700] text-[#1199FA] text-center">
               5%
             </div>
             <div className="text-[19px] md:text-[20px] leading-[23px] md:leading-[24px] font-[500] text-[#FFF] text-center">
@@ -116,7 +116,7 @@ function IntroBorrow() {
             <div className="text-[16px] md:text-[20.5px] leading-[19px] md:leading-[24px] font-[500] text-[#FFF] text-center">
               UPTO
             </div>
-            <div className="text-[91px] md:text-[96px] leading-[118px] md:leading-[125px] font-[700] text-[#00FF99] text-center">
+            <div className="text-[91px] md:text-[96px] leading-[118px] md:leading-[125px] font-[700] text-[#1199FA] text-center">
               $50.00 USD
             </div>
             <div className="text-[19px] md:text-[20px] leading-[23px] md:leading-[24px] font-[500] text-[#FFF] text-center">

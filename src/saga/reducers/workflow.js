@@ -51,9 +51,26 @@ export default handleActions(
       error: action.payload,
       isLoading: false,
     }),
-    [requestSuccess(WorkflowConstants.TOKEN_SIGNIN_ACTION)]: (state) => ({
+    [requestPending(WorkflowConstants.TOKEN_SIGNIN_ACTION)]: (state) => ({
       ...state,
+      isLoading: true,
+      error: null,
+    }),
+    [requestSuccess(WorkflowConstants.TOKEN_SIGNIN_ACTION)]: (state, action) => ({
+      ...state,
+      ...action.payload,
+      totalBalances: action.payload?.wyreUser?.totalBalances,
+      availableBalances: action.payload?.wyreUser?.availableBalances,
+      walletAddress: action.payload.user?.ethWalletAddr,
+      paymentMethod: action.payload.user?.payMethods,
       isLogged: true,
+      isLoading: false,
+      error: null,
+    }),
+    [requestFail(WorkflowConstants.TOKEN_SIGNIN_ACTION)]: (state, action) => ({
+      ...state,
+      isLogged: false,
+      error: action.payload,
       isLoading: false,
     }),
     [requestSuccess(WorkflowConstants.UPDATE_ALL_BALANCE_ACTION)]: (state, action) => ({

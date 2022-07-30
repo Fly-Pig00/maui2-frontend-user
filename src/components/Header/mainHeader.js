@@ -64,7 +64,7 @@ function DepositStatus({
       <span className="text-[#707070] text-[12px] md:text-[18px]">
         {symbol}
       </span>
-      <span className="font-semibold w-[60px] md:w-[100px] text-[12px] md:text-[18px] leading-[24px] mt-[1px] text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2] transition-all duration-1000">
+      <span className="font-semibold w-[60px] md:w-[100px] text-[12px] md:text-[18px] leading-[24px] mt-[1px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2] transition-all duration-1000">
         {isLoading ? "..." : balance}
       </span>
       <span className="text-[#707070] text-[12px] md:text-[18px]">{kind}</span>
@@ -81,10 +81,10 @@ function LoginButton() {
   const label = "LOGIN";
   return (
     <Button
-      className="flex justify-center items-center ml-[5px] md:ml-[15px] rounded-[5px] md:rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#00FF99] w-[45px] h-[21px] md:w-[93px] md:h-[42px] bg-[#F3F3FB] dark:bg-transparent"
+      className="flex justify-center items-center ml-[5px] md:ml-[15px] rounded-[5px] md:rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#1199FA] w-[45px] h-[21px] md:w-[93px] md:h-[42px] bg-[#F3F3FB] dark:bg-transparent"
       onClick={handleClick}
     >
-      <span className="font-semibold text-[10px] leading-[12px] mt-[2px] md:mt-0 md:text-[16px] md:leading-[24px] text-[#00FF99] dark:text-[#00FF99] transition-all duration-1000">
+      <span className="font-semibold text-[10px] leading-[12px] mt-[2px] md:mt-0 md:text-[16px] md:leading-[24px] text-[#1199FA] dark:text-[#1199FA] transition-all duration-1000">
         {label}
       </span>
     </Button>
@@ -140,15 +140,15 @@ function UserSetting({ label, signOut }) {
     <>
       <div className="relative">
         <Button
-          className="flex justify-center items-center ml-[5px] md:ml-[15px] rounded-[5px] md:rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#00FF99] w-[45px] h-[21px] md:w-[93px] md:h-[42px] bg-[#F3F3FB] dark:bg-transparent"
+          className="flex justify-center items-center ml-[5px] md:ml-[15px] rounded-[5px] md:rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#1199FA] w-[45px] h-[21px] md:w-[93px] md:h-[42px] bg-[#F3F3FB] dark:bg-transparent"
           onClick={handleUserDropdown}
         >
-          <span className="font-semibold text-[10px] leading-[12px] mt-[2px] md:mt-0 md:text-[16px] md:leading-[24px] text-[#00FF99] dark:text-[#00FF99] transition-all duration-1000">
+          <span className="font-semibold text-[10px] leading-[12px] mt-[2px] md:mt-0 md:text-[16px] md:leading-[24px] text-[#1199FA] dark:text-[#1199FA] transition-all duration-1000">
             {label}
           </span>
         </Button>
         {userDropdownShow && (
-          <div className="absolute left-[15px] top-[43px] w-[93px] py-[10px] bg-[#F3F3FB] dark:bg-[#1c1f21] text-[#00FF99] dark:text-[#00FF99] dark:border-2 dark:border-[#00FF99] font-[600] flex justify-center items-center z-50 rounded-[10px]">
+          <div className="absolute left-[15px] top-[43px] w-[93px] py-[10px] bg-[#F3F3FB] dark:bg-[#1c1f21] text-[#1199FA] dark:text-[#1199FA] dark:border-2 dark:border-[#1199FA] font-[600] flex justify-center items-center z-50 rounded-[10px]">
             <div className="">
               <div className="cursor-pointer" onClick={handleKYC}>
                 KYC
@@ -212,7 +212,7 @@ function MainHeader(props) {
       </div>
       {isTheme2 ? (
         <div className="relative w-full mt-[5px] md:mt-[20px] h-[50px] md:h-[74px] p-[6px] md:p-4 rounded-[14px] bg-[#E5E9ED] dark:bg-[#2A1B31] drop-shadow-[0_0px_7px_rgba(116,95,242,0.28)] border-2 dark:border-transparent">
-          <span className="absolute left-[10px] top-[10px] md:left-[30px] md:top-[23px] font-semibold text-[14px] md:text-[24px] leading-[24px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2]">
+          <span className="absolute left-[10px] top-[10px] md:left-[30px] md:top-[23px] font-semibold text-[14px] md:text-[24px] leading-[24px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
             {theme2Title}
           </span>
         </div>
@@ -234,7 +234,7 @@ function MainHeader(props) {
             className="flex justify-center items-center rounded-[5px] md:rounded-[20px] shadow-header-deposit-btn dark:shadow-header-deposit-btn-dark w-[60px] h-[20px] md:w-[110px] md:h-[32px] bg-[#FFFFFF50] bg-header-deposit-btn dark:bg-header-deposit-btn-dark text-[#000000]
           "
           >
-            <span className="font-semibold text-[10px] leading-[12px] md:text-[16px] md:leading-[24px] text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2] dark:from-[#F9D3B4] dark:to-[#F9D3B4] transition-all duration-1000">
+            <span className="font-semibold text-[10px] leading-[12px] md:text-[16px] md:leading-[24px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2] dark:from-[#F9D3B4] dark:to-[#F9D3B4] transition-all duration-1000">
               DEPOSIT
             </span>
           </button>

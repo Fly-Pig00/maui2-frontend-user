@@ -6,7 +6,7 @@
   /* Toggle B */
   input:checked ~ .dot {
     transform: translateX(100%);
-    background-color: #00FF99;
+    background-color: #1199FA;
   }
   .scrollbar::-webkit-scrollbar {
     width: 12px;
@@ -147,7 +147,7 @@
   }
 }
 .dark .checkbox-container .checkmark:after {
-  border: solid #00FF99;
+  border: solid #1199FA;
   border-width: 0 3px 3px 0;
 }
 

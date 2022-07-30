@@ -115,7 +115,7 @@ const NavBar = withRouter((props) => {
           );
         })}
         <div
-          className="w-[120px] h-[30px] bg-[#00FF99] rounded-[18px] flex justify-center items-center text-[#FFFFFF] text-[16px] cursor-pointer"
+          className="w-[120px] h-[30px] bg-[#1199FA] rounded-[18px] flex justify-center items-center text-[#FFFFFF] text-[16px] cursor-pointer"
           onClick={() => history.push("/dashboard")}
         >
           Start Now
@@ -177,7 +177,7 @@ const MobileNavBar = withRouter((props) => {
             );
           })}
           <div
-            className="h-[56px] mt-[7px] mb-[28px] mx-[31px] text-[24px] leading-[29px] bg-[#00FF99] rounded-[10px] flex justify-center items-center text-[#FFFFFF] text-[16px] cursor-pointer"
+            className="h-[56px] mt-[7px] mb-[28px] mx-[31px] text-[24px] leading-[29px] bg-[#1199FA] rounded-[10px] flex justify-center items-center text-[#FFFFFF] text-[16px] cursor-pointer"
             onClick={() => history.push("/signin")}
           >
             Start Now

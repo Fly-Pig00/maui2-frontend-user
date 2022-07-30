@@ -30,10 +30,10 @@ function Card({id, className, img, video, title1, title2, description, btnTitle,
         {id === 'main-card-stocks' &&
           <button
             onClick={handleClick}
-            className='bg-gradient-to-r from-[#00FF99] to-[#00DDA2] shadow-main-card-btn rounded-[16px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-[2px] w-full'
+            className='bg-gradient-to-r from-[#1199FA] to-[#00DDA2] shadow-main-card-btn rounded-[16px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-[2px] w-full'
           >
             <div className='bg-[#ffffff] dark:bg-[#32283C] rounded-[16px] text-[#000000] p-2'>
-              <span className='font-semibold text-[14px] md:text-[20px] text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2]'>{btnTitle}</span>
+              <span className='font-semibold text-[14px] md:text-[20px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]'>{btnTitle}</span>
             </div>
           </button>
         }

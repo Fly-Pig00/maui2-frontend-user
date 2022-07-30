@@ -108,7 +108,7 @@ function SignIn(props) {
         />
         <div className="mt-[40px] md:mt-[70px] text-[14px] leading-[21px] md:text-[28px] md:leading-[42px] text-[#FFFFFF] font-semibold text-center tracking-[4px] login-text-shadow">
           We offer{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2]">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
             Revolutionary Banking
           </span>
           <br />
@@ -123,7 +123,7 @@ function SignIn(props) {
               status === "signin"
                 ? "bg-[rgba(255,255,255,0.21)] border-b-[2px]"
                 : ""
-            } hover:border-b-[1px] border-[#00FF99] cursor-pointer transition-[background] duration-500`}
+            } hover:border-b-[1px] border-[#1199FA] cursor-pointer transition-[background] duration-500`}
             onClick={() => {
               handleReset();
               setStatus("signin");
@@ -136,7 +136,7 @@ function SignIn(props) {
               status === "signup"
                 ? "bg-[rgba(255,255,255,0.21)] border-b-[2px]"
                 : ""
-            } hover:border-b-[1px] border-[#00FF99] cursor-pointer transition-[background] duration-500`}
+            } hover:border-b-[1px] border-[#1199FA] cursor-pointer transition-[background] duration-500`}
             onClick={() => {
               handleReset();
               setStatus("signup");
@@ -198,7 +198,7 @@ function SignIn(props) {
           {status === "signin" ? (
             <Button
               isLoading={isLoading}
-              className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#00FF99] cursor-pointer"
+              className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#1199FA] cursor-pointer"
               onClick={handleSignIn}
             >
               SignIn
@@ -206,7 +206,7 @@ function SignIn(props) {
           ) : (
             <Button
               isLoading={isLoading}
-              className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#00FF99] cursor-pointer"
+              className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#1199FA] cursor-pointer"
               onClick={handleSignUp}
             >
               SignUp

@@ -127,7 +127,7 @@ function Cards (props) {
               </>
             }
           >
-            <span className='ml-[10px] text-[#00FF99] cursor-pointer underline' onClick={handleDepositHelpClick}>Deposit</span>
+            <span className='ml-[10px] text-[#1199FA] cursor-pointer underline' onClick={handleDepositHelpClick}>Deposit</span>
           </Popover>
         </div>
       :

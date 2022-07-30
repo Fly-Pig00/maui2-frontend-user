@@ -1,41 +1,962 @@
-import IMG_EXCHANGE_BINANCE from '../../../../assets/images/deposit/external/binance.svg';
-import IMG_EXCHANGE_BITFINEX from '../../../../assets/images/deposit/external/bitfinex.svg';
-import IMG_EXCHANGE_KUCOIN from '../../../../assets/images/deposit/external/kucoin.svg';
-import IMG_EXCHANGE_OKEX from '../../../../assets/images/deposit/external/okex.svg';
-import IMG_EXCHANGE_FTX from '../../../../assets/images/deposit/external/ftx.svg';
-import IMG_EXCHANGE_KADO from '../../../../assets/images/deposit/external/kado.svg';
-import IMG_EXCHANGE_TRANSAK from '../../../../assets/images/deposit/external/transak.svg';
-// import { appConfig } from '../../../../appConfig';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
+import { useWallet } from "@terra-money/wallet-provider";
+import {
+  CountryDropdown,
+  CountryRegionData,
+} from "react-country-region-selector";
+import PhoneInput from "react-phone-input-2";
+// import "react-phone-input-2/lib/style.css";
 
-function LinkItem({title, img, url}) {
-  const handleClick= () => {
-    window.open(url, "_blank");
+import { getPaymentMethod } from "../../../../saga/actions/workflow";
+import InputAmount from "../../../../components/Form/InputAmount";
+import SelectCurrency from "../../../../components/Form/SelectCurrency";
+import SelectWallet from "../../../../components/Form/SelectWallet";
+import { unmaskCurrency } from "../../../../utils/masks";
+import Button from "../../../../components/Button";
+import RightBar from "./rightbar";
+import { depositCrypto } from "../../../../utils/wallet";
+import AgreeWithCheckbox from "../../../../components/Form/AgreeWithCheckbox";
+import {
+  apiHistoryRecord,
+  updateBalance,
+} from "../../../../saga/actions/workflow";
+import {
+  CURRENCY_USD,
+  HISTORY_DEPOSIT_CRYPTO,
+} from "../../../../utils/appConstants";
+import { appConfig } from "../../../../appConfig";
+import { shortenAddress } from "../../../../utils/shortenAddress";
+
+function TabCrypto(props) {
+  const dispatch = useDispatch();
+  const paymentMethod = useSelector((state) => state.workflow.paymentMethod);
+
+  const { sign } = useWallet();
+  // get functions to build form with useForm() hook
+  const hookForm = useForm();
+  const { handleSubmit, setValue } = hookForm;
+  // set initial values
+  useEffect(() => {
+    setValue("amount", 0);
+  }, [props.data, setValue]);
+  const token = localStorage.getItem("token");
+
+  const [isAgreed, setIsAgreed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedCrypto, setSelectedCrypto] = useState("USD");
+  const [selectedCurrencyDest, setSelectedCurrencyDest] = useState("USD");
+  const [selectedCryptoDest, setSelectedCryptoDest] = useState("DAI");
+  const [selectedCryptoWallet, setSelectedCryptoWallet] = useState(0);
+  // const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
+  const [stage, setStage] = useState(0);
+  const [reservation, setReservation] = useState("");
+  const [givenName, setGivenName] = useState("");
+  const [familyName, setFamilyName] = useState("");
+  const [number, setNumber] = useState("");
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [street1, setStreet1] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [country, setCountry] = useState("");
+  const [amount, setAmount] = useState("");
+  const [dest, setDest] = useState("");
+  const [received, setReceived] = useState("");
+  const [testCountry, setTestCountry] = useState("");
+  const [isFiat, setIsFiat] = useState(false);
+  const [selectedPayment, setSelectedPayment] = useState(0);
+  const [paymentModalShow, setPaymentModalShow] = useState(false);
+  const [paymentModalStage, setPaymentModalStage] = useState(0);
+  const [isPlaidPayment, setIsPlaidPayment] = useState(true);
+  //add payment method
+  const [firstNameOnAccount, setFirstNameOnAccount] = useState("");
+  const [lastNameOnAccount, setLastNameOnAccount] = useState("");
+  const [beneficiaryAddress, setBeneficiaryAddress] = useState("");
+  const [beneficiaryCity, setBeneficiaryCity] = useState("");
+  const [beneficiaryPostal, setBeneficiaryPostal] = useState("");
+  const [beneficiaryPhoneNumber, setBeneficiaryPhoneNumber] = useState("");
+  const [beneficaryState, setBeneficaryState] = useState("");
+  const [beneficiaryDobDay, setBeneficiaryDobDay] = useState("");
+  const [beneficiaryDobMonth, setBeneficiaryDobMonth] = useState("");
+  const [beneficiaryDobYear, setBeneficiaryDobYear] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [routingNumber, setRoutingNumber] = useState("");
+  const [accountType, setAccountType] = useState("");
+  const [addPayLoading, setAddPayLoading] = useState(false);
+  const [paymentMethods, setPaymentMethods] = useState([]);
+
+  axios.defaults.baseURL = appConfig.apiUrl;
+  axios.defaults.headers.common["Authorization"] = token;
+
+  useEffect(() => {
+    if (reservation.length > 0) setStage(1);
+  }, [reservation]);
+
+  useEffect(() => {
+    if (received !== "") setStage(2);
+  }, [received]);
+
+  useEffect(() => {
+    if (paymentModalShow) document.body.style.overflow = "hidden";
+    else {
+      document.body.style.overflow = "auto";
+      setPaymentModalStage(0);
+    }
+  }, [paymentModalShow]);
+
+  useEffect(() => {
+    if (paymentMethod.length > 0)
+      axios({
+        method: "GET",
+        headers: { Authorization: `bearer ${token}` },
+        url: `${appConfig.apiUrl}/v1/getpaymethods`,
+      })
+        .then((result) => {
+          setPaymentMethods(result.data);
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
+  }, [paymentMethod]);
+
+  // const deposit = async (amount, from, to, network) => {
+  //   setIsLoading(true);
+  //   depositCrypto(
+  //     amount,
+  //     from,
+  //     to,
+  //     network,
+  //     sign,
+  //     () => {
+  //       props.apiHistoryRecord({
+  //         url: "/recordHistory",
+  //         method: "POST",
+  //         data: {
+  //           type: HISTORY_DEPOSIT_CRYPTO,
+  //           terraAddress: from,
+  //           mauiAddress: to,
+  //           amount: amount,
+  //           currency: CURRENCY_USD,
+  //           network: `${props.workflow.network.name}:${props.workflow.network.chainID}`,
+  //           note: "DONE",
+  //         },
+  //         success: (res) => {
+  //           console.log("recordSuccess", res);
+  //         },
+  //         fail: (error) => {
+  //           console.log("recordError", error);
+  //         },
+  //       });
+  //       props.updateBalance(to);
+  //       setIsLoading(false);
+  //       resetForm();
+  //       toast.success("Transaction success");
+  //     },
+  //     (err) => {
+  //       console.log("deposit error", err);
+  //       setIsLoading(false);
+  //       toast.error("Transaction fails");
+  //     }
+  //   );
+  // };
+
+  function handleCryptoChange(symbol) {
+    console.log(symbol);
+    setSelectedCrypto(symbol);
   }
-  return (
-    <div className="mt-[10px] mb-[10px] cursor-pointer flex p-[10px] pl-[30px] items-center rounded-[16px] border dark:border-transparent dark:border dark:border-[#00FF99] bg-white dark:bg-[#32283C] transition-all duration-1000" onClick={handleClick}>
-      <img src={img} alt={title} className="w-[30px] h-[30px] mr-[25px]"/>
-      <div className='text-[14px] md:text-[16px] leading-[21px] text-[#7E7E7E] dark:text-[#EDEDF9] transition-all duration-1000'>{title}</div>
-    </div>
-  )
-}
-function External() {
-  return (
-    <div className='flex p-10 pt-[70px] md:p-20 flex-col md:flex-row justify-between'>
+  function handleCryptoDestChange(symbol) {
+    console.log(symbol);
+    setSelectedCryptoDest(symbol);
+  }
+  function handleCurrencyDestChange(symbol) {
+    console.log(symbol);
+    setSelectedCurrencyDest(symbol);
+  }
+  function handleCryptoWalletChange(symbol) {
+    setSelectedCryptoWallet(symbol);
+  }
+  // function handleCryptoFiatChange(symbol) {
+  //   setSelectedCryptoFiat(symbol);
+  // }
+  function handleAgreeChange(e) {
+    setIsAgreed(e.target.checked);
+  }
+  function validateAmount(val) {
+    const value = unmaskCurrency(val);
+    if (!value) {
+      return "This input field is required.";
+    } else if (parseInt(value) <= 5 || parseInt(value) > 99999) {
+      return "The amount must be greater than $5 and be less than $100000";
+    }
+    return null;
+  }
+  // handle functions
+  const resetForm = () => {
+    setValue("amount", 0);
+    setIsAgreed(false);
+  };
+  const onSubmit = (data) => {
+    if (!props.workflow.isLogged) {
+      toast.error("Please login first.");
+      return false;
+    }
+    setAmount(unmaskCurrency(data.amount));
+    if (unmaskCurrency(data.amount) >= 5) setIsLoading(true);
+    // const from = props.workflow.terraAddress;
+    // const to = props.workflow.mauiAddress;
+    // const network = props.workflow.network;
+    // deposit(unmaskCurrency(data.amount), from, to, network);
+    // return false;
+
+    if (!isFiat && selectedCryptoWallet === 0) {
+      //crypto & debit card method
+      axios({
+        method: "POST",
+        headers: { Authorization: `bearer ${token}` },
+        data: {
+          amount: unmaskCurrency(data.amount),
+          paymentMethod: selectedCryptoWallet,
+          sourceCurrency: selectedCrypto,
+          destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
+        },
+        url: `${appConfig.apiUrl}/v1/reserve`,
+      })
+        .then((result) => {
+          // const url = result.data?.url || "";
+          const reserve = result.data.reservation;
+          setReservation(reserve);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          toast.error("Error");
+          setIsLoading(false);
+          console.log("error", err);
+        });
+    } else if (isFiat && selectedCryptoWallet === 1) {
+      //crypto & debit card method
+      axios({
+        method: "POST",
+        headers: { Authorization: `bearer ${token}` },
+        data: {
+          srn: paymentMethods[selectedPayment].srn,
+          sourceAmount: unmaskCurrency(data.amount),
+          sourceCurrency: selectedCrypto,
+          destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
+        },
+        url: `${appConfig.apiUrl}/v1/fiatfrombank`,
+      })
+        .then((result) => {
+          console.log(result.data); // ...
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          toast.error(err.response?.data?.msg);
+          setIsLoading(false);
+        });
+    } else if (!isFiat && selectedCryptoWallet === 1) {
+      //crypto & debit card method
+      axios({
+        method: "POST",
+        headers: { Authorization: `bearer ${token}` },
+        data: {
+          srn: paymentMethods[selectedPayment].srn,
+          sourceAmount: unmaskCurrency(data.amount),
+          sourceCurrency: selectedCrypto,
+          destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
+        },
+        url: `${appConfig.apiUrl}/v1/cryptofrombank`,
+      })
+        .then((result) => {
+          console.log(result.data); // ...
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          toast.error(err.response?.data?.msg);
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  const onInfoSubmit = () => {
+    if (!props.workflow.isLogged) {
+      toast.error("Please login first.");
+      return false;
+    }
+    setIsLoading(true);
+    axios({
+      method: "POST",
+      headers: { Authorization: `bearer ${token}` },
+      data: {
+        reservationId: reservation,
+        number: 4111111111111111,
+        year: 2023,
+        month: 10,
+        cvv: 555,
+        givenName: "Jaim",
+        familyName: "Samith",
+        email: "wando0226@gmail.com",
+        phone: 12199644724,
+        street1: "132 Test Ave",
+        city: "Los Angeles",
+        state: "CA",
+        postalCode: 94123,
+        country,
+        amount,
+      },
+      url: `${appConfig.apiUrl}/v1/order`,
+    })
+      .then((result) => {
+        const tmpDest = result.data.dest.split("0x");
+        setDest(`0x${tmpDest[1]}`);
+        setReceived(result.data.purchaseAmount);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log("error", err.response?.data?.msg);
+        toast.error(err.response?.data?.msg);
+        setIsLoading(false);
+      });
+  };
+
+  const handleAddPayment = () => {
+    if (!props.workflow.isLogged) {
+      toast.error("Please login first.");
+      return false;
+    }
+    setAddPayLoading(true);
+    axios({
+      method: "POST",
+      headers: { Authorization: `bearer ${token}` },
+      data: {
+        firstNameOnAccount: "sally",
+        lastNameOnAccount: "smith",
+        beneficiaryAddress: "1234 Main St",
+        beneficiaryCity: "Los Angeles",
+        beneficiaryPostal: "91604",
+        beneficiaryPhoneNumber: "15555555555",
+        beneficaryState: "CA",
+        beneficiaryDobDay: 2,
+        beneficiaryDobMonth: 12,
+        beneficiaryDobYear: 1990,
+        accountNumber: "1234567890123",
+        routingNumber: "123412312",
+        accountType: 0,
+        // firstNameOnAccount,
+        // lastNameOnAccount,
+        // beneficiaryAddress,
+        // beneficiaryCity,
+        // beneficiaryPostal,
+        // beneficiaryPhoneNumber,
+        // beneficaryState,
+        // beneficiaryDobDay,
+        // beneficiaryDobMonth,
+        // beneficiaryDobYear,
+        // accountNumber,
+        // routingNumber,
+        // accountType: 0,
+      },
+      url: `${appConfig.apiUrl}/v1/createPayMethod`,
+    })
+      .then((result) => {
+        dispatch(getPaymentMethod(result.data?.payId));
+        setAddPayLoading(false);
+        setPaymentModalStage(2);
+      })
+      .catch((err) => {
+        console.log("error", err.response?.data?.msg);
+        toast.error(err.response?.data?.msg);
+        setAddPayLoading(false);
+      });
+  };
+
+  const deletePaymentMethod = (index) => {
+    axios({
+      method: "POST",
+      headers: { Authorization: `bearer ${token}` },
+      data: { srn: paymentMethods[selectedPayment].srn },
+      url: `${appConfig.apiUrl}/v1/deletepaymethod`,
+    })
+      .then((result) => {
+        if (result.data?.msg === "success")
+          axios({
+            method: "GET",
+            headers: { Authorization: `bearer ${token}` },
+            url: `${appConfig.apiUrl}/v1/getpaymethods`,
+          })
+            .then((res) => {
+              console.log(res);
+              setPaymentMethods(res.data);
+              toast.success("Successfully removed");
+            })
+            .catch((err) => {
+              console.log("error", err);
+            });
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  };
+  return stage === 0 ? (
+    <>
+      <form
+        className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="w-full md:w-[45%]">
+          <div
+            className="dark:text-[#fff]"
+            onChange={(e) => {
+              // if (e.target.value === "fiat") setIsFiat(true);
+              // else setIsFiat(false);
+              setIsFiat(!isFiat);
+            }}
+          >
+            <input
+              type="radio"
+              id="crypto"
+              name="payment"
+              value={!isFiat}
+              defaultChecked
+            />
+            <label for="crypto" className="ml-[10px]">
+              Crypto
+            </label>
+            <div className="h-[20px]"></div>
+            <input type="radio" id="fiat" name="payment" value={isFiat} />
+            <label for="fiat" className="ml-[10px]">
+              Fiat
+            </label>
+          </div>
+          <SelectCurrency
+            isCrypto={false}
+            className="mt-[40px] md:mt-[30px]"
+            label={
+              <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
+                Select currency in{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
+                  External Bank
+                </span>
+              </div>
+            }
+            selectedSymbol={selectedCrypto}
+            onChange={handleCryptoChange}
+          />
+          <SelectCurrency
+            isCrypto={isFiat ? false : true}
+            className="mt-[40px] md:mt-[30px]"
+            label={
+              <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
+                {`Select ${isFiat ? "currency" : "crypto"} you want to`}{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
+                  Get
+                </span>
+              </div>
+            }
+            selectedSymbol={isFiat ? selectedCurrencyDest : selectedCryptoDest}
+            onChange={
+              isFiat ? handleCurrencyDestChange : handleCryptoDestChange
+            }
+          />
+          <div className="h-[30px]"></div>
+          <SelectWallet
+            isCrypto={isFiat ? false : true}
+            className="mt-[10px]"
+            label={
+              <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
+                Payment Method
+              </div>
+            }
+            selectedSymbol={selectedCryptoWallet}
+            onChange={handleCryptoWalletChange}
+          />
+          <InputAmount
+            name="amount"
+            className="mt-[40px]"
+            label={
+              <div className="ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
+                Enter amount
+              </div>
+            }
+            hookForm={hookForm}
+            validate={validateAmount}
+          />
+          <AgreeWithCheckbox
+            className="ml-2 md:ml-4 mb-3 mt-[30px]"
+            checked={isAgreed}
+            onChange={handleAgreeChange}
+          />
+          <Button
+            isDisabled={!isAgreed}
+            isLoading={isLoading}
+            className="mt-[10px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
+          >
+            Continue
+          </Button>
+        </div>
+        <div className="w-full mt-[10px] md:mt-0 md:w-[45%]">
+          {selectedCryptoWallet === 0 ? (
+            <RightBar isCrypto={true} />
+          ) : (
+            <div className="w-full border-b-[1px] border-b-[#777] pb-[10px] md:pb-0 md:border-0">
+              <div className="md:text-[24px] dark:text-[#fff]">
+                Payment Method
+              </div>
+              <div className=" max-h-[608px] overflow-auto">
+                {paymentMethods.length > 0 &&
+                  paymentMethods.map((payment, index) => (
+                    <div
+                      key={index}
+                      className={`md:w-full md:h-[120px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${
+                        selectedPayment === index
+                          ? " border-[3px] border-[#1199FA]"
+                          : ""
+                      }`}
+                      onClick={() => setSelectedPayment(index)}
+                    >
+                      <div className="relative h-[100%] flex items-center justify-between">
+                        <div
+                          className="absolute right-0 top-0"
+                          onClick={() => deletePaymentMethod(index)}
+                        >
+                          🗑️
+                        </div>
+                        <div className="text-center w-[80%]">
+                          {payment.name}
+                        </div>
+                        {payment.status === "AWAITING_FOLLOWUP" && (
+                          <div className="text-center text-[10px] overflow-hidden px-[10px] py-[5px] rounded-[30px] bg-orange-500 text-[#FFF]">
+                            awaiting
+                          </div>
+                        )}
+                        {payment.status === "PENDING" && (
+                          <div className="text-center text-[10px] overflow-hidden px-[10px] py-[5px] rounded-[30px] bg-teal-400 text-[#FFF]">
+                            pending
+                          </div>
+                        )}
+                        {payment.status === "ACTIVE" && (
+                          <div className="text-center text-[10px] overflow-hidden px-[10px] py-[5px] rounded-[30px] bg-[#1199FA] text-[#FFF]">
+                            active
+                          </div>
+                        )}
+                        {payment.status === "REJECTED" && (
+                          <div className="text-center text-[10px] overflow-hidden px-[10px] py-[5px] rounded-[30px] bg-red-800 text-[#FFF]">
+                            rejected
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+              </div>
+              <div
+                className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
+                onClick={() => setPaymentModalShow(!paymentModalShow)}
+              >
+                + New Payment Method
+              </div>
+            </div>
+          )}
+        </div>
+      </form>
+      {paymentModalShow && (
+        <div>
+          <div className="fixed left-[50vw] top-0 w-[50vw] h-[100vh] bg-deposit-card dark:bg-deposit-card-dark z-[60]">
+            <div className="mt-[30px] flex justify-between md:h-[50px]">
+              <div className="flex justify-center items-center text-[30px] text-[#000] dark:text-[#FFF] font-[600] w-[90%] h-[100%]">
+                Add Payment Method
+              </div>
+              <div
+                className="flex justify-center items-center md:h-[100%] md:text-[40px] dark:text-[#FFF] md:w-[10%] cursor-pointer"
+                onClick={() => setPaymentModalShow(false)}
+              >
+                &times;
+              </div>
+            </div>
+            {paymentModalStage === 0 ? (
+              <div className="md:h-[calc(100vh-50px)] md:w-full flex justify-center items-center">
+                <div className="h-[400px] flex flex-col justify-between">
+                  <div
+                    className={`w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${
+                      isPlaidPayment
+                        ? "border-[2px] border-[#1199FA]"
+                        : "border-[1px] border-[#555555]"
+                    } flex justify-center items-center cursor-pointer`}
+                    onClick={() => setIsPlaidPayment(true)}
+                  >
+                    Plaid
+                  </div>
+                  <div
+                    className={`w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${
+                      !isPlaidPayment
+                        ? "border-[2px] border-[#1199FA]"
+                        : "border-[1px] border-[#555555]"
+                    } flex justify-center items-center cursor-pointer`}
+                    onClick={() => setIsPlaidPayment(false)}
+                  >
+                    Bank Transfer
+                  </div>
+                  <div
+                    className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
+                    onClick={() => {
+                      if (!isPlaidPayment) setPaymentModalStage(1);
+                    }}
+                  >
+                    NEXT
+                  </div>
+                </div>
+              </div>
+            ) : paymentModalStage === 1 ? (
+              <div className="md:h-[calc(100vh-50px)] md:w-full px-[30px] dark:text-[#FFF] overflow-auto">
+                <div className="md:mt-[10px] flex justify-between">
+                  <div className="md:w-[45%]">
+                    <div>First Name*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      value={firstNameOnAccount}
+                      onChange={(e) => setFirstNameOnAccount(e.target.value)}
+                    />
+                  </div>
+                  <div className="md:w-[45%]">
+                    <div>Last Name*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      value={lastNameOnAccount}
+                      onChange={(e) => setLastNameOnAccount(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="md:mt-[10px]">Address*</div>
+                <input
+                  type="text"
+                  className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                  value={beneficiaryAddress}
+                  onChange={(e) => setBeneficiaryAddress(e.target.value)}
+                />
+                <div className="md:mt-[10px] flex justify-between">
+                  <div className="md:w-[45%]">
+                    <div className="md:mt-[10px]">Account Number*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      value={accountNumber}
+                      onChange={(e) => setAccountNumber(e.target.value)}
+                    />
+                  </div>
+                  <div className="md:w-[45%]">
+                    <div className="md:mt-[10px]">Routing Number*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      value={routingNumber}
+                      onChange={(e) => setRoutingNumber(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="md:mt-[10px] flex justify-between">
+                  <div className="md:w-[45%]">
+                    <div>Birthday*</div>
+                    <input
+                      type="date"
+                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      onChange={(e) => {
+                        let tmpDate = e.target.value.split("-");
+                        setBeneficiaryDobYear(tmpDate[0]);
+                        setBeneficiaryDobMonth(tmpDate[1]);
+                        setBeneficiaryDobDay(tmpDate[2]);
+                      }}
+                    />
+                  </div>
+                  <div className="md:w-[45%]">
+                    <div>State*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100  text-[#000]"
+                      value={beneficaryState}
+                      onChange={(e) => setBeneficaryState(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="md:mt-[10px] flex justify-between">
+                  <div className="md:w-[45%]">
+                    <div>City*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                      value={beneficiaryCity}
+                      onChange={(e) => setBeneficiaryCity(e.target.value)}
+                    />
+                  </div>
+                  <div className="md:w-[45%]">
+                    <div>Postal / ZIP code*</div>
+                    <input
+                      type="text"
+                      className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                      value={beneficiaryPostal}
+                      onChange={(e) => setBeneficiaryPostal(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="md:h-[10px]"></div>
+                <PhoneInput
+                  specialLabel="Phone Number*"
+                  inputClass="w-[100%] rounded-[12px] border-transparent  text-[#000]"
+                  country={"us"}
+                  value={beneficiaryPhoneNumber}
+                  onChange={(phone) => {
+                    setBeneficiaryPhoneNumber(phone);
+                  }}
+                />
+                <Button
+                  isLoading={addPayLoading}
+                  className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
+                  onClick={handleAddPayment}
+                >
+                  NEXT
+                </Button>
+              </div>
+            ) : (
+              <div className="md:h-[calc(100vh-50px)] md:w-full px-[30px] dark:text-[#FFF] flex justify-center items-center overflow-auto">
+                <div className="md:w-[300px] pb-[10vw]">
+                  <div className=" text-[150px] text-center">📄</div>
+                  <div className=" text-[20px] text-center">
+                    Upload document to activate your acocunt
+                  </div>
+                  <Button
+                    // isLoading={addPayLoading}
+                    className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
+                    // onClick={}
+                  >
+                    Upload
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+          <div
+            className="fixed left-0 top-0 w-[100vw] h-[100vh] bg-[#fff] z-[10] opacity-80"
+            onClick={() => setPaymentModalShow(false)}
+          ></div>
+        </div>
+      )}
+    </>
+  ) : stage === 1 ? (
+    <form
+      className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between text-[#273855] dark:text-[#FFF]"
+      onSubmit={handleSubmit(onInfoSubmit)}
+    >
       <div className="w-full md:w-[45%]">
-        <div className='text-center mb-[20px] text-[#273855] dark:text-[#F9D3B4] text-[14px] md:text-[16px] font-semibold tracking-[1px] transition-all duration-1000'>UST Exchanges</div>
-        <LinkItem title="Binance" img={IMG_EXCHANGE_BINANCE} url="https://www.binance.com/en/trade/UST_USDT" />
-        <LinkItem title="Bitfinex" img={IMG_EXCHANGE_BITFINEX} url="https://trading.bitfinex.com/t/TERRAUST:USD?demo=true" />
-        <LinkItem title="KuCoin" img={IMG_EXCHANGE_KUCOIN} url="https://trade.kucoin.com/USDT-UST" />
-        <LinkItem title="OKex" img={IMG_EXCHANGE_OKEX} url="https://www.okex.com/trade-spot/ust-usdt" />
-        <LinkItem title="FTX" img={IMG_EXCHANGE_FTX} url="https://ftx.com/trade/UST/USD" />
+        <div className="md:mt-[20px]">You deposited {amount} DAI</div>
+        <div className="md:mt-[10px]">Card Info</div>
+        <div className="md:mt-[10px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>First Name*</div>
+            <input
+              type="text"
+              className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+              value={givenName}
+              onChange={(e) => setGivenName(e.target.value)}
+            />
+          </div>
+          <div className="md:w-[45%]">
+            <div>Last Name*</div>
+            <input
+              type="text"
+              className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+              value={familyName}
+              onChange={(e) => setFamilyName(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="md:mt-[10px]">Card Number*</div>
+        <input
+          type="text"
+          className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+          value={number}
+          onChange={(e) => setNumber(e.target.value)}
+        />
+        <div className="md:mt-[10px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>Expiration*</div>
+            <input
+              type="date"
+              className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+              onChange={(e) => {
+                let tmpDate = e.target.value.split("-");
+                setYear(tmpDate[0]);
+                setMonth(tmpDate[1]);
+              }}
+            />
+          </div>
+          <div className="md:w-[45%]">
+            <div>CVV*</div>
+            <input
+              type="password"
+              autoComplete="off"
+              className="md:w-[100%] text-[#000] rounded-[12px] border-transparent transition-all duration-100"
+              value={cvv}
+              onChange={(e) => setCvv(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="md:mt-[20px]">Billing Address</div>
+        <div className="md:mt-[10px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>Country*</div>
+            {/* <input
+              type="text"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+            /> */}
+            <CountryDropdown
+              className="w-[100%] rounded-[12px] border-transparent text-[#000]"
+              value={testCountry}
+              onChange={(val) => {
+                const countryShortName = CountryRegionData.filter(
+                  (country) => country[0] === val
+                );
+                setTestCountry(val);
+                setCountry(countryShortName[0][1]);
+              }}
+            />
+          </div>
+          <div className="md:w-[45%]">
+            <div>State*</div>
+            <input
+              type="text"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100  text-[#000]"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="md:mt-[10px]">Address*</div>
+        <input
+          type="text"
+          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+          value={street1}
+          onChange={(e) => setStreet1(e.target.value)}
+        />
+        <div className="md:mt-[10px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>Postal / ZIP code*</div>
+            <input
+              type="text"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
+            />
+          </div>
+          <div className="md:w-[45%]">
+            <div>City*</div>
+            <input
+              type="text"
+              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="md:mt-[20px]">Contact</div>
+        <div className="md:mt-[10px]">Email*</div>
+        <input
+          type="text"
+          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <div className="md:h-[10px]"></div>
+        <PhoneInput
+          specialLabel="Phone Number*"
+          inputClass="w-[100%] rounded-[12px] border-transparent  text-[#000]"
+          country={"us"}
+          value={phone}
+          onChange={(phone) => {
+            setPhone(phone);
+          }}
+        />
+        <Button
+          type="submit"
+          isLoading={isLoading}
+          className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
+        >
+          Deposit
+        </Button>
       </div>
-      <div className="w-full md:w-[45%] mt-[10px] md:mt-0">
-        <div className='text-center mb-[20px] text-[#273855] dark:text-[#F9D3B4] text-[14px] md:text-[16px] font-semibold tracking-[1px] transition-all duration-1000'>Fiat Exchanges</div>
-        <LinkItem title="Kado Ramp" img={IMG_EXCHANGE_KADO} url="https://ramp.kado.money" />
-        <LinkItem title="Transak" img={IMG_EXCHANGE_TRANSAK} url="https://global.transak.com/" />
+      <div className="w-full mt-[10px] md:mt-0 md:w-[45%]">
+        {<RightBar isCrypto={true} />}
+      </div>
+    </form>
+  ) : (
+    <div className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between dark:text-[#FFF]">
+      <div className="w-full md:w-[45%]">
+        <div className="md:mt-[10px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>Sent to</div>
+          </div>
+          <div className="md:w-[45%]">
+            <div>{shortenAddress(dest)}</div>
+          </div>
+        </div>
+        <div className="md:mt-[20px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>DAI Received</div>
+          </div>
+          <div className="md:w-[45%]">
+            <div>{received} DAI</div>
+          </div>
+        </div>
+        <div className="md:mt-[20px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>Wyre fees</div>
+          </div>
+          <div className="md:w-[45%]">
+            <div>{amount - received}</div>
+          </div>
+        </div>
+        <div className="md:mt-[20px] flex justify-between">
+          <div className="md:w-[45%]">
+            <div>Total USD paid</div>
+          </div>
+          <div className="md:w-[45%]">
+            <div>USD {amount}</div>
+          </div>
+        </div>
+        <div
+          className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full cursor-pointer flex justify-center items-center"
+          onClick={() => setStage(0)}
+        >
+          OK
+        </div>
+      </div>
+      <div className="w-full mt-[10px] md:mt-0 md:w-[45%]">
+        <RightBar isCrypto={true} />
       </div>
     </div>
-  )
+  );
 }
 
-export default External;
+export default compose(
+  connect(
+    (state) => ({
+      workflow: state.workflow,
+    }),
+    {
+      apiHistoryRecord,
+      updateBalance,
+    }
+  )
+)(TabCrypto);

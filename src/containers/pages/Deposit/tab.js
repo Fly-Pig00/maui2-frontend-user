@@ -1,6 +1,6 @@
 function Tab({className, tabIndex, onChange}) {
-  const className_active = 'bg-[#EDEDF9] dark:bg-[#271B2D] shadow-deposit-tab w-[110px] border-b-[#00FF99] p-2 text-[#00FF99] text-center cursor-pointer';
-  const className_inactive = 'bg-deposit-tab-inactive dark:bg-deposit-tab-inactive-dark  w-[110px] border-b-[#00FF99] p-2 text-[#000000] dark:text-[#FFFFFF] text-center cursor-pointer';
+  const className_active = 'bg-[#EDEDF9] dark:bg-[#271B2D] shadow-deposit-tab w-[110px] border-b-[#1199FA] p-2 text-[#1199FA] text-center cursor-pointer';
+  const className_inactive = 'bg-deposit-tab-inactive dark:bg-deposit-tab-inactive-dark  w-[110px] border-b-[#1199FA] p-2 text-[#000000] dark:text-[#FFFFFF] text-center cursor-pointer';
   const border = <div className='w-[1px] h-[40px] pt-[5px] pb-[5px] bg-deposit-tab-inactive dark:bg-deposit-tab-inactive-dark'><div className="border-[1px] border-[#AAAAAA] h-full" /></div>;
   return (
     <div className={`${className}`}>

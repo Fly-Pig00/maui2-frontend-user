@@ -38,11 +38,11 @@ function Stocks() {
       {/* bg images */}
       <div className='bg-stocks-left bg-center bg-cover absolute left-0 bottom-[10%] md:bottom-[30%] w-[300px] md:w-[600px] h-[175px] md:h-[350px]'></div>
       <div className='bg-stocks-right bg-center bg-cover absolute right-0 top-[100px] md:top-[200px] w-[250px] md:w-[500px] h-[175px] md:h-[350px]'></div>
-      <span className='absolute top-[100px] w-full text-center block md:hidden font-semibold text-[40px] leading-[48px] tracking-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2]'>STOCKS</span>
+      <span className='absolute top-[100px] w-full text-center block md:hidden font-semibold text-[40px] leading-[48px] tracking-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]'>STOCKS</span>
       {/* card */}
       <div className='absolute w-[350px] top-[160px] left-[calc(50%-175px)] md:w-[1020px] md:top-[230px] md:left-[calc(50%-510px)] bg-stocks-card dark:bg-stocks-card-dark shadow-stocks-card dark:shadow-stocks-card-dark border border-[#FFFFFF] rounded-[33px]'>
         <div className='mt-[20px] md:mt-[50px] text-center'>
-          <span className='text-[18px] tracking-[5px] md:text-[35px] md:tracking-[10px] drop-shadow-[0_0px_4px_rgba(162,89,255,0.67)] text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#39C6D9]'>Synthetic Stocks</span>
+          <span className='text-[18px] tracking-[5px] md:text-[35px] md:tracking-[10px] drop-shadow-[0_0px_4px_rgba(162,89,255,0.67)] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#39C6D9]'>Synthetic Stocks</span>
         </div>
         <div className='mt-[30px] md:mt-[70px]'>
           <div className='ml-[-10px] md:ml-[-100px] relative'>
@@ -79,7 +79,7 @@ function Stocks() {
           <span className='text-[#000000] dark:text-[#FFFFFF] pl-2 pr-2 transition-all duration-1000'>-</span>
           <span className='text-[#EB5757]'>sell</span>
           <br />
-          <span className='text-[14px] md:text-[18px] tracking-[5px] text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#39C6D9]'>Delta neutral</span>
+          <span className='text-[14px] md:text-[18px] tracking-[5px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#39C6D9]'>Delta neutral</span>
         </div>
       </div>
     </div>

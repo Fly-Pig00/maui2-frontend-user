@@ -9,7 +9,7 @@ function Tab(props) {
   const calcLeft = (oneBlock + space) * props.newIndex;
   return (
     <div
-      className={`absolute cursor-pointer rounded-[7px] tracking-[-1px] md:tracking-normal pt-2 pb-2 pl-0 md:p-2 text-center text-[11px] md:text-[16px] ${props.isSelected ? 'drop-shadow-[0_0px_4px_#00FF99] bg-[#F3F3FB] dark:bg-[#271B2D] text-[#00FF99]' : 'bg-[#EFEFFB] dark:bg-[#32283C] text-[#7887A0B0]'}  transition-all duration-[500ms]`}
+      className={`absolute cursor-pointer rounded-[7px] tracking-[-1px] md:tracking-normal pt-2 pb-2 pl-0 md:p-2 text-center text-[11px] md:text-[16px] ${props.isSelected ? 'drop-shadow-[0_0px_4px_#1199FA] bg-[#F3F3FB] dark:bg-[#271B2D] text-[#1199FA]' : 'bg-[#EFEFFB] dark:bg-[#32283C] text-[#7887A0B0]'}  transition-all duration-[500ms]`}
       style={{left: calcLeft + '%', width: oneBlock + '%'}}
       onClick={props.handleClick.bind(this, props.newIndex)}
     >

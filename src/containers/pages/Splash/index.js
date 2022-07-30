@@ -10,7 +10,7 @@ function Splash() {
     <div className='fixed w-full h-screen cursor-pointer' onClick={handleClick}>
       <div className='fixed w-full h-full flex flex-col justify-center items-center '>
         <div className='bg-splash-logo dark:bg-splash-logo-dark bg-center bg-cover w-[193px] h-[76px] md:w-[405px] md:h-[141px] transition-all duration-1000'></div>
-        <div className='mt-[10px] md:mt-0 mb-20 font-semibold text-[18px] leading-[20px] tracking-[5px] md:text-[36px] md:leading-[54px] md:tracking-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2]'>Be Unreasonable</div>
+        <div className='mt-[10px] md:mt-0 mb-20 font-semibold text-[18px] leading-[20px] tracking-[5px] md:text-[36px] md:leading-[54px] md:tracking-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]'>Be Unreasonable</div>
       </div>
       <div className='fixed left-[10%] bottom-[5%] md:left-[20%] md:bottom-[10%] text-center'>
         <div className='font-bold text-[#00DDA2] tracking-[5px] text-[18px] md:text-[24px]'>"One click"</div>

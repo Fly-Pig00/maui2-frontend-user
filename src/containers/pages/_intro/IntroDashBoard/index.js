@@ -43,7 +43,7 @@ function IntroDashBoard() {
       </div>
       <div className="relative w-full md:leading-[116px]">
         <div className="absolute left-[29px] top-[87px] right-[190px] bottom-[16px] bg-introdashboard-starimage bg-cover bg-center"></div>
-        <div className="pt-[14vh] md:pt-[30vh] px-[20px] md:px-0 text-[45px] md:text-[96px] drop-shadow-[0_4px_17px_rgba(0,0,0,0.58)] text-[#00FF99] md:font-[600] text-left md:text-center">
+        <div className="pt-[14vh] md:pt-[30vh] px-[20px] md:px-0 text-[45px] md:text-[96px] drop-shadow-[0_4px_17px_rgba(0,0,0,0.58)] text-[#1199FA] md:font-[600] text-left md:text-center">
           <span>Maui, you are now</span>
           {!isMobile && <br />}
           <span>the bank.</span>
@@ -60,21 +60,21 @@ function IntroDashBoard() {
           looking for safer and higher yields
         </div>
         {isMobile && (
-          <div className="px-[20px] mt-[20px] text-[#00FF99] text-[18px] font-[400]">
+          <div className="px-[20px] mt-[20px] text-[#1199FA] text-[18px] font-[400]">
             With Maui you are the bank
           </div>
         )}
       </div>
       <div className="w-full pt-[20vh] md:pt-[20vh]">
-        <div className="text-[#00FF99] text-[48px] md:text-[74px] leading-[57px] md:leading-[78px] font-[600] md:font-[500] text-center">
+        <div className="text-[#1199FA] text-[48px] md:text-[74px] leading-[57px] md:leading-[78px] font-[600] md:font-[500] text-center">
           Earn
         </div>
         <div className="w-[85%] md:w-[50%] mt-[20px] mx-auto text-[18px] md:text-[20px] leading-[21px] md:leading-[24px] text-[#FFF] font-[400] md:font-[500] text-center">
           Make a deposit in any currency, now you are earning 5% fixed rate p.a.
           on your deposit. Withdraw anytime.
         </div>
-        <div className="w-[45%] md:w-[30%] mt-[70px] md:mt-[110px] mx-auto border-b-[3px] md:border-b-[7px] border-[#00FF99] h-0 text-center"></div>
-        <div className="text-[#00FF99] mt-[70px] md:mt-[80px] text-[48px] md:text-[74px] leading-[57px] md:leading-[78px] font-[600] md:font-[500] text-center">
+        <div className="w-[45%] md:w-[30%] mt-[70px] md:mt-[110px] mx-auto border-b-[3px] md:border-b-[7px] border-[#1199FA] h-0 text-center"></div>
+        <div className="text-[#1199FA] mt-[70px] md:mt-[80px] text-[48px] md:text-[74px] leading-[57px] md:leading-[78px] font-[600] md:font-[500] text-center">
           Borrow
         </div>
         <div className="w-[85%] md:w-[55%] mt-[20px] mx-auto text-[18px] md:text-[20px] leading-[21px] md:leading-[24px] text-[#FFF] font-[400] md:font-[500] text-center">
@@ -95,19 +95,19 @@ function IntroDashBoard() {
         <div className="mt-[63px] mx-auto w-[300px] h-[99px] bg-introdashboard-iphonecut bg-cover bg-center"></div>
         <div className="flex flex-col md:flex-row items-center mt-[50vh] md:mx-auto md:bg-introdashboard-earn-back md:bg-contain md:bg-no-repeat bg-center md:w-[80%] md:h-[35vh]">
           {isMobile && (
-            <div className="text-[74px] leading-[88px] font-[600] text-[#00FF99] mb-[30px]">
+            <div className="text-[74px] leading-[88px] font-[600] text-[#1199FA] mb-[30px]">
               EARN
             </div>
           )}
           <div className="md:mx-auto md:w-[90%] text-[#FFF] text-[32px] md:text-[64px] text-center leading-[38px] md:leading-[76px] font-[500] md:drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
-            <span>Earn</span> <span className="text-[#00FF99]">5%</span>{" "}
+            <span>Earn</span> <span className="text-[#1199FA]">5%</span>{" "}
             <span>on your deposit. Withdraw anytime.</span>
           </div>
         </div>
         <div className="mt-[20px] mx-auto w-[90%] md:w-[70%] flex flex-row justify-between">
           <div className="w-[60%]">
             {!isMobile && (
-              <div className="md:mt-[16vh] md:text-[48px] md:leading-[57px] md;font-[600] text-[#00FF99]">
+              <div className="md:mt-[16vh] md:text-[48px] md:leading-[57px] md;font-[600] text-[#1199FA]">
                 No bank will be able to match 5% APY on your deposit. Maui can.
               </div>
             )}
@@ -118,7 +118,7 @@ function IntroDashBoard() {
               per year on your deposit.
             </div>
             {!isMobile && (
-              <div className="flex flex-row items-center justify-between md:mt-[40px] md:w-[253px] text-[#FFF] bg-[#00FF99] rounded-[2px] p-[15px]">
+              <div className="flex flex-row items-center justify-between md:mt-[40px] md:w-[253px] text-[#FFF] bg-[#1199FA] rounded-[2px] p-[15px]">
                 <div>Calculate Reward</div>
                 <div className="bg-introdashboard-arrow bg-cover bg-center md:w-[49px] md:h-[15px]"></div>
               </div>
@@ -135,13 +135,13 @@ function IntroDashBoard() {
         <div className="bg-introdashboard-linegroup bg-cover bg-center w-[100%] h-[calc(100vw*313/1512)]"></div>
         <div className="flex flex-col md:flex-row items-center mt-[90px] md:mx-auto md:bg-introdashboard-borrow-back md:bg-contain md:bg-no-repeat md:bg-center md:w-[80%] md:h-[25vh]">
           {isMobile && (
-            <div className="text-[74px] leading-[88px] font-[600] text-[#00FF99] mb-[30px]">
+            <div className="text-[74px] leading-[88px] font-[600] text-[#1199FA] mb-[30px]">
               BORROW
             </div>
           )}
           <div className="md:w-[70%] md:mx-auto text-[32px] md:text-[64px] leading-[38px] md:leading-[76px] md:font-[600] text-[#FFF] text-center drop-shadow-[0px_0px_2px_#FFFFFF]">
             Borrow up to{" "}
-            <span className="text-[#00FF99] md:text-[#FFF]">50%</span> of your
+            <span className="text-[#1199FA] md:text-[#FFF]">50%</span> of your
             deposit. Loan pays itself.
           </div>
         </div>
@@ -166,7 +166,7 @@ function IntroDashBoard() {
             <div className="absolute right-0 top-0 w-[60vw] md:w-[calc(80vh*643/679)] h-[calc(60vw*679/643)] md:h-[80vh] bg-introdashboard-iPhone-2 bg-cover bg-center"></div>
             <div className="w-[60%] md:w-[55%]">
               {!isMobile && (
-                <div className="md:text-[45px] md:leading-[54px] text-[#00FF99] md:font-[600]">
+                <div className="md:text-[45px] md:leading-[54px] text-[#1199FA] md:font-[600]">
                   BORROW up to 50% of your deposit{" "}
                   <span>
                     <strong>instantly</strong>
@@ -219,19 +219,19 @@ function IntroDashBoard() {
             )}
           </div>
         </div>
-        <div className="mt-[120px] md:mt-[30vh] w-[80%] mx-auto md:w-full flex justify-center text-[36px] md:text-[72px] text-[#D9D9D9] md:text-[#00FF99] font-[600] capitalize md:leading-[120%]">
-          <div className="md:border-b-[5px] border-[#00FF99] text-center">
+        <div className="mt-[120px] md:mt-[30vh] w-[80%] mx-auto md:w-full flex justify-center text-[36px] md:text-[72px] text-[#D9D9D9] md:text-[#1199FA] font-[600] capitalize md:leading-[120%]">
+          <div className="md:border-b-[5px] border-[#1199FA] text-center">
             Select Your Maui Card
           </div>
         </div>
         <div className="flex flex-col-reverse md:flex-col">
           <div className="text-[#FFF] w-[90%] md:w-[75%] mt-[60px] mx-auto text-center text-[14px] md:text-[20px] md:leading-[24px] md:font-[500]">
             Be one of the first cardholders of Maui and make history. Make
-            deposits and <span className="text-[#00FF99]">receive 5% APY</span>,
+            deposits and <span className="text-[#1199FA]">receive 5% APY</span>,
             that's a better return than any bank across the globe. Borrow up to
             50% of your collateral{" "}
-            <span className="text-[#00FF99]">instantly</span> and{" "}
-            <span className="text-[#00FF99]">permissionless.</span>
+            <span className="text-[#1199FA]">instantly</span> and{" "}
+            <span className="text-[#1199FA]">permissionless.</span>
           </div>
           <div className="mt-[30px] md:mt-[100px] mx-auto w-[80vw] md:w-[60vw] h-[calc(80vw*537/912)] md:h-[calc(60vw*537/912)] bg-introdashboard-card bg-center bg-cover"></div>
         </div>
@@ -244,11 +244,11 @@ function IntroDashBoard() {
         )}
         <div className="relative mt-[150px] md:mt-[50vh] mx-auto w-[90%] md:w-[70%] h-[40vh] md:h-[60vh]">
           <div className="text-[40px] md:text-[80px] leading-[48px] md:leading-[116px] font-[600] text-[#FFF]">
-            <span className="text-[#00FF99] md:text-[#FFF]">B</span>e part of
+            <span className="text-[#1199FA] md:text-[#FFF]">B</span>e part of
             Maui {isMobile && <br />}
-            <span className="text-[#00FF99] md:text-[#FFF]">B</span>anking{" "}
+            <span className="text-[#1199FA] md:text-[#FFF]">B</span>anking{" "}
             {isMobile && <br />}{" "}
-            <span className="text-[#00FF99] md:text-[#FFF]">E</span>evolution.
+            <span className="text-[#1199FA] md:text-[#FFF]">E</span>evolution.
           </div>
           <div className="w-[45%] mt-[20px] text-[#FFF] text-[14px] md:text-[20px] leading-[17px] md:leading-[24px] md:font-[400]">
             Get access to unmatched high yields on your money impossible for
@@ -266,7 +266,7 @@ function IntroDashBoard() {
         {isMobile && (
           <div className="mt-[40px] flex justify-center">
             <div
-              className="bg-[#00FF99] text-[#FFF] py-[17px] px-[87px] rounded-[10px] text-[18px] leading-[21px] font-[600]"
+              className="bg-[#1199FA] text-[#FFF] py-[17px] px-[87px] rounded-[10px] text-[18px] leading-[21px] font-[600]"
               onClick={() => history.push("/dashboard")}
             >
               Start Now

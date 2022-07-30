@@ -13,8 +13,12 @@ function* signIn(action) {
   }), action);
 }
 
-function* tokenSignIn() {
-  yield put({ type: `${WorkflowConstants.TOKEN_SIGNIN_ACTION}_SUCCESS` });
+function* tokenSignIn(action) {
+  yield call(request({
+    type: WorkflowConstants.TOKEN_SIGNIN_ACTION,
+    method: 'GET',
+    url: action.payload.url,
+  }), action);
 }
 
 function* getPaymentMethod(action) {

@@ -21,7 +21,7 @@ function App() {
       if (decoded.exp <= Number(new Date()) / 1000) {
         localStorage.clear();
         dispatch(signOut());
-      } else dispatch(tokenSignIn());
+      } else dispatch(tokenSignIn({ url: "/v1/userinfo" }));
     }
   }, []);
   return (

@@ -49,7 +49,9 @@ function TabCrypto(props) {
 
   const [isAgreed, setIsAgreed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCrypto, setSelectedCrypto] = useState("BTC");
+  const [selectedCrypto, setSelectedCrypto] = useState("USD");
+  const [selectedCurrencyDest, setSelectedCurrencyDest] = useState("USD");
+  const [selectedCryptoDest, setSelectedCryptoDest] = useState("DAI");
   const [selectedCryptoWallet, setSelectedCryptoWallet] = useState(0);
   // const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
   const [stage, setStage] = useState(0);
@@ -172,6 +174,14 @@ function TabCrypto(props) {
     console.log(symbol);
     setSelectedCrypto(symbol);
   }
+  function handleCryptoDestChange(symbol) {
+    console.log(symbol);
+    setSelectedCryptoDest(symbol);
+  }
+  function handleCurrencyDestChange(symbol) {
+    console.log(symbol);
+    setSelectedCurrencyDest(symbol);
+  }
   function handleCryptoWalletChange(symbol) {
     setSelectedCryptoWallet(symbol);
   }
@@ -216,6 +226,8 @@ function TabCrypto(props) {
         data: {
           amount: unmaskCurrency(data.amount),
           paymentMethod: selectedCryptoWallet,
+          sourceCurrency: selectedCrypto,
+          destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
         },
         url: `${appConfig.apiUrl}/v1/reserve`,
       })
@@ -238,7 +250,8 @@ function TabCrypto(props) {
         data: {
           srn: paymentMethods[selectedPayment].srn,
           sourceAmount: unmaskCurrency(data.amount),
-          sourceCurrency: "USD",
+          sourceCurrency: selectedCrypto,
+          destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
         },
         url: `${appConfig.apiUrl}/v1/fiatfrombank`,
       })
@@ -258,7 +271,8 @@ function TabCrypto(props) {
         data: {
           srn: paymentMethods[selectedPayment].srn,
           sourceAmount: unmaskCurrency(data.amount),
-          sourceCurrency: "USD",
+          sourceCurrency: selectedCrypto,
+          destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
         },
         url: `${appConfig.apiUrl}/v1/cryptofrombank`,
       })
@@ -426,18 +440,34 @@ function TabCrypto(props) {
             </label>
           </div>
           <SelectCurrency
-            isCrypto={isFiat ? false : true}
+            isCrypto={false}
             className="mt-[40px] md:mt-[30px]"
             label={
               <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
-                Select crypto you want to{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2]">
-                  Deposit
+                Select currency in{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
+                  External Bank
                 </span>
               </div>
             }
             selectedSymbol={selectedCrypto}
             onChange={handleCryptoChange}
+          />
+          <SelectCurrency
+            isCrypto={isFiat ? false : true}
+            className="mt-[40px] md:mt-[30px]"
+            label={
+              <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
+                {`Select ${isFiat ? "currency" : "crypto"} you want to`}{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
+                  Get
+                </span>
+              </div>
+            }
+            selectedSymbol={isFiat ? selectedCurrencyDest : selectedCryptoDest}
+            onChange={
+              isFiat ? handleCurrencyDestChange : handleCryptoDestChange
+            }
           />
           <div className="h-[30px]"></div>
           <SelectWallet
@@ -483,14 +513,14 @@ function TabCrypto(props) {
               <div className="md:text-[24px] dark:text-[#fff]">
                 Payment Method
               </div>
-              <div className=" max-h-[490px] overflow-auto">
+              <div className=" max-h-[608px] overflow-auto">
                 {paymentMethods.length > 0 &&
                   paymentMethods.map((payment, index) => (
                     <div
                       key={index}
                       className={`md:w-full md:h-[120px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${
                         selectedPayment === index
-                          ? " border-[3px] border-[#00FF99]"
+                          ? " border-[3px] border-[#1199FA]"
                           : ""
                       }`}
                       onClick={() => setSelectedPayment(index)}
@@ -516,7 +546,7 @@ function TabCrypto(props) {
                           </div>
                         )}
                         {payment.status === "ACTIVE" && (
-                          <div className="text-center text-[10px] overflow-hidden px-[10px] py-[5px] rounded-[30px] bg-[#00FF99] text-[#FFF]">
+                          <div className="text-center text-[10px] overflow-hidden px-[10px] py-[5px] rounded-[30px] bg-[#1199FA] text-[#FFF]">
                             active
                           </div>
                         )}
@@ -559,7 +589,7 @@ function TabCrypto(props) {
                   <div
                     className={`w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${
                       isPlaidPayment
-                        ? "border-[2px] border-[#00FF99]"
+                        ? "border-[2px] border-[#1199FA]"
                         : "border-[1px] border-[#555555]"
                     } flex justify-center items-center cursor-pointer`}
                     onClick={() => setIsPlaidPayment(true)}
@@ -569,7 +599,7 @@ function TabCrypto(props) {
                   <div
                     className={`w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${
                       !isPlaidPayment
-                        ? "border-[2px] border-[#00FF99]"
+                        ? "border-[2px] border-[#1199FA]"
                         : "border-[1px] border-[#555555]"
                     } flex justify-center items-center cursor-pointer`}
                     onClick={() => setIsPlaidPayment(false)}

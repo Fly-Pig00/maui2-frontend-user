@@ -45,7 +45,7 @@ function IntroTeam() {
   //           <div className="absolute left-[-5px] bg-introteam-starlight1 bg-cover bg-center w-[10px] h-[10px]"></div>
   //           The Team
   //         </div>
-  //         <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#00FF99]"></div>
+  //         <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#1199FA]"></div>
   //         <div className="text-[34.9px] md:text-[64px] leading-[42px] md:leading-[76px] md:font-[500] text-[#FFF] text-center">
   //           Meet our team in journey of Maui.{" "}
   //         </div>
@@ -65,7 +65,7 @@ function IntroTeam() {
           <div className="absolute left-[-5px] bg-introteam-starlight1 bg-cover bg-center w-[10px] h-[10px]"></div>
           Meet the Maui Team
         </div>
-        <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#00FF99]"></div>
+        <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#1199FA]"></div>
         <div className="text-[34.9px] md:text-[64px] leading-[42px] md:leading-[76px] md:font-[500] text-[#FFF] text-center">
           Get to know the people leading the way at MAUI.
         </div>
@@ -81,7 +81,7 @@ function IntroTeam() {
             <div className="absolute left-[-25px] top-[-22px] bg-introteam-starlight1 bg-cover bg-center w-[50px] h-[50px]"></div>
             Meet the Maui Team
           </div>
-          <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#00FF99]"></div>
+          <div className="w-[88px] md:w-[162px] h-0 border-b-[3px] border-[#1199FA]"></div>
           <div className="text-[36px] md:text-[54px] leading-[43px] md:leading-[66px] md:font-[500] text-[#FFF] text-left">
             Get to know the people leading the way at MAUI.
           </div>
@@ -300,7 +300,7 @@ function IntroTeam() {
         <div className="md:mt-[50px] w-[70%] md:w-[100%] mx-auto flex flex-col md:flex-row md:justify-between text-[#FFF]">
           <div className="md:w-[30%] flex flex-col">
             <div className="relative flex md:flex-row">
-              <div className="w-[100%] text-[128px] md:text-[150px] leading-[153px] md:leading-[179px] font-[600] text-[#00FF99] text-center">
+              <div className="w-[100%] text-[128px] md:text-[150px] leading-[153px] md:leading-[179px] font-[600] text-[#1199FA] text-center">
                 1
               </div>
               <div className="absolute left-[56%] bottom-[3px] md:bottom-[8px] w-[45%] text-[9px] md:text-[16px] leading-[11px] md-leading-[19px] font-[500] flex flex-col-reverse pb-[25px]">
@@ -313,7 +313,7 @@ function IntroTeam() {
           </div>
           <div className="md:w-[30%] flex flex-col">
             <div className="relative flex md:flex-row">
-              <div className="w-[100%] text-[128px] md:text-[150px] leading-[153px] md:leading-[179px] font-[600] text-[#00FF99] text-center">
+              <div className="w-[100%] text-[128px] md:text-[150px] leading-[153px] md:leading-[179px] font-[600] text-[#1199FA] text-center">
                 1
               </div>
               <div className="absolute left-[56%] bottom-[3px] md:bottom-[8px] w-[45%] text-[9px] md:text-[16px] leading-[11px] md-leading-[19px] font-[500] flex flex-col-reverse pb-[25px]">
@@ -326,7 +326,7 @@ function IntroTeam() {
           </div>
           <div className="md:w-[30%] flex flex-col">
             <div className="relative flex md:flex-row">
-              <div className="w-[100%] text-[128px] md:text-[150px] leading-[153px] md:leading-[179px] font-[600] text-[#00FF99] text-center">
+              <div className="w-[100%] text-[128px] md:text-[150px] leading-[153px] md:leading-[179px] font-[600] text-[#1199FA] text-center">
                 7
               </div>
               <div className="absolute left-[56%] bottom-[3px] md:bottom-[8px] w-[45%] text-[9px] md:text-[16px] leading-[11px] md-leading-[19px] font-[500] flex flex-col-reverse pb-[25px]">
@@ -339,14 +339,14 @@ function IntroTeam() {
           </div>
         </div>
         <div className="w-full h-[90vh] flex flex-col justify-center items-center">
-          <div className="text-[48px] md:text-[82px] leading-[57px] md:leading-[98px] font-[600] text-[#00FF99] md:text-transparent md:bg-clip-text md:bg-introteam-title-gradient text-center drop-shadow-[0_4px_17px_rgba(0,0,0,0.25)]">
+          <div className="text-[48px] md:text-[82px] leading-[57px] md:leading-[98px] font-[600] text-[#1199FA] md:text-transparent md:bg-clip-text md:bg-introteam-title-gradient text-center drop-shadow-[0_4px_17px_rgba(0,0,0,0.25)]">
             Be part of Maui Banking Revolution.
           </div>
           <div className="mt-[30px] md:mt-[10px] w-[80%] text-[16px] md:text-[18px] leading-[19px] md:leading-[21px] font-[300] text-[#FFF] text-center">
             Get access to unmatched high yields on your money impossible for
             your legacy bank. A new banking system to serve YOU.*
           </div>
-          <div className="mt-[60px] md:mt-[90px] w-[202px] md:w-[251px] h-[68px] md:h-[69px] rounded-[4px] md:rounded-[29.3px] flex justify-center items-center text-[#FFF] md:text-[35.2px] md:leading-[42px] bg-[#00FF99]">
+          <div className="mt-[60px] md:mt-[90px] w-[202px] md:w-[251px] h-[68px] md:h-[69px] rounded-[4px] md:rounded-[29.3px] flex justify-center items-center text-[#FFF] md:text-[35.2px] md:leading-[42px] bg-[#1199FA]">
             Start Now
           </div>
         </div>

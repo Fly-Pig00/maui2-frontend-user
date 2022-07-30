@@ -33,19 +33,19 @@ function Login() {
           onClick={handleGoBack}
         />
         <div className='mt-[40px] md:mt-[70px] text-[14px] leading-[21px] md:text-[28px] md:leading-[42px] text-[#FFFFFF] font-semibold text-center tracking-[4px] login-text-shadow'>
-          We offer <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2]'>Revolutionary Banking</span><br />services based on blockchain.
+          We offer <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]'>Revolutionary Banking</span><br />services based on blockchain.
         </div>
         <div className="mt-[50px] tracking-[1px] text-[12px] md:text-[24px] text-[#FFFFFF] dark:text-[#C9C0C0] font-semibold text-center">
           Please access your account on blockchain
         </div>
         <TerraConnect
-          className="mt-[15px] md:mt-[30px] rounded-[25px] md:rounded-[50px] border-2 border-[#0C3E9F] dark:border-[#00FF99] w-[60%] h-[50px] bg-[#FFFFFF] dark:bg-[#4D4360]"
-          label={<span className='font-semibold text-[14px] leading-[16px] md:text-[20px] md:leading-[24px] tracking-[1px] text-[#0C3E9F] dark:text-[#00FF99] transition-all duration-1000'>My Account</span>}
+          className="mt-[15px] md:mt-[30px] rounded-[25px] md:rounded-[50px] border-2 border-[#0C3E9F] dark:border-[#1199FA] w-[60%] h-[50px] bg-[#FFFFFF] dark:bg-[#4D4360]"
+          label={<span className='font-semibold text-[14px] leading-[16px] md:text-[20px] md:leading-[24px] tracking-[1px] text-[#0C3E9F] dark:text-[#1199FA] transition-all duration-1000'>My Account</span>}
         />
         <div className="mt-[10px] md:mt-[20px] text-[12px] md:text-[14px] text-center text-[#FFFFFF]">OR</div>
         <div className="mt-[10px] md:mt-[20px] text-[12px] md:text-[14px] text-center text-[#FFFFFF]">Don’t have an account yet?</div>
         <TerraConnect
-          className="mt-[15px] md:mt-[30px] rounded-[25px] md:rounded-[50px] border-2 border-[#003465] dark:border-[#00FF99] w-[60%] h-[50px] bg-[#003465] dark:bg-[#00FF99]"
+          className="mt-[15px] md:mt-[30px] rounded-[25px] md:rounded-[50px] border-2 border-[#003465] dark:border-[#1199FA] w-[60%] h-[50px] bg-[#003465] dark:bg-[#1199FA]"
           label={<span className='font-semibold text-[14px] leading-[16px] md:text-[20px] md:leading-[24px] tracking-[1px] text-[#FFFFFF] dark:text-[#FFFFFF] transition-all duration-1000'>New Account</span>}
         />
         <div className='mt-[20px] text-[12px] md:text-[14px] text-center text-[#FFFFFF]'>

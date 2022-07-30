@@ -9,7 +9,7 @@ function Risks() {
     <div className="relative w-full min-h-[920px] md:min-h-[1000px] bg-[#DEE2E8] dark:bg-[#32283C] transition-all duration-1000">
       {/* card */}
       <div className="absolute w-[320px] top-[130px] left-[calc(50%-160px)] md:w-[1020px] md:top-[240px] md:left-[calc(50%-510px)] bg-borrow-card dark:bg-borrow-card-dark shadow-borrow-card dark:shadow-borrow-card-dark border border-[#FFFFFF] rounded-[33px] p-[20px] md:p-[40px] md:pt-[20px]">
-        <span className="font-semibold text-[18px] md:text-[32px] leading-[36px] md:leading-[48px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#00FF99] to-[#00DDA2]">
+        <span className="font-semibold text-[18px] md:text-[32px] leading-[36px] md:leading-[48px] tracking-[2px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
           What are the risks associated with using Maui?
         </span>
         <div className="mt-[20px] h-[540px] overflow-y-scroll scrollbar">
