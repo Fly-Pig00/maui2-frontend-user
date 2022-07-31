@@ -4,7 +4,7 @@ import Checkbox from "../Checkbox";
 import useOutsideClick from "../../../utils/useOutsideClick";
 
 const FIAT = [
-  { img: "bg-common-debit-card", symbol: "Debit Card", fee: "3", index: 0 },
+  // { img: "bg-common-debit-card", symbol: "Debit Card", fee: "3", index: 0 },
   { img: "bg-common-debit-card", symbol: "ACH Transfer", fee: "0", index: 1 },
 ];
 
@@ -19,7 +19,7 @@ const getSelected = (isCrypto, selectedSymbol) => {
   let found = isCrypto ? CRYPTO[0] : FIAT[0];
   if (!selectedSymbol) return found;
   _.map(isCrypto ? CRYPTO : FIAT, (item) => {
-    if (item.index === selectedSymbol) {
+    if (item.symbol === selectedSymbol) {
       found = { ...item };
     }
   });
@@ -49,11 +49,11 @@ function SelectWallet({
         key={item.symbol}
         title={item.desc}
         className={`cursor-pointer p-[3px] pl-[10px] pr-[10px] bg-[#DDE5F5] dark:bg-[#282828] hover:bg-[#8D95A5] dark:hover:bg-black hover:text-[#00DDA2] border border-[#F6F8FA] text-center ${
-          selected.index !== item.index
+          selected.symbol !== item.symbol
             ? "text-black dark:text-white"
             : "text-[#00DDA2]"
         }`}
-        onClick={handleDropdownSelect.bind(this, item.index)}
+        onClick={handleDropdownSelect.bind(this, item.symbol)}
       >
         <div className="flex items-center p-3 justify-between">
           <div className={`${item.img} bg-cover bg-center w-[30px] h-[30px]`} />
@@ -72,11 +72,11 @@ function SelectWallet({
         key={item.symbol}
         title={item.desc}
         className={`cursor-pointer p-[3px] pl-[10px] pr-[10px] bg-[#DDE5F5] dark:bg-[#282828] hover:bg-[#8D95A5] dark:hover:bg-black hover:text-[#00DDA2] border border-[#F6F8FA] text-center ${
-          selected.index !== item.index
+          selected.symbol !== item.symbol
             ? "text-black dark:text-white"
             : "text-[#00DDA2]"
         }`}
-        onClick={handleDropdownSelect.bind(this, item.index)}
+        onClick={handleDropdownSelect.bind(this, item.symbol)}
       >
         <div className="flex items-center p-3 justify-between">
           <div className={`${item.img} bg-cover bg-center w-[30px] h-[30px]`} />

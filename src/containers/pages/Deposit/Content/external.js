@@ -16,7 +16,7 @@ import PhoneInput from "react-phone-input-2";
 import { getPaymentMethod } from "../../../../saga/actions/workflow";
 import InputAmount from "../../../../components/Form/InputAmount";
 import SelectCurrency from "../../../../components/Form/SelectCurrency";
-import SelectWallet from "../../../../components/Form/SelectWallet";
+import SelectWithdrawWallet from "../../../../components/Form/SelectWithdrawWallet";
 import { unmaskCurrency } from "../../../../utils/masks";
 import Button from "../../../../components/Button";
 import RightBar from "./rightbar";
@@ -52,7 +52,8 @@ function TabCrypto(props) {
   const [selectedCrypto, setSelectedCrypto] = useState("USD");
   const [selectedCurrencyDest, setSelectedCurrencyDest] = useState("USD");
   const [selectedCryptoDest, setSelectedCryptoDest] = useState("DAI");
-  const [selectedCryptoWallet, setSelectedCryptoWallet] = useState(0);
+  const [selectedCryptoWallet, setSelectedCryptoWallet] =
+    useState("ACH Transfer");
   // const [ selectedCryptoFiat, setSelectedCryptoFiat ] = useState('USD');
   const [stage, setStage] = useState(0);
   const [reservation, setReservation] = useState("");
@@ -105,6 +106,10 @@ function TabCrypto(props) {
   useEffect(() => {
     if (received !== "") setStage(2);
   }, [received]);
+
+  useEffect(() => {
+    console.log("selectedCryptoWallet", selectedCryptoWallet);
+  }, [selectedCryptoWallet]);
 
   useEffect(() => {
     if (paymentModalShow) document.body.style.overflow = "hidden";
@@ -183,6 +188,7 @@ function TabCrypto(props) {
     setSelectedCurrencyDest(symbol);
   }
   function handleCryptoWalletChange(symbol) {
+    console.log(symbol);
     setSelectedCryptoWallet(symbol);
   }
   // function handleCryptoFiatChange(symbol) {
@@ -314,6 +320,8 @@ function TabCrypto(props) {
         postalCode: 94123,
         country,
         amount,
+        destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
+        sourceCurrency: selectedCrypto,
       },
       url: `${appConfig.apiUrl}/v1/order`,
     })
@@ -418,8 +426,12 @@ function TabCrypto(props) {
           <div
             className="dark:text-[#fff]"
             onChange={(e) => {
-              // if (e.target.value === "fiat") setIsFiat(true);
-              // else setIsFiat(false);
+              console.log(e.target.value);
+              if (e.target.value === "fiat") {
+                setSelectedCryptoWallet("ACH Transfer");
+              } else {
+                setSelectedCryptoWallet("Debit Card");
+              }
               setIsFiat(!isFiat);
             }}
           >
@@ -427,40 +439,26 @@ function TabCrypto(props) {
               type="radio"
               id="crypto"
               name="payment"
-              value={!isFiat}
+              value={"crypto"}
               defaultChecked
             />
             <label for="crypto" className="ml-[10px]">
               Crypto
             </label>
             <div className="h-[20px]"></div>
-            <input type="radio" id="fiat" name="payment" value={isFiat} />
+            <input type="radio" id="fiat" name="payment" value={"fiat"} />
             <label for="fiat" className="ml-[10px]">
               Fiat
             </label>
           </div>
           <SelectCurrency
-            isCrypto={false}
-            className="mt-[40px] md:mt-[30px]"
-            label={
-              <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
-                Select currency in{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
-                  External Bank
-                </span>
-              </div>
-            }
-            selectedSymbol={selectedCrypto}
-            onChange={handleCryptoChange}
-          />
-          <SelectCurrency
             isCrypto={isFiat ? false : true}
             className="mt-[40px] md:mt-[30px]"
             label={
               <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
-                {`Select ${isFiat ? "currency" : "crypto"} you want to`}{" "}
+                {`Select ${isFiat ? "currency" : "crypto"} from`}{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
-                  Get
+                  Maui Bank
                 </span>
               </div>
             }
@@ -469,8 +467,23 @@ function TabCrypto(props) {
               isFiat ? handleCurrencyDestChange : handleCryptoDestChange
             }
           />
+          <SelectCurrency
+            isCrypto={false}
+            className="mt-[40px] md:mt-[30px]"
+            label={
+              <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
+                Select currency you want to {" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
+                  get
+                </span>
+              </div>
+            }
+            selectedSymbol={selectedCrypto}
+            onChange={handleCryptoChange}
+          />
           <div className="h-[30px]"></div>
-          <SelectWallet
+          <SelectWithdrawWallet
+            tab="deposit"
             isCrypto={isFiat ? false : true}
             className="mt-[10px]"
             label={
@@ -506,7 +519,7 @@ function TabCrypto(props) {
           </Button>
         </div>
         <div className="w-full mt-[10px] md:mt-0 md:w-[45%]">
-          {selectedCryptoWallet === 0 ? (
+          {selectedCryptoWallet === "Debit Card" ? (
             <RightBar isCrypto={true} />
           ) : (
             <div className="w-full border-b-[1px] border-b-[#777] pb-[10px] md:pb-0 md:border-0">

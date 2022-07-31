@@ -1,5 +1,5 @@
 export const appConfig = {
-  apiUrl: process.env.REACT_APP_API_URL || 'http://192.168.116.26:3001',
+  apiUrl: process.env.REACT_APP_API_URL || 'http://192.168.116.33:3001',
   // apiUrl: process.env.REACT_APP_API_URL || 'http://localhost:4000/api',
   MICRO: 1_000_000,
   BLOCKSPERYEAR: 4_656_810,
