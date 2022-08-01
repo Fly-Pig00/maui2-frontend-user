@@ -6,6 +6,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { useWallet } from "@terra-money/wallet-provider";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import {
   CountryDropdown,
   CountryRegionData,
@@ -36,6 +37,7 @@ import { shortenAddress } from "../../../../utils/shortenAddress";
 function TabCrypto(props) {
   const dispatch = useDispatch();
   const paymentMethod = useSelector((state) => state.workflow.paymentMethod);
+  const walletAddress = useSelector((state) => state.workflow.walletAddress);
 
   const { sign } = useWallet();
   // get functions to build form with useForm() hook
@@ -95,6 +97,7 @@ function TabCrypto(props) {
   const [accountType, setAccountType] = useState("");
   const [addPayLoading, setAddPayLoading] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState([]);
+  const [copied, setCopied] = useState(false);
 
   axios.defaults.baseURL = appConfig.apiUrl;
   axios.defaults.headers.common["Authorization"] = token;
@@ -133,6 +136,13 @@ function TabCrypto(props) {
           console.log("error", err);
         });
   }, [paymentMethod]);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setCopied(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [copied]);
 
   // const deposit = async (amount, from, to, network) => {
   //   setIsLoading(true);
@@ -224,14 +234,14 @@ function TabCrypto(props) {
     // deposit(unmaskCurrency(data.amount), from, to, network);
     // return false;
 
-    if (!isFiat && selectedCryptoWallet === 0) {
+    if (!isFiat && selectedCryptoWallet === "Debit Card") {
       //crypto & debit card method
       axios({
         method: "POST",
         headers: { Authorization: `bearer ${token}` },
         data: {
           amount: unmaskCurrency(data.amount),
-          paymentMethod: selectedCryptoWallet,
+          paymentMethod: 0,
           sourceCurrency: selectedCrypto,
           destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
         },
@@ -244,11 +254,10 @@ function TabCrypto(props) {
           setIsLoading(false);
         })
         .catch((err) => {
-          toast.error("Error");
+          toast.error(err.response?.data?.message);
           setIsLoading(false);
-          console.log("error", err);
         });
-    } else if (isFiat && selectedCryptoWallet === 1) {
+    } else if (isFiat && selectedCryptoWallet === "ACH Transfer") {
       //crypto & debit card method
       axios({
         method: "POST",
@@ -269,7 +278,7 @@ function TabCrypto(props) {
           toast.error(err.response?.data?.msg);
           setIsLoading(false);
         });
-    } else if (!isFiat && selectedCryptoWallet === 1) {
+    } else if (!isFiat && selectedCryptoWallet === "ACH Transfer") {
       //crypto & debit card method
       axios({
         method: "POST",
@@ -450,6 +459,22 @@ function TabCrypto(props) {
             <label for="fiat" className="ml-[10px]">
               Fiat
             </label>
+            {!isFiat && (
+              <div className="md:mt-[10px]">
+                Wallet address: {" "}
+                <CopyToClipboard
+                  text={walletAddress}
+                  onCopy={() => setCopied(true)}
+                >
+                  <span className="cursor-pointer">
+                    {shortenAddress(walletAddress)}
+                  </span>
+                </CopyToClipboard>
+                {copied ? (
+                  <span className="ml-[15px] text-[#1199fa]">Copied.</span>
+                ) : null}
+              </div>
+            )}
           </div>
           <SelectCurrency
             isCrypto={false}

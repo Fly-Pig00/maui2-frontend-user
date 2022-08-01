@@ -33,8 +33,8 @@ function Footer(props) {
   if (location.pathname === "/splash" || location.pathname === "/login")
     return null;
   return (
-    <div className="relative h-[655px] md:w-full md:h-[818px] bg-[#001535]">
-      <div className="pt-[49px] px-[31px] text-[24px] leading-[29px] md:px-[14.62%] md:pt-[160px] md:text-[32px] text-[#FFFFFF] font-[500] md:leading-[38px]">
+    <div className="relative h-[685px] md:w-full md:h-[568px] bg-[#001535]">
+      {/* <div className="pt-[49px] px-[31px] text-[24px] leading-[29px] md:px-[14.62%] md:pt-[160px] md:text-[32px] text-[#FFFFFF] font-[500] md:leading-[38px]">
         Get updates on Maui Finance
       </div>
       <div
@@ -55,51 +55,117 @@ function Footer(props) {
         >
           Subscribe
         </div>
-      </div>
+      </div> */}
+      <div className="w-full h-[46px] md:h-0"></div>
       <div
-        className={`relative mt-[46px] px-[31px] md:absolute md:mt-0 md:left-[42.3%] md:px-0 md:top-[350px] md:w-[39%] flex justify-between`}
+        className={`relative px-[31px] md:absolute md:mt-0 md:left-[20%] md:px-0 md:top-[100px] md:w-[60%] flex flex-col md:flex-row md:justify-between`}
       >
         <div className="">
           <div className="mb-[10px] leading-[29px] text-[24px] font-[600] md:mb-[13.9px] md:leading-[33px] md:text-[28px] text-[#FFFFFF] md:font-[500]">
+            Contact Us
+          </div>
+          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer">
+            <a href="mailto:ivan@maui.finance" target="_blank">
+              ivan@maui.finance
+            </a>
+          </div>
+          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer">
+            <a href="tel:+13038005333" target="_blank">
+              {" "}
+              +1 650 600 1357
+            </a>
+          </div>
+          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer">
+            <a href="http://Mauibank.io" target="_blank">
+              Mauibank.io
+            </a>
+          </div>
+          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer">
+            <a href="https://twitter.com/mauibank" target="_blank">
+              {" "}
+              @mauibank
+            </a>
+          </div>
+          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer">
+            <a href="https://www.linkedin.com/company/mauibank" target="_blank">
+              {" "}
+              @mauibank
+            </a>
+          </div>
+        </div>
+        <div className="">
+          <div className="mt-[20px] md:mt-0 mb-[10px] leading-[29px] text-[24px] font-[600] md:mb-[13.9px] md:leading-[33px] md:text-[28px] text-[#FFFFFF] md:font-[500]">
             Quick Links
           </div>
-          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introdashboard")}>
+          <div
+            className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer"
+            onClick={() => history.push("/introdashboard")}
+          >
             Maui
           </div>
           {isMobile && (
             <>
-              <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introearn")}>
+              <div
+                className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer"
+                onClick={() => history.push("/introearn")}
+              >
                 Earn
               </div>
-              <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introborrow")}>
+              <div
+                className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer"
+                onClick={() => history.push("/introborrow")}
+              >
                 Borrow
+              </div>
+              <div
+                className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer"
+                onClick={() => history.push("/introteam")}
+              >
+                Team
               </div>
             </>
           )}
-          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introcards")}>
+          <div
+            className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer"
+            onClick={() => history.push("/introcards")}
+          >
             Cards
           </div>
-          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/dashboard")}>
+          <div
+            className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer"
+            onClick={() => history.push("/dashboard")}
+          >
             Start now
           </div>
         </div>
-        <div className="">
-          <div className="mb-[10px] leading-[29px] text-[24px] font-[600] md:mb-[13.9px] md:leading-[33px] md:text-[28px] text-[#FFFFFF] md:font-[500]">
-            Developers
+        {!isMobile && (
+          <div className="">
+            <div className="mb-[10px] leading-[29px] text-[24px] font-[600] md:mb-[13.9px] md:leading-[33px] md:text-[28px] text-[#FFFFFF] md:font-[500]">
+              Developers
+            </div>
+            <div
+              className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer"
+              onClick={() => history.push("/introteam")}
+            >
+              Team
+            </div>
           </div>
-          <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introteam")}>
-            Team
-          </div>
-        </div>
+        )}
         {!isMobile && (
           <div className="">
             <div className="md:mb-[13.9px] leading-[33px] text-[28px] text-[#FFFFFF] font-[500]">
               Learn
             </div>
-            <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introearn")}>
+            <div
+              className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer"
+              onClick={() => history.push("/introearn")}
+            >
               Earn
             </div>
-            <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[24px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer" onClick={()=>history.push("/introborrow")}>
+            <div
+              className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer"
+              onClick={() => history.push("/introborrow")}
+            >
               Borrow
             </div>
           </div>
@@ -107,20 +173,20 @@ function Footer(props) {
       </div>
       <div className="absolute flex flex-col bottom-[36px] w-full md:flex-row items-center justify-between w-[360px] md:w-[65.22%] md:bottom-[104px] mx-[calc((100vw-360px)/2)] md:mx-0 px-[31px] md:left-[17.39%]">
         <div className="text-[10px] mb-[16px] md:mb-[5px] md:text-[14px] dark:text-[#F9D3B4] text-[#ffffff70] text-center">
-          Copyright © 2022 Maui Finance. All rights reserved. 
+          Copyright © 2022 Maui Finance. All rights reserved.
         </div>
         <div className="mb-[5px] flex flex-wrap  items-center justify-center text-[12px] md:text-[14px] dark:text-[#F9D3B4] text-[#ffffff70]">
           <span
             onClick={handleTermsClick}
             className="cursor-pointer mr-[2px] pr-[2px]"
           >
-            Terms of Service / 
+            Terms of Service /
           </span>
           <span
             onClick={handleUserAgreementClick}
             className="cursor-pointer mr-[2px] pr-[2px]"
           >
-            User Agreement / 
+            User Agreement /
           </span>
           <span
             onClick={handlePrivacyClick}
@@ -132,7 +198,7 @@ function Footer(props) {
             onClick={handleAssetProtectClick}
             className="cursor-pointer mr-[2px] pr-[2px]"
           >
-            Asset Protection / 
+            Asset Protection /
           </span>
           <span onClick={handleRisksClick} className="cursor-pointer">
             Risks

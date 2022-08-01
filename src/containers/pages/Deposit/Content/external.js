@@ -10,6 +10,7 @@ import {
   CountryDropdown,
   CountryRegionData,
 } from "react-country-region-selector";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import PhoneInput from "react-phone-input-2";
 // import "react-phone-input-2/lib/style.css";
 
@@ -36,6 +37,7 @@ import { shortenAddress } from "../../../../utils/shortenAddress";
 function TabCrypto(props) {
   const dispatch = useDispatch();
   const paymentMethod = useSelector((state) => state.workflow.paymentMethod);
+  const walletAddress = useSelector((state) => state.workflow.walletAddress);
 
   const { sign } = useWallet();
   // get functions to build form with useForm() hook
@@ -95,6 +97,7 @@ function TabCrypto(props) {
   const [accountType, setAccountType] = useState("");
   const [addPayLoading, setAddPayLoading] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState([]);
+  const [copied, setCopied] = useState(false);
 
   axios.defaults.baseURL = appConfig.apiUrl;
   axios.defaults.headers.common["Authorization"] = token;
@@ -133,6 +136,13 @@ function TabCrypto(props) {
           console.log("error", err);
         });
   }, [paymentMethod]);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setCopied(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [copied]);
 
   // const deposit = async (amount, from, to, network) => {
   //   setIsLoading(true);
@@ -201,9 +211,7 @@ function TabCrypto(props) {
     const value = unmaskCurrency(val);
     if (!value) {
       return "This input field is required.";
-    } else if (parseInt(value) <= 5 || parseInt(value) > 99999) {
-      return "The amount must be greater than $5 and be less than $100000";
-    }
+    } 
     return null;
   }
   // handle functions
@@ -217,38 +225,14 @@ function TabCrypto(props) {
       return false;
     }
     setAmount(unmaskCurrency(data.amount));
-    if (unmaskCurrency(data.amount) >= 5) setIsLoading(true);
+    setIsLoading(true);
     // const from = props.workflow.terraAddress;
     // const to = props.workflow.mauiAddress;
     // const network = props.workflow.network;
     // deposit(unmaskCurrency(data.amount), from, to, network);
     // return false;
 
-    if (!isFiat && selectedCryptoWallet === 0) {
-      //crypto & debit card method
-      axios({
-        method: "POST",
-        headers: { Authorization: `bearer ${token}` },
-        data: {
-          amount: unmaskCurrency(data.amount),
-          paymentMethod: selectedCryptoWallet,
-          sourceCurrency: selectedCrypto,
-          destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
-        },
-        url: `${appConfig.apiUrl}/v1/reserve`,
-      })
-        .then((result) => {
-          // const url = result.data?.url || "";
-          const reserve = result.data.reservation;
-          setReservation(reserve);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          toast.error("Error");
-          setIsLoading(false);
-          console.log("error", err);
-        });
-    } else if (isFiat && selectedCryptoWallet === 1) {
+    if (isFiat && selectedCryptoWallet === "ACH Transfer") {
       //crypto & debit card method
       axios({
         method: "POST",
@@ -256,10 +240,10 @@ function TabCrypto(props) {
         data: {
           srn: paymentMethods[selectedPayment].srn,
           sourceAmount: unmaskCurrency(data.amount),
-          sourceCurrency: selectedCrypto,
-          destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
+          destCurrency: selectedCrypto,
+          sourceCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
         },
-        url: `${appConfig.apiUrl}/v1/fiatfrombank`,
+        url: `${appConfig.apiUrl}/v1/withdrawfromfiat`,
       })
         .then((result) => {
           console.log(result.data); // ...
@@ -269,7 +253,7 @@ function TabCrypto(props) {
           toast.error(err.response?.data?.msg);
           setIsLoading(false);
         });
-    } else if (!isFiat && selectedCryptoWallet === 1) {
+    } else if (!isFiat && selectedCryptoWallet === "ACH Transfer") {
       //crypto & debit card method
       axios({
         method: "POST",
@@ -277,10 +261,10 @@ function TabCrypto(props) {
         data: {
           srn: paymentMethods[selectedPayment].srn,
           sourceAmount: unmaskCurrency(data.amount),
-          sourceCurrency: selectedCrypto,
-          destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
+          destCurrency: selectedCrypto,
+          sourceCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
         },
-        url: `${appConfig.apiUrl}/v1/cryptofrombank`,
+        url: `${appConfig.apiUrl}/v1/withdrawfromcrypto`,
       })
         .then((result) => {
           console.log(result.data); // ...
@@ -450,6 +434,22 @@ function TabCrypto(props) {
             <label for="fiat" className="ml-[10px]">
               Fiat
             </label>
+            {!isFiat && (
+              <div className="md:mt-[10px]">
+                Wallet address:{" "}
+                <CopyToClipboard
+                  text={walletAddress}
+                  onCopy={() => setCopied(true)}
+                >
+                  <span className="cursor-pointer">
+                    {shortenAddress(walletAddress)}
+                  </span>
+                </CopyToClipboard>
+                {copied ? (
+                  <span className="ml-[15px] text-[#1199fa]">Copied.</span>
+                ) : null}
+              </div>
+            )}
           </div>
           <SelectCurrency
             isCrypto={isFiat ? false : true}
@@ -472,7 +472,7 @@ function TabCrypto(props) {
             className="mt-[40px] md:mt-[30px]"
             label={
               <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
-                Select currency you want to {" "}
+                Select currency you want to{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
                   get
                 </span>
