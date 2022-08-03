@@ -4,7 +4,7 @@ import { Controller } from "react-hook-form";
 function Input({isMasked = false, autoFocus = false, name, className, label, hookForm, validate, placeholder, registerOptions}) {
   const { formState: { errors }, register, control } = hookForm;
   const cn = `border-0 dark:border ${errors && errors[name] ? 'border-[1px] border-[#ff0000] focus:border-[#ff0000]' : 'border-[#1199FA] focus:border-[#1199FA]'} rounded-[13px] w-full h-[46px] p-3 outline-none mt-[13px] bg-[#FFFFFF] dark:bg-transparent text-black dark:text-white dark:bg-[#32283C] transition-all duration-500`;
-  
+
   return (
     <div className={`${className || ''}`}>
       {label && <div className="text-left font-medium text-[14px] leading-[16px] text-[#000A2F] tracking-tight	">

@@ -111,10 +111,6 @@ function TabCrypto(props) {
   }, [received]);
 
   useEffect(() => {
-    console.log("selectedCryptoWallet", selectedCryptoWallet);
-  }, [selectedCryptoWallet]);
-
-  useEffect(() => {
     if (paymentModalShow) document.body.style.overflow = "hidden";
     else {
       document.body.style.overflow = "auto";
