@@ -8,6 +8,9 @@ function IntroDashBoard() {
 
   const [isMobile, setIsMobile] = useState(false);
 
+  const [showDemo, setShowDemo] = useState(false);
+  const [showDemo1, setShowDemo1] = useState(true);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -16,6 +19,13 @@ function IntroDashBoard() {
     if (size.width <= 768) setIsMobile(true);
     else setIsMobile(false);
   }, [size]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowDemo1(!showDemo1);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [showDemo1]);
 
   return (
     <div className="bg-[#10213f]">
@@ -43,6 +53,7 @@ function IntroDashBoard() {
       </div>
       <div className="relative w-full md:leading-[116px]">
         <div className="absolute left-[29px] top-[87px] right-[190px] bottom-[16px] bg-introdashboard-starimage bg-cover bg-center"></div>
+        <div className="absolute right-[-77px] bottom-[-400px] w-[368.61px] h-[426.14px] bg-introdashboard-shape1 bg-cover bg-center"></div>
         <div className="pt-[14vh] md:pt-[30vh] px-[20px] md:px-0 text-[45px] md:text-[96px] drop-shadow-[0_4px_17px_rgba(0,0,0,0.58)] text-[#1199FA] md:font-[600] text-left md:text-center">
           <span>Maui, you are now</span>
           {!isMobile && <br />}
@@ -92,7 +103,20 @@ function IntroDashBoard() {
           <span>Built by Maui.</span>
           <br /> <span>Banking Evolution is here.</span>
         </div>
-        <div className="mt-[63px] mx-auto w-[300px] h-[99px] bg-introdashboard-iphonecut bg-cover bg-center"></div>
+        {!showDemo ? (
+          <div
+            className="mt-[63px] mx-auto w-[300px] h-[99px] bg-introdashboard-iphonecut bg-cover bg-center transition-all duration-1000"
+            onMouseEnter={() => setShowDemo(true)}
+          ></div>
+        ):(
+          <>
+            {showDemo1 ? (
+              <div className="mt-[63px] mx-auto w-[299px] h-[604px] bg-introdashboard-showdemo2 bg-cover bg-center transition-all duration-1000"></div>
+            ) : (
+              <div className="mt-[63px] mx-auto w-[299px] h-[604px] bg-introdashboard-showdemo1 bg-cover bg-center transition-all duration-1000"></div>
+            )}
+          </>
+        )}
         <div className="flex flex-col md:flex-row items-center mt-[50vh] md:mx-auto md:bg-introdashboard-earn-back md:bg-contain md:bg-no-repeat bg-center md:w-[80%] md:h-[35vh]">
           {isMobile && (
             <div className="text-[74px] leading-[88px] font-[600] text-[#1199FA] mb-[30px]">

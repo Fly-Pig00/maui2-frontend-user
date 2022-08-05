@@ -1,6 +1,6 @@
 export const appConfig = {
-  apiUrl: process.env.REACT_APP_API_URL || 'https://backendofmaui.herokuapp.com',
-  // apiUrl: process.env.REACT_APP_API_URL || 'http://localhost:4000/api',
+  apiUrl: 'https://backendofmaui.herokuapp.com',
+  // apiUrl: 'http://localhost:4000/api',
   MICRO: 1_000_000,
   BLOCKSPERYEAR: 4_656_810,
 
