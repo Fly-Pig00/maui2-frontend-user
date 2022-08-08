@@ -16,9 +16,12 @@ function IntroBorrow() {
   }, [size]);
 
   return (
-    <div className="bg-[#10213f] md:pb-[70px]">
+    <div className="relative bg-[#10213f] md:pb-[70px]">
+      <div className="absolute left-[-200px] top-[20vh] w-[1024px] h-[977px] bg-introborrow-shape2 bg-cover bg-center z-10 animate-display1"></div>
+      <div className="absolute left-[-50px] top-[20vh] w-[158px] h-[151px] bg-introborrow-shape2 bg-cover bg-center z-10 rotate-[60deg] animate-display1"></div>
       <div className="relative w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-cover bg-left  overflow-hidden">
-        <div className="absolute  bg-introearn-earth bg-cover bg-center left-[60vw] md:left-[70vw] bottom-[calc(100vh-60vw)] md:bottom-[60vh] w-[100vw] md:w-[120vh] h-[100vw] md:h-[120vh]"></div>
+        <div className="absolute  bg-introearn-earth bg-cover bg-center left-[60vw] md:left-[70vw] bottom-[calc(100vh-60vw)] md:bottom-[60vh] w-[100vw] md:w-[120vh] h-[100vw] md:h-[120vh] md:animate-move4"></div>
+        <div className="absolute left-[-100px] top-0 w-[232px] h-[250px] bg-introborrow-shape1 bg-cover bg-center md:animate-move3"></div>
         <div className="w-full mt-[26vh]"></div>
         <div className="text-[20px] md:text-[40px] leading-[24px] md:leading-[48px] font-[500] md:font-[600] text-[#FFF] text-center">
           BORROW UP TO
@@ -60,7 +63,7 @@ function IntroBorrow() {
       </div>
       <div className="md:w-full  md:pb-[150px] md:bg-introearn-star-group2 bg-contain bg-center bg-no-repeat">
         <div className="mt-[100px] md:mt-[160px] w-[96%] mx-auto md:w-[100%] text-[45px] md:text-[74px] leading-[57px] md:leading-[88px] md:font-[600] text-[#FFF] text-center">
-        Calculate Your Loan
+          Calculate Your Loan
           <span className="text-[#18e5a3] md:text-[#FFF]">.</span>
         </div>
         <div className="relative mt-[20px] md:mt-[80px] w-[90%] md:w-[55%] mx-auto text-[20px] md:text-[32px] leading-[24px] md:leading-[38px] font-[500] text-[#ffffffde] text-center">

@@ -1,3 +1,5 @@
+const { calculateNewValue } = require('@testing-library/user-event/dist/utils');
+
 module.exports = {
   content: ["./src/**/*.{js,jsx}"],
   darkMode: 'class',
@@ -61,6 +63,8 @@ module.exports = {
         "introborrow-switchcolor":"url('../images/_intro/introborrow/switchcolor.png')",
         'introborrow-calculate-gradient': 'linear-gradient(124.08deg, #1199FA 3.96%, #00DDA2 94.96%)',
         "introborrow-chart":"url('../images/_intro/introborrow/chart.png')",
+        "introborrow-shape1":"url('../images/_intro/introborrow/shape1.png')",
+        "introborrow-shape2":"url('../images/_intro/introborrow/shape2.png')",
         //intro cards
         "introborrow-card4":"url('../images/_intro/introcards/card4.png')",
         "introborrow-card1":"url('../images/_intro/introcards/card1.png')",
@@ -239,16 +243,49 @@ module.exports = {
     colors: {
     },
     animation: {
-      move1: 'keyframe1 5s ease 0s 1 forwards'
+      move1: 'keyframe1 5s ease 0s 1 forwards',
+      zoom1: 'keyframe2 3s linear 2s forwards',
+      zoom2: 'keyframe3 3s linear 2s forwards',
+      display1: 'keyframe4 3s linear forwards',
+      move2: 'keyframe5 3s linear forwards',
+      move3: 'keyframe6 3s linear forwards',
+      move4: 'keyframe7 3s linear forwards'
     },
     keyframes: {
       keyframe1: {
         '0%': { left: '0px'},
         '100%': { left: '500px'}
-      }
+      },
+      keyframe2:{
+        "0%" :{fontSize:'24px', lineHeight:'29px'},
+        "100%" :{fontSize:'250px', lineHeight:'298px'},
+      },
+      keyframe3:{
+        "0%":{top:'0px', width:'373px', height:'373px'},
+        "100%":{top:'-250px', width:'120vh', height:'120vh'}
+      },
+      keyframe4:{
+        "0%":{opacity:0},
+        "100%":{opacity:1}
+      },
+      keyframe5:{
+        "0%":{fontSize: '48px', lineHeight:'57px'},
+        "100%":{position: 'absolute', left: '70vw', bottom: '60vh', width: '120vh', height: '120vh'}
+      },
+      keyframe6: {
+        "0%": {left: '-120px', top: 0, transform: 'rotate(150deg)' },
+        "25%": {left: '-120px', top: '35vh'},
+        "50%": {left: '-120px', top: '70vh'},
+        "100%": {left: '-120px', top: '105vh'},
+      },
+      keyframe7:{
+        "0%":{bottom: '70vh'},
+        "100%":{opacity: '60vh'}
+      },
     }
   },
   plugins: [
     require('@themesberg/flowbite/plugin')
   ]
 }
+// text-[20px] md:text-[48px] leading-[24px] md:leading-[57px] font-[500] md:font-[600] text-[#FFF] text-center

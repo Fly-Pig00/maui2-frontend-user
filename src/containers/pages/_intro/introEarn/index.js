@@ -6,6 +6,7 @@ function IntroEarn() {
 
   const [isMobile, setIsMobile] = useState(false);
   const [isExplore, setIsExplore] = useState(false);
+  // const [zoom]
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,31 +24,28 @@ function IntroEarn() {
     else document.body.style.overflow = "auto";
   }, [isExplore]);
 
-  if (!isExplore) {
-    return (
-      <div className="w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-contain bg-left bg-no-repeat  overflow-hidden">
-        <div className="h-[45vh] md:h-[35vh]"></div>
-        <div className="flex justify-start ml-[8%] md:ml-[17%] md:text-[250px] md:leading-[298px] md:font-[600]">
-          <div className="relative text-[#FFF] md:text-transparent text-[64px] md:text-[250px] leading-[76px] md:leading-[298px] font-[600] md:bg-introearn-title-gradient md:bg-clip-text">
-            <div className="absolute right-[calc(-20px-100vw)] md:right-[calc(55px-120vh)] top-[calc(40px-50vw)] md:top-[calc(149px-50vh)] w-[100vw] md:w-[120vh] h-[100vw] md:h-[120vh] bg-introearn-earth bg-contain bg-center"></div>
-            EARN
-          </div>
-        </div>
-        <div
-          className="mt-[30px] md:mt-0 ml-[9%] md:ml-[18%] w-[128px] md:w-[200px] h-[54px] md:h-[61px] flex items-center justify-center text-[#FFF] text-[20px] md:text-[30px] leading-[24px] md:leading-[36px] font-[600] md:font-[500] border-[1px] border-[#FFF] cursor-pointer"
-          onClick={() => setIsExplore(true)}
-        >
-          Explore
-          <div className="bg-introearn-down-arrow bg-cover bg-center md:w-[44.17px] md:h-[44.17px] md:ml-[10px]"></div>
+  return !isExplore ? (
+    <div className="w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-contain bg-left bg-no-repeat  overflow-hidden">
+      <div className="h-[45vh] md:h-[35vh]"></div>
+      <div className="flex justify-start ml-[8%] md:ml-[17%] md:text-[250px] md:leading-[298px] md:font-[600]">
+        <div className="relative text-[#FFF] md:text-transparent text-[64px] md:text-[24px] leading-[76px] md:leading-[29px] font-[600] md:bg-introearn-title-gradient md:bg-clip-text md:animate-zoom1">
+          <div className="absolute right-[calc(-20px-100vw)] md:right-[calc(55px-120vh)] w-[100vw] md:w-[373px] h-[100vw] md:h-[373px] bg-introearn-earth bg-contain bg-center md:animate-zoom2"></div>
+          EARN
         </div>
       </div>
-    );
-  }
-
-  return (
+      <div
+        className="absolute left-[18%] top-[calc(35vh+290px)] opacity-0 w-[128px] md:w-[200px] h-[54px] md:h-[61px] flex items-center justify-center text-[#FFF] text-[20px] md:text-[30px] leading-[24px] md:leading-[36px] font-[600] md:font-[500] border-[1px] border-[#FFF] cursor-pointer md:animate-display1"
+        onClick={() => setIsExplore(true)}
+      >
+        Explore
+        <div className="bg-introearn-down-arrow bg-cover bg-center md:w-[44.17px] md:h-[44.17px] md:ml-[10px]"></div>
+      </div>
+    </div>
+  ) : (
     <div className="bg-[#10213f]">
       <div className="relative w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-cover bg-left  overflow-hidden">
         <div className="absolute  bg-introearn-earth bg-cover bg-center left-[60vw] md:left-[70vw] bottom-[calc(100vh-60vw)] md:bottom-[60vh] w-[100vw] md:w-[120vh] h-[100vw] md:h-[120vh]"></div>
+        <div className="absolute left-[-140px] bottom-[-10vh] w-[368.61px] h-[426.14px] bg-introdashboard-shape1 bg-cover bg-center"></div>
         <div className="h-[35vh]"></div>
         <div className="text-[20px] md:text-[48px] leading-[24px] md:leading-[57px] font-[500] md:font-[600] text-[#FFF] text-center">
           EARN

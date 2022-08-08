@@ -51,7 +51,12 @@ function IntroDashBoard() {
           </div>
         </div>
       </div>
-      <div className="relative w-full md:leading-[116px]">
+      <div className="relative w-full md:leading-[116px] overflow-hidden">
+        <div className="absolute ">
+          <div className="relative w-[50px] h-[50px] rotate-[45deg]">
+            <div className="star"></div>
+          </div>
+        </div>
         <div className="absolute left-[29px] top-[87px] right-[190px] bottom-[16px] bg-introdashboard-starimage bg-cover bg-center"></div>
         <div className="absolute right-[-77px] bottom-[-400px] w-[368.61px] h-[426.14px] bg-introdashboard-shape1 bg-cover bg-center"></div>
         <div className="pt-[14vh] md:pt-[30vh] px-[20px] md:px-0 text-[45px] md:text-[96px] drop-shadow-[0_4px_17px_rgba(0,0,0,0.58)] text-[#1199FA] md:font-[600] text-left md:text-center">
@@ -168,7 +173,7 @@ function IntroDashBoard() {
           </div>
         )}
         <div className="bg-introdashboard-linegroup bg-cover bg-center w-[100%] h-[calc(100vw*313/1512)]"></div>
-        <div className="relative">
+        <div className="relative overflow-hidden">
           <div className="absolute left-[-5%] w-[215px] h-[150.95px] bg-introdashboard-shape2 bg-cover bg-center"></div>
           <div className="absolute right-[-3%] top-[90px] w-[205px] h-[175px] bg-introdashboard-shape3 bg-cover bg-center0"></div>
           <div className="flex flex-col md:flex-row items-center mt-[90px] md:mx-auto md:bg-introdashboard-borrow-back md:bg-contain md:bg-no-repeat md:bg-center md:w-[80%] md:h-[25vh]">
@@ -200,9 +205,9 @@ function IntroDashBoard() {
             </div>
           )}
         </div>
-        <div className="relative pt-[30px] md:pt-[35vh] md:pb-[20vh] md:w-full">
+        <div className="relative pt-[30px] md:pt-[35vh] md:pb-[20vh] md:w-full overflow-hidden">
           <div className="absolute left-[-7%] top-[55vh] w-[318px] h-[208px] bg-introdashboard-shape4 bg-cover bg-center0"></div>
-          <div className="relative w-[90%] md:w-[70%] mx-auto min-h-[calc(60vw*679/643)] md:min-h-[80vh] md:h-[80vh] flex items-center">
+          <div className="relative w-[90%] md:w-[70%] mx-auto min-h-[calc(60vw*679/643)] md:min-h-[80vh] md:h-[80vh] flex items-center overflow-hidden">
             <div className="absolute right-0 top-0 w-[60vw] md:w-[calc(80vh*643/679)] h-[calc(60vw*679/643)] md:h-[80vh] bg-introdashboard-iPhone-2 bg-cover bg-center"></div>
             <div className="w-[60%] md:w-[55%]">
               {!isMobile && (
@@ -259,12 +264,12 @@ function IntroDashBoard() {
             )}
           </div>
         </div>
-        <div className="relative">
-        <div className="mt-[120px] md:mt-[30vh] w-[80%] mx-auto md:w-full flex justify-center text-[36px] md:text-[72px] text-[#D9D9D9] md:text-[#1199FA] font-[600] capitalize md:leading-[120%]">
-          <div className="md:border-b-[5px] border-[#1199FA] text-center">
-            Select Your Maui Card
+        <div className="relative overflow-hidden">
+          <div className="mt-[120px] md:mt-[30vh] w-[80%] mx-auto md:w-full flex justify-center text-[36px] md:text-[72px] text-[#D9D9D9] md:text-[#1199FA] font-[600] capitalize md:leading-[120%]">
+            <div className="md:border-b-[5px] border-[#1199FA] text-center">
+              Select Your Maui Card
+            </div>
           </div>
-        </div>
           <div className="absolute left-[-33%] top-[20vh] w-[700px] h-[750px] bg-introdashboard-card1 bg-cover bg-center0"></div>
           <div className="absolute right-[-4%] top-0 w-[205px] h-[205px] bg-introdashboard-card2 bg-cover bg-center0"></div>
           <div className="absolute right-[-7%] top-[100vh] w-[358px] h-[238px] bg-introdashboard-card3 bg-cover bg-center0"></div>
@@ -287,7 +292,7 @@ function IntroDashBoard() {
             </div>
           )}
         </div>
-        <div className="relative mt-[150px] md:mt-[50vh] mx-auto w-[90%] md:w-[70%] h-[40vh] md:h-[60vh]">
+        <div className="relative mt-[150px] md:mt-[50vh] mx-auto w-[90%] md:w-[70%] h-[40vh] md:h-[60vh] overflow-hidden">
           <div className="text-[40px] md:text-[80px] leading-[48px] md:leading-[116px] font-[600] text-[#FFF]">
             <span className="text-[#1199FA] md:text-[#FFF]">B</span>e part of
             Maui {isMobile && <br />}
