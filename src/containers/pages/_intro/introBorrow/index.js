@@ -34,11 +34,12 @@ function IntroBorrow() {
           in={enterEarth}
           timeout={10}
           classNames={{
+            enter: 'top-[300px] right-[200px] scale-[2.0]',
             enterActive: 'top-[-350px] right-[-250px] scale-[1.5]',
             enterDone: 'top-[-350px] right-[-250px] scale-[1.5]'
           }}
         >
-          <Earth className="absolute top-[300px] scale-[2] right-[200px] transition-all duration-[2000ms]"/>
+          <Earth className="absolute top-[300px] right-[200px] scale-[2.0] transition-all duration-[2000ms]"/>
         </CSSTransition>
 
         <div className="absolute left-[-100px] top-0 w-[232px] h-[250px] bg-introborrow-shape1 bg-cover bg-center md:animate-move3"></div>
@@ -47,7 +48,7 @@ function IntroBorrow() {
           in={enterBorrowUp}
           timeout={10}
           classNames={{
-            enter: 'scale-[0.1]',
+            enter: 'scale-[0.3]',
             enterActive: 'scale-[1.0]',
             enterDone: 'scale-[1.0]'
           }}

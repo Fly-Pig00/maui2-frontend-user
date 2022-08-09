@@ -58,8 +58,8 @@ module.exports = {
         'introearn-title-gradient': 'linear-gradient(95.29deg, #1F0A9C 7.4%, #00DDA2 84.23%, rgba(6, 136, 101, 0) 88.55%)',
         'introearn-price-gradient': 'linear-gradient(124.08deg, #1199FA 3.96%, #00DDA2 94.96%)',
         //intro borrow
-        "introborrow-section2":"url('../images/_intro/introborrow/section2.png')",
-        "introborrow-section2mobile":"url('../images/_intro/introborrow/section2mobile.png')",
+        "introborrow-section2":"url('../images/_intro/introborrow/section2.gif')",
+        "introborrow-section2mobile":"url('../images/_intro/introborrow/section2.gif')",
         "introborrow-switchcolor":"url('../images/_intro/introborrow/switchcolor.png')",
         'introborrow-calculate-gradient': 'linear-gradient(124.08deg, #1199FA 3.96%, #00DDA2 94.96%)',
         "introborrow-chart":"url('../images/_intro/introborrow/chart.png')",
