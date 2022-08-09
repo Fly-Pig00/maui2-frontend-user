@@ -434,7 +434,7 @@ function TabCrypto(props) {
             <label for="fiat" className="ml-[10px]">
               Fiat
             </label>
-            {!isFiat && (
+            {/* {!isFiat && (
               <div className="md:mt-[10px]">
                 Wallet address:{" "}
                 <CopyToClipboard
@@ -449,7 +449,7 @@ function TabCrypto(props) {
                   <span className="ml-[15px] text-[#1199fa]">Copied.</span>
                 ) : null}
               </div>
-            )}
+            )} */}
           </div>
           <SelectCurrency
             isCrypto={isFiat ? false : true}

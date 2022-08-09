@@ -11,6 +11,7 @@ import NetworkSwitch from "../NetworkSwitch";
 import { signOut, updateBalance, updateAllBalance } from "../../saga/actions/workflow";
 import Button from "../Button";
 import { appConfig } from "../../appConfig";
+import { shortenAddress } from "../../utils/shortenAddress";
 
 const MENU = [
   { title: "Dashboard", url: "/dashboard" },
@@ -140,11 +141,11 @@ function UserSetting({ label, signOut }) {
     <>
       <div className="relative">
         <Button
-          className="flex justify-center items-center ml-[5px] md:ml-[15px] rounded-[5px] md:rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#1199FA] w-[45px] h-[21px] md:w-[93px] md:h-[42px] bg-[#F3F3FB] dark:bg-transparent"
+          className="flex justify-center items-center ml-[5px] md:ml-[15px] rounded-[5px] md:rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#1199FA] w-[45px] h-[21px] md:w-[110px] md:h-[42px] bg-[#F3F3FB] dark:bg-transparent"
           onClick={handleUserDropdown}
         >
           <span className="font-semibold text-[10px] leading-[12px] mt-[2px] md:mt-0 md:text-[16px] md:leading-[24px] text-[#1199FA] dark:text-[#1199FA] transition-all duration-1000">
-            {label}
+            {shortenAddress(label)}
           </span>
         </Button>
         {userDropdownShow && (
@@ -285,9 +286,9 @@ function MainHeader(props) {
           isTheme2 ? "top-[30px] md:top-[60px]" : "top-[70px] md:top-[195px]"
         }`}
       >
-        <div className="w-[100px] md:w-[150px] mr-[20px]">
+        {/* <div className="w-[100px] md:w-[150px] mr-[20px]">
           <NetworkSwitch />
-        </div>
+        </div> */}
         <div className="w-[60px] md:w-[100px]">
           <DarkMode />
         </div>

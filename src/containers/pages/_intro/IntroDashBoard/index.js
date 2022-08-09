@@ -154,7 +154,7 @@ function IntroDashBoard() {
             <div className="mt-[30px] md:mt-[15px] text-[#FFF] text-[14px] md:text-[16px]">
               Since you are your own bank, you make money from your deposits and
               from your borrowing. No fees/No annual, foreign-transaction, or
-              late fees. No financial institution will be able to mach 8% APY
+              late fees. No financial institution will be able to mach 5% APY
               per year on your deposit.
             </div>
             {!isMobile && (

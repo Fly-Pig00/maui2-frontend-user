@@ -71,7 +71,7 @@ function IntroBorrow() {
           {isMobile && (
             <div className="mb-[100px] text-[14px] leading-[17px] text-[rgba(255,255,255,0.87)]">
               Make a deposit in any currency from anywhere in the world, now you
-              are earning 8% fixed rate p.a. on your deposit. You can access it
+              are earning 5% fixed rate p.a. on your deposit. You can access it
               anytime.
             </div>
           )}
