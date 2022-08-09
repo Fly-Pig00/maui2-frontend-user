@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CSSTransition } from 'react-transition-group';
 import Earth from "../../../../components/Earth";
 import useWindowSize from "../../../../utils/useWindowSize";
 
@@ -6,8 +7,15 @@ function IntroBorrow() {
   const size = useWindowSize();
 
   const [isMobile, setIsMobile] = useState(false);
+  const [enterEarth, setEnterEarth] = useState(false);
+  const [enterBorrowUp, setEnterBorrowUp] = useState(false);
+  
+  const handleEnterBorrowUp = () => {    
+    setEnterBorrowUp(true);
+  };
 
   useEffect(() => {
+    setEnterEarth(true)
     window.scrollTo(0, 0);
   }, []);
 
@@ -21,21 +29,41 @@ function IntroBorrow() {
       <div className="absolute left-[-200px] top-[20vh] w-[1024px] h-[977px] bg-introborrow-shape2 bg-cover bg-center z-10 animate-display1"></div>
       <div className="absolute left-[-50px] top-[20vh] w-[158px] h-[151px] bg-introborrow-shape2 bg-cover bg-center z-10 rotate-[60deg] animate-display1"></div>
       <div className="relative w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-cover bg-left  overflow-hidden">
-        {/* <div className="absolute  bg-introearn-earth rounded bg-cover bg-center left-[60vw] md:left-[70vw] bottom-[calc(100vh-60vw)] md:bottom-[60vh] w-[100vw] md:w-[120vh] h-[100vw] md:h-[120vh] md:animate-move4"></div> */}
-        <Earth className="absolute top-[-300px] right-[-250px] scale-150"/>
+
+        <CSSTransition
+          in={enterEarth}
+          timeout={10}
+          classNames={{
+            enterActive: 'top-[-350px] right-[-250px] scale-[1.5]',
+            enterDone: 'top-[-350px] right-[-250px] scale-[1.5]'
+          }}
+        >
+          <Earth className="absolute top-[300px] scale-[2] right-[200px] transition-all duration-[2000ms]"/>
+        </CSSTransition>
+
         <div className="absolute left-[-100px] top-0 w-[232px] h-[250px] bg-introborrow-shape1 bg-cover bg-center md:animate-move3"></div>
         <div className="w-full mt-[26vh]"></div>
-        <div className="absolute bottom-10 scale-50">
-          <div className="text-[20px] md:text-[40px] leading-[24px] md:leading-[48px] font-[500] md:font-[600] text-[#FFF] text-center">
-            BORROW UP TO
+        <CSSTransition
+          in={enterBorrowUp}
+          timeout={10}
+          classNames={{
+            enter: 'scale-[0.1]',
+            enterActive: 'scale-[1.0]',
+            enterDone: 'scale-[1.0]'
+          }}
+        >
+          <div className="absolute bottom-52 transition-all duration-[2000ms] scale-[0.3]" onClick={handleEnterBorrowUp}>
+            <div className="text-[20px] md:text-[40px] leading-[24px] md:leading-[48px] font-[500] md:font-[600] text-[#FFF] text-center">
+              BORROW UP TO
+            </div>
+            <div className="text-[50px] md:text-[250px] leading-[79px] md:leading-[300px] font-[600] text-[#1199FA] text-center">
+              50%
+            </div>
+            <div className="w-[70%] mx-auto md:text-[18px] md:leading-[21px] md:font-[500] text-[#FFF] text-center">
+              Welcome to the future of banking, where you are the bank. A system designed to serve you, and not the other way around. Let's say you deposit $10,000, you then can borrow $5,000 on your deposit instantly and not only you don't have to pay interest, but you get pay zero money per month. Your collateral gets locked, and the yield generated pays off your loan. You have to re imagine the way you see finance. Maui brings you the future of people's new way of banking where everyone os their own bank and profit from themselves.
+            </div>
           </div>
-          <div className="text-[50px] md:text-[250px] leading-[79px] md:leading-[300px] font-[600] text-[#1199FA] text-center">
-            50%
-          </div>
-          <div className="w-[70%] mx-auto md:text-[18px] md:leading-[21px] md:font-[500] text-[#FFF] text-center">
-            Welcome to the future of banking, where you are the bank. A system designed to serve you, and not the other way around. Let's say you deposit $10,000, you then can borrow $5,000 on your deposit instantly and not only you don't have to pay interest, but you get pay zero money per month. Your collateral gets locked, and the yield generated pays off your loan. You have to re imagine the way you see finance. Maui brings you the future of people's new way of banking where everyone os their own bank and profit from themselves.
-          </div>
-        </div>
+        </CSSTransition>
       </div>
       <div className="relative w-full h-[100vh] md:h-[calc(100vw*963/1512)] flex justify-center items-center bg-[#10213f] bg-introborrow-section2mobile md:bg-introborrow-section2 bg-cover bg-center  overflow-hidden">
         <div className="mt-[70px] md:mt-0 w-[85%] mx-auto md:w-[70%] flex flex-col items-center">
