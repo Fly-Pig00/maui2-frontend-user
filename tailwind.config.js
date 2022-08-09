@@ -46,7 +46,7 @@ module.exports = {
         "introdashboard-phone-photo-mobile":"url('../images/_intro/introdashboard/phone-photo-mobile.png')",
         //intro earn
         "introearn-starsstart":"url('../images/_intro/introearn/StarsStart.png')",
-        "introearn-earth":"url('../images/_intro/introearn/earth.png')",
+        "introearn-earth":"url('../images/_intro/introearn/earth.gif')",
         "introearn-section2":"url('../images/_intro/introearn/section2.png')",
         "introearn-star-group2":"url('../images/_intro/introearn/star-group2.png')",
         "introearn-linegroup":"url('../images/_intro/introearn/linegroup.png')",
@@ -238,6 +238,9 @@ module.exports = {
         'earn-panel-dark': '-6px -13px 37px rgba(116, 95, 242, 0.1), 6px 17px 37px rgba(116, 95, 242, 0.1)',
         'earn-expected-card': '-6px -8px 15px rgba(255, 255, 255, 0.7), 4px 6px 15px rgba(0, 0, 0, 0.13)',
         'earn-expected-card-dark': '-6px -8px 15px rgba(255, 255, 255, 0.06), 4px 6px 15px rgba(0, 0, 0, 0.13)'
+      },
+      backgroundPosition: {
+        'earth': '-101px -93px'
       }
     },
     colors: {

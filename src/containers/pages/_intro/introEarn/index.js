@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Earth from "../../../../components/Earth";
 import useWindowSize from "../../../../utils/useWindowSize";
 
 function IntroEarn() {
@@ -29,7 +30,9 @@ function IntroEarn() {
       <div className="h-[45vh] md:h-[35vh]"></div>
       <div className="flex justify-start ml-[8%] md:ml-[17%] md:text-[250px] md:leading-[298px] md:font-[600]">
         <div className="relative text-[#FFF] md:text-transparent text-[64px] md:text-[24px] leading-[76px] md:leading-[29px] font-[600] md:bg-introearn-title-gradient md:bg-clip-text md:animate-zoom1">
-          <div className="absolute right-[calc(-20px-100vw)] md:right-[calc(55px-120vh)] w-[100vw] md:w-[373px] h-[100vw] md:h-[373px] bg-introearn-earth bg-contain bg-center md:animate-zoom2"></div>
+          {/* <div className="absolute right-[calc(-20px-100vw)] md:right-[calc(55px-120vh)] w-[100vw] md:w-[373px] h-[100vw] md:h-[373px] bg-introearn-earth bg-contain bg-center md:animate-zoom2"></div> */}
+          <Earth className="absolute right-[-660px] scale-[2]" />
+
           EARN
         </div>
       </div>
@@ -45,6 +48,7 @@ function IntroEarn() {
     <div className="bg-[#10213f]">
       <div className="relative w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-cover bg-left  overflow-hidden">
         <div className="absolute  bg-introearn-earth bg-cover bg-center left-[60vw] md:left-[70vw] bottom-[calc(100vh-60vw)] md:bottom-[60vh] w-[100vw] md:w-[120vh] h-[100vw] md:h-[120vh]"></div>
+        {/* <Earth className="absolute left-[60vm] bottom-[60vh] scale-150" /> */}
         <div className="absolute left-[-140px] bottom-[-10vh] w-[368.61px] h-[426.14px] bg-introdashboard-shape1 bg-cover bg-center"></div>
         <div className="h-[35vh]"></div>
         <div className="text-[20px] md:text-[48px] leading-[24px] md:leading-[57px] font-[500] md:font-[600] text-[#FFF] text-center">
