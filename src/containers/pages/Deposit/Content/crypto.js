@@ -5,7 +5,12 @@ import axios from "axios";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { useWallet } from "@terra-money/wallet-provider";
+// import { useWallet } from "@terra-money/wallet-provider";
+import {
+  usePlaidLink,
+  PlaidLinkOptions,
+  PlaidLinkOnSuccess,
+} from "react-plaid-link";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import {
   CountryDropdown,
@@ -13,6 +18,7 @@ import {
 } from "react-country-region-selector";
 import PhoneInput from "react-phone-input-2";
 // import "react-phone-input-2/lib/style.css";
+import PlaidButton from "plaid-threads/Button";
 
 import { getPaymentMethod } from "../../../../saga/actions/workflow";
 import InputAmount from "../../../../components/Form/InputAmount";
@@ -39,7 +45,7 @@ function TabCrypto(props) {
   const paymentMethod = useSelector((state) => state.workflow.paymentMethod);
   const walletAddress = useSelector((state) => state.workflow.walletAddress);
 
-  const { sign } = useWallet();
+  // const { sign } = useWallet();
   // get functions to build form with useForm() hook
   const hookForm = useForm();
   const { handleSubmit, setValue } = hookForm;
@@ -99,8 +105,82 @@ function TabCrypto(props) {
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [copied, setCopied] = useState(false);
 
+  const [linkToken, setLinkToken] = useState("");
+  const [accessInfo, setAccessInfo] = useState({});
+
   axios.defaults.baseURL = appConfig.apiUrl;
   axios.defaults.headers.common["Authorization"] = token;
+
+  const onSuccess = React.useCallback(
+    (public_token, metadata) => {
+      console.log("public token", public_token);
+      // send public_token to server
+      const setToken = async () => {
+        const response = await axios({
+          method: "POST",
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+          data: {
+            public_token: `${public_token}`,
+            accountId: metadata.account_id,
+          },
+          url: `${appConfig.apiUrl}/v1/plaid/set_processor_token`,
+        })
+          .then((res) => {
+            console.log(metadata);
+            setAccessInfo(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        // if (!response.ok) {
+        //   dispatch({
+        //     type: "SET_STATE",
+        //     state: {
+        //       itemId: `no item_id retrieved`,
+        //       accessToken: `no access_token retrieved`,
+        //       isItemAccess: false,
+        //     },
+        //   });
+        //   return;
+        // }
+        // const data = await response.json();
+        // dispatch({
+        //   type: "SET_STATE",
+        //   state: {
+        //     itemId: data.item_id,
+        //     accessToken: data.access_token,
+        //     isItemAccess: true,
+        //   },
+        // });
+      };
+      setToken();
+      dispatch({ type: "SET_STATE", state: { linkSuccess: true } });
+      window.history.pushState("", "", "/");
+    },
+    [dispatch]
+  );
+
+  let isOauth = false;
+  const config = {
+    token: linkToken,
+    onSuccess,
+  };
+
+  if (window.location.href.includes("?oauth_state_id=")) {
+    config.receivedRedirectUri = window.location.href;
+    isOauth = true;
+  }
+  const { open, ready } = usePlaidLink(config);
+
+  useEffect(() => {
+    if (linkToken && paymentModalStage) {
+      let link = document.getElementById("plaid");
+      link.click();
+      open();
+    }
+  }, [linkToken]);
 
   useEffect(() => {
     if (reservation.length > 0) setStage(1);
@@ -140,46 +220,12 @@ function TabCrypto(props) {
     return () => clearTimeout(timer);
   }, [copied]);
 
-  // const deposit = async (amount, from, to, network) => {
-  //   setIsLoading(true);
-  //   depositCrypto(
-  //     amount,
-  //     from,
-  //     to,
-  //     network,
-  //     sign,
-  //     () => {
-  //       props.apiHistoryRecord({
-  //         url: "/recordHistory",
-  //         method: "POST",
-  //         data: {
-  //           type: HISTORY_DEPOSIT_CRYPTO,
-  //           terraAddress: from,
-  //           mauiAddress: to,
-  //           amount: amount,
-  //           currency: CURRENCY_USD,
-  //           network: `${props.workflow.network.name}:${props.workflow.network.chainID}`,
-  //           note: "DONE",
-  //         },
-  //         success: (res) => {
-  //           console.log("recordSuccess", res);
-  //         },
-  //         fail: (error) => {
-  //           console.log("recordError", error);
-  //         },
-  //       });
-  //       props.updateBalance(to);
-  //       setIsLoading(false);
-  //       resetForm();
-  //       toast.success("Transaction success");
-  //     },
-  //     (err) => {
-  //       console.log("deposit error", err);
-  //       setIsLoading(false);
-  //       toast.error("Transaction fails");
-  //     }
-  //   );
-  // };
+  useEffect(() => {
+    if (isOauth && ready) {
+      console.log("here");
+      open();
+    }
+  }, [ready, open, isOauth]);
 
   function handleCryptoChange(symbol) {
     console.log(symbol);
@@ -421,6 +467,22 @@ function TabCrypto(props) {
         console.log("error", err);
       });
   };
+
+  const handlePlaidMethod = () => {
+    axios({
+      method: "POST",
+      headers: { Authorization: `bearer ${token}` },
+      url: `${appConfig.apiUrl}/v1/plaid/create_link_token`,
+    })
+      .then((result) => {
+        // const url = result.data?.url || "";
+        setLinkToken(result.data.link_token);
+      })
+      .catch((err) => {
+        toast.error(err.response?.data?.message);
+        setIsLoading(false);
+      });
+  };
   return stage === 0 ? (
     <>
       <form
@@ -595,7 +657,10 @@ function TabCrypto(props) {
               </div>
               <div
                 className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
-                onClick={() => setPaymentModalShow(!paymentModalShow)}
+                onClick={() => {
+                  handlePlaidMethod();
+                  setPaymentModalShow(!paymentModalShow);
+                }}
               >
                 + New Payment Method
               </div>
@@ -620,7 +685,7 @@ function TabCrypto(props) {
             {paymentModalStage === 0 ? (
               <div className="md:h-[calc(100vh-50px)] md:w-full flex justify-center items-center">
                 <div className="h-[400px] flex flex-col justify-between">
-                  <div
+                  {/* <div
                     className={`w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${
                       isPlaidPayment
                         ? "border-[2px] border-[#1199FA]"
@@ -629,9 +694,25 @@ function TabCrypto(props) {
                     onClick={() => setIsPlaidPayment(true)}
                   >
                     Plaid
-                  </div>
+                  </div> */}
+                  <Button
+                    className={`!w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${
+                      isPlaidPayment
+                        ? "border-[2px] border-[#1199FA]"
+                        : "border-[1px] border-[#555555]"
+                    } flex justify-center items-center cursor-pointer`}
+                    type="button"
+                    id="plaid"
+                    onClick={() => {
+                      setIsPlaidPayment(true);
+                      open();
+                    }}
+                    disabled={linkToken || !ready}
+                  >
+                    Plaid
+                  </Button>
                   <div
-                    className={`w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${
+                    className={`h-[150px] rounded-[15px] dark:text-[#fff] ${
                       !isPlaidPayment
                         ? "border-[2px] border-[#1199FA]"
                         : "border-[1px] border-[#555555]"
@@ -644,6 +725,7 @@ function TabCrypto(props) {
                     className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
                     onClick={() => {
                       if (!isPlaidPayment) setPaymentModalStage(1);
+                      else handlePlaidMethod();
                     }}
                   >
                     NEXT
