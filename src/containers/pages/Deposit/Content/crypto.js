@@ -614,7 +614,7 @@ function TabCrypto(props) {
                   paymentMethods.map((payment, index) => (
                     <div
                       key={index}
-                      className={`md:w-full md:h-[120px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${
+                      className={`md:w-full h-[110px] md:h-[120px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${
                         selectedPayment === index
                           ? " border-[3px] border-[#1199FA]"
                           : ""
