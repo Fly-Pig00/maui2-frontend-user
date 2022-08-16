@@ -434,7 +434,7 @@ function TabCrypto(props) {
             <label for="fiat" className="ml-[10px]">
               Fiat
             </label>
-            {!isFiat && (
+            {/* {!isFiat && (
               <div className="md:mt-[10px]">
                 Wallet address:{" "}
                 <CopyToClipboard
@@ -449,7 +449,7 @@ function TabCrypto(props) {
                   <span className="ml-[15px] text-[#1199fa]">Copied.</span>
                 ) : null}
               </div>
-            )}
+            )} */}
           </div>
           <SelectCurrency
             isCrypto={isFiat ? false : true}
@@ -531,7 +531,7 @@ function TabCrypto(props) {
                   paymentMethods.map((payment, index) => (
                     <div
                       key={index}
-                      className={`md:w-full md:h-[120px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${
+                      className={`md:w-full h-[110px] md:h-[120px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${
                         selectedPayment === index
                           ? " border-[3px] border-[#1199FA]"
                           : ""

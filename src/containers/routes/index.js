@@ -56,7 +56,7 @@ const Routes = withRouter(({ location }) => {
               <PrivateRoute path="/stocks" component={Stocks} />
               <PrivateRoute path="/cards" component={Cards} />
               <PrivateRoute path="/deposit" component={Deposit} />
-              <Route path="/history" component={History} />
+              <PrivateRoute path="/history" component={History} />
               <Redirect to="/splash" />
             </Switch>
           );

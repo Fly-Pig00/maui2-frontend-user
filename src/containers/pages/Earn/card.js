@@ -110,7 +110,7 @@ function Cards (props) {
   return (
     <form name={props.name} id={props.name} className='w-full bg-earn-card rounded-[40px] p-[20px] md:p-[30px] md:pl-[50px] border dark:border-[#FFFFFF30]' onSubmit={handleSubmit(onSubmit)}>
       { props.isDeposit ?
-        <div className='font-semibold pl-4 md:pl-0 text-[14px] md:text-[24px] text-[#273855] dark:text-[#F9D3B4]'>Enter an amount for 8% APY
+        <div className='font-semibold pl-4 md:pl-0 text-[14px] md:text-[24px] text-[#273855] dark:text-[#F9D3B4]'>Enter an amount for 5% APY
           <Popover
             containerClassName='z-[999999] pl-[20px]'
             isOpen={isPopoverOpen}
@@ -121,7 +121,7 @@ function Cards (props) {
             content={
               <>
                 <div className='rounded-md border border-[#00214732] p-5 bg-[#ffffff] m-auto max-w-[90%] md:max-w-[600px] max-h-[500px] overflow-y-auto text-[#3f556e] text-[14px] scrollbar'>
-                  <p>When you deposit your money for 8% APY deposit, we deduct 4.167% for Maui fee to get it ensured transaction with Anchor protocol for the first 15 days, from when you can withdraw your original deposit freely.</p>
+                  <p>When you deposit your money for 5% APY deposit, we deduct 4.167% for Maui fee to get it ensured transaction with Anchor protocol for the first 15 days, from when you can withdraw your original deposit freely.</p>
                 </div>
                 <span className='arrow left-2 hidden md:block' />
               </>

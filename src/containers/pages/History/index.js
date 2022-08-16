@@ -23,11 +23,11 @@ function History(props) {
       return;
     setIsLoading(true);
     apiHistoryFetchAll({
-      url: '/recordFetchAll',
+      url: 'v1/gethistory',
       method: 'GET',
       success: (res) => {
-        setData(res.records);
-        console.log('fetchAllSuccess', res);
+        setData(res.data);
+        console.log('fetchAllSuccess', res.data);
         setIsLoading(false);
       },
       fail: (error) => {
@@ -57,21 +57,30 @@ function History(props) {
 				sortable: true,
 			},
 			{
-				name: 'Network',
-				selector: row => row.network,
+				name: 'Status',
+				selector: row => row.status,
 				sortable: true,
 				// right: true,
 			},
+      {
+        name: 'Sent',
+        selector: row => row.sourceCurrency,
+        sortable: true,
+      },
 			{
 				name: 'Amount',
-				selector: row => row.amount,
+				selector: row => row.sourceAmount,
 				sortable: true,
 			},
-			{
-				name: '$',
-				selector: row => row.currency,
+      {
+        name: 'Received',
+        selector: row => row.destCurrency,
+        sortable: true,
+      },
+      {
+				name: 'Amount',
+				selector: row => row.destAmount,
 				sortable: true,
-        width: '60px'
 			},
 		],
 		[],
