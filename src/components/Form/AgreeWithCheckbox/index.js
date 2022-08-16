@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { withRouter, useHistory } from "react-router-dom";
 import { Popover } from 'react-tiny-popover';
 import Checkbox from '../Checkbox';
 function AgreeWithCheckbox({className, checked, onChange, position='top', align='start'}) {
+  const history = useHistory();
+
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   function handleClick (e) {
     console.log('here');
@@ -9,13 +12,20 @@ function AgreeWithCheckbox({className, checked, onChange, position='top', align=
     e.preventDefault();
     setIsPopoverOpen(!isPopoverOpen);
   }
+
+  const handleTermsClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    history.push("/terms");
+  };
+
   return (
     <Checkbox
       className={className}
       checked={checked}
       onChange={onChange}
     >
-      <div className='text-[12px] md:text-[16px] pt-[4px] md:pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp;
+      <div className='text-[12px] md:text-[16px] pt-[4px] md:pt-[6px] text-[#000] dark:text-[#FFF]'>I Agree with&nbsp; <span className='text-[#1199FA]' onClick={handleTermsClick}>T & C</span>
         {/* <Popover
           containerClassName='z-[999999] pl-[20px]'
           isOpen={isPopoverOpen}

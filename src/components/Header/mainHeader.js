@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import { compose } from "redux";
@@ -8,9 +9,14 @@ import axios from "axios";
 import AnimatedTab from "../AnimatedTab";
 import DarkMode from "../DarkMode";
 import NetworkSwitch from "../NetworkSwitch";
-import { signOut, updateBalance, updateAllBalance } from "../../saga/actions/workflow";
+import {
+  signOut,
+  updateBalance,
+  updateAllBalance,
+} from "../../saga/actions/workflow";
 import Button from "../Button";
 import { appConfig } from "../../appConfig";
+import { shortenAddress } from "../../utils/shortenAddress";
 
 const MENU = [
   { title: "Dashboard", url: "/dashboard" },
@@ -48,6 +54,8 @@ function DepositStatus({
   isLoading,
   kind,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
 }) {
   // const balanceClass = `absolute ${
   //   isDepositPage
@@ -59,6 +67,8 @@ function DepositStatus({
       className="relative ml-[5px] md:ml-[15px] bg-[#DEE2E8] dark:bg-[#31303650] dark:bg-header-login-btn-dark rounded-[7px] md:rounded-[14px] w-[103px] h-[21px] md:w-[206px] md:h-[42px] border border-[#728AB7A0] p-1 flex justify-evenly items-center cursor-pointer"
       title="Click here to update balance"
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {/* <div className={balanceClass} /> */}
       <span className="text-[#707070] text-[12px] md:text-[18px]">
@@ -140,11 +150,11 @@ function UserSetting({ label, signOut }) {
     <>
       <div className="relative">
         <Button
-          className="flex justify-center items-center ml-[5px] md:ml-[15px] rounded-[5px] md:rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#1199FA] w-[45px] h-[21px] md:w-[93px] md:h-[42px] bg-[#F3F3FB] dark:bg-transparent"
+          className="flex justify-center items-center ml-[5px] md:ml-[15px] rounded-[5px] md:rounded-[10px] shadow-header-login-btn border-0 dark:border-2 dark:border-[#1199FA] w-[45px] h-[21px] md:w-[110px] md:h-[42px] bg-[#F3F3FB] dark:bg-transparent"
           onClick={handleUserDropdown}
         >
           <span className="font-semibold text-[10px] leading-[12px] mt-[2px] md:mt-0 md:text-[16px] md:leading-[24px] text-[#1199FA] dark:text-[#1199FA] transition-all duration-1000">
-            {label}
+            {shortenAddress(label)}
           </span>
         </Button>
         {userDropdownShow && (
@@ -185,6 +195,7 @@ function UserSetting({ label, signOut }) {
 }
 
 function MainHeader(props) {
+  const [showPrice, setShowPrice] = useState(false);
   // console.log('header network', props.workflow.network);
   const dispatch = useDispatch();
   const { location } = props;
@@ -240,29 +251,67 @@ function MainHeader(props) {
           </button>
         )}
         {props.workflow.isLogged && (
-          <DepositStatus
-            isDepositPage={isTheme2}
-            symbol="$"
-            balance={0}
-            isLoading={props.workflow.isUpdatingBalance}
-            kind="USD"
-            onClick={handleUpdateBalance}
-          />
-        )}
-        {props.workflow.isLogged && (
-          <DepositStatus
-            isDepositPage={isTheme2}
-            symbol="$"
-            balance={
-              props.workflow?.availableBalances?.DAI
-                ? Math.floor(props.workflow?.totalBalances.DAI * 1000) /
-                  1000
-                : 0
-            }
-            isLoading={props.workflow.isUpdatingBalance}
-            kind="DAI"
-            onClick={handleUpdateBalance}
-          />
+          <div className="relative">
+            <DepositStatus
+              isDepositPage={isTheme2}
+              symbol="$"
+              balance={
+                props.workflow?.availableBalances &&
+                Object.keys(props.workflow?.availableBalances).length > 0
+                  ? Math.floor(
+                      Object.values(props.workflow?.availableBalances)[0] * 1000
+                    ) / 1000
+                  : 0
+              }
+              isLoading={props.workflow.isUpdatingBalance}
+              kind={
+                props.workflow?.availableBalances &&
+                Object.keys(props.workflow?.availableBalances).length > 0 &&
+                Object.keys(props.workflow?.availableBalances)[0]
+              }
+              onClick={handleUpdateBalance}
+              onMouseEnter={() => {
+                setShowPrice(true);
+              }}
+              onMouseLeave={() => setShowPrice(false)}
+            />
+            {showPrice && (
+              <div
+                className="absolute top-[20px] rounded-[7px] md:rounded-[14px] w-[103px] md:w-[206px] md:top-[41px] ml-[5px] md:ml-[15px] w-full max-h-[300px] z-50 overflow-auto bg-[#DEE2E8]"
+                onMouseEnter={() => {
+                  setShowPrice(true);
+                }}
+                onMouseLeave={() => setShowPrice(false)}
+              >
+                {Object.keys(props.workflow?.availableBalances).map(
+                  (currency, index) => {
+                    return (
+                      <div
+                        className="w-full py-[7px] px-[20px] flex justify-between text-[#707070] text-[12px] md:text-[18px]"
+                        key={index}
+                      >
+                        ${" "}
+                        <div className="font-semibold w-[60px] md:w-[100px] text-[12px] md:text-[18px] leading-[24px] mt-[1px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2] transition-all duration-1000">
+                          {
+                            Object.values(props.workflow?.availableBalances)[
+                              index
+                            ]
+                          }
+                        </div>
+                        <div className="text-[#707070] text-[12px] md:text-[18px]">
+                          {
+                            Object.keys(props.workflow?.availableBalances)[
+                              index
+                            ]
+                          }
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+            )}
+          </div>
         )}
         {props.workflow.isLogged && (
           <div
@@ -285,9 +334,9 @@ function MainHeader(props) {
           isTheme2 ? "top-[30px] md:top-[60px]" : "top-[70px] md:top-[195px]"
         }`}
       >
-        <div className="w-[100px] md:w-[150px] mr-[20px]">
+        {/* <div className="w-[100px] md:w-[150px] mr-[20px]">
           <NetworkSwitch />
-        </div>
+        </div> */}
         <div className="w-[60px] md:w-[100px]">
           <DarkMode />
         </div>

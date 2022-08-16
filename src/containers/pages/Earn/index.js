@@ -75,7 +75,7 @@ function Earn(props) {
             <div className='mt-[20px] w-full bg-earn-right-panel dark:bg-earn-right-panel-dark border border-[#FFFFFF] dark:border-[#FFFFFF34] rounded-[20px] p-[20px]'>
               <div className='flex items-center justify-center'>
                 <div className='text-[#707070] dark:text-[#F9D3B4] text-[12px] md:text-[14px]'>AVAILABLE USD</div>
-                <div className='w-[100px] ml-[20px] rounded-[14px] border border-[#728AB7] p-[2px] pl-[13px] pr-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2] text-[12px] md:text-[14px]'>{props.workflow.balance}</div>
+                <div className='w-[100px] ml-[20px] rounded-[14px] border border-[#728AB7] p-[2px] pl-[13px] pr-[10px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2] text-[12px] md:text-[14px]'>{props.workflow.balance || 0}</div>
               </div>
               <div className='flex items-center justify-center mt-[15px]'>
                 <div className='text-[#707070] dark:text-[#F9D3B4] text-[12px] md:text-[14px]'>YIELD DEPOSIT USD</div>
@@ -84,7 +84,7 @@ function Earn(props) {
             </div>
             <div className='mt-[30px] md:mt-[130px] text-center bg-deposit-card dark:bg-deposit-card-dark shadow-earn-panel dark:shadow-earn-panel-dark border border-[#FFFFFF30] dark:border-[#1199FA20] rounded-[26px] p-[25px]'>
               <span className='font-semibold text-[16px] md:text-[24px] leading-[36px] text-transparent bg-clip-text bg-gradient-to-r from-[#39C6D9] via-[#B84ADE] to-[#DE1F4D]'>
-                Earn with 8% APY
+                Earn with 5% APY
               </span>
               <div className='mt-[20px]'>
                 <ImgVideoBanner
