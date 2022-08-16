@@ -9,6 +9,7 @@ function IntroEarn() {
   const [isMobile, setIsMobile] = useState(false);
   const [isExplore, setIsExplore] = useState(false);
   const [enterEarth, setEnterEarth] = useState(false)
+  const [earthToCorner, setEarthToCorner] = useState(false);
   // const [zoom]
 
   useEffect(() => {
@@ -25,7 +26,10 @@ function IntroEarn() {
 
   useEffect(() => {
     if (!isExplore) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "auto";
+    else {
+      document.body.style.overflow = "auto";
+      setEarthToCorner(true);
+    }
   }, [isExplore]);
 
   return !isExplore ? (
@@ -34,21 +38,21 @@ function IntroEarn() {
       <div className="relative flex justify-start ml-[8%] md:ml-[17%] md:text-[250px] md:leading-[298px] md:font-[600]">
         <CSSTransition
           in={enterEarth}
-          timeout={10}
+          timeout={1000}
           classNames={{
-            enter: "top-[0px] right-[200px] scale-[0.5]",
-            enterActive: "top-[0px] right-[250px] scale-[2.0]",
-            enterDone: "top-[0px] right-[250px] scale-[2.0]"
+            enter: "top-[-300px] right-[-200px] scale-[1.5]",
+            enterActive: "top-[000px] right-[300px] scale-[1.0] duration-[1000ms]",
+            enterDone: "top-[000px] right-[250px] scale-[2.0] duration-[3000ms]"
           }}
         >
-          <Earth className="absolute top-[0px] right-[200px] scale-[0.5] transition-all duration-[2000ms]" />
+          <Earth className="absolute top-[-650px] right-[-200px] scale-[1.5] transition-all duration-[1000ms]" />
         </CSSTransition>
         <CSSTransition
           in={enterEarth}
-          timeout={10}
+          timeout={1000}
           classNames={{
             enter: "md:text-[24px] md:leading-[29px]",
-            enterActive: "md:text-[250px] md:leading-[280px]",
+            enterActive: "md:text-[24px] md:leading-[29px]",
             enterDone: "md:text-[250px] md:leading-[280px]",
           }}
         >
@@ -67,8 +71,18 @@ function IntroEarn() {
   ) : (
     <div className="bg-[#10213f]">
       <div className="relative w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-cover bg-left  overflow-hidden">
-        <div className="absolute  bg-introearn-earth bg-cover bg-center left-[60vw] md:left-[70vw] bottom-[calc(100vh-60vw)] md:bottom-[60vh] w-[100vw] md:w-[120vh] h-[100vw] md:h-[120vh]"></div>
-        {/* <Earth className="absolute left-[60vm] bottom-[60vh] scale-150" /> */}
+        <CSSTransition
+          in={earthToCorner}
+          timeout={10}
+          classNames={{
+            enter: "right-[200px] top-[300px] scale-[2]",
+            enterActive: "right-[-150px] top-[-350px] scale-[1.5]",
+            enterDone: "right-[-150px] top-[-350px] scale-[1.5]"
+          }}
+        >
+          <Earth className="absolute right-[200px] top-[300px] scale-[2] transition-all duration-[2000ms]" />
+        </CSSTransition>
+        {/* <div className="absolute  bg-introearn-earth bg-cover bg-center left-[60vw] md:left-[70vw] bottom-[calc(100vh-60vw)] md:bottom-[60vh] w-[100vw] md:w-[120vh] h-[100vw] md:h-[120vh]"></div> */}
         <div className="absolute left-[-140px] bottom-[-10vh] w-[368.61px] h-[426.14px] bg-introdashboard-shape1 bg-cover bg-center"></div>
         <div className="h-[35vh]"></div>
         <div className="text-[20px] md:text-[48px] leading-[24px] md:leading-[57px] font-[500] md:font-[600] text-[#FFF] text-center">
