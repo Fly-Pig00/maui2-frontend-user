@@ -368,7 +368,7 @@ function TabCrypto(props) {
         street1: "132 Test Ave",
         city: "Los Angeles",
         state: "CA",
-        postalCode: 94123,
+        postalCode:94123,
         country,
         amount,
         destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
