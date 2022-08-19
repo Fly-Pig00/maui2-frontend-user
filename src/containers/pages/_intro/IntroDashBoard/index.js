@@ -29,7 +29,7 @@ function IntroDashBoard() {
 
   return (
     <div className="bg-[#10213f]">
-      <div className="relative w-full h-[100vh] bg-[#000]">
+      <div className="relative w-full h-[100vh] bg-introdashboard-section1-bg bg-no-repeat bg-cover">
         <div className="invisible md:visible md:pt-[26vh] md:mx-[14.61%] md:text-[24px] text-[#FFFFFF] md:leading-[29px] md:font-[400]">
           Welcome to the Banking Evolution
         </div>
