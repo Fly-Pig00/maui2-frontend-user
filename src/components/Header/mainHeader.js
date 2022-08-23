@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import { compose } from "redux";
 import { connect, useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import moment from "moment";
 import axios from "axios";
 
@@ -121,6 +122,7 @@ function UserSetting({ label, signOut }) {
   }
 
   function handleKYC() {
+    toast.success("In this KYC, you will be directed to 3rd party service");
     setUserDropdownShow(false);
     const token = localStorage.getItem("token");
     axios({

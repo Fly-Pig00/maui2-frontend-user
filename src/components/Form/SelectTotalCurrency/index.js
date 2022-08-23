@@ -5,17 +5,18 @@ import useOutsideClick from "../../../utils/useOutsideClick";
 export const CURRENCY = [
   {img: 'bg-common-crypto-dai', symbol: 'DAI', desc: 'DAI', rate: '1.00'},
   {img: 'bg-common-crypto-btc', symbol: 'BTC', desc: 'Bitcoin', rate: '45,000.87'},
-  {img: 'bg-common-crypto-sbu', symbol: 'SBU', desc: 'Shibu', rate: '45,000.87'},
-  {img: 'bg-common-crypto-mtc', symbol: 'MTC', desc: 'Matic', rate: '45,000.87'},
-  {img: 'bg-common-crypto-swrv', symbol: 'SWRV', desc: 'Swerve', rate: '45,000.87'},
-  {img: 'bg-common-crypto-eth', symbol: 'ETH', desc: 'Ethereum', rate: '45,000.87'},
-  {img: 'bg-common-crypto-chat', symbol: 'CHAT', desc: 'ChatCoin', rate: '45,000.87'},
+  {img: 'bg-common-crypto-btc', symbol: 'USDC', desc: 'Bitcoin', rate: '1.00'},
+  // {img: 'bg-common-crypto-sbu', symbol: 'SBU', desc: 'Shibu', rate: '45,000.87'},
+  // {img: 'bg-common-crypto-mtc', symbol: 'MTC', desc: 'Matic', rate: '45,000.87'},
+  // {img: 'bg-common-crypto-swrv', symbol: 'SWRV', desc: 'Swerve', rate: '45,000.87'},
+  // {img: 'bg-common-crypto-eth', symbol: 'ETH', desc: 'Ethereum', rate: '45,000.87'},
+  // {img: 'bg-common-crypto-chat', symbol: 'CHAT', desc: 'ChatCoin', rate: '45,000.87'},
   {img: 'bg-common-fiat-usd', symbol: 'USD', desc: 'USA Dollar'},
   {img: 'bg-common-fiat-usd', symbol: 'EUR', desc: 'Euro'},
-  {img: 'bg-common-fiat-usd', symbol: 'SGD', desc: 'Singapore Dollar'},
-  {img: 'bg-common-fiat-usd', symbol: 'CAD', desc: 'Canada Dollar'},
-  {img: 'bg-common-fiat-usd', symbol: 'AUD', desc: 'Australia Dollar'},
-  {img: 'bg-common-fiat-usd', symbol: 'BRL', desc: 'Brazilian Real'},
+  // {img: 'bg-common-fiat-usd', symbol: 'SGD', desc: 'Singapore Dollar'},
+  // {img: 'bg-common-fiat-usd', symbol: 'CAD', desc: 'Canada Dollar'},
+  // {img: 'bg-common-fiat-usd', symbol: 'AUD', desc: 'Australia Dollar'},
+  // {img: 'bg-common-fiat-usd', symbol: 'BRL', desc: 'Brazilian Real'},
 ];
 
 

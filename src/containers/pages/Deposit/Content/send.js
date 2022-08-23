@@ -296,7 +296,7 @@ function TabSend(props) {
             <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
               Select currency you want to{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2] font=bold">
-                get
+                Receive
               </span>
             </div>
           }
