@@ -44,6 +44,8 @@ module.exports = {
         "introdashboard-card3":"url('../images/_intro/introdashboard/card3.png')",
         "introdashboard-maccom":"url('../images/_intro/introdashboard/MacStudio.png')",
         "introdashboard-phone-photo-mobile":"url('../images/_intro/introdashboard/phone-photo-mobile.png')",
+        "introdashboard-section1-bg":"url('../images/_intro/introdashboard/section1_bg.gif')",
+
         //intro earn
         "introearn-starsstart":"url('../images/_intro/introearn/StarsStart.png')",
         "introearn-earth":"url('../images/_intro/introearn/earth.gif')",
