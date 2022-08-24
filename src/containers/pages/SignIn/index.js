@@ -86,7 +86,7 @@ function SignIn(props) {
   }
 
   return (
-    <div className="relative w-full min-h-[800px] md:min-h-[1000px] bg-login-background dark:bg-login-background-dark transition-all duration-1000">
+    <div className="relative w-full min-h-[900px] md:min-h-[1000px] bg-login-background dark:bg-login-background-dark transition-all duration-1000">
       {/* bg images */}
       <div className="mix-blend-luminosity dark:mix-blend-normal bg-login-leftbottom bg-center bg-cover absolute left-0 bottom-0 w-[206px] h-[201px] md:w-[412px] md:h-[402px]"></div>
       <div className="mix-blend-luminosity dark:mix-blend-normal bg-login-middletop bg-center bg-cover absolute left-0 md:left-[25%] top-0 w-[135px] h-[63px] md:w-[270px] md:h-[125px]"></div>
@@ -101,7 +101,7 @@ function SignIn(props) {
         &lt;
       </span>
       {/* card */}
-      <div className="absolute w-[320px] h-[650px] left-[calc(50%-160px)] top-[90px] md:w-[900px] md:h-[840px] md:top-[calc(50%-430px)] md:left-[calc(50%-450px)] bg-[#5882C140] dark:bg-[#FFFFFF1A] backdrop-blur-[25px] border-[3px] border-[#5882C1] dark:border-[#FFFFFFB0] rounded-[40px] p-[20px] text-center">
+      <div className="absolute w-[320px] h-[750px] left-[calc(50%-160px)] top-[90px] md:w-[900px] md:h-[840px] md:top-[calc(50%-430px)] md:left-[calc(50%-450px)] bg-[#5882C140] dark:bg-[#FFFFFF1A] backdrop-blur-[25px] border-[3px] border-[#5882C1] dark:border-[#FFFFFFB0] rounded-[40px] p-[20px] text-center">
         <div
           className="bg-splash-logo dark:bg-splash-logo-dark bg-center bg-cover w-[120px] h-[40px] transition-all duration-1000 cursor-pointer"
           onClick={handleGoBack}
@@ -117,9 +117,9 @@ function SignIn(props) {
         <div className="mt-[50px] tracking-[1px] text-[12px] md:text-[24px] text-[#FFFFFF] dark:text-[#C9C0C0] font-semibold text-center">
           Please access your account on blockchain
         </div>
-        <div className="md:mt-[30px] w-[60%] mx-auto h-[50px] text-[#FFF] flex flex-row rounded-[4px] cursor-pointer">
+        <div className="mt-[15px] md:mt-[30px] w-[60%] mx-auto h-[50px] text-[#FFF] flex flex-row rounded-[4px] cursor-pointer">
           <div
-            className={`w-[120px] h-[50px] flex justify-center items-center text-[20px] ${
+            className={`w-[80px] md:w-[120px] h-[40px] md:h-[50px] flex justify-center items-center text-[16px] md:text-[20px] ${
               status === "signin"
                 ? "bg-[rgba(255,255,255,0.21)] border-b-[2px]"
                 : ""
@@ -132,7 +132,7 @@ function SignIn(props) {
             SignIn
           </div>
           <div
-            className={`w-[120px] h-[50px] flex justify-center items-center text-[20px] ${
+            className={`w-[80px] md:w-[120px] h-[40px] md:h-[50px] flex justify-center items-center text-[16px] md:text-[20px] ${
               status === "signup"
                 ? "bg-[rgba(255,255,255,0.21)] border-b-[2px]"
                 : ""
@@ -145,12 +145,12 @@ function SignIn(props) {
             SignUp
           </div>
         </div>
-        <div className="mt-[10px] w-[60%] mx-auto flex flex-col">
+        <div className="mt-[10px] w-[100%] md:w-[60%] mx-auto flex flex-col">
           {status === "signup" && (
             <>
               <div className="flex text-[#FFF] mb-[10px]">username</div>
               <input
-                className="h-[40px] w-[300px] border-[] rounded-[10px]"
+                className="h-[40px] w-[100%] md:w-[300px] border-[] rounded-[10px]"
                 type="text"
                 placeholder="Enter username"
                 value={userName}
@@ -162,7 +162,7 @@ function SignIn(props) {
           )}
           <div className="flex text-[#FFF] mb-[10px]">email</div>
           <input
-            className="h-[40px] w-[300px] border-[] rounded-[10px]"
+            className="h-[40px] w-[100%] md:w-[300px] border-[] rounded-[10px]"
             type="text"
             placeholder="Enter mail address"
             value={email}
@@ -172,7 +172,7 @@ function SignIn(props) {
           />
           <div className="mt-[20px] flex text-[#FFF] mb-[10px]">password</div>
           <input
-            className="h-[40px] w-[300px] border-[] rounded-[10px]"
+            className="h-[40px] w-[100%] md:w-[300px] border-[] rounded-[10px]"
             type="password"
             autoComplete="off"
             placeholder="Enter password"
@@ -185,7 +185,7 @@ function SignIn(props) {
             <>
               <div className="flex text-[#FFF] mb-[10px]">confirm password</div>
               <input
-                className="h-[40px] w-[300px] border-[] rounded-[10px]"
+                className="h-[40px] w-[100%] md:w-[300px] border-[] rounded-[10px]"
                 type="password"
                 placeholder="Enter username"
                 value={confirmPassword}
@@ -198,7 +198,7 @@ function SignIn(props) {
           {status === "signin" ? (
             <Button
               isLoading={isLoading}
-              className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#1199FA] cursor-pointer"
+              className="mt-[30px] mx-auto md:mx-0 flex w-[120px] md:w-[200px] h-[40px] md:h-[52px] justify-center items-center text-[#FFF] text-[18px] md:text-[24px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
               onClick={handleSignIn}
             >
               SignIn
@@ -206,7 +206,7 @@ function SignIn(props) {
           ) : (
             <Button
               isLoading={isLoading}
-              className="mt-[30px] flex w-[200px] h-[52px] justify-center items-center text-[#FFF] text-[24px] font-[500] rounded-[14px] bg-[#1199FA] cursor-pointer"
+              className="mt-[30px] mx-auto md:mx-0 flex w-[120px] md:w-[200px] h-[40px] md:h-[52px] justify-center items-center text-[#FFF] text-[18px] md:text-[24px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
               onClick={handleSignUp}
             >
               SignUp

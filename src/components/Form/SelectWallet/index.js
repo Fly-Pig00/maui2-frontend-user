@@ -4,12 +4,12 @@ import Checkbox from "../Checkbox";
 import useOutsideClick from "../../../utils/useOutsideClick";
 
 const FIAT = [
-  // { img: "bg-common-debit-card", symbol: "Debit Card", fee: "3", index: 0 },
+  // { img: "bg-common-debit-card", symbol: "Credit or Debit Card", fee: "3", index: 0 },
   { img: "bg-common-debit-card", symbol: "ACH Transfer", fee: "0", index: 1 },
 ];
 
 const CRYPTO = [
-  { img: "bg-common-debit-card", symbol: "Debit Card", fee: "3", index: 0 },
+  { img: "bg-common-debit-card", symbol: "Credit or Debit Card", fee: "3", index: 0 },
   { img: "bg-common-debit-card", symbol: "ACH Transfer", fee: "3", index: 1 },
   // {img: 'bg-common-debit-card', symbol: 'Apple Pay', fee: '3', index: 2 },
   // {img: 'bg-common-wallet-eth', symbol: 'Ethereum wallet', fee: '2'},

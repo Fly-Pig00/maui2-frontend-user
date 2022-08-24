@@ -84,7 +84,7 @@ function SelectTotalCurrency({isCrypto = false, id, className, label, selectedSy
         <div className="absolute right-[10px]">
           <div className={`${caret} bg-cover bg-center w-[15px] h-[15px]`} />
         </div>
-        {isOpen && <div ref={ref} className={`absolute right-[5px] ${isCrypto? 'top-[45px] w-[350px]': 'top-[45px] w-[350px]'} z-50 rounded-[5px] overflow-hidden`}>
+        {isOpen && <div ref={ref} className={`absolute right-0 md:right-[5px] ${isCrypto? 'top-[45px] w-[100%] md:w-[350px]': 'top-[45px] w-[100%] md:w-[350px]'} z-50 rounded-[5px] overflow-hidden`}>
           {dropdown_list}
         </div>}
       </div>

@@ -160,7 +160,7 @@ function UserSetting({ label, signOut }) {
           </span>
         </Button>
         {userDropdownShow && (
-          <div className="absolute left-[15px] top-[43px] w-[93px] py-[10px] bg-[#F3F3FB] dark:bg-[#1c1f21] text-[#1199FA] dark:text-[#1199FA] dark:border-2 dark:border-[#1199FA] font-[600] flex justify-center items-center z-50 rounded-[10px]">
+          <div className="absolute left-[-10px] md:left-[15px] top-[30px] md:top-[43px] w-[60px] md:w-[93px] py-[10px] bg-[#F3F3FB] dark:bg-[#1c1f21] text-[#1199FA] text-[12px] md:text-[16px] dark:text-[#1199FA] dark:border-2 dark:border-[#1199FA] font-[600] flex justify-center items-center z-50 rounded-[10px]">
             <div className="">
               <div className="cursor-pointer" onClick={handleKYC}>
                 KYC

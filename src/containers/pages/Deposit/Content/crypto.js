@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import Dropzone from "react-dropzone";
 import { toast } from "react-toastify";
 // import { useWallet } from "@terra-money/wallet-provider";
 import {
@@ -175,7 +176,7 @@ function TabCrypto(props) {
   const { open, ready } = usePlaidLink(config);
 
   useEffect(() => {
-    if (linkToken && paymentModalStage) {
+    if (linkToken && isPlaidPayment && paymentModalShow) {
       let link = document.getElementById("plaid");
       link.click();
       open();
@@ -368,7 +369,7 @@ function TabCrypto(props) {
         street1: "132 Test Ave",
         city: "Los Angeles",
         state: "CA",
-        postalCode:94123,
+        postalCode: 94123,
         country,
         amount,
         destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
@@ -601,7 +602,7 @@ function TabCrypto(props) {
             Continue
           </Button>
         </div>
-        <div className="w-full mt-[10px] md:mt-0 md:w-[45%]">
+        <div className="w-full mt-[30px] md:mt-0 md:w-[45%]">
           {selectedCryptoWallet === "Debit Card" ? (
             <RightBar isCrypto={true} />
           ) : (
@@ -609,7 +610,7 @@ function TabCrypto(props) {
               <div className="md:text-[24px] dark:text-[#fff]">
                 Payment Method
               </div>
-              <div className=" max-h-[608px] overflow-auto">
+              <div className="md:max-h-[608px] md:overflow-auto">
                 {paymentMethods.length > 0 &&
                   paymentMethods.map((payment, index) => (
                     <div
@@ -670,20 +671,20 @@ function TabCrypto(props) {
       </form>
       {paymentModalShow && (
         <div>
-          <div className="fixed left-[50vw] top-0 w-[50vw] h-[100vh] bg-deposit-card dark:bg-deposit-card-dark z-[60]">
+          <div className="fixed left-0 md:left-[50vw] top-0 w-full md:w-[50vw] h-[100vh] bg-deposit-card dark:bg-deposit-card-dark z-[60]">
             <div className="mt-[30px] flex justify-between md:h-[50px]">
               <div className="flex justify-center items-center text-[30px] text-[#000] dark:text-[#FFF] font-[600] w-[90%] h-[100%]">
-                Add Payment Method
+                Payment Method
               </div>
               <div
-                className="flex justify-center items-center md:h-[100%] md:text-[40px] dark:text-[#FFF] md:w-[10%] cursor-pointer"
+                className="flex justify-center items-center h-[100%] text-[30px] md:text-[40px] dark:text-[#FFF] w-[15%] md:w-[10%] cursor-pointer"
                 onClick={() => setPaymentModalShow(false)}
               >
                 &times;
               </div>
             </div>
             {paymentModalStage === 0 ? (
-              <div className="md:h-[calc(100vh-50px)] md:w-full flex justify-center items-center">
+              <div className="h-[calc(100vh-50px)] md:w-full flex justify-center items-center">
                 <div className="h-[400px] flex flex-col justify-between">
                   {/* <div
                     className={`w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${
@@ -734,12 +735,12 @@ function TabCrypto(props) {
               </div>
             ) : paymentModalStage === 1 ? (
               <div className="md:h-[calc(100vh-50px)] md:w-full px-[30px] dark:text-[#FFF] overflow-auto">
-                <div className="md:mt-[10px] flex justify-between">
+                <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
                   <div className="md:w-[45%]">
                     <div>First Name*</div>
                     <input
                       type="text"
-                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
                       value={firstNameOnAccount}
                       onChange={(e) => setFirstNameOnAccount(e.target.value)}
                     />
@@ -748,7 +749,7 @@ function TabCrypto(props) {
                     <div>Last Name*</div>
                     <input
                       type="text"
-                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
                       value={lastNameOnAccount}
                       onChange={(e) => setLastNameOnAccount(e.target.value)}
                     />
@@ -757,16 +758,16 @@ function TabCrypto(props) {
                 <div className="md:mt-[10px]">Address*</div>
                 <input
                   type="text"
-                  className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                  className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
                   value={beneficiaryAddress}
                   onChange={(e) => setBeneficiaryAddress(e.target.value)}
                 />
-                <div className="md:mt-[10px] flex justify-between">
+                <div className="mt-[10px] flex flex-col md:flex-row md:justify-between">
                   <div className="md:w-[45%]">
                     <div className="md:mt-[10px]">Account Number*</div>
                     <input
                       type="text"
-                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
                       value={accountNumber}
                       onChange={(e) => setAccountNumber(e.target.value)}
                     />
@@ -775,18 +776,18 @@ function TabCrypto(props) {
                     <div className="md:mt-[10px]">Routing Number*</div>
                     <input
                       type="text"
-                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
                       value={routingNumber}
                       onChange={(e) => setRoutingNumber(e.target.value)}
                     />
                   </div>
                 </div>
-                <div className="md:mt-[10px] flex justify-between">
+                <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
                   <div className="md:w-[45%]">
                     <div>Birthday*</div>
                     <input
                       type="date"
-                      className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
                       onChange={(e) => {
                         let tmpDate = e.target.value.split("-");
                         setBeneficiaryDobYear(tmpDate[0]);
@@ -799,18 +800,18 @@ function TabCrypto(props) {
                     <div>State*</div>
                     <input
                       type="text"
-                      className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100  text-[#000]"
+                      className="w-[100%] rounded-[12px] border-transparent transition-all duration-100  text-[#000]"
                       value={beneficaryState}
                       onChange={(e) => setBeneficaryState(e.target.value)}
                     />
                   </div>
                 </div>
-                <div className="md:mt-[10px] flex justify-between">
+                <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
                   <div className="md:w-[45%]">
                     <div>City*</div>
                     <input
                       type="text"
-                      className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                      className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
                       value={beneficiaryCity}
                       onChange={(e) => setBeneficiaryCity(e.target.value)}
                     />
@@ -819,7 +820,7 @@ function TabCrypto(props) {
                     <div>Postal / ZIP code*</div>
                     <input
                       type="text"
-                      className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                      className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
                       value={beneficiaryPostal}
                       onChange={(e) => setBeneficiaryPostal(e.target.value)}
                     />
@@ -837,7 +838,7 @@ function TabCrypto(props) {
                 />
                 <Button
                   isLoading={addPayLoading}
-                  className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
+                  className="mt-[10px] md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
                   onClick={handleAddPayment}
                 >
                   NEXT
@@ -846,8 +847,27 @@ function TabCrypto(props) {
             ) : (
               <div className="md:h-[calc(100vh-50px)] md:w-full px-[30px] dark:text-[#FFF] flex justify-center items-center overflow-auto">
                 <div className="md:w-[300px] pb-[10vw]">
-                  <div className=" text-[150px] text-center">📄</div>
-                  <div className=" text-[20px] text-center">
+                  <Dropzone
+                    onDrop={(acceptedFiles) => console.log(acceptedFiles)}
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <section className=" text-[100px] text-center border-[1px] border-[#050505] border-dashed color-[#050505] rounded-[10px]">
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <p>📄</p>
+                        </div>
+                        {/* <div
+                          {...getRootProps({
+                            onClick: (event) => console.log(event),
+                            role: "button",
+                            "aria-label": "drag and drop area",
+                          })}
+                          className="w-[100px] h-[100px] border-[1px] border-[#000]"
+                        /> */}
+                      </section>
+                    )}
+                  </Dropzone>
+                  <div className="mt-[10px] text-[14px] text-center">
                     Upload document to activate your acocunt
                   </div>
                   <Button
@@ -876,12 +896,12 @@ function TabCrypto(props) {
       <div className="w-full md:w-[45%]">
         <div className="md:mt-[20px]">You deposited {amount} DAI</div>
         <div className="md:mt-[10px]">Card Info</div>
-        <div className="md:mt-[10px] flex justify-between">
+        <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
           <div className="md:w-[45%]">
             <div>First Name*</div>
             <input
               type="text"
-              className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+              className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
               value={givenName}
               onChange={(e) => setGivenName(e.target.value)}
             />
@@ -890,7 +910,7 @@ function TabCrypto(props) {
             <div>Last Name*</div>
             <input
               type="text"
-              className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+              className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
               value={familyName}
               onChange={(e) => setFamilyName(e.target.value)}
             />
@@ -899,16 +919,16 @@ function TabCrypto(props) {
         <div className="md:mt-[10px]">Card Number*</div>
         <input
           type="text"
-          className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+          className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
           value={number}
           onChange={(e) => setNumber(e.target.value)}
         />
-        <div className="md:mt-[10px] flex justify-between">
+        <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
           <div className="md:w-[45%]">
             <div>Expiration*</div>
             <input
               type="date"
-              className="md:w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+              className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
               onChange={(e) => {
                 let tmpDate = e.target.value.split("-");
                 setYear(tmpDate[0]);
@@ -921,14 +941,14 @@ function TabCrypto(props) {
             <input
               type="password"
               autoComplete="off"
-              className="md:w-[100%] text-[#000] rounded-[12px] border-transparent transition-all duration-100"
+              className="w-[100%] text-[#000] rounded-[12px] border-transparent transition-all duration-100"
               value={cvv}
               onChange={(e) => setCvv(e.target.value)}
             />
           </div>
         </div>
         <div className="md:mt-[20px]">Billing Address</div>
-        <div className="md:mt-[10px] flex justify-between">
+        <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
           <div className="md:w-[45%]">
             <div>Country*</div>
             {/* <input
@@ -953,7 +973,7 @@ function TabCrypto(props) {
             <div>State*</div>
             <input
               type="text"
-              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100  text-[#000]"
+              className="w-[100%] rounded-[12px] border-transparent transition-all duration-100  text-[#000]"
               value={state}
               onChange={(e) => setState(e.target.value)}
             />
@@ -962,16 +982,16 @@ function TabCrypto(props) {
         <div className="md:mt-[10px]">Address*</div>
         <input
           type="text"
-          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+          className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
           value={street1}
           onChange={(e) => setStreet1(e.target.value)}
         />
-        <div className="md:mt-[10px] flex justify-between">
+        <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
           <div className="md:w-[45%]">
             <div>Postal / ZIP code*</div>
             <input
               type="text"
-              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+              className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
             />
@@ -980,7 +1000,7 @@ function TabCrypto(props) {
             <div>City*</div>
             <input
               type="text"
-              className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+              className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
@@ -990,7 +1010,7 @@ function TabCrypto(props) {
         <div className="md:mt-[10px]">Email*</div>
         <input
           type="text"
-          className="md:w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+          className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -1007,7 +1027,7 @@ function TabCrypto(props) {
         <Button
           type="submit"
           isLoading={isLoading}
-          className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
+          className="mt-[10px] md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
         >
           Deposit
         </Button>
@@ -1018,7 +1038,7 @@ function TabCrypto(props) {
     </form>
   ) : (
     <div className="flex p-10 md:p-20 flex-col-reverse md:flex-row justify-between dark:text-[#FFF]">
-      <div className="w-full md:w-[45%]">
+      <div className="w-full md:w-[45%] text-[12px] md:text-[16px]">
         <div className="md:mt-[10px] flex justify-between">
           <div className="md:w-[45%]">
             <div>Sent to</div>

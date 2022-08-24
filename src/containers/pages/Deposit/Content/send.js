@@ -45,6 +45,7 @@ function TabSend(props) {
   const [tmpRecipients, setTmpRecipient] = useState([]);
   const [selectedSource, setSelectedSource] = useState("DAI");
   const [selectedDest, setSelectedDest] = useState("DAI");
+  const [selectedDestination, setSelectedDestination] = useState("user");
 
   const timer = useRef(null);
 
@@ -140,6 +141,10 @@ function TabSend(props) {
     timer.current = setTimeout(() => searchUser(e.target.value), 500);
   };
 
+  const handleRecipientWallet = (e) => {
+    setRecipient(e.target.value);
+  };
+
   function handleSourceChange(symbol) {
     console.log(symbol);
     setSelectedSource(symbol);
@@ -165,6 +170,7 @@ function TabSend(props) {
       method: "POST",
       headers: { Authorization: `bearer ${token}` },
       data: {
+        method: selectedDestination,
         recipient,
         sourceAmount: unmaskCurrency(data.amount),
         sourceCurrency: selectedSource,
@@ -188,44 +194,62 @@ function TabSend(props) {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="w-full md:w-[60%] m-auto">
-        {/* <div
-          className="dark:text-[#fff]"
+        <div
+          className="mt-[30px] dark:text-[#fff]"
           onChange={(e) => {
-            if (isFiat) setSelectedFiat("DAI");
-            else setSelectedFiat("USD");
+            console.log(e.target.value);
+            setRecipient("");
+            if (e.target.value === "user") {
+              setSelectedDestination("user");
+            } else {
+              setSelectedDestination("wallet");
+            }
             setIsFiat(!isFiat);
           }}
         >
           <input
             type="radio"
-            id="crypto"
+            id="user"
             name="payment"
-            value={"crypto"}
+            value={"user"}
             defaultChecked
           />
-          <label for="crypto" className="ml-[10px]">
-            Crypto
+          <label for="user" className="ml-[10px]">
+            User
           </label>
           <div className="h-[20px]"></div>
-          <input type="radio" id="fiat" name="payment" value={"fiat"} />
-          <label for="fiat" className="ml-[10px]">
-            Fiat
+          <input type="radio" id="wallet" name="payment" value={"wallet"} />
+          <label for="wallet" className="ml-[10px]">
+            Wallet
           </label>
-        </div> */}
-        <div className="mt-[60px] md:mt-[40px] ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
-          Recipient (Mail Address)
         </div>
-        <input
-          className={`border-0 dark:border ${
-            inputError
-              ? "border-[1px] border-[#ff0000] focus:border-[#ff0000]"
-              : "border-[#1199FA] focus:border-[#1199FA]"
-          } rounded-[13px] w-full h-[46px] p-3 outline-none mt-[13px] bg-[#FFFFFF] dark:bg-transparent text-black dark:text-white dark:bg-[#32283C] transition-all duration-500`}
-          value={recipient}
-          onChange={handleRecipient}
-          onFocus={() => setRecipientInputActive(true)}
-          onBlur={() => setTimeout(() => setRecipientInputActive(false), 200)}
-        />
+        <div className="mt-[20px] md:mt-[40px] ml-[15px] text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
+          Recipient (
+          {selectedDestination === "user" ? "Mail Address" : "Wallet Address"})
+        </div>
+        {selectedDestination === "user" ? (
+          <input
+            className={`border-0 dark:border ${
+              inputError
+                ? "border-[1px] border-[#ff0000] focus:border-[#ff0000]"
+                : "border-[#1199FA] focus:border-[#1199FA]"
+            } rounded-[13px] w-full h-[46px] p-3 outline-none mt-[13px] bg-[#FFFFFF] dark:bg-transparent text-black dark:text-white dark:bg-[#32283C] transition-all duration-500`}
+            value={recipient}
+            onChange={handleRecipient}
+            onFocus={() => setRecipientInputActive(true)}
+            onBlur={() => setTimeout(() => setRecipientInputActive(false), 200)}
+          />
+        ) : (
+          <input
+            className={`border-0 dark:border ${
+              inputError
+                ? "border-[1px] border-[#ff0000] focus:border-[#ff0000]"
+                : "border-[#1199FA] focus:border-[#1199FA]"
+            } rounded-[13px] w-full h-[46px] p-3 outline-none mt-[13px] bg-[#FFFFFF] dark:bg-transparent text-black dark:text-white dark:bg-[#32283C] transition-all duration-500`}
+            value={recipient}
+            onChange={handleRecipientWallet}
+          ></input>
+        )}
         {recipientInputActive && tmpRecipients.length > 0 && (
           <div className="p-[10px] bg-[#fff] rounded-[13px]">
             {tmpRecipients.map((tmp, idx) => {
