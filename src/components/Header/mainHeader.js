@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import { compose } from "redux";
@@ -289,18 +288,20 @@ function MainHeader(props) {
                   (currency, index) => {
                     return (
                       <div
-                        className="w-full py-[7px] px-[20px] flex justify-between text-[#707070] text-[12px] md:text-[18px]"
+                        className="w-full py-[7px] px-[4px] md:px-[20px] flex justify-between items-center text-[#707070] text-[12px] md:text-[14px]"
                         key={index}
                       >
-                        ${" "}
-                        <div className="font-semibold w-[60px] md:w-[100px] text-[12px] md:text-[18px] leading-[24px] mt-[1px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2] transition-all duration-1000">
-                          {
-                            Object.values(props.workflow?.availableBalances)[
-                              index
-                            ]
-                          }
+                        <div className="flex items-center">
+                          ${" "}
+                          <div className="md:ml-[5px] font-semibold md:w-[60px] md:w-[100px] text-[12px] md:text-[14px] leading-[24px] mt-[1px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2] transition-all duration-1000">
+                            {Math.floor(
+                              Object.values(props.workflow?.availableBalances)[
+                                index
+                              ] * 1000
+                            ) / 1000}
+                          </div>
                         </div>
-                        <div className="text-[#707070] text-[12px] md:text-[18px]">
+                        <div className="text-[#707070] text-[12px] md:text-[14px]">
                           {
                             Object.keys(props.workflow?.availableBalances)[
                               index

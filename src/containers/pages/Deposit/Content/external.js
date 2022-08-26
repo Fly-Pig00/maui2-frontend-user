@@ -520,12 +520,12 @@ function TabCrypto(props) {
               value={"crypto"}
               defaultChecked
             />
-            <label for="crypto" className="ml-[10px]">
+            <label htmlFor="crypto" className="ml-[10px]">
               Crypto
             </label>
             <div className="h-[20px]"></div>
             <input type="radio" id="fiat" name="payment" value={"fiat"} />
-            <label for="fiat" className="ml-[10px]">
+            <label htmlFor="fiat" className="ml-[10px]">
               Fiat
             </label>
             {/* {!isFiat && (

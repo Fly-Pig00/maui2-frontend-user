@@ -214,12 +214,12 @@ function TabSend(props) {
             value={"user"}
             defaultChecked
           />
-          <label for="user" className="ml-[10px]">
+          <label htmlFor="user" className="ml-[10px]">
             User
           </label>
           <div className="h-[20px]"></div>
           <input type="radio" id="wallet" name="payment" value={"wallet"} />
-          <label for="wallet" className="ml-[10px]">
+          <label htmlFor="wallet" className="ml-[10px]">
             Wallet
           </label>
         </div>

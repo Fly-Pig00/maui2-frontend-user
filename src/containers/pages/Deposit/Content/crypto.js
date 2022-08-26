@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import Dropzone from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 // import { useWallet } from "@terra-money/wallet-provider";
 import {
@@ -105,6 +105,8 @@ function TabCrypto(props) {
   const [addPayLoading, setAddPayLoading] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [copied, setCopied] = useState(false);
+  const [bankDocument, setBankDocument] = useState({});
+  const [fileName, setFileName] = useState("");
 
   const [linkToken, setLinkToken] = useState("");
   const [accessInfo, setAccessInfo] = useState({});
@@ -115,6 +117,7 @@ function TabCrypto(props) {
   const onSuccess = React.useCallback(
     (public_token, metadata) => {
       console.log("public token", public_token);
+      console.log("metadata", metadata);
       // send public_token to server
       const setToken = async () => {
         const response = await axios({
@@ -183,6 +186,13 @@ function TabCrypto(props) {
     }
   }, [linkToken]);
 
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles);
+    setBankDocument(acceptedFiles[0]);
+    setFileName(acceptedFiles[0].name);
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
   useEffect(() => {
     if (reservation.length > 0) setStage(1);
   }, [reservation]);
@@ -250,6 +260,29 @@ function TabCrypto(props) {
   function handleAgreeChange(e) {
     setIsAgreed(e.target.checked);
   }
+
+  const handleUpload = async () => {
+    let formData = new FormData();
+    formData.append("bankdoc", bankDocument);
+
+    await axios
+      .post(`${appConfig.apiUrl}/v1/uploaddoc`, formData, {
+        headers: {
+          Authorization: `bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        toast.error(err.response.data.msg);
+      });
+  };
+
   function validateAmount(val) {
     const value = unmaskCurrency(val);
     if (!value) {
@@ -297,7 +330,7 @@ function TabCrypto(props) {
           setIsLoading(false);
         })
         .catch((err) => {
-          toast.error(err.response?.data?.message);
+          toast.error(err.response?.data?.msg);
           setIsLoading(false);
         });
     } else if (isFiat && selectedCryptoWallet === "ACH Transfer") {
@@ -510,12 +543,12 @@ function TabCrypto(props) {
               value={"crypto"}
               defaultChecked
             />
-            <label for="crypto" className="ml-[10px]">
+            <label htmlFor="crypto" className="ml-[10px]">
               Crypto
             </label>
             <div className="h-[20px]"></div>
             <input type="radio" id="fiat" name="payment" value={"fiat"} />
-            <label for="fiat" className="ml-[10px]">
+            <label htmlFor="fiat" className="ml-[10px]">
               Fiat
             </label>
             {/* {!isFiat && (
@@ -847,33 +880,25 @@ function TabCrypto(props) {
             ) : (
               <div className="md:h-[calc(100vh-50px)] md:w-full px-[30px] dark:text-[#FFF] flex justify-center items-center overflow-auto">
                 <div className="md:w-[300px] pb-[10vw]">
-                  <Dropzone
-                    onDrop={(acceptedFiles) => console.log(acceptedFiles)}
+                  <div
+                    {...getRootProps()}
+                    className="h-[150px] text-[16px] text-center border-[1px] border-[#050505] border-dashed color-[#050505] rounded-[10px] flex items-center justify-center hover:cursor-pointer"
                   >
-                    {({ getRootProps, getInputProps }) => (
-                      <section className=" text-[100px] text-center border-[1px] border-[#050505] border-dashed color-[#050505] rounded-[10px]">
-                        <div {...getRootProps()}>
-                          <input {...getInputProps()} />
-                          <p>📄</p>
-                        </div>
-                        {/* <div
-                          {...getRootProps({
-                            onClick: (event) => console.log(event),
-                            role: "button",
-                            "aria-label": "drag and drop area",
-                          })}
-                          className="w-[100px] h-[100px] border-[1px] border-[#000]"
-                        /> */}
-                      </section>
+                    <input {...getInputProps()} />
+                    {isDragActive ? (
+                      <p>Drop the document here ...</p>
+                    ) : (
+                      <p>Drag document here, or click to select document.</p>
                     )}
-                  </Dropzone>
+                  </div>
+                  <div className="text-[16px] text-center">{fileName}</div>
                   <div className="mt-[10px] text-[14px] text-center">
                     Upload document to activate your acocunt
                   </div>
                   <Button
                     // isLoading={addPayLoading}
                     className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
-                    // onClick={}
+                    onClick={handleUpload}
                   >
                     Upload
                   </Button>
