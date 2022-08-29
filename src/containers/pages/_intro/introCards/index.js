@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { CSSTransition } from 'react-transition-group';
 import useWindowSize from "../../../../utils/useWindowSize";
 
 function IntroCards() {
   const size = useWindowSize();
 
   const [isMobile, setIsMobile] = useState(false);
+  const [enterCard, setEnterCard] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setEnterCard(true)
   }, []);
 
   useEffect(() => {
@@ -18,6 +21,14 @@ function IntroCards() {
   return (
     <div className="bg-[#10213f] pb-[60px]">
       <div className="w-full md:h-[10vh] bg-[#001535]"></div>
+      <CSSTransition
+          in={enterCard}
+          timeout={1000}
+          classNames={{
+            enter: 'opacity-100',
+            enterDone: 'opacity-0',
+          }}
+        >
       <div
         className={`relative w-full ${
           isMobile ? "h-[100vh]" : ""
@@ -27,9 +38,9 @@ function IntroCards() {
         <div className="text-[14px] md:text-[24px] leading-[24px] leading-[119.7%] font-[500] md:font-[600] text-[#1199FA] text-center">
           Hello, MAUI.
         </div>
-        <div className="text-[30px] md:text-[75.4px] leading-[119.7%] font-[600] text-[#FFF] text-center">
+        <div className="text-[30px] md:text-[75.4px] leading-[119.7%] font-[600] text-[#000] text-center">
           <span className="drop-shadow-[0_0_4px_#FFFFFF] md:drop-shadow-[0_0_9.42466px_#1199FA]">
-            White{" "}
+            Black{" "}
           </span>{" "}
           <span className="md:text-[72px] text-[#1199FA]">Card</span>
         </div>
@@ -37,10 +48,11 @@ function IntroCards() {
           Your choice.
         </div>
         <div className="relative mt-[10vh] mx-auto w-[80%] md:w-[40%] h-[calc(80vw*246/391+50px)] md:h-[calc(40vw*246/391+100px)]">
-          <div className="absolute top-0 left-[5vw] w-[60vw] md:w-[30vw] h-[calc(60vw*250/373)] md:h-[calc(30vw*250/373)] bg-introborrow-card1 bg-cover bg-center"></div>
-          <div className="absolute top-[60px] w-[80vw] md:w-[40vw] h-[calc(80vw*246/391)] md:h-[calc(40vw*246/391)] bg-introborrow-card4 bg-cover bg-center"></div>
+          {/* <div className="absolute top-0 left-[5vw] w-[60vw] md:w-[30vw] h-[calc(60vw*250/373)] md:h-[calc(30vw*250/373)] bg-introborrow-card1 bg-cover bg-center"></div> */}
+          <div className="absolute top-[0px] w-[80vw] md:w-[40vw] h-[calc(80vw*418/558)] md:h-[calc(40vw*418/558)] bg-introborrow-card4 bg-cover bg-center"></div>
         </div>
       </div>
+      </CSSTransition>
       <div className="md:w-full h-[100vh] md:h-[80vh] md:px-[12%] flex flex-col md:flex-row justify-center md:justify-between items-center">
         <div className="w-[80%] md:w-[35vw]">
           <div className="text-[54px] md:text-[64px] leading-[119.7%] font-[600] text-[#1199FA] text-center md:text-left">
