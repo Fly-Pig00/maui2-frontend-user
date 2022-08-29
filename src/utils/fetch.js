@@ -59,6 +59,9 @@ export const request = ({ type, method, url, apiUrl, headers, success, fail, pay
       failCallback && failCallback(errRes);
       fail && fail(errRes);
 
+      if(type==="TOKEN_SIGNIN_ACTION")  
+        localStorage.clear();
+
       if (type) {
         yield put({
           type: requestFail(type),
