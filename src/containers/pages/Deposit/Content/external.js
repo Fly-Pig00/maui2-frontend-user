@@ -614,7 +614,7 @@ function TabCrypto(props) {
             label={
               <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
                 {`Select ${isFiat ? "currency" : "crypto"} from`}{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#f00c0c]">
                   Maui Account
                 </span>
               </div>
@@ -630,7 +630,7 @@ function TabCrypto(props) {
             label={
               <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
                 Select currency you want to{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#f00c0c]">
                   Receive
                 </span>
               </div>
@@ -647,7 +647,7 @@ function TabCrypto(props) {
               <div className="relative text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000 flex justify-between">
                 <div>Payment Method</div>
                 <div
-                  className="mr-[16px] cursor-pointer"
+                  className="mr-[16px] cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#f00c0c]"
                   onClick={() => history.push("/fees")}
                 >
                   Fees
