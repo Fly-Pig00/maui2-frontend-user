@@ -203,6 +203,7 @@ module.exports = {
         'common-crypto-usdt': "url('../images/_common/crypto-usdt.png')",
         'common-crypto-dai': "url('../images/_common/dai-logo.png')",
         'common-debit-card': "url('../images/_common/debit-card.png')",
+        'common-bank': "url('../images/_common/bank.png')",
         'common-fiat-usd': "url('../images/_common/fiat-usd.svg')",
         'common-caret-up': "url('../images/_common/caret-up.svg')",
         'common-caret-up-dark': "url('../images/_common/caret-up-dark.svg')",

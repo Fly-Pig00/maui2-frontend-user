@@ -107,6 +107,8 @@ function TabCrypto(props) {
   const [copied, setCopied] = useState(false);
   const [bankDocument, setBankDocument] = useState({});
   const [fileName, setFileName] = useState("");
+  const [currentPayMethod, setCurrentPayMethod] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
 
   const [linkToken, setLinkToken] = useState("");
   const [accessInfo, setAccessInfo] = useState({});
@@ -262,8 +264,18 @@ function TabCrypto(props) {
   }
 
   const handleUpload = async () => {
+    setIsUploading(true);
+    const currentSrn = paymentMethods.filter(
+      (paymethod) => paymethod.id === currentPayMethod
+    );
+    if (currentSrn.length === 0) {
+      setIsUploading(false);
+      toast.success("Wait a few seconds.");
+      return;
+    }
     let formData = new FormData();
     formData.append("bankdoc", bankDocument);
+    formData.append("srn", currentSrn[0].srn);
 
     await axios
       .post(`${appConfig.apiUrl}/v1/uploaddoc`, formData, {
@@ -275,11 +287,26 @@ function TabCrypto(props) {
         },
       })
       .then((res) => {
-        console.log(res);
+        if (res.data.status === "PENDING") {
+          toast.success("Document is successfully uploaded. Wait.");
+          let tmpPaymentMethods = paymentMethods;
+          for (let i = 0; i < tmpPaymentMethods.length; i++) {
+            if (tmpPaymentMethods[i].id === currentPayMethod) {
+              tmpPaymentMethods[i].status = "PENDING";
+              setPaymentMethods(tmpPaymentMethods);
+              break;
+            }
+          }
+          setPaymentModalShow(!paymentModalShow);
+        } else {
+          toast.error("Server Error. Try again.");
+        }
+        setIsUploading(false);
       })
       .catch((err) => {
         console.log(err.response.data);
         toast.error(err.response.data.msg);
+        setIsUploading(false);
       });
   };
 
@@ -463,6 +490,7 @@ function TabCrypto(props) {
       url: `${appConfig.apiUrl}/v1/createPayMethod`,
     })
       .then((result) => {
+        setCurrentPayMethod(result.data?.payId);
         dispatch(getPaymentMethod(result.data?.payId));
         setAddPayLoading(false);
         setPaymentModalStage(2);
@@ -741,7 +769,7 @@ function TabCrypto(props) {
                       setIsPlaidPayment(true);
                       open();
                     }}
-                    disabled={linkToken || !ready}
+                    isDisabled={!linkToken || !ready}
                   >
                     Plaid
                   </Button>
@@ -896,7 +924,7 @@ function TabCrypto(props) {
                     Upload document to activate your acocunt
                   </div>
                   <Button
-                    // isLoading={addPayLoading}
+                    isLoading={isUploading}
                     className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
                     onClick={handleUpload}
                   >

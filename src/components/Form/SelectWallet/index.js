@@ -5,12 +5,12 @@ import useOutsideClick from "../../../utils/useOutsideClick";
 
 const FIAT = [
   // { img: "bg-common-debit-card", symbol: "Credit or Debit Card", fee: "3", index: 0 },
-  { img: "bg-common-debit-card", symbol: "ACH Transfer", fee: "0", index: 1 },
+  { img: "bg-common-bank", symbol: "ACH Transfer", fee: "3", index: 1 },
 ];
 
 const CRYPTO = [
   { img: "bg-common-debit-card", symbol: "Credit or Debit Card", fee: "3", index: 0 },
-  { img: "bg-common-debit-card", symbol: "ACH Transfer", fee: "3", index: 1 },
+  { img: "bg-common-bank", symbol: "ACH Transfer", fee: "3", index: 1 },
   // {img: 'bg-common-debit-card', symbol: 'Apple Pay', fee: '3', index: 2 },
   // {img: 'bg-common-wallet-eth', symbol: 'Ethereum wallet', fee: '2'},
 ];
@@ -60,7 +60,7 @@ function SelectWallet({
           <div className="ml-[10px] text-[#767070] dark:text-[#CCCDCD] text-left">
             {item.symbol}
           </div>
-          <div className="text-right">{item.fee}% fee</div>
+          {/* <div className="text-right">{item.fee}% fee</div> */}
         </div>
       </div>
     );
@@ -127,9 +127,9 @@ function SelectWallet({
             {" "}
             {selected.symbol}{" "}
           </div>
-          <div className={`text-[#6B8CFF] text-[14px]`}>
+          {/* <div className={`text-[#6B8CFF] text-[14px]`}>
             +{selected.fee}% fee
-          </div>
+          </div> */}
         </div>
         {isCrypto ? (
           <div className="absolute right-[10px]">

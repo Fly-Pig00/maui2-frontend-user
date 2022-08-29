@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -6,6 +6,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { useWallet } from "@terra-money/wallet-provider";
+import { useDropzone } from "react-dropzone";
 import {
   usePlaidLink,
   PlaidLinkOptions,
@@ -105,6 +106,10 @@ function TabCrypto(props) {
   const [linkToken, setLinkToken] = useState("");
   const [accessInfo, setAccessInfo] = useState({});
   const [copied, setCopied] = useState(false);
+  const [currentPayMethod, setCurrentPayMethod] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [bankDocument, setBankDocument] = useState({});
+  const [fileName, setFileName] = useState("");
 
   axios.defaults.baseURL = appConfig.apiUrl;
   axios.defaults.headers.common["Authorization"] = token;
@@ -192,6 +197,13 @@ function TabCrypto(props) {
     console.log("selectedCryptoWallet", selectedCryptoWallet);
   }, [selectedCryptoWallet]);
 
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles);
+    setBankDocument(acceptedFiles[0]);
+    setFileName(acceptedFiles[0].name);
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
   useEffect(() => {
     if (paymentModalShow) document.body.style.overflow = "hidden";
     else {
@@ -262,6 +274,53 @@ function TabCrypto(props) {
   //     }
   //   );
   // };
+
+  const handleUpload = async () => {
+    setIsUploading(true);
+    const currentSrn = paymentMethods.filter(
+      (paymethod) => paymethod.id === currentPayMethod
+    );
+    if (currentSrn.length === 0) {
+      setIsUploading(false);
+      toast.success("Wait a few seconds.");
+      return;
+    }
+    let formData = new FormData();
+    formData.append("bankdoc", bankDocument);
+    formData.append("srn", currentSrn[0].srn);
+
+    await axios
+      .post(`${appConfig.apiUrl}/v1/uploaddoc`, formData, {
+        headers: {
+          Authorization: `bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then((res) => {
+        if (res.data.status === "PENDING") {
+          toast.success("Document is successfully uploaded. Wait.");
+          let tmpPaymentMethods = paymentMethods;
+          for (let i = 0; i < tmpPaymentMethods.length; i++) {
+            if (tmpPaymentMethods[i].id === currentPayMethod) {
+              tmpPaymentMethods[i].status = "PENDING";
+              setPaymentMethods(tmpPaymentMethods);
+              break;
+            }
+          }
+          setPaymentModalShow(!paymentModalShow);
+        } else {
+          toast.error("Server Error. Try again.");
+        }
+        setIsUploading(false);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        toast.error(err.response.data.msg);
+        setIsUploading(false);
+      });
+  };
 
   function handleCryptoChange(symbol) {
     console.log(symbol);
@@ -440,6 +499,7 @@ function TabCrypto(props) {
       url: `${appConfig.apiUrl}/v1/createPayMethod`,
     })
       .then((result) => {
+        setCurrentPayMethod(result.data?.payId);
         dispatch(getPaymentMethod(result.data?.payId));
         setAddPayLoading(false);
         setPaymentModalStage(2);
@@ -708,7 +768,7 @@ function TabCrypto(props) {
                       setIsPlaidPayment(true);
                       open();
                     }}
-                    disabled={linkToken || !ready}
+                    isDisabled={!linkToken || !ready}
                   >
                     Plaid
                   </Button>
@@ -847,14 +907,25 @@ function TabCrypto(props) {
             ) : (
               <div className="md:h-[calc(100vh-50px)] md:w-full px-[30px] dark:text-[#FFF] flex justify-center items-center overflow-auto">
                 <div className="md:w-[300px] pb-[10vw]">
-                  <div className=" text-[150px] text-center">📄</div>
-                  <div className=" text-[20px] text-center">
+                  <div
+                    {...getRootProps()}
+                    className="h-[150px] text-[16px] text-center border-[1px] border-[#050505] border-dashed color-[#050505] rounded-[10px] flex items-center justify-center hover:cursor-pointer"
+                  >
+                    <input {...getInputProps()} />
+                    {isDragActive ? (
+                      <p>Drop the document here ...</p>
+                    ) : (
+                      <p>Drag document here, or click to select document.</p>
+                    )}
+                  </div>
+                  <div className="text-[16px] text-center">{fileName}</div>
+                  <div className="mt-[10px] text-[14px] text-center">
                     Upload document to activate your acocunt
                   </div>
                   <Button
-                    // isLoading={addPayLoading}
+                    isLoading={isUploading}
                     className="md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
-                    // onClick={}
+                    onClick={handleUpload}
                   >
                     Upload
                   </Button>
