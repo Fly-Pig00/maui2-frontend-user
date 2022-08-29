@@ -20,6 +20,7 @@ import Terms from "../pages/Terms";
 import AssetProtect from "../pages/AssetProtect";
 import UserAgreement from "../pages/UserAgreement";
 import Risks from "../pages/Risks";
+import Fees from "../pages/Fees";
 import Deposit from "../pages/Deposit";
 import History from "../pages/History";
 
@@ -47,6 +48,7 @@ const Routes = withRouter(({ location }) => {
               <Route path="/assetprotect" component={AssetProtect} />
               <Route path="/useragreement" component={UserAgreement} />
               <Route path="/risks" component={Risks} />
+              <Route path="/fees" component={Fees} />
               <Route
                 path="/dashboard"
                 render={(props) => <Dashboard state={state} />}

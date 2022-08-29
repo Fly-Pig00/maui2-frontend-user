@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -41,6 +42,8 @@ import { appConfig } from "../../../../appConfig";
 import { shortenAddress } from "../../../../utils/shortenAddress";
 
 function TabCrypto(props) {
+  const history = useHistory();
+
   const dispatch = useDispatch();
   const paymentMethod = useSelector((state) => state.workflow.paymentMethod);
   const walletAddress = useSelector((state) => state.workflow.walletAddress);
@@ -641,8 +644,14 @@ function TabCrypto(props) {
             isCrypto={isFiat ? false : true}
             className="mt-[10px]"
             label={
-              <div className="text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000">
-                Payment Method
+              <div className="relative text-[#273855] dark:text-[#F9D3B4] text-[13px] md:text-[16px] transition-all duration-1000 flex justify-between">
+                <div>Payment Method</div>
+                <div
+                  className="mr-[16px] cursor-pointer"
+                  onClick={() => history.push("/fees")}
+                >
+                  Fees
+                </div>
               </div>
             }
             selectedSymbol={selectedCryptoWallet}

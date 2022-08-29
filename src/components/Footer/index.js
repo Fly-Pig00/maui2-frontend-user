@@ -30,6 +30,9 @@ function Footer(props) {
   const handleRisksClick = () => {
     history.push("/risks");
   };
+  const handleFeesClick = () => {
+    history.push("/fees");
+  };
   if (location.pathname === "/splash" || location.pathname === "/login")
     return null;
   return (
@@ -201,7 +204,10 @@ function Footer(props) {
             Asset Protection /
           </span>
           <span onClick={handleRisksClick} className="cursor-pointer">
-            Risks
+            Risks /
+          </span>
+          <span onClick={handleFeesClick} className="cursor-pointer">
+            Fees
           </span>
         </div>
       </div>

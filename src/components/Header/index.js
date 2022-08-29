@@ -21,6 +21,7 @@ function Header(props) {
     location.pathname === "/introteam" ||
     location.pathname === "/terms" ||
     location.pathname === "/risks" ||
+    location.pathname === "/fees" ||
     location.pathname === "/useragreement" ||
     location.pathname === "/assetprotect" ||
     location.pathname === "/privacy"
