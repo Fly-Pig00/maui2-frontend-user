@@ -3,8 +3,9 @@ import { useHistory } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { apiSignIn } from "../../../saga/actions/workflow";
+import { apiSignIn, apiGoogleSignIn } from "../../../saga/actions/workflow";
 import Button from "../../../components/Button";
+import GoogleButton from "../../../components/Button/GoogleButton";
 
 function SignIn(props) {
   const history = useHistory();
@@ -14,7 +15,9 @@ function SignIn(props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const apiSignIn = props.apiSignIn;
+  const apiGoogleSignIn = props.apiGoogleSignIn;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -39,9 +42,10 @@ function SignIn(props) {
       method: "POST",
       data: {
         email,
-        password,
+        password
       },
       success: (response) => {
+        console.log(response)
         localStorage.setItem("token", response.tokens.access.token);
         localStorage.setItem("refreshToken", response.tokens.refresh.token);
         toast.success("Login Success!");
@@ -85,6 +89,38 @@ function SignIn(props) {
     });
   }
 
+  const handleGoogleSingIn = async (res) => {
+    try {
+      setIsGoogleLoading(true);
+      apiGoogleSignIn({
+        url: "/v1/auth/google-login",
+        method: "POST",
+        data: {
+          token: res?.tokenId
+        },
+        success: (response) => {
+          if(response.msg) {
+            toast.error(response.msg);
+          } else {
+            localStorage.setItem("token", response.tokens.access.token);
+            localStorage.setItem("refreshToken", response.tokens.refresh.token);
+            toast.success("Login Success!");
+          }
+          handleReset();
+          setIsGoogleLoading(false);
+          if(!response.msg) history.push("/dashboard");
+        },
+        fail: (error) => {
+          setIsGoogleLoading(false);
+          toast.error(error.data?.message);
+        },
+      });
+    } catch {
+      toast.error("You did not register.");
+    }
+    
+  };
+
   return (
     <div className="relative w-full min-h-[900px] md:min-h-[1000px] bg-login-background dark:bg-login-background-dark transition-all duration-1000">
       {/* bg images */}
@@ -119,11 +155,10 @@ function SignIn(props) {
         </div>
         <div className="mt-[15px] md:mt-[30px] w-[60%] mx-auto h-[50px] text-[#FFF] flex flex-row rounded-[4px] cursor-pointer">
           <div
-            className={`w-[80px] md:w-[120px] h-[40px] md:h-[50px] flex justify-center items-center text-[16px] md:text-[20px] ${
-              status === "signin"
-                ? "bg-[rgba(255,255,255,0.21)] border-b-[2px]"
-                : ""
-            } hover:border-b-[1px] border-[#1199FA] cursor-pointer transition-[background] duration-500`}
+            className={`w-[80px] md:w-[120px] h-[40px] md:h-[50px] flex justify-center items-center text-[16px] md:text-[20px] ${status === "signin"
+              ? "bg-[rgba(255,255,255,0.21)] border-b-[2px]"
+              : ""
+              } hover:border-b-[1px] border-[#1199FA] cursor-pointer transition-[background] duration-500`}
             onClick={() => {
               handleReset();
               setStatus("signin");
@@ -132,11 +167,10 @@ function SignIn(props) {
             SignIn
           </div>
           <div
-            className={`w-[80px] md:w-[120px] h-[40px] md:h-[50px] flex justify-center items-center text-[16px] md:text-[20px] ${
-              status === "signup"
-                ? "bg-[rgba(255,255,255,0.21)] border-b-[2px]"
-                : ""
-            } hover:border-b-[1px] border-[#1199FA] cursor-pointer transition-[background] duration-500`}
+            className={`w-[80px] md:w-[120px] h-[40px] md:h-[50px] flex justify-center items-center text-[16px] md:text-[20px] ${status === "signup"
+              ? "bg-[rgba(255,255,255,0.21)] border-b-[2px]"
+              : ""
+              } hover:border-b-[1px] border-[#1199FA] cursor-pointer transition-[background] duration-500`}
             onClick={() => {
               handleReset();
               setStatus("signup");
@@ -170,7 +204,7 @@ function SignIn(props) {
               setEmail(e.target.value);
             }}
           />
-          <div className="mt-[20px] flex text-[#FFF] mb-[10px]">password</div>
+          <div className="mt-[10px] flex text-[#FFF] mb-[10px]">password</div>
           <input
             className="h-[40px] w-[100%] md:w-[300px] border-[] rounded-[10px]"
             type="password"
@@ -196,22 +230,34 @@ function SignIn(props) {
             </>
           )}
           {status === "signin" ? (
-            <Button
-              isLoading={isLoading}
-              className="mt-[30px] mx-auto md:mx-0 flex w-[120px] md:w-[200px] h-[40px] md:h-[52px] justify-center items-center text-[#FFF] text-[18px] md:text-[24px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
-              onClick={handleSignIn}
-            >
-              SignIn
-            </Button>
+            <>
+              <Button
+                isLoading={isLoading}
+                className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[52px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
+                onClick={handleSignIn}
+              >
+                SignIn
+              </Button>
+              <GoogleButton
+                className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[52px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
+                onSuccess={handleGoogleSingIn}
+                isLoading={isGoogleLoading}
+              >
+                Sign in with Google
+              </GoogleButton>
+            </>
           ) : (
-            <Button
-              isLoading={isLoading}
-              className="mt-[30px] mx-auto md:mx-0 flex w-[120px] md:w-[200px] h-[40px] md:h-[52px] justify-center items-center text-[#FFF] text-[18px] md:text-[24px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
-              onClick={handleSignUp}
-            >
-              SignUp
-            </Button>
+            <>
+              <Button
+                isLoading={isLoading}
+                className="mt-[12px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[30px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
+                onClick={handleSignUp}
+              >
+                SignUp
+              </Button>
+            </>
           )}
+          {/* <a href="localhost:4000/google/auth" class="btn btn-danger"><span class="fa fa-google"></span> SignIn with Google</a> */}
         </div>
       </div>
     </div>
@@ -225,6 +271,7 @@ export default compose(
     }),
     {
       apiSignIn,
+      apiGoogleSignIn,
     }
   )
 )(SignIn);
