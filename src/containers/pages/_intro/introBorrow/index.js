@@ -32,7 +32,7 @@ function IntroBorrow() {
 
         <CSSTransition
           in={enterEarth}
-          timeout={10}
+          timeout={1000}
           classNames={{
             enter: 'top-[300px] right-[200px] scale-[2.0]',
             enterActive: 'top-[-350px] right-[-250px] scale-[1.5]',
@@ -42,25 +42,27 @@ function IntroBorrow() {
             exitDone: 'top-[300px] right-[200px] scale-[0.5]',
           }}
         >
-          <Earth className="absolute top-[300px] right-[200px] scale-[2.0] transition-all duration-[2000ms]"/>
+          <Earth className="absolute scale-[2.0] transition-all duration-[2000ms]"/>
         </CSSTransition>
 
         <div className="absolute left-[-100px] top-0 w-[232px] h-[250px] bg-introborrow-shape1 bg-cover bg-center md:animate-move3"></div>
         <div className="w-full mt-[26vh]"></div>
         <CSSTransition
-          in={enterBorrowUp}
-          appear={enterEarth}
-          timeout={10}
+          in={enterEarth}
+          // appear={enterEarth}
+          timeout={1000}
           classNames={{
-            enter: 'scale-[0.3]',
-            enterActive: 'scale-[1.0]',
-            enterDone: 'scale-[1.0]',
-            appear: 'opacity-0',
-            appearActive: 'opaicty-100',
-            appearDone: 'opaicty-100',
+            enter: 'scale-[0.3] bottom-[-9rem]',
+            // enterActive: 'scale-[0.6] bottom-[-3rem]',
+            enterDone: 'scale-[0.9] bottom-1',
+            // enterActive: 'scale-[0.3] bottom-0 duration-[1000ms]',
+            // enterDone: 'scale-[0.9] bottom-0 duration-[2000ms]',
+            // appear: 'opacity-0 bottom-0',
+            // appearActive: 'opaicty-100 bottom-0',
+            // appearDone: 'opaicty-100 bottom-0',
           }}
         >
-          <div className="absolute bottom-52 transition-all duration-[2000ms] scale-[0.3]" onClick={handleEnterBorrowUp}>
+          <div className="absolute transition-all duration-[2000ms] scale-[0.3]" onClick={handleEnterBorrowUp}>
             <div className="text-[20px] md:text-[40px] leading-[24px] md:leading-[48px] font-[500] md:font-[600] text-[#FFF] text-center">
               BORROW UP TO
             </div>

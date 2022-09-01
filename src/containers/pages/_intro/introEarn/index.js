@@ -35,17 +35,17 @@ function IntroEarn() {
   return !isExplore ? (
     <div className="w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-contain bg-left bg-no-repeat  overflow-hidden">
       <div className="h-[45vh] md:h-[35vh]"></div>
-      <div className="relative flex justify-start ml-[8%] md:ml-[17%] md:text-[250px] md:leading-[298px] md:font-[600]">
+      <div className="relative flex justify-start ml-[8%] md:ml-[15%] md:text-[250px] md:leading-[298px] md:font-[600]">
         <CSSTransition
           in={enterEarth}
           timeout={1000}
           classNames={{
-            enter: "top-[-300px] right-[-200px] scale-[1.5]",
-            enterActive: "top-[000px] right-[300px] scale-[1.0] duration-[1000ms]",
-            enterDone: "top-[000px] right-[250px] scale-[2.0] duration-[3000ms]"
+            enter: "top-[-350px] right-[-250px] scale-[1.5]",
+            enterActive: "top-[000px] right-[250px] scale-[0.5] duration-[1000ms]",
+            enterDone: "top-[000px] right-[50px] scale-[2.0] duration-[3000ms]"
           }}
         >
-          <Earth className="absolute top-[-650px] right-[-200px] scale-[1.5] transition-all duration-[1000ms]" />
+          <Earth className="absolute scale-[1.5] transition-all duration-[1000ms]" />
         </CSSTransition>
         <CSSTransition
           in={enterEarth}
