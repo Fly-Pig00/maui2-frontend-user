@@ -4,7 +4,7 @@ import Checkbox from "../Checkbox";
 import useOutsideClick from "../../../utils/useOutsideClick";
 
 const FIAT = [
-  // { img: "bg-common-debit-card", symbol: "Credit or Debit Card", fee: "3", index: 0 },
+  { img: "bg-common-debit-card", symbol: "Credit or Debit Card", fee: "3", index: 0 },
   { img: "bg-common-bank", symbol: "ACH Transfer", fee: "3", index: 1 },
 ];
 

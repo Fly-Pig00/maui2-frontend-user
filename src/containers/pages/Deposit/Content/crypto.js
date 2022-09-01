@@ -26,6 +26,7 @@ import { getPaymentMethod } from "../../../../saga/actions/workflow";
 import InputAmount from "../../../../components/Form/InputAmount";
 import SelectCurrency from "../../../../components/Form/SelectCurrency";
 import SelectWallet from "../../../../components/Form/SelectWallet";
+import SelectTotalCurrency from "../../../../components/Form/SelectTotalCurrency";
 import { unmaskCurrency } from "../../../../utils/masks";
 import Button from "../../../../components/Button";
 import RightBar from "./rightbar";
@@ -363,6 +364,29 @@ function TabCrypto(props) {
           toast.error(err.response?.data?.msg);
           setIsLoading(false);
         });
+    } else if (isFiat && selectedCryptoWallet === "Debit Card") {
+      //crypto & debit card method
+      axios({
+        method: "POST",
+        headers: { Authorization: `bearer ${token}` },
+        data: {
+          amount: unmaskCurrency(data.amount),
+          paymentMethod: 0,
+          sourceCurrency: selectedCrypto,
+          destCurrency: isFiat ? selectedCurrencyDest : selectedCryptoDest,
+        },
+        url: `${appConfig.apiUrl}/v1/reserveforfiat`,
+      })
+        .then((result) => {
+          // const url = result.data?.url || "";
+          const reserve = result.data.reservation;
+          setReservation(reserve);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          toast.error(err.response?.data?.msg);
+          setIsLoading(false);
+        });
     } else if (isFiat && selectedCryptoWallet === "ACH Transfer") {
       //crypto & debit card method
       axios({
@@ -420,6 +444,7 @@ function TabCrypto(props) {
       method: "POST",
       headers: { Authorization: `bearer ${token}` },
       data: {
+        isFiat,
         reservationId: reservation,
         number: 4111111111111111,
         year: 2023,
@@ -559,11 +584,12 @@ function TabCrypto(props) {
             className="dark:text-[#fff]"
             onChange={(e) => {
               console.log(e.target.value);
-              if (e.target.value === "fiat") {
-                setSelectedCryptoWallet("ACH Transfer");
-              } else {
-                setSelectedCryptoWallet("Debit Card");
-              }
+              // if (e.target.value === "fiat") {
+              //   setSelectedCryptoWallet("ACH Transfer");
+              // } else {
+              //   setSelectedCryptoWallet("Debit Card");
+              // }
+              setSelectedCryptoWallet("Debit Card");
               setIsFiat(!isFiat);
             }}
           >
