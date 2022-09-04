@@ -10,7 +10,7 @@ const clientId =
 const GoogleButton = (props) => {
 
   const onFailure = (res) => {
-    toast.error("Failed in google login.");
+    //toast.error("Failed in google login.");
   };
 
   const { signIn } = useGoogleLogin({

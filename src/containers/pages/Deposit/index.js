@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Tab from './tab';
 import TabCrypto from './Content/crypto';
 // import TabFiat from './Content/fiat';
 import TabSend from './Content/send';
 import TabExternal from './Content/external';
-
+import { toast } from "react-toastify";
+import { useFieldArray } from 'react-hook-form';
 function Deposit() {
   const history = useHistory();
-  const [ tabIndex, setTabIndex ] = useState(0);
+  
+  const [tabIndex, setTabIndex] = useState(0);
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (!user['firstName']) {
+      toast.error('You must complete user profile to deposit.');
+      history.push("/dashboard");
+    }
+  }, []);
+
 
   function handleTabChange(val) {
     setTabIndex(val);
   }
-  function handleGoBack(){
+  function handleGoBack() {
     history.push('/dashboard');
   }
 

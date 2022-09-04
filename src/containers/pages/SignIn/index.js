@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { apiSignIn, apiGoogleSignIn } from "../../../saga/actions/workflow";
+import { apiSignIn, apiGoogleSignIn, GOOGLE_SIGNUP_ACTION } from "../../../saga/actions/workflow";
 import Button from "../../../components/Button";
 import GoogleButton from "../../../components/Button/GoogleButton";
 
@@ -48,6 +48,7 @@ function SignIn(props) {
         console.log(response)
         localStorage.setItem("token", response.tokens.access.token);
         localStorage.setItem("refreshToken", response.tokens.refresh.token);
+        localStorage.setItem("user", JSON.stringify(response.user));
         toast.success("Login Success!");
         handleReset();
         setIsLoading(false);
@@ -77,6 +78,7 @@ function SignIn(props) {
       success: (response) => {
         localStorage.setItem("token", response.tokens.access.token);
         localStorage.setItem("refreshToken", response.tokens.refresh.token);
+        localStorage.setItem("user", JSON.stringify(response.user));
         toast.success("Successfully registerd!");
         handleReset();
         setIsLoading(false);
@@ -104,6 +106,8 @@ function SignIn(props) {
           } else {
             localStorage.setItem("token", response.tokens.access.token);
             localStorage.setItem("refreshToken", response.tokens.refresh.token);
+            localStorage.setItem("user", JSON.stringify(response.user));
+            console.log(response.user)
             toast.success("Login Success!");
           }
           handleReset();
@@ -118,6 +122,40 @@ function SignIn(props) {
     } catch {
       toast.error("You did not register.");
     }
+    
+  };
+
+  const handleGoogleSingUp = async (res) => {
+    try {
+      setIsGoogleLoading(true);
+      apiGoogleSignIn({
+        url: "/v1/auth/google-signup",
+        method: "POST",
+        data: {
+          token: res?.tokenId
+        },
+        success: (response) => {
+          if(response.msg) {
+            toast.error(response.msg);
+          } else {
+            localStorage.setItem("token", response.tokens.access.token);
+            localStorage.setItem("refreshToken", response.tokens.refresh.token);
+            localStorage.setItem("user", JSON.stringify(response.user));
+            toast.success("Login Success!");
+          }
+          handleReset();
+          setIsGoogleLoading(false);
+          if(!response.msg) history.push("/dashboard");
+        },
+        fail: (error) => {
+          setIsGoogleLoading(false);
+          toast.error(error.data?.message);
+        },
+      });
+    } catch {
+      toast.error("You did not register.");
+    }
+    
     
   };
 
@@ -233,13 +271,13 @@ function SignIn(props) {
             <>
               <Button
                 isLoading={isLoading}
-                className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[52px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
+                className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
                 onClick={handleSignIn}
               >
                 SignIn
               </Button>
               <GoogleButton
-                className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[52px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
+                className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
                 onSuccess={handleGoogleSingIn}
                 isLoading={isGoogleLoading}
               >
@@ -255,6 +293,13 @@ function SignIn(props) {
               >
                 SignUp
               </Button>
+              <GoogleButton
+                className="mt-[12px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[30px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
+                onSuccess={handleGoogleSingUp}
+                isLoading={isGoogleLoading}
+              >
+                Sign up with Google
+              </GoogleButton>
             </>
           )}
           {/* <a href="localhost:4000/google/auth" class="btn btn-danger"><span class="fa fa-google"></span> SignIn with Google</a> */}
