@@ -12,13 +12,13 @@ function Deposit() {
   
   const [tabIndex, setTabIndex] = useState(0);
 
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (!user['firstName']) {
-      toast.error('You must complete user profile to deposit.');
-      history.push("/dashboard");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const user = localStorage.getItem('user');
+  //   if (!user['firstName']) {
+  //     toast.error('You must complete user profile to deposit.');
+  //     history.push("/dashboard");
+  //   }
+  // }, []);
 
 
   function handleTabChange(val) {
