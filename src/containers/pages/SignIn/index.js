@@ -93,6 +93,7 @@ function SignIn(props) {
 
   const handleGoogleSingIn = async (res) => {
     try {
+      console.log('google ok')
       setIsGoogleLoading(true);
       apiGoogleSignIn({
         url: "/v1/auth/google-login",

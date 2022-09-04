@@ -4,13 +4,14 @@ import { useGoogleLogin } from "react-google-login";
 import Loading from "./loading";
 
 const clientId =
-  '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com';
-//'908533985359-qlbvs483vkpr3i1g3jktroc5pd6ve8u3.apps.googleusercontent.com';
-
+  //'707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com';
+  //'908533985359-qlbvs483vkpr3i1g3jktroc5pd6ve8u3.apps.googleusercontent.com';
+  '908533985359-f2ll20k8ei3vqnc45mjsoj6gh8pjv8q8.apps.googleusercontent.com';
 const GoogleButton = (props) => {
 
   const onFailure = (res) => {
     //toast.error("Failed in google login.");
+    console.log('google error')
   };
 
   const { signIn } = useGoogleLogin({
