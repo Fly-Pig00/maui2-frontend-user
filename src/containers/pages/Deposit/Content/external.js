@@ -120,6 +120,8 @@ function TabCrypto(props) {
   const onSuccess = React.useCallback(
     (public_token, metadata) => {
       console.log("public token", public_token);
+      setPaymentModalShow(!paymentModalShow);
+
       // send public_token to server
       const setToken = async () => {
         const response = await axios({
@@ -134,8 +136,9 @@ function TabCrypto(props) {
           url: `${appConfig.apiUrl}/v1/plaid/set_processor_token`,
         })
           .then((res) => {
-            console.log(metadata);
-            setAccessInfo(res.data);
+            // setAccessInfo(res.data.processor_token);
+            setCurrentPayMethod(res.data?.payId);
+            dispatch(getPaymentMethod(res.data?.payId));
           })
           .catch((err) => {
             console.log(err);
