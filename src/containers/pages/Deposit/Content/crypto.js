@@ -123,8 +123,8 @@ function TabCrypto(props) {
   const onSuccess = React.useCallback(
     (public_token, metadata) => {
       console.log("public token", public_token);
-      setPaymentModalShow(!paymentModalShow);
-
+      setPaymentModalShow(false);
+      toast.success("Wait for a few seconds until new payment method will be created.");
       // send public_token to server
       const setToken = async () => {
         const response = await axios({
@@ -276,7 +276,7 @@ function TabCrypto(props) {
     );
     if (currentSrn.length === 0) {
       setIsUploading(false);
-      toast.success("Wait a few seconds.");
+      toast.success("Wait for a few seconds.");
       return;
     }
     let formData = new FormData();

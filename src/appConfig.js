@@ -1,7 +1,7 @@
 export const appConfig = {
 
   apiUrl: 'https://backendofmaui.herokuapp.com',
-  //apiUrl: 'http://localhost:4000',
+  // apiUrl: 'http://localhost:4000',
   MICRO: 1_000_000,
   BLOCKSPERYEAR: 4_656_810,
 
