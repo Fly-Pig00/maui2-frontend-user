@@ -29,6 +29,22 @@ const initialState = {
 
 export default handleActions(
   {
+    [requestPending(WorkflowConstants.GOOGLE_SIGNIN_ACTION)]: (state) => ({
+      ...state,
+      isLoading: true,
+      error: null,
+    }),
+    [requestSuccess(WorkflowConstants.GOOGLE_SIGNIN_ACTION)]: (state, action) => ({
+      ...state,
+      ...action.payload,
+      totalBalances: action.payload?.wyreUser?.totalBalances,
+      availableBalances: action.payload?.wyreUser?.availableBalances,
+      walletAddress: action.payload.user?.ethWalletAddr,
+      paymentMethod: action.payload.user?.payMethods,
+      isLogged: true,
+      isLoading: false,
+      error: null,
+    }),
     [requestPending(WorkflowConstants.SIGNIN_ACTION)]: (state) => ({
       ...state,
       isLoading: true,

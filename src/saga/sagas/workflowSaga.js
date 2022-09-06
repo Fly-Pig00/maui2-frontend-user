@@ -13,6 +13,14 @@ function* signIn(action) {
   }), action);
 }
 
+function* googleSignIn(action) {
+  yield call(request({
+    type: WorkflowConstants.GOOGLE_SIGNIN_ACTION,
+    method: 'POST',
+    url: action.payload.url,
+  }), action);
+}
+
 function* tokenSignIn(action) {
   yield call(request({
     type: WorkflowConstants.TOKEN_SIGNIN_ACTION,
@@ -107,6 +115,7 @@ function* getIPAddress(action) {
 export default function* workflowSaga() {
   yield takeEvery(WorkflowConstants.GET_IP_ADDRESS, getIPAddress);
   yield takeEvery(WorkflowConstants.SIGNIN_ACTION, signIn);
+  yield takeEvery(WorkflowConstants.GOOGLE_SIGNIN_ACTION, googleSignIn);
   yield takeEvery(WorkflowConstants.TOKEN_SIGNIN_ACTION, tokenSignIn);
   yield takeEvery(WorkflowConstants.GET_PAYMENT_METHOD_ACTION, getPaymentMethod);
   yield takeEvery(WorkflowConstants.SIGNOUT_ACTION, signOut);

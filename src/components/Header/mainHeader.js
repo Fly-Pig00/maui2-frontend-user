@@ -5,6 +5,10 @@ import { connect, useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import moment from "moment";
 import axios from "axios";
+import {
+  CountryDropdown,
+  CountryRegionData,
+} from "react-country-region-selector";
 
 import AnimatedTab from "../AnimatedTab";
 import DarkMode from "../DarkMode";
@@ -104,11 +108,12 @@ function LoginButton() {
 function UserSetting({ label, signOut }) {
   const [userDropdownShow, setUserDropdownShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
-
+  const [userProfileModalShow, setUserProfileModalShow] = useState(false);
+  const [country, setCountry] = useState("");
   useEffect(() => {
-    if (modalShow) document.body.style.overflow = "hidden";
+    if (modalShow || userProfileModalShow) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "auto";
-  }, [modalShow]);
+  }, [modalShow, userProfileModalShow]);
 
   function handleSIgnOutClick() {
     localStorage.clear();
@@ -146,6 +151,46 @@ function UserSetting({ label, signOut }) {
       });
     // setModalShow(true);
   }
+
+  const handleUserProfile = () => {
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+    setUserProfileModalShow(true);
+  }
+
+  const resetUserProfile = () => {
+    // const data = {
+    //   fields: {
+    //     firstName: 'Robert',
+    //     lastName: 'Johnson',
+    //     dateOfBirth
+    //     residenceAddress
+    //   }
+    // }
+    const token = localStorage.getItem("token");
+    axios({
+      method: "post",
+      //data, 
+      headers: { Authorization: `bearer ${token}` },
+      url: `${appConfig.apiUrl}/v1/kyc`,
+    })
+      .then((result) => {
+        // const url = result.data?.url || "";
+        const reserve = result.data;
+        console.log(result);
+        if (result.data?.onboardingUrl) {
+          window.open(
+            result.data?.onboardingUrl,
+            "_blank",
+            "toolbar=yes,scrollbars=yes,resizable=yes,right=0,width=450,height=700"
+          );
+        }
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  }
   // const label = props.label;
   return (
     <>
@@ -161,7 +206,13 @@ function UserSetting({ label, signOut }) {
         {userDropdownShow && (
           <div className="absolute left-[-10px] md:left-[15px] top-[30px] md:top-[43px] w-[60px] md:w-[93px] py-[10px] bg-[#F3F3FB] dark:bg-[#1c1f21] text-[#1199FA] text-[12px] md:text-[16px] dark:text-[#1199FA] dark:border-2 dark:border-[#1199FA] font-[600] flex justify-center items-center z-50 rounded-[10px]">
             <div className="">
-              <div className="cursor-pointer" onClick={handleKYC}>
+              <div
+                className="cursor-pointer"
+                onClick={handleUserProfile}
+              >
+                Profile
+              </div>
+              <div className="mt-[10px] cursor-pointer" onClick={handleKYC}>
                 KYC
               </div>
               <div
@@ -191,6 +242,106 @@ function UserSetting({ label, signOut }) {
           </div>
         </div>
       )} */}
+
+      {userProfileModalShow && (
+        <div>
+          <div className="fixed left-0 md:left-[50vw] top-0 w-full md:w-[50vw] h-[100vh] bg-deposit-card dark:bg-deposit-card-dark z-[60]">
+            <div className="mt-[30px] flex justify-between md:h-[50px]">
+              <div className="flex justify-center items-center text-[30px] text-[#000] dark:text-[#FFF] font-[600] w-[90%] h-[100%]">
+                User Profile
+              </div>
+              <div
+                className="flex justify-center items-center h-[100%] text-[30px] md:text-[40px] dark:text-[#FFF] w-[15%] md:w-[10%] cursor-pointer"
+                onClick={() => setUserProfileModalShow(false)}
+              >
+                &times;
+              </div>
+            </div>
+            <div className="md:h-[calc(100vh-50px)] md:w-full px-[30px] dark:text-[#FFF] overflow-auto">
+              <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
+                <div className="md:w-[45%]">
+                  <div>First Name*</div>
+                  <input
+                    type="text"
+                    className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                  />
+                </div>
+                <div className="md:w-[45%]">
+                  <div>Last Name*</div>
+                  <input
+                    type="text"
+                    className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                  />
+                </div>
+              </div>
+              <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
+                <div className="md:w-[45%]">
+                  <div>Country*</div>
+                  <CountryDropdown
+                    className="w-[100%] rounded-[12px] border-transparent text-[#000]"
+                    value={country}
+                    onChange={(val) => {
+                      const countryShortName = CountryRegionData.filter(
+                        (country) => country[0] === val
+                      );
+                      setCountry(val);
+                    }}
+                  />
+                </div>
+                <div className="md:w-[45%]">
+                  <div>State*</div>
+                  <input
+                    type="text"
+                    className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                  />
+                </div>
+              </div>
+              <div className="md:mt-[10px]">Address*</div>
+              <input
+                type="text"
+                className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+              />
+              <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
+                <div className="md:w-[45%]">
+                  <div>Postal / ZIP code*</div>
+                  <input
+                    type="text"
+                    className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                  />
+                </div>
+                <div className="md:w-[45%]">
+                  <div>City*</div>
+                  <input
+                    type="text"
+                    className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                  />
+                </div>
+              </div>
+              <div className="md:mt-[10px]">Email*</div>
+              <input
+                type="text"
+                className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+              />
+              <div className="md:mt-[10px]">Phone Number*</div>
+              <input
+                type="text"
+                className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+              />
+              <Button
+                // isLoading={addPayLoading}
+                className="mt-[10px] md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
+              // onClick={handleAddPayment}
+              >
+                UPDATE
+              </Button>
+            </div>
+          </div>
+          <div
+            className="fixed left-0 top-0 w-[100vw] h-[100vh] bg-[#fff] z-[10] opacity-80"
+            onClick={() => setUserProfileModalShow(false)}
+          ></div>
+        </div>
+      )}
     </>
   );
 }
@@ -234,11 +385,10 @@ function MainHeader(props) {
         </div>
       )}
       <div
-        className={`absolute transition-all duration-1000 flex justify-between items-center ${
-          isTheme2
-            ? "top-[80px] md:top-[130px] right-[10px] md:right-[20px]"
-            : "top-[25px] md:top-[50px] right-[0px]"
-        }`}
+        className={`absolute transition-all duration-1000 flex justify-between items-center ${isTheme2
+          ? "top-[80px] md:top-[130px] right-[10px] md:right-[20px]"
+          : "top-[25px] md:top-[50px] right-[0px]"
+          }`}
       >
         {props.workflow.isLogged && !isTheme2 && (
           <button
@@ -258,10 +408,10 @@ function MainHeader(props) {
               symbol="$"
               balance={
                 props.workflow?.availableBalances &&
-                Object.keys(props.workflow?.availableBalances).length > 0
+                  Object.keys(props.workflow?.availableBalances).length > 0
                   ? Math.floor(
-                      Object.values(props.workflow?.availableBalances)[0] * 1000
-                    ) / 1000
+                    Object.values(props.workflow?.availableBalances)[0] * 1000
+                  ) / 1000
                   : 0
               }
               isLoading={props.workflow.isUpdatingBalance}
@@ -296,7 +446,7 @@ function MainHeader(props) {
                           <div className="md:ml-[5px] font-semibold md:w-[60px] md:w-[100px] text-[12px] md:text-[14px] leading-[24px] mt-[1px] text-transparent bg-clip-text bg-gradient-to-r from-[#1199FA] to-[#00DDA2] transition-all duration-1000">
                             {Math.floor(
                               Object.values(props.workflow?.availableBalances)[
-                                index
+                              index
                               ] * 1000
                             ) / 1000}
                           </div>
@@ -304,7 +454,7 @@ function MainHeader(props) {
                         <div className="text-[#707070] text-[12px] md:text-[14px]">
                           {
                             Object.keys(props.workflow?.availableBalances)[
-                              index
+                            index
                             ]
                           }
                         </div>
@@ -333,9 +483,8 @@ function MainHeader(props) {
         )}
       </div>
       <div
-        className={`absolute right-[10px] md:right-0 transition-all duration-1000 flex justify-end ${
-          isTheme2 ? "top-[30px] md:top-[60px]" : "top-[70px] md:top-[195px]"
-        }`}
+        className={`absolute right-[10px] md:right-0 transition-all duration-1000 flex justify-end ${isTheme2 ? "top-[30px] md:top-[60px]" : "top-[70px] md:top-[195px]"
+          }`}
       >
         {/* <div className="w-[100px] md:w-[150px] mr-[20px]">
           <NetworkSwitch />

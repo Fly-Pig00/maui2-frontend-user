@@ -29,7 +29,6 @@ export const request = ({ type, method, url, apiUrl, headers, success, fail, pay
       } else {
         delete axios.defaults.headers.common.Authorization;
       }
-
       const res = yield call(axios.request, {
         url,
         method: method.toLowerCase(),

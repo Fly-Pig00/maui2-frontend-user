@@ -471,6 +471,7 @@ function TabCrypto(props) {
         const tmpDest = result.data.dest.split("0x");
         setDest(`0x${tmpDest[1]}`);
         setReceived(result.data.purchaseAmount);
+        console.log(result)
         setIsLoading(false);
       })
       .catch((err) => {
