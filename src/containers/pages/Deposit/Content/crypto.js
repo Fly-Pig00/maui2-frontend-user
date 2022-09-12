@@ -139,7 +139,8 @@ function TabCrypto(props) {
   const onSuccess = React.useCallback(
     (public_token, metadata) => {
       console.log("public token", public_token);
-      console.log("metadata", metadata);
+      setPaymentModalShow(false);
+      toast.success("Wait for a few seconds until new payment method will be created.");
       // send public_token to server
       const setToken = async () => {
         const response = await axios({
@@ -154,8 +155,9 @@ function TabCrypto(props) {
           url: `${appConfig.apiUrl}/v1/plaid/set_processor_token`,
         })
           .then((res) => {
-            console.log(metadata);
-            setAccessInfo(res.data);
+            // setAccessInfo(res.data.processor_token);
+            setCurrentPayMethod(res.data?.payId);
+            dispatch(getPaymentMethod(res.data?.payId));
           })
           .catch((err) => {
             console.log(err);
@@ -290,7 +292,7 @@ function TabCrypto(props) {
     );
     if (currentSrn.length === 0) {
       setIsUploading(false);
-      toast.success("Wait a few seconds.");
+      toast.success("Wait for a few seconds.");
       return;
     }
     let formData = new FormData();
@@ -535,6 +537,7 @@ function TabCrypto(props) {
       url: `${appConfig.apiUrl}/v1/createPayMethod`,
     })
       .then((result) => {
+        console.log(result.data);
         setCurrentPayMethod(result.data?.payId);
         dispatch(getPaymentMethod(result.data?.payId));
         setAddPayLoading(false);
