@@ -109,7 +109,17 @@ function UserSetting({ label, signOut }) {
   const [userDropdownShow, setUserDropdownShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [userProfileModalShow, setUserProfileModalShow] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [country, setCountry] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [state, setState] = useState("");
+  const [address, setAddress] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [city, setCity] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
   useEffect(() => {
     if (modalShow || userProfileModalShow) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "auto";
@@ -155,7 +165,17 @@ function UserSetting({ label, signOut }) {
   const handleUserProfile = () => {
 
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
+    //const wyreUser = JSON.parse(localStorage.getItem("wyreUser"));
+    setFirstName(user.firstName);
+    setLastName(user.lastName);
+    setDateOfBirth(user.dateOfBirth);
+    setCountry(user.residenceAddress.country);
+    setState(user.residenceAddress.state);
+    setCity(user.residenceAddress.city);
+    setAddress(user.residenceAddress.street1);
+    setPostalCode(user.residenceAddress.postalCode);
+    setPhone(user.phone);
+    setEmail(user.email);
     setUserProfileModalShow(true);
   }
 
@@ -264,6 +284,8 @@ function UserSetting({ label, signOut }) {
                   <input
                     type="text"
                     className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
                 <div className="md:w-[45%]">
@@ -271,6 +293,30 @@ function UserSetting({ label, signOut }) {
                   <input
                     type="text"
                     className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                    value={lastName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
+                <div className="md:w-[45%]">
+                  <div>Birthday*</div>
+                  <input
+                    type="date"
+                    className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                    value={dateOfBirth}
+                    onChange={(e) => {
+                      setDateOfBirth(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="md:w-[45%]">
+                  <div>Phone Number*</div>
+                  <input
+                    type="text"
+                    className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
                   />
                 </div>
               </div>
@@ -293,6 +339,8 @@ function UserSetting({ label, signOut }) {
                   <input
                     type="text"
                     className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
                   />
                 </div>
               </div>
@@ -300,6 +348,8 @@ function UserSetting({ label, signOut }) {
               <input
                 type="text"
                 className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
               <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
                 <div className="md:w-[45%]">
@@ -307,6 +357,8 @@ function UserSetting({ label, signOut }) {
                   <input
                     type="text"
                     className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                    value={postalCode}
+                    onChange={(e) => setPostalCode(e.target.value)}
                   />
                 </div>
                 <div className="md:w-[45%]">
@@ -314,6 +366,8 @@ function UserSetting({ label, signOut }) {
                   <input
                     type="text"
                     className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
                   />
                 </div>
               </div>
@@ -321,12 +375,10 @@ function UserSetting({ label, signOut }) {
               <input
                 type="text"
                 className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
-              <div className="md:mt-[10px]">Phone Number*</div>
-              <input
-                type="text"
-                className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
-              />
+
               <Button
                 // isLoading={addPayLoading}
                 className="mt-[10px] md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"

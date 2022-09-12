@@ -117,6 +117,22 @@ function TabCrypto(props) {
   const [linkToken, setLinkToken] = useState("");
   const [accessInfo, setAccessInfo] = useState({});
 
+  useEffect(() => {
+    if (stage === 1) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      console.log(user)
+      setGivenName(user.firstName);
+      setFamilyName(user.lastName);
+      setTestCountry(user.residenceAddress.country);
+      setState(user.residenceAddress.state);
+      setCity(user.residenceAddress.city);
+      setStreet1(user.residenceAddress.street1);
+      setPostalCode(user.residenceAddress.postalCode);
+      setEmail(user.email);
+      setPhone(user.phone);
+    }
+  }, [stage])
+
   axios.defaults.baseURL = appConfig.apiUrl;
   axios.defaults.headers.common["Authorization"] = token;
 
@@ -712,11 +728,10 @@ function TabCrypto(props) {
                   paymentMethods.map((payment, index) => (
                     <div
                       key={index}
-                      className={`md:w-full h-[110px] md:h-[120px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${
-                        selectedPayment === index
+                      className={`md:w-full h-[110px] md:h-[120px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${selectedPayment === index
                           ? " border-[3px] border-[#1199FA]"
                           : ""
-                      }`}
+                        }`}
                       onClick={() => setSelectedPayment(index)}
                     >
                       <div className="relative h-[100%] flex items-center justify-between">
@@ -794,11 +809,10 @@ function TabCrypto(props) {
                     Plaid
                   </div> */}
                   <Button
-                    className={`!w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${
-                      isPlaidPayment
+                    className={`!w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${isPlaidPayment
                         ? "border-[2px] border-[#1199FA]"
                         : "border-[1px] border-[#555555]"
-                    } flex justify-center items-center cursor-pointer`}
+                      } flex justify-center items-center cursor-pointer`}
                     type="button"
                     id="plaid"
                     onClick={() => {
@@ -810,11 +824,10 @@ function TabCrypto(props) {
                     Plaid
                   </Button>
                   <div
-                    className={`h-[150px] rounded-[15px] dark:text-[#fff] ${
-                      !isPlaidPayment
+                    className={`h-[150px] rounded-[15px] dark:text-[#fff] ${!isPlaidPayment
                         ? "border-[2px] border-[#1199FA]"
                         : "border-[1px] border-[#555555]"
-                    } flex justify-center items-center cursor-pointer`}
+                      } flex justify-center items-center cursor-pointer`}
                     onClick={() => setIsPlaidPayment(false)}
                   >
                     Bank Transfer
@@ -1051,8 +1064,12 @@ function TabCrypto(props) {
               value={testCountry}
               onChange={(val) => {
                 const countryShortName = CountryRegionData.filter(
-                  (country) => country[0] === val
+                  (country) => {
+                    console.log(country[1])
+                    return country[0] === val
+                  }
                 );
+
                 setTestCountry(val);
                 setCountry(countryShortName[0][1]);
               }}
