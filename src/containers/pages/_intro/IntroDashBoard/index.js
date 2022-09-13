@@ -246,7 +246,7 @@ function IntroDashBoard() {
             <div className="bg-introdashboard-arrow bg-cover bg-center w-[30px] md:w-[49px] h-[10px] md:h-[15px]"></div>
           </div>
         )}
-        <div className="flex items-center justify-center bg-introdashboard-phone-photo-mobile md:bg-introdashboard-phone-photo bg-cover bg-center w-[100%] h-[calc(100vw*660/390)] md:h-[calc(100vw*1154/1512)]">
+        {/* <div className="flex items-center justify-center bg-introdashboard-phone-photo-mobile md:bg-introdashboard-phone-photo bg-cover bg-center w-[100%] h-[calc(100vw*660/390)] md:h-[calc(100vw*1154/1512)]">
           <div className="w-[55%] md:w-[45%] md:mx-auto text-[#FFF] text-[32px] md:text-[64px] md:leading-[110px] font-[600] drop-shadow-[0_4px_26px_rgba(0,0,0,0.25)] text-center">
             {!isMobile && (
               <>
@@ -263,7 +263,7 @@ function IntroDashBoard() {
               </>
             )}
           </div>
-        </div>
+        </div> */}
         <div className="relative overflow-hidden">
           <div className="mt-[120px] md:mt-[30vh] w-[80%] mx-auto md:w-full flex justify-center text-[36px] md:text-[72px] text-[#D9D9D9] md:text-[#1199FA] font-[600] capitalize md:leading-[120%]">
             <div className="md:border-b-[5px] border-[#1199FA] text-center">
@@ -298,7 +298,7 @@ function IntroDashBoard() {
             Maui {isMobile && <br />}
             <span className="text-[#1199FA] md:text-[#FFF]">B</span>anking{" "}
             {isMobile && <br />}{" "}
-            <span className="text-[#1199FA] md:text-[#FFF]">E</span>evolution.
+            <span className="text-[#1199FA] md:text-[#FFF]">E</span>volution.
           </div>
           <div className="w-[45%] mt-[20px] text-[#FFF] text-[14px] md:text-[20px] leading-[17px] md:leading-[24px] md:font-[400]">
             Get access to unmatched high yields on your money impossible for
