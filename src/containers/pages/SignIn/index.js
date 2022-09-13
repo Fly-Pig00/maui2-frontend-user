@@ -5,9 +5,24 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { apiSignIn, apiGoogleSignIn, GOOGLE_SIGNUP_ACTION } from "../../../saga/actions/workflow";
 import Button from "../../../components/Button";
-import GoogleButton from "../../../components/Button/GoogleButton";
+//import GoogleButton from "../../../components/Button/GoogleButton";
 import SocialButton from "../../../components/Button/SocialButton";
-import SocialButtons from "../../../components/Button/SocialButtons";
+import SocialSignUpButton from "../../../components/Button/SocialSignUpButton";
+const tempData = {
+  "firstName": "Deandre",
+  "lastName": "Renoylds",
+  "phone": "12199644724",
+  "email":"wando0226@gmail.com",
+  "dateOfBirth": "2000-01-01",
+  "residenceAddress": {
+    "street1": "132 Test Ave",
+    "street2": null,
+    "city": "Philadelphia",
+    "state": "PA",
+    "postalCode": "55555",
+    "country": "United States"
+  }
+}
 
 function SignIn(props) {
   const history = useHistory();
@@ -50,21 +65,6 @@ function SignIn(props) {
         console.log(response)
         localStorage.setItem("token", response.tokens.access.token);
         localStorage.setItem("refreshToken", response.tokens.refresh.token);
-        const tempData = {
-          "firstName": "Deandre",
-          "lastName": "Renoylds",
-          "phone": "12199644724",
-          "email":"wando0226@gmail.com",
-          "dateOfBirth": "2000-01-01",
-          "residenceAddress": {
-            "street1": "132 Test Ave",
-            "street2": null,
-            "city": "Philadelphia",
-            "state": "PA",
-            "postalCode": "55555",
-            "country": "United States"
-          }
-        }
         //localStorage.setItem("user", JSON.stringify(response.wyreUser.fields));
         localStorage.setItem("user", JSON.stringify(tempData));
         toast.success("Login Success!");
@@ -96,7 +96,9 @@ function SignIn(props) {
       success: (response) => {
         localStorage.setItem("token", response.tokens.access.token);
         localStorage.setItem("refreshToken", response.tokens.refresh.token);
-        localStorage.setItem("user", JSON.stringify(response.wyreUser.fields));
+        
+        //localStorage.setItem("user", JSON.stringify(response.wyreUser.fields));
+        localStorage.setItem("user", JSON.stringify(tempData));
         toast.success("Successfully registerd!");
         handleReset();
         setIsLoading(false);
@@ -111,14 +113,13 @@ function SignIn(props) {
 
   const handleGoogleSignIn = async (res) => {
     try {
-      console.log(res)
+      console.log(res);
       setIsGoogleLoading(true);
       apiGoogleSignIn({
         url: "/v1/auth/google-login",
         method: "POST",
         data: {
-          token: res?.tokenId
-          //token: res.data?.id
+          email: res?.data.email
         },
         success: (response) => {
           if (response.msg) {
@@ -126,8 +127,8 @@ function SignIn(props) {
           } else {
             localStorage.setItem("token", response.tokens.access.token);
             localStorage.setItem("refreshToken", response.tokens.refresh.token);
-            localStorage.setItem("user", JSON.stringify(response.user));
-            console.log(response.user)
+            //localStorage.setItem("user", JSON.stringify(response.wyreUser.fields));
+            localStorage.setItem("user", JSON.stringify(tempData));
             toast.success("Login Success!");
           }
           handleReset();
@@ -152,7 +153,8 @@ function SignIn(props) {
         url: "/v1/auth/google-signup",
         method: "POST",
         data: {
-          token: res?.tokenId
+          email: res.data.email,
+          name: res?.data.name
         },
         success: (response) => {
           if (response.msg) {
@@ -160,8 +162,9 @@ function SignIn(props) {
           } else {
             localStorage.setItem("token", response.tokens.access.token);
             localStorage.setItem("refreshToken", response.tokens.refresh.token);
-            localStorage.setItem("user", JSON.stringify(response.user));
-            toast.success("Login Success!");
+            //localStorage.setItem("user", JSON.stringify(response.wyreUser.fields));
+            localStorage.setItem("user", JSON.stringify(tempData));
+            toast.success("SingUp Success!");
           }
           handleReset();
           setIsGoogleLoading(false);
@@ -295,15 +298,13 @@ function SignIn(props) {
               >
                 SignIn
               </Button>
-              <GoogleButton
+              <SocialButton 
                 className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
-                onSuccess={handleGoogleSignIn}
                 isLoading={isGoogleLoading}
+                handleResolve={handleGoogleSignIn}
               >
-                Sign in with Google
-              </GoogleButton>
-              {/* <SocialButton handleResolve={handleGoogleSignIn}></SocialButton> */}
-              {/* <SocialButtons /> */}
+                Sign In with Google
+              </SocialButton>
             </>
           ) : (
             <>
@@ -314,13 +315,13 @@ function SignIn(props) {
               >
                 SignUp
               </Button>
-              <GoogleButton
-                className="mt-[12px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[30px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
-                onSuccess={handleGoogleSignUp}
+              <SocialSignUpButton 
+                className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
                 isLoading={isGoogleLoading}
+                handleResolve={handleGoogleSignUp}
               >
-                Sign up with Google
-              </GoogleButton>
+                Sign Up with Google
+              </SocialSignUpButton>
             </>
           )}
           {/* <a href="localhost:4000/google/auth" class="btn btn-danger"><span class="fa fa-google"></span> SignIn with Google</a> */}

@@ -7,7 +7,6 @@ import { ConnectedRouter } from "connected-react-router";
 import { createBrowserHistory } from "history";
 import { CookiesProvider } from "react-cookie";
 import configureStore from "./saga/store";
-
 // main configuration
 import App from "./containers/App";
 import "./assets/css/tailwind.css";

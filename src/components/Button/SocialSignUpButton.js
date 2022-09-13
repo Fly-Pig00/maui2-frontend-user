@@ -6,7 +6,7 @@ import Loading from "./loading";
 
 const CLIENT_ID = '80846055020-t2ktehe284s1uab1jt1219f0b2r9v7kc.apps.googleusercontent.com'
 
-const SocialButton = (props) => {
+const SocialSignUpButton = (props) => {
   const [provider, setProvider] = useState('')
   const [profile, setProfile] = useState(null)
 
@@ -49,4 +49,4 @@ const SocialButton = (props) => {
   )
 }
 
-export default SocialButton;
+export default SocialSignUpButton;
