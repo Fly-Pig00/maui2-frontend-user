@@ -193,6 +193,18 @@ function UserSetting({ label, signOut }) {
       email
     }
     console.log(data)
+    // const token = localStorage.getItem("token");
+    // axios({
+    //   method: "patch",
+    //   //data, 
+    //   headers: { Authorization: `bearer ${token}` },
+    //   data,
+    //   url: `${appConfig.apiUrl}/v1/users/updateUser`,
+    // }).then(res => {
+    //   console.log(res)
+    // }).catch(err => {
+    //   console.log("error", err);
+    // })
   }
 
   const resetUserProfile = () => {
