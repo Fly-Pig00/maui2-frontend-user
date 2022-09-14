@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { apiSignIn, apiGoogleSignIn, GOOGLE_SIGNUP_ACTION } from "../../../saga/actions/workflow";
+import { apiSignIn, apiGoogleSignIn } from "../../../saga/actions/workflow";
 import Button from "../../../components/Button";
 //import GoogleButton from "../../../components/Button/GoogleButton";
 import SocialButton from "../../../components/Button/SocialButton";
@@ -148,12 +148,13 @@ function SignIn(props) {
 
   const handleGoogleSignUp = async (res) => {
     try {
+      alert(res?.data.email)
       setIsGoogleLoading(true);
       apiGoogleSignIn({
         url: "/v1/auth/google-signup",
         method: "POST",
         data: {
-          email: res.data.email,
+          email: res?.data.email,
           name: res?.data.name
         },
         success: (response) => {

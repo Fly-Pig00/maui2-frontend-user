@@ -179,6 +179,22 @@ function UserSetting({ label, signOut }) {
     setUserProfileModalShow(true);
   }
 
+  const handleUpdateProfile = () => {
+    const data = {
+      firstName,
+      lastName,
+      dateOfBirth,
+      country,
+      state,
+      city,
+      address,
+      postalCode,
+      phone,
+      email
+    }
+    console.log(data)
+  }
+
   const resetUserProfile = () => {
     // const data = {
     //   fields: {
@@ -382,7 +398,7 @@ function UserSetting({ label, signOut }) {
               <Button
                 // isLoading={addPayLoading}
                 className="mt-[10px] md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
-              // onClick={handleAddPayment}
+                onClick={handleUpdateProfile}
               >
                 UPDATE
               </Button>

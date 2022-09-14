@@ -133,6 +133,16 @@ function TabCrypto(props) {
     }
   }, [stage])
 
+  useEffect(() => {
+    if (paymentModalStage === 1) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      setFirstNameOnAccount(user.firstName);
+      setLastNameOnAccount(user.lastName);
+      setBeneficiaryAddress(user.residenceAddress.street1);
+      
+    }
+  }, [paymentModalStage]);
+
   axios.defaults.baseURL = appConfig.apiUrl;
   axios.defaults.headers.common["Authorization"] = token;
 
@@ -732,8 +742,8 @@ function TabCrypto(props) {
                     <div
                       key={index}
                       className={`md:w-full h-[110px] md:h-[120px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${selectedPayment === index
-                          ? " border-[3px] border-[#1199FA]"
-                          : ""
+                        ? " border-[3px] border-[#1199FA]"
+                        : ""
                         }`}
                       onClick={() => setSelectedPayment(index)}
                     >
@@ -813,14 +823,14 @@ function TabCrypto(props) {
                   </div> */}
                   <Button
                     className={`!w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${isPlaidPayment
-                        ? "border-[2px] border-[#1199FA]"
-                        : "border-[1px] border-[#555555]"
+                      ? "border-[2px] border-[#1199FA]"
+                      : "border-[1px] border-[#555555]"
                       } flex justify-center items-center cursor-pointer`}
                     type="button"
                     id="plaid"
                     onClick={() => {
                       setIsPlaidPayment(true);
-                      open();
+                      //open();
                     }}
                     isDisabled={!linkToken || !ready}
                   >
@@ -828,8 +838,8 @@ function TabCrypto(props) {
                   </Button>
                   <div
                     className={`h-[150px] rounded-[15px] dark:text-[#fff] ${!isPlaidPayment
-                        ? "border-[2px] border-[#1199FA]"
-                        : "border-[1px] border-[#555555]"
+                      ? "border-[2px] border-[#1199FA]"
+                      : "border-[1px] border-[#555555]"
                       } flex justify-center items-center cursor-pointer`}
                     onClick={() => setIsPlaidPayment(false)}
                   >
@@ -839,7 +849,10 @@ function TabCrypto(props) {
                     className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
                     onClick={() => {
                       if (!isPlaidPayment) setPaymentModalStage(1);
-                      else handlePlaidMethod();
+                      else {
+                        open();
+                        handlePlaidMethod();
+                      }
                     }}
                   >
                     NEXT
@@ -1158,10 +1171,10 @@ function TabCrypto(props) {
         </div>
         <div className="md:mt-[20px] flex justify-between">
           <div className="md:w-[45%]">
-            <div>DAI Received</div>
+            <div>{selectedCryptoDest} Received</div>
           </div>
           <div className="md:w-[45%]">
-            <div>{received} DAI</div>
+            <div>{received + " " + selectedCryptoDest}</div>
           </div>
         </div>
         <div className="md:mt-[20px] flex justify-between">
