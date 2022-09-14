@@ -141,7 +141,7 @@ function IntroBorrow() {
             <div className="bg-introearn-currenty bg-cover bg-center w-[78px] h-[33px]"></div>
           </div>
         </div>
-        <div className="mt-[200px] md:mt-[300px] md:w-[55%] mx-auto md:min-w-[750px] flex flex-col md:flex-row justify-between">
+        {/* <div className="mt-[200px] md:mt-[300px] md:w-[55%] mx-auto md:min-w-[750px] flex flex-col md:flex-row justify-between">
           <div>
             <div className="text-[16px] md:text-[20.5px] leading-[19px] md:leading-[24px] font-[500] text-[#FFF] text-center">
               UPTO
@@ -164,9 +164,9 @@ function IntroBorrow() {
               Interest per month
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
-      <div className="mt-[60px] md:mt-[50px] mx-auto pt-[30px] md:pt-[70px] w-[96%] md:w-[80%] md:border-[1px] md:border-[rgba(0,0,0,0.21)]">
+      {/* <div className="mt-[60px] md:mt-[50px] mx-auto pt-[30px] md:pt-[70px] w-[96%] md:w-[80%] md:border-[1px] md:border-[rgba(0,0,0,0.21)]">
         <div className="flex flex-row justify-between px-[2%]">
           <div className="text-[32px] md:text-[64px] leading-[38px] md:leading-[76px] font-[500] text-[#FFF]">
             Credit Analysis
@@ -214,7 +214,7 @@ function IntroBorrow() {
           Copyright © 2022 Maui Finance. All rights reserved.Privacy Policy
           Terms and Conditions Legal
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

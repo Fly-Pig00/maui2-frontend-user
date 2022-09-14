@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 import useWindowSize from "../../utils/useWindowSize";
+import twitterLogo from "../../assets/images/_common/twitter.png"
+import linkedinLogo from "../../assets/images/_common/linkedin.png"
 
 function Footer(props) {
   const { location } = props;
@@ -86,12 +88,14 @@ function Footer(props) {
           <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer">
             <a href="https://twitter.com/mauibank" target="_blank">
               {" "}
+              <img src={twitterLogo} alt="Twitter Logo" className="w-[20px] h-[20px] inline" />{" "}
               @mauibank
             </a>
           </div>
           <div className="p-[5px] text-[20px] leading-[24px] md:p-0 md:text-[16px] text-[#707070] md:font-[300] md:leading-[29px] cursor-pointer">
             <a href="https://www.linkedin.com/company/mauibank" target="_blank">
               {" "}
+              <img src={linkedinLogo} alt="Twitter Logo" className="w-[20px] h-[20px] inline" />{" "}
               @mauibank
             </a>
           </div>
