@@ -403,7 +403,7 @@ function UserSetting({ label, signOut }) {
                 type="text"
                 className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                disabled
               />
 
               <Button
