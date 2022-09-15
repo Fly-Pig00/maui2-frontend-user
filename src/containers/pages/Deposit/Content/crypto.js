@@ -120,25 +120,24 @@ function TabCrypto(props) {
   useEffect(() => {
     if (stage === 1) {
       const user = JSON.parse(localStorage.getItem("user"));
-      console.log(user)
-      setGivenName(user.firstName);
-      setFamilyName(user.lastName);
-      setTestCountry(user.residenceAddress.country);
-      setState(user.residenceAddress.state);
-      setCity(user.residenceAddress.city);
-      setStreet1(user.residenceAddress.street1);
-      setPostalCode(user.residenceAddress.postalCode);
-      setEmail(user.email);
-      setPhone(user.phone);
+      setGivenName(user.firstName || '');
+      setFamilyName(user.lastName || '');
+      setTestCountry(user.country || '');
+      setState(user.state || '');
+      setCity(user.city || '');
+      setStreet1(user.street || '');
+      setPostalCode(user.postalCode || '');
+      setEmail(user.email || '');
+      setPhone(user.phone || '');
     }
   }, [stage])
 
   useEffect(() => {
     if (paymentModalStage === 1) {
       const user = JSON.parse(localStorage.getItem("user"));
-      setFirstNameOnAccount(user.firstName);
-      setLastNameOnAccount(user.lastName);
-      setBeneficiaryAddress(user.residenceAddress.street1);
+      setFirstNameOnAccount(user.firstName || '');
+      setLastNameOnAccount(user.lastName || '');
+      setBeneficiaryAddress(user.street || '');
       
     }
   }, [paymentModalStage]);

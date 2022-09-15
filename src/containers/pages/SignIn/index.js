@@ -5,24 +5,8 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { apiSignIn, apiGoogleSignIn } from "../../../saga/actions/workflow";
 import Button from "../../../components/Button";
-//import GoogleButton from "../../../components/Button/GoogleButton";
-import SocialButton from "../../../components/Button/SocialButton";
-import SocialSignUpButton from "../../../components/Button/SocialSignUpButton";
-const tempData = {
-  "firstName": "Deandre",
-  "lastName": "Renoylds",
-  "phone": "12199644724",
-  "email":"wando0226@gmail.com",
-  "dateOfBirth": "2000-01-01",
-  "residenceAddress": {
-    "street1": "132 Test Ave",
-    "street2": null,
-    "city": "Philadelphia",
-    "state": "PA",
-    "postalCode": "55555",
-    "country": "United States"
-  }
-}
+
+import GoogleButton from "../../../components/Button/GoogleButton";
 
 function SignIn(props) {
   const history = useHistory();
@@ -65,8 +49,7 @@ function SignIn(props) {
         console.log(response)
         localStorage.setItem("token", response.tokens.access.token);
         localStorage.setItem("refreshToken", response.tokens.refresh.token);
-        //localStorage.setItem("user", JSON.stringify(response.wyreUser.fields));
-        localStorage.setItem("user", JSON.stringify(tempData));
+        localStorage.setItem("user", JSON.stringify(response.user));
         toast.success("Login Success!");
         handleReset();
         setIsLoading(false);
@@ -96,9 +79,7 @@ function SignIn(props) {
       success: (response) => {
         localStorage.setItem("token", response.tokens.access.token);
         localStorage.setItem("refreshToken", response.tokens.refresh.token);
-        
-        //localStorage.setItem("user", JSON.stringify(response.wyreUser.fields));
-        localStorage.setItem("user", JSON.stringify(tempData));
+        localStorage.setItem("user", JSON.stringify(response.user));
         toast.success("Successfully registerd!");
         handleReset();
         setIsLoading(false);
@@ -119,7 +100,7 @@ function SignIn(props) {
         url: "/v1/auth/google-login",
         method: "POST",
         data: {
-          email: res?.data.email
+          email: res?.email
         },
         success: (response) => {
           if (response.msg) {
@@ -127,8 +108,7 @@ function SignIn(props) {
           } else {
             localStorage.setItem("token", response.tokens.access.token);
             localStorage.setItem("refreshToken", response.tokens.refresh.token);
-            //localStorage.setItem("user", JSON.stringify(response.wyreUser.fields));
-            localStorage.setItem("user", JSON.stringify(tempData));
+            localStorage.setItem("user", JSON.stringify(response.user));
             toast.success("Login Success!");
           }
           handleReset();
@@ -148,14 +128,15 @@ function SignIn(props) {
 
   const handleGoogleSignUp = async (res) => {
     try {
-      alert(res?.data.email)
       setIsGoogleLoading(true);
       apiGoogleSignIn({
         url: "/v1/auth/google-signup",
         method: "POST",
         data: {
-          email: res?.data.email,
-          name: res?.data.name
+          email: res?.email,
+          name: res?.name,
+          firstName: res?.given_name,
+          lastName: res?.family_name
         },
         success: (response) => {
           if (response.msg) {
@@ -163,8 +144,7 @@ function SignIn(props) {
           } else {
             localStorage.setItem("token", response.tokens.access.token);
             localStorage.setItem("refreshToken", response.tokens.refresh.token);
-            //localStorage.setItem("user", JSON.stringify(response.wyreUser.fields));
-            localStorage.setItem("user", JSON.stringify(tempData));
+            localStorage.setItem("user", JSON.stringify(response.user));
             toast.success("SingUp Success!");
           }
           handleReset();
@@ -299,13 +279,20 @@ function SignIn(props) {
               >
                 SignIn
               </Button>
-              <SocialButton 
+              {/* <SocialButton 
                 className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
                 isLoading={isGoogleLoading}
                 handleResolve={handleGoogleSignIn}
               >
                 Sign In with Google
-              </SocialButton>
+              </SocialButton> */}
+              <GoogleButton 
+                className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
+                isLoading={isGoogleLoading}
+                handleSuccess={handleGoogleSignIn}
+              >
+                Sign In with Google
+              </GoogleButton>
             </>
           ) : (
             <>
@@ -316,13 +303,13 @@ function SignIn(props) {
               >
                 SignUp
               </Button>
-              <SocialSignUpButton 
+              <GoogleButton 
                 className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
                 isLoading={isGoogleLoading}
-                handleResolve={handleGoogleSignUp}
+                handleSuccess={handleGoogleSignUp}
               >
                 Sign Up with Google
-              </SocialSignUpButton>
+              </GoogleButton>
             </>
           )}
           {/* <a href="localhost:4000/google/auth" class="btn btn-danger"><span class="fa fa-google"></span> SignIn with Google</a> */}
