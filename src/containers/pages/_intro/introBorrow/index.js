@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CSSTransition } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Earth from "../../../../components/Earth";
 import useWindowSize from "../../../../utils/useWindowSize";
 
@@ -10,6 +10,11 @@ function IntroBorrow() {
   const [enterEarth, setEnterEarth] = useState(false);
   const [enterBorrowUp, setEnterBorrowUp] = useState(false);
   
+  useEffect(() => {
+    if (size.width <= 768) setIsMobile(true);
+    else setIsMobile(false);
+  }, [size]);
+
   const handleEnterBorrowUp = () => {    
     setEnterBorrowUp(true);
   };
@@ -19,17 +24,11 @@ function IntroBorrow() {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    if (size.width <= 768) setIsMobile(true);
-    else setIsMobile(false);
-  }, [size]);
-
   return (
     <div className="relative bg-[#10213f] md:pb-[70px]">
       <div className="absolute left-[-200px] top-[20vh] w-[1024px] h-[977px] bg-introborrow-shape2 bg-cover bg-center z-10 animate-display1"></div>
       <div className="absolute left-[-50px] top-[20vh] w-[158px] h-[151px] bg-introborrow-shape2 bg-cover bg-center z-10 rotate-[60deg] animate-display1"></div>
       <div className="relative w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-cover bg-left  overflow-hidden">
-
         <CSSTransition
           in={enterEarth}
           timeout={1000}
@@ -44,36 +43,70 @@ function IntroBorrow() {
         >
           <Earth className="absolute scale-[2.0] transition-all duration-[2000ms]"/>
         </CSSTransition>
-
         <div className="absolute left-[-100px] top-0 w-[232px] h-[250px] bg-introborrow-shape1 bg-cover bg-center md:animate-move3"></div>
         <div className="w-full mt-[26vh]"></div>
-        <CSSTransition
-          in={enterEarth}
-          // appear={enterEarth}
-          timeout={1000}
-          classNames={{
-            enter: 'scale-[0.3] bottom-[-9rem]',
-            // enterActive: 'scale-[0.6] bottom-[-3rem]',
-            enterDone: 'scale-[0.9] bottom-1',
-            // enterActive: 'scale-[0.3] bottom-0 duration-[1000ms]',
-            // enterDone: 'scale-[0.9] bottom-0 duration-[2000ms]',
-            // appear: 'opacity-0 bottom-0',
-            // appearActive: 'opaicty-100 bottom-0',
-            // appearDone: 'opaicty-100 bottom-0',
-          }}
-        >
-          <div className="absolute transition-all duration-[2000ms] scale-[0.3]" onClick={handleEnterBorrowUp}>
-            <div className="text-[20px] md:text-[40px] leading-[24px] md:leading-[48px] font-[500] md:font-[600] text-[#FFF] text-center">
-              BORROW UP TO
+        {!isMobile && (
+          <CSSTransition
+            in={enterEarth}
+            // appear={enterEarth}
+            timeout={1000}
+            classNames={{
+              enter: 'scale-[0.3] bottom-[-9rem]',
+              // enterActive: 'scale-[0.6] bottom-[-3rem]',
+              enterDone: 'scale-[0.9] bottom-1',
+              // enterActive: 'scale-[0.3] bottom-0 duration-[1000ms]',
+              // enterDone: 'scale-[0.9] bottom-0 duration-[2000ms]',
+              // appear: 'opacity-0 bottom-0',
+              // appearActive: 'opaicty-100 bottom-0',
+              // appearDone: 'opaicty-100 bottom-0',
+            }}
+            onEnter={() => console.log(isMobile)}
+          >
+            <div className="absolute transition-all duration-[2000ms] scale-[0.3]" onClick={handleEnterBorrowUp}>
+              <div className="text-[20px] md:text-[40px] leading-[24px] md:leading-[48px] font-[500] md:font-[600] text-[#FFF] text-center">
+                BORROW UP TO
+              </div>
+              <div className="text-[50px] md:text-[250px] leading-[79px] md:leading-[300px] font-[600] text-[#1199FA] text-center">
+                50%
+              </div>
+              <div className="w-[70%] mx-auto md:text-[18px] md:leading-[21px] md:font-[500] text-[#FFF] text-center">
+                Welcome to the future of banking, where you are the bank. A system designed to serve you, and not the other way around. Let's say you deposit $10,000, you then can borrow $5,000 on your deposit instantly and not only you don't have to pay interest, but you get pay zero money per month. Your collateral gets locked, and the yield generated pays off your loan. You have to re imagine the way you see finance. Maui brings you the future of people's new way of banking where everyone os their own bank and profit from themselves.
+              </div>
             </div>
-            <div className="text-[50px] md:text-[250px] leading-[79px] md:leading-[300px] font-[600] text-[#1199FA] text-center">
-              50%
-            </div>
-            <div className="w-[70%] mx-auto md:text-[18px] md:leading-[21px] md:font-[500] text-[#FFF] text-center">
-              Welcome to the future of banking, where you are the bank. A system designed to serve you, and not the other way around. Let's say you deposit $10,000, you then can borrow $5,000 on your deposit instantly and not only you don't have to pay interest, but you get pay zero money per month. Your collateral gets locked, and the yield generated pays off your loan. You have to re imagine the way you see finance. Maui brings you the future of people's new way of banking where everyone os their own bank and profit from themselves.
-            </div>
-          </div>
-        </CSSTransition>
+          </CSSTransition>
+        )}
+        <TransitionGroup>
+          {isMobile && (
+            <CSSTransition
+              in={enterEarth}
+              // appear={enterEarth}
+              timeout={1000}
+              classNames={{
+                enter: 'scale-[0.3] bottom-[-9rem]',
+                // enterActive: 'scale-[0.6] bottom-[-3rem]',
+                enterDone: 'scale-[0.9] bottom-1',
+                // enterActive: 'scale-[0.3] bottom-0 duration-[1000ms]',
+                // enterDone: 'scale-[0.9] bottom-0 duration-[2000ms]',
+                // appear: 'opacity-0 bottom-0',
+                // appearActive: 'opaicty-100 bottom-0',
+                // appearDone: 'opaicty-100 bottom-0',
+              }}
+              onEnter={() => console.log(isMobile)}
+            >
+              <div className="absolute transition-all duration-[2000ms] scale-[0.3]" onClick={handleEnterBorrowUp}>
+                <div className="text-[20px] md:text-[40px] leading-[24px] md:leading-[48px] font-[500] md:font-[600] text-[#FFF] text-center">
+                  BORROW UP TO
+                </div>
+                <div className="text-[50px] md:text-[250px] leading-[79px] md:leading-[300px] font-[600] text-[#1199FA] text-center">
+                  50%
+                </div>
+                <div className="w-[70%] mx-auto md:text-[18px] md:leading-[21px] md:font-[500] text-[#FFF] text-center">
+                  Welcome to the future of banking, where you are the bank. A system designed to serve you, and not the other way around.
+                </div>
+              </div>
+            </CSSTransition>
+          )}
+        </TransitionGroup>
       </div>
       <div className="relative w-full h-[100vh] md:h-[calc(100vw*963/1512)] flex justify-center items-center bg-[#10213f] bg-introborrow-section2mobile md:bg-introborrow-section2 bg-cover bg-center  overflow-hidden">
         <div className="mt-[70px] md:mt-0 w-[85%] mx-auto md:w-[70%] flex flex-col items-center">
