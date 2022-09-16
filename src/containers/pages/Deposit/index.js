@@ -7,18 +7,20 @@ import TabSend from './Content/send';
 import TabExternal from './Content/external';
 import { toast } from "react-toastify";
 import { useFieldArray } from 'react-hook-form';
+import { validateUserProfile } from '../../../utils/validateProfile';
 function Deposit() {
   const history = useHistory();
   
   const [tabIndex, setTabIndex] = useState(0);
 
-  // useEffect(() => {
-  //   const user = localStorage.getItem('user');
-  //   if (!user['firstName']) {
-  //     toast.error('You must complete user profile to deposit.');
-  //     history.push("/dashboard");
-  //   }
-  // }, []);
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(!validateUserProfile(user)) {
+      console.log(user)
+      toast.error('You must complete user profile to deposit.');
+      history.push("/dashboard");
+    }
+  }, []);
 
 
   function handleTabChange(val) {

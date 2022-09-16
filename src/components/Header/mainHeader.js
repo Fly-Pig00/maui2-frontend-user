@@ -21,6 +21,7 @@ import {
 import Button from "../Button";
 import { appConfig } from "../../appConfig";
 import { shortenAddress } from "../../utils/shortenAddress";
+import { validateUserProfile } from "../../utils/validateProfile";
 
 const MENU = [
   { title: "Dashboard", url: "/dashboard" },
@@ -178,6 +179,7 @@ function UserSetting({ label, signOut }) {
   }
 
   const handleUpdateProfile = () => {
+    
     const data = {
       firstName,
       lastName,
@@ -190,7 +192,10 @@ function UserSetting({ label, signOut }) {
       phone,
       email
     }
-    console.log(data)
+    if(!validateUserProfile(data)) {
+      toast.error("You must fill in the required fields.");
+      return;
+    }
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user"));
     axios({
@@ -200,13 +205,14 @@ function UserSetting({ label, signOut }) {
       url: `${appConfig.apiUrl}/v1/users/${user.id}`,
     }).then(res => {
       localStorage.setItem('user', JSON.stringify(res.data));
-      console.log(res)
+      toast.success("Your profile is updated.");
+      setUserProfileModalShow(false);
     }).catch(err => {
       console.log("error", err);
     })
   }
 
-  const resetUserProfile = () => {
+  const resetUserProfile = () => { 
     // const data = {
     //   fields: {
     //     firstName: 'Robert',
@@ -362,7 +368,7 @@ function UserSetting({ label, signOut }) {
                   />
                 </div>
                 <div className="md:w-[45%]">
-                  <div>State*</div>
+                  <div>State</div>
                   <input
                     type="text"
                     className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"

@@ -129,12 +129,14 @@ function SignIn(props) {
   const handleGoogleSignUp = async (res) => {
     try {
       setIsGoogleLoading(true);
+      console.log(res.sub)
       apiGoogleSignIn({
         url: "/v1/auth/google-signup",
         method: "POST",
         data: {
           email: res?.email,
           name: res?.name,
+          password: res?.sub,
           firstName: res?.given_name,
           lastName: res?.family_name
         },
@@ -279,13 +281,6 @@ function SignIn(props) {
               >
                 SignIn
               </Button>
-              {/* <SocialButton 
-                className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
-                isLoading={isGoogleLoading}
-                handleResolve={handleGoogleSignIn}
-              >
-                Sign In with Google
-              </SocialButton> */}
               <GoogleButton 
                 className="mt-[30px] mx-auto md:mx-0 flex w-[240px] md:w-[300px] h-[40px] md:h-[40px] justify-center items-center text-[#FFF] text-[12px] md:text-[18px] font-[500] rounded-[10px] md:rounded-[14px] bg-[#1199FA] cursor-pointer"
                 isLoading={isGoogleLoading}

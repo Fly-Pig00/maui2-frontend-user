@@ -100,6 +100,7 @@ function TabCrypto(props) {
   const [beneficiaryPostal, setBeneficiaryPostal] = useState("");
   const [beneficiaryPhoneNumber, setBeneficiaryPhoneNumber] = useState("");
   const [beneficaryState, setBeneficaryState] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [beneficiaryDobDay, setBeneficiaryDobDay] = useState("");
   const [beneficiaryDobMonth, setBeneficiaryDobMonth] = useState("");
   const [beneficiaryDobYear, setBeneficiaryDobYear] = useState("");
@@ -138,7 +139,12 @@ function TabCrypto(props) {
       setFirstNameOnAccount(user.firstName || '');
       setLastNameOnAccount(user.lastName || '');
       setBeneficiaryAddress(user.street || '');
-      
+      setDateOfBirth(user.dateOfBirth || "");
+      setBeneficaryState(user.state || "");
+      setBeneficiaryCity(user.city || '');
+      setBeneficiaryPostal(user.postalCode || '');
+      setBeneficiaryPhoneNumber(user.phone || '');
+
     }
   }, [paymentModalStage]);
 
@@ -360,6 +366,11 @@ function TabCrypto(props) {
       toast.error("Please login first.");
       return false;
     }
+    if (selectedCryptoWallet === "ACH Transfer" && paymentMethods.length === 0) {
+      toast.error("First Select Payment Methods.");
+      return;
+    }
+
     setAmount(unmaskCurrency(data.amount));
     if (unmaskCurrency(data.amount) >= 5) setIsLoading(true);
     // const from = props.workflow.terraAddress;
@@ -783,7 +794,7 @@ function TabCrypto(props) {
               <div
                 className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
                 onClick={() => {
-                  handlePlaidMethod();
+                  //handlePlaidMethod();
                   setPaymentModalShow(!paymentModalShow);
                 }}
               >
@@ -829,7 +840,7 @@ function TabCrypto(props) {
                     id="plaid"
                     onClick={() => {
                       setIsPlaidPayment(true);
-                      //open();
+                      open();
                     }}
                     isDisabled={!linkToken || !ready}
                   >
@@ -913,6 +924,7 @@ function TabCrypto(props) {
                     <input
                       type="date"
                       className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      value={dateOfBirth}
                       onChange={(e) => {
                         let tmpDate = e.target.value.split("-");
                         setBeneficiaryDobYear(tmpDate[0]);
@@ -1011,28 +1023,9 @@ function TabCrypto(props) {
       onSubmit={handleSubmit(onInfoSubmit)}
     >
       <div className="w-full md:w-[45%]">
-        <div className="md:mt-[20px]">You deposited {amount} DAI</div>
+        {/* <div className="md:mt-[20px]">You deposited {amount} DAI</div> */}
         <div className="md:mt-[10px]">Card Info</div>
-        <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
-          <div className="md:w-[45%]">
-            <div>First Name*</div>
-            <input
-              type="text"
-              className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
-              value={givenName}
-              onChange={(e) => setGivenName(e.target.value)}
-            />
-          </div>
-          <div className="md:w-[45%]">
-            <div>Last Name*</div>
-            <input
-              type="text"
-              className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
-              value={familyName}
-              onChange={(e) => setFamilyName(e.target.value)}
-            />
-          </div>
-        </div>
+
         <div className="md:mt-[10px]">Card Number*</div>
         <input
           type="text"
@@ -1064,7 +1057,27 @@ function TabCrypto(props) {
             />
           </div>
         </div>
-        <div className="md:mt-[20px]">Billing Address</div>
+        <div className="md:mt-[20px]">Personal Info</div>
+        <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
+          <div className="md:w-[45%]">
+            <div>First Name*</div>
+            <input
+              type="text"
+              className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+              value={givenName}
+              onChange={(e) => setGivenName(e.target.value)}
+            />
+          </div>
+          <div className="md:w-[45%]">
+            <div>Last Name*</div>
+            <input
+              type="text"
+              className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+              value={familyName}
+              onChange={(e) => setFamilyName(e.target.value)}
+            />
+          </div>
+        </div>
         <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
           <div className="md:w-[45%]">
             <div>Country*</div>
