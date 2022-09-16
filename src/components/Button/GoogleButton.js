@@ -1,30 +1,24 @@
-import React from "react";
-import { toast } from "react-toastify";
-import { useGoogleLogin } from "react-google-login";
-//import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+import React from 'react';
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 import Loading from "./loading";
 
-const clientId =
-  //'707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com';
-  '80846055020-t2ktehe284s1uab1jt1219f0b2r9v7kc.apps.googleusercontent.com';
 const GoogleButton = (props) => {
 
-  const onFailure = (res) => {
-    //toast.error("Failed in google login.");
-    console.log(res)
-  };
-
-  const { signIn } = useGoogleLogin({
-    onSuccess: props.onSuccess,
-    onFailure,
-    clientId,
-    isSignedIn: false,
-    accessType: 'offline',
-    responseType: "code"
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      console.log(tokenResponse);
+      const userInfo = await axios.get(
+        'https://www.googleapis.com/oauth2/v3/userinfo',
+        { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } },
+      );
+      props.handleSuccess(userInfo.data);
+    },
+    onError: errorResponse => console.log(errorResponse),
   });
-
   return (
-    <button onClick={signIn} className={props.className} >
+
+    <button onClick={googleLogin} className={props.className} >
       {props.isLoading ? (<div className="flex flex-col items-center">
         <Loading width={24} height={24} fill="#FFF" />
       </div>)
@@ -35,7 +29,7 @@ const GoogleButton = (props) => {
         </>
         )}
     </button>
+
   );
 }
-
 export default GoogleButton;

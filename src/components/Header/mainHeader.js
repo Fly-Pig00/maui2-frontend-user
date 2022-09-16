@@ -21,6 +21,7 @@ import {
 import Button from "../Button";
 import { appConfig } from "../../appConfig";
 import { shortenAddress } from "../../utils/shortenAddress";
+import { validateUserProfile } from "../../utils/validateProfile";
 
 const MENU = [
   { title: "Dashboard", url: "/dashboard" },
@@ -114,7 +115,7 @@ function UserSetting({ label, signOut }) {
   const [country, setCountry] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [state, setState] = useState("");
-  const [address, setAddress] = useState("");
+  const [street, setStreet] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
@@ -163,23 +164,55 @@ function UserSetting({ label, signOut }) {
   }
 
   const handleUserProfile = () => {
-
     const user = JSON.parse(localStorage.getItem("user"));
-    //const wyreUser = JSON.parse(localStorage.getItem("wyreUser"));
-    setFirstName(user.firstName);
-    setLastName(user.lastName);
-    setDateOfBirth(user.dateOfBirth);
-    setCountry(user.residenceAddress.country);
-    setState(user.residenceAddress.state);
-    setCity(user.residenceAddress.city);
-    setAddress(user.residenceAddress.street1);
-    setPostalCode(user.residenceAddress.postalCode);
-    setPhone(user.phone);
-    setEmail(user.email);
+    setFirstName(user.firstName || '');
+    setLastName(user.lastName || '');
+    setDateOfBirth(user.dateOfBirth || '');
+    setCountry(user.country || '');
+    setState(user.state || '');
+    setCity(user.city || '');
+    setStreet(user.street || '');
+    setPostalCode(user.postalCode || '');
+    setPhone(user.phone || '');
+    setEmail(user.email || '');
     setUserProfileModalShow(true);
   }
 
-  const resetUserProfile = () => {
+  const handleUpdateProfile = () => {
+    
+    const data = {
+      firstName,
+      lastName,
+      dateOfBirth,
+      country,
+      state,
+      city,
+      street,
+      postalCode,
+      phone,
+      email
+    }
+    if(!validateUserProfile(data)) {
+      toast.error("You must fill in the required fields.");
+      return;
+    }
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    axios({
+      method: "patch",
+      headers: { Authorization: `bearer ${token}` },
+      data,
+      url: `${appConfig.apiUrl}/v1/users/${user.id}`,
+    }).then(res => {
+      localStorage.setItem('user', JSON.stringify(res.data));
+      toast.success("Your profile is updated.");
+      setUserProfileModalShow(false);
+    }).catch(err => {
+      console.log("error", err);
+    })
+  }
+
+  const resetUserProfile = () => { 
     // const data = {
     //   fields: {
     //     firstName: 'Robert',
@@ -294,7 +327,7 @@ function UserSetting({ label, signOut }) {
                     type="text"
                     className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
                     value={lastName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
               </div>
@@ -335,7 +368,7 @@ function UserSetting({ label, signOut }) {
                   />
                 </div>
                 <div className="md:w-[45%]">
-                  <div>State*</div>
+                  <div>State</div>
                   <input
                     type="text"
                     className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
@@ -344,12 +377,12 @@ function UserSetting({ label, signOut }) {
                   />
                 </div>
               </div>
-              <div className="md:mt-[10px]">Address*</div>
+              <div className="md:mt-[10px]">Street*</div>
               <input
                 type="text"
                 className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                value={street}
+                onChange={(e) => setStreet(e.target.value)}
               />
               <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
                 <div className="md:w-[45%]">
@@ -376,13 +409,13 @@ function UserSetting({ label, signOut }) {
                 type="text"
                 className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                disabled
               />
 
               <Button
                 // isLoading={addPayLoading}
                 className="mt-[10px] md:mt-[20px] bg-deposit-card-btn shadow-main-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full"
-              // onClick={handleAddPayment}
+                onClick={handleUpdateProfile}
               >
                 UPDATE
               </Button>

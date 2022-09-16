@@ -10,8 +10,9 @@ import configureStore from "./saga/store";
 // main configuration
 import App from "./containers/App";
 import "./assets/css/tailwind.css";
-
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { getChainOptions, WalletProvider } from "@terra-money/wallet-provider";
+
 const history = createBrowserHistory();
 const store = configureStore({}, history);
 const render = () => {
@@ -23,7 +24,9 @@ const render = () => {
           {/* <React.StrictMode> */}
           <Provider store={store}>
             <ConnectedRouter history={history}>
-              <App />
+              <GoogleOAuthProvider clientId="80846055020-t2ktehe284s1uab1jt1219f0b2r9v7kc.apps.googleusercontent.com">
+                <App />
+              </GoogleOAuthProvider>
             </ConnectedRouter>
           </Provider>
           {/* </React.StrictMode> */}

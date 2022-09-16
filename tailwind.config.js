@@ -195,6 +195,7 @@ module.exports = {
         'earn-right-panel-dark': 'linear-gradient(97deg, #32283C 7.53%, #32283C 95.32%)',
         // common component
         'common-crypto-btc': "url('../images/_common/crypto-btc.svg')",
+        'common-crypto-usdc': "url('../images/_common/crypto-usdc.svg')",
         'common-crypto-chat': "url('../images/_common/crypto-chat.svg')",
         'common-crypto-eth': "url('../images/_common/crypto-eth.svg')",
         'common-crypto-mtc': "url('../images/_common/crypto-mtc.svg')",
@@ -205,6 +206,7 @@ module.exports = {
         'common-debit-card': "url('../images/_common/debit-card.png')",
         'common-bank': "url('../images/_common/bank.png')",
         'common-fiat-usd': "url('../images/_common/fiat-usd.svg')",
+        'common-fiat-euro': "url('../images/_common/fiat-euro.svg')",
         'common-caret-up': "url('../images/_common/caret-up.svg')",
         'common-caret-up-dark': "url('../images/_common/caret-up-dark.svg')",
         'common-caret-down': "url('../images/_common/caret-down.svg')",

@@ -100,6 +100,7 @@ function TabCrypto(props) {
   const [beneficiaryPostal, setBeneficiaryPostal] = useState("");
   const [beneficiaryPhoneNumber, setBeneficiaryPhoneNumber] = useState("");
   const [beneficaryState, setBeneficaryState] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [beneficiaryDobDay, setBeneficiaryDobDay] = useState("");
   const [beneficiaryDobMonth, setBeneficiaryDobMonth] = useState("");
   const [beneficiaryDobYear, setBeneficiaryDobYear] = useState("");
@@ -120,18 +121,32 @@ function TabCrypto(props) {
   useEffect(() => {
     if (stage === 1) {
       const user = JSON.parse(localStorage.getItem("user"));
-      console.log(user)
-      setGivenName(user.firstName);
-      setFamilyName(user.lastName);
-      setTestCountry(user.residenceAddress.country);
-      setState(user.residenceAddress.state);
-      setCity(user.residenceAddress.city);
-      setStreet1(user.residenceAddress.street1);
-      setPostalCode(user.residenceAddress.postalCode);
-      setEmail(user.email);
-      setPhone(user.phone);
+      setGivenName(user.firstName || '');
+      setFamilyName(user.lastName || '');
+      setTestCountry(user.country || '');
+      setState(user.state || '');
+      setCity(user.city || '');
+      setStreet1(user.street || '');
+      setPostalCode(user.postalCode || '');
+      setEmail(user.email || '');
+      setPhone(user.phone || '');
     }
   }, [stage])
+
+  useEffect(() => {
+    if (paymentModalStage === 1) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      setFirstNameOnAccount(user.firstName || '');
+      setLastNameOnAccount(user.lastName || '');
+      setBeneficiaryAddress(user.street || '');
+      setDateOfBirth(user.dateOfBirth || "");
+      setBeneficaryState(user.state || "");
+      setBeneficiaryCity(user.city || '');
+      setBeneficiaryPostal(user.postalCode || '');
+      setBeneficiaryPhoneNumber(user.phone || '');
+
+    }
+  }, [paymentModalStage]);
 
   axios.defaults.baseURL = appConfig.apiUrl;
   axios.defaults.headers.common["Authorization"] = token;
@@ -351,6 +366,11 @@ function TabCrypto(props) {
       toast.error("Please login first.");
       return false;
     }
+    if (selectedCryptoWallet === "ACH Transfer" && paymentMethods.length === 0) {
+      toast.error("First Select Payment Methods.");
+      return;
+    }
+
     setAmount(unmaskCurrency(data.amount));
     if (unmaskCurrency(data.amount) >= 5) setIsLoading(true);
     // const from = props.workflow.terraAddress;
@@ -732,8 +752,8 @@ function TabCrypto(props) {
                     <div
                       key={index}
                       className={`md:w-full h-[110px] md:h-[120px] md:mt-[10px] p-[6px] dark:text-[#fff] rounded-[10px] cursor-pointer ${selectedPayment === index
-                          ? " border-[3px] border-[#1199FA]"
-                          : ""
+                        ? " border-[3px] border-[#1199FA]"
+                        : ""
                         }`}
                       onClick={() => setSelectedPayment(index)}
                     >
@@ -774,7 +794,7 @@ function TabCrypto(props) {
               <div
                 className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
                 onClick={() => {
-                  handlePlaidMethod();
+                  //handlePlaidMethod();
                   setPaymentModalShow(!paymentModalShow);
                 }}
               >
@@ -813,8 +833,8 @@ function TabCrypto(props) {
                   </div> */}
                   <Button
                     className={`!w-[300px] h-[150px] rounded-[15px] dark:text-[#fff] ${isPlaidPayment
-                        ? "border-[2px] border-[#1199FA]"
-                        : "border-[1px] border-[#555555]"
+                      ? "border-[2px] border-[#1199FA]"
+                      : "border-[1px] border-[#555555]"
                       } flex justify-center items-center cursor-pointer`}
                     type="button"
                     id="plaid"
@@ -828,8 +848,8 @@ function TabCrypto(props) {
                   </Button>
                   <div
                     className={`h-[150px] rounded-[15px] dark:text-[#fff] ${!isPlaidPayment
-                        ? "border-[2px] border-[#1199FA]"
-                        : "border-[1px] border-[#555555]"
+                      ? "border-[2px] border-[#1199FA]"
+                      : "border-[1px] border-[#555555]"
                       } flex justify-center items-center cursor-pointer`}
                     onClick={() => setIsPlaidPayment(false)}
                   >
@@ -839,7 +859,10 @@ function TabCrypto(props) {
                     className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
                     onClick={() => {
                       if (!isPlaidPayment) setPaymentModalStage(1);
-                      else handlePlaidMethod();
+                      else {
+                        open();
+                        handlePlaidMethod();
+                      }
                     }}
                   >
                     NEXT
@@ -901,6 +924,7 @@ function TabCrypto(props) {
                     <input
                       type="date"
                       className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+                      value={dateOfBirth}
                       onChange={(e) => {
                         let tmpDate = e.target.value.split("-");
                         setBeneficiaryDobYear(tmpDate[0]);
@@ -999,28 +1023,9 @@ function TabCrypto(props) {
       onSubmit={handleSubmit(onInfoSubmit)}
     >
       <div className="w-full md:w-[45%]">
-        <div className="md:mt-[20px]">You deposited {amount} DAI</div>
+        {/* <div className="md:mt-[20px]">You deposited {amount} DAI</div> */}
         <div className="md:mt-[10px]">Card Info</div>
-        <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
-          <div className="md:w-[45%]">
-            <div>First Name*</div>
-            <input
-              type="text"
-              className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
-              value={givenName}
-              onChange={(e) => setGivenName(e.target.value)}
-            />
-          </div>
-          <div className="md:w-[45%]">
-            <div>Last Name*</div>
-            <input
-              type="text"
-              className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
-              value={familyName}
-              onChange={(e) => setFamilyName(e.target.value)}
-            />
-          </div>
-        </div>
+
         <div className="md:mt-[10px]">Card Number*</div>
         <input
           type="text"
@@ -1052,7 +1057,27 @@ function TabCrypto(props) {
             />
           </div>
         </div>
-        <div className="md:mt-[20px]">Billing Address</div>
+        <div className="md:mt-[20px]">Personal Info</div>
+        <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
+          <div className="md:w-[45%]">
+            <div>First Name*</div>
+            <input
+              type="text"
+              className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+              value={givenName}
+              onChange={(e) => setGivenName(e.target.value)}
+            />
+          </div>
+          <div className="md:w-[45%]">
+            <div>Last Name*</div>
+            <input
+              type="text"
+              className="w-[100%] rounded-[12px] text-[#000] border-transparent transition-all duration-100"
+              value={familyName}
+              onChange={(e) => setFamilyName(e.target.value)}
+            />
+          </div>
+        </div>
         <div className="md:mt-[10px] flex flex-col md:flex-row md:justify-between">
           <div className="md:w-[45%]">
             <div>Country*</div>
@@ -1158,10 +1183,10 @@ function TabCrypto(props) {
         </div>
         <div className="md:mt-[20px] flex justify-between">
           <div className="md:w-[45%]">
-            <div>DAI Received</div>
+            <div>{selectedCryptoDest} Received</div>
           </div>
           <div className="md:w-[45%]">
-            <div>{received} DAI</div>
+            <div>{received + " " + selectedCryptoDest}</div>
           </div>
         </div>
         <div className="md:mt-[20px] flex justify-between">
