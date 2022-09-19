@@ -46,10 +46,27 @@ function IntroDashBoard() {
               <div className="flex items-center text-[14px] md:text-[24px] md:font-[400] text-[#FFF]">
                 {isMobile ? "Watch Fullscreen" : "Show Clip"}
               </div>
-              <div className="w-[31.5px] h-[31.5px] md:w-[56px] md:h-[56px] bg-introdashboard-fullscreenimage bg-cover bg-center"></div>
+              <div
+                className="w-[31.5px] h-[31.5px] md:w-[56px] md:h-[56px] bg-introdashboard-fullscreenimage bg-cover bg-center cursor-pointer"
+                onClick={function(e) {
+                  var el = document.getElementById("full-screenVideo");
+                  if (el.requestFullscreen) {
+                    el.requestFullscreen();
+                  } else if (el.msRequestFullscreen) {
+                    el.msRequestFullscreen();
+                  } else if (el.mozRequestFullScreen) {
+                    el.mozRequestFullScreen();
+                  } else if (el.webkitRequestFullscreen) {
+                    el.webkitRequestFullscreen();
+                  }
+                }}>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div className="absolute top-[-500px]">
+        <video className="" id="full-screenVideo" src="/earn.mp4" controls preload="auto" />
       </div>
       <div className="relative w-full md:leading-[116px] overflow-hidden">
         <div className="absolute ">
@@ -306,7 +323,7 @@ function IntroDashBoard() {
           </div>
           {!isMobile && (
             <div className="md:mt-[30px] flex justify-start">
-              <div className="bg-[#FFF] text-[#000] md:py-[9px] md:px-[34px] rounded-[20px] md:text-[24px] md:leading-[29px] md:font-[500]">
+              <div className="bg-[#FFF] text-[#000] md:py-[9px] md:px-[34px] rounded-[20px] md:text-[24px] md:leading-[29px] md:font-[500] cursor-pointer" onClick={() => history.push("/dashboard")}>
                 Start Now
               </div>
             </div>
