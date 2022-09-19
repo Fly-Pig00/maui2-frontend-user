@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Earth from "../../../../components/Earth";
+import EarthMobile from "../../../../components/EarthMobile";
 import useWindowSize from "../../../../utils/useWindowSize";
 
 function IntroBorrow() {
@@ -10,11 +11,6 @@ function IntroBorrow() {
   const [enterEarth, setEnterEarth] = useState(false);
   const [enterBorrowUp, setEnterBorrowUp] = useState(false);
   
-  useEffect(() => {
-    if (size.width <= 768) setIsMobile(true);
-    else setIsMobile(false);
-  }, [size]);
-
   const handleEnterBorrowUp = () => {    
     setEnterBorrowUp(true);
   };
@@ -24,25 +20,48 @@ function IntroBorrow() {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    console.log("borrow", size.width)
+    if (size.width <= 768) setIsMobile(true);
+    else setIsMobile(false);
+  }, [size]);
+
   return (
     <div className="relative bg-[#10213f] md:pb-[70px]">
-      <div className="absolute left-[-200px] top-[20vh] w-[1024px] h-[977px] bg-introborrow-shape2 bg-cover bg-center z-10 animate-display1"></div>
+      <div className="absolute left-[-200px] top-[20vh] w-[100%] h-[977px] bg-introborrow-shape2 bg-cover bg-center z-10 animate-display1"></div>
       <div className="absolute left-[-50px] top-[20vh] w-[158px] h-[151px] bg-introborrow-shape2 bg-cover bg-center z-10 rotate-[60deg] animate-display1"></div>
       <div className="relative w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-cover bg-left  overflow-hidden">
-        <CSSTransition
-          in={enterEarth}
-          timeout={1000}
-          classNames={{
-            enter: 'top-[300px] right-[200px] scale-[2.0]',
-            enterActive: 'top-[-350px] right-[-250px] scale-[1.5]',
-            enterDone: 'top-[-350px] right-[-250px] scale-[1.5]',
-            exit: 'top-[-350px] right-[-250px] scale-[1.5]',
-            exitActive: 'top-[300px] right-[200px] scale-[0.5]',
-            exitDone: 'top-[300px] right-[200px] scale-[0.5]',
-          }}
-        >
-          <Earth className="absolute scale-[2.0] transition-all duration-[2000ms]"/>
-        </CSSTransition>
+        {!isMobile && (
+          <CSSTransition
+            in={enterEarth}
+            timeout={1000}
+            classNames={{
+              enter: 'top-[300px] right-[200px] scale-[2.0]',
+              enterActive: 'top-[-350px] right-[-250px] scale-[1.5]',
+              enterDone: 'top-[-350px] right-[-250px] scale-[1.5]',
+              exit: 'top-[-350px] right-[-250px] scale-[1.5]',
+              exitActive: 'top-[300px] right-[200px] scale-[0.5]',
+              exitDone: 'top-[300px] right-[200px] scale-[0.5]',
+            }}
+          >
+            <Earth className="absolute scale-[2.0] transition-all duration-[2000ms]"/>
+          </CSSTransition>
+        )}
+        <TransitionGroup>
+          {isMobile && (
+            <CSSTransition
+              in={enterEarth}
+              timeout={1000}
+              classNames={{
+                enter: "top-[000px] right-[-10vw] scale-[0.3]",
+                enterActive: "top-[000px] right-[-5vw] scale-[0.5] duration-[1000ms]",
+                enterDone: "top-[000px] right-[-25vw] scale-[1.5] duration-[3000ms]"
+              }}
+            >
+              <EarthMobile className="absolute scale-[0.3] right-[-10vw] top-[35vh] transition-all duration-[1000ms]" />
+            </CSSTransition>
+          )}
+        </TransitionGroup>
         <div className="absolute left-[-100px] top-0 w-[232px] h-[250px] bg-introborrow-shape1 bg-cover bg-center md:animate-move3"></div>
         <div className="w-full mt-[26vh]"></div>
         {!isMobile && (
@@ -199,7 +218,7 @@ function IntroBorrow() {
           </div>
         </div> */}
       </div>
-      {/* <div className="mt-[60px] md:mt-[50px] mx-auto pt-[30px] md:pt-[70px] w-[96%] md:w-[80%] md:border-[1px] md:border-[rgba(0,0,0,0.21)]">
+      <div className="mt-[60px] md:mt-[50px] mx-auto pt-[30px] md:pt-[70px] w-[96%] md:w-[80%] md:border-[1px] md:border-[rgba(0,0,0,0.21)]">
         <div className="flex flex-row justify-between px-[2%]">
           <div className="text-[32px] md:text-[64px] leading-[38px] md:leading-[76px] font-[500] text-[#FFF]">
             Credit Analysis
@@ -247,7 +266,7 @@ function IntroBorrow() {
           Copyright © 2022 Maui Finance. All rights reserved.Privacy Policy
           Terms and Conditions Legal
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

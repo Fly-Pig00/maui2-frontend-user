@@ -53,6 +53,7 @@ const NavBar = withRouter((props) => {
   const size = useWindowSize();
 
   useEffect(() => {
+    console.log("header", size.width)
     if (size.width < 768) setIsMobile(true);
     else setIsMobile(false);
   }, [size]);

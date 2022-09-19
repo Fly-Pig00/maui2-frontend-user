@@ -116,17 +116,34 @@ function IntroEarn() {
   ) : (
     <div className="bg-[#10213f]">
       <div className="relative w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-cover bg-left  overflow-hidden">
-        <CSSTransition
-          in={earthToCorner}
-          timeout={10}
-          classNames={{
-            enter: "right-[200px] top-[300px] scale-[2]",
-            enterActive: "right-[-150px] top-[-350px] scale-[1.5]",
-            enterDone: "right-[-150px] top-[-350px] scale-[1.5]"
-          }}
-        >
-          <Earth className="absolute right-[200px] top-[300px] scale-[2] transition-all duration-[2000ms]" />
-        </CSSTransition>
+        {!isMobile && (
+          <CSSTransition
+            in={earthToCorner}
+            timeout={10}
+            classNames={{
+              enter: "right-[200px] top-[300px] scale-[2]",
+              enterActive: "right-[-150px] top-[-350px] scale-[1.5]",
+              enterDone: "right-[-150px] top-[-350px] scale-[1.5]"
+            }}
+          >
+            <Earth className="absolute right-[200px] top-[300px] scale-[2] transition-all duration-[2000ms]" />
+          </CSSTransition>
+        )}
+        <TransitionGroup>
+        {isMobile && (
+          <CSSTransition
+            in={earthToCorner}
+            timeout={10}
+            classNames={{
+              enter: "right-[200px] top-[300px] scale-[2]",
+              enterActive: "right-[-150px] top-[-350px] scale-[1.5]",
+              enterDone: "right-[-150px] top-[-350px] scale-[1.5]"
+            }}
+          >
+            <Earth className="absolute right-[200px] top-[300px] scale-[2] transition-all duration-[2000ms]" />
+          </CSSTransition>
+        )}
+        </TransitionGroup>
         {/* <div className="absolute  bg-introearn-earth bg-cover bg-center left-[60vw] md:left-[70vw] bottom-[calc(100vh-60vw)] md:bottom-[60vh] w-[100vw] md:w-[120vh] h-[100vw] md:h-[120vh]"></div> */}
         <div className="absolute left-[-140px] bottom-[-10vh] w-[368.61px] h-[426.14px] bg-introdashboard-shape1 bg-cover bg-center"></div>
         <div className="h-[35vh]"></div>
@@ -134,10 +151,10 @@ function IntroEarn() {
           EARN
         </div>
         <div className="text-[150px] md:text-[250px] leading-[179px] md:leading-[290px] font-[600] text-[#1199FA] text-center">
-          5% APY
+          8%
         </div>
         <div className="w-[70%] mx-auto text-[20px] md:text-[32px] leading-[24px] md:leading-[38px] font-[500] md:font-[600] text-[#FFF] text-center">
-          Earn 5% on your deposits. Withdraw anytime.
+          Earn on your deposits. Withdraw anytime.
         </div>
       </div>
       <div className="relative w-full md:h-[calc(100vw*963/1512)] flex md:justify-center md:items-center bg-[#10213f] md:bg-introearn-section2 bg-cover bg-left  overflow-hidden">
