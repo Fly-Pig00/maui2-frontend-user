@@ -130,19 +130,19 @@ function IntroEarn() {
           </CSSTransition>
         )}
         <TransitionGroup>
-        {isMobile && (
-          <CSSTransition
-            in={earthToCorner}
-            timeout={10}
-            classNames={{
-              enter: "right-[200px] top-[300px] scale-[2]",
-              enterActive: "right-[-150px] top-[-350px] scale-[1.5]",
-              enterDone: "right-[-150px] top-[-350px] scale-[1.5]"
-            }}
-          >
-            <Earth className="absolute right-[200px] top-[300px] scale-[2] transition-all duration-[2000ms]" />
-          </CSSTransition>
-        )}
+          {isMobile && (
+            <CSSTransition
+              in={enterEarth}
+              timeout={1000}
+              classNames={{
+                enter: 'top-[300px] right-[200px] scale-[2.0]',
+                // enterActive: 'top-[-100px] right-[-100px] scale-[1.5]',
+                enterDone: 'top-[-100px] right-[-100px] scale-[1.5]',
+              }}
+            >
+              <EarthMobile className="top-[-100px] right-[-100px] absolute scale-[1.3] transition-all duration-[2000ms]"/>
+            </CSSTransition>
+          )}
         </TransitionGroup>
         {/* <div className="absolute  bg-introearn-earth bg-cover bg-center left-[60vw] md:left-[70vw] bottom-[calc(100vh-60vw)] md:bottom-[60vh] w-[100vw] md:w-[120vh] h-[100vw] md:h-[120vh]"></div> */}
         <div className="absolute left-[-140px] bottom-[-10vh] w-[368.61px] h-[426.14px] bg-introdashboard-shape1 bg-cover bg-center"></div>
