@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { CSSTransition } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Earth from "../../../../components/Earth";
+import EarthMobile from "../../../../components/EarthMobile";
 import useWindowSize from "../../../../utils/useWindowSize";
 
 function IntroEarn() {
@@ -34,54 +35,115 @@ function IntroEarn() {
 
   return !isExplore ? (
     <div className="w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-contain bg-left bg-no-repeat  overflow-hidden">
-      <div className="h-[45vh] md:h-[35vh]"></div>
+      {!isMobile && (<div className="md:h-[35vh]"></div>)}
       <div className="relative flex justify-start ml-[8%] md:ml-[15%] md:text-[250px] md:leading-[298px] md:font-[600]">
-        <CSSTransition
-          in={enterEarth}
-          timeout={1000}
-          classNames={{
-            enter: "top-[-350px] right-[-250px] scale-[1.5]",
-            enterActive: "top-[000px] right-[250px] scale-[0.5] duration-[1000ms]",
-            enterDone: "top-[000px] right-[50px] scale-[2.0] duration-[3000ms]"
-          }}
-        >
-          <Earth className="absolute scale-[1.5] transition-all duration-[1000ms]" />
-        </CSSTransition>
-        <CSSTransition
-          in={enterEarth}
-          timeout={1000}
-          classNames={{
-            enter: "md:text-[24px] md:leading-[29px]",
-            enterActive: "md:text-[24px] md:leading-[29px]",
-            enterDone: "md:text-[250px] md:leading-[280px]",
-          }}
-        >
-          <span className="text-transparent text-[64px] md:text-[24px] leading-[76px] md:leading-[29px] font-[600] md:bg-introearn-title-gradient md:bg-clip-text transition-all duration-[2000ms]">EARN</span>
-        </CSSTransition>
-
+        {!isMobile && (
+          <CSSTransition
+            in={enterEarth}
+            timeout={1000}
+            classNames={{
+              enter: "top-[-350px] right-[-250px] scale-[1.5]",
+              enterActive: "top-[000px] right-[250px] scale-[0.5] duration-[1000ms]",
+              enterDone: "top-[000px] right-[50px] scale-[2.0] duration-[3000ms]"
+            }}
+          >
+            <Earth className="absolute scale-[1.5] transition-all duration-[1000ms]" />
+          </CSSTransition>
+        )}
+        <TransitionGroup>
+          {isMobile && (
+            <CSSTransition
+              in={enterEarth}
+              timeout={1000}
+              classNames={{
+                enter: "top-[000px] right-[-10vw] scale-[0.3]",
+                enterActive: "top-[000px] right-[-5vw] scale-[0.5] duration-[1000ms]",
+                enterDone: "top-[000px] right-[-25vw] scale-[1.5] duration-[3000ms]"
+              }}
+            >
+              <EarthMobile className="absolute scale-[0.3] right-[-10vw] top-[35vh] transition-all duration-[1000ms]" />
+            </CSSTransition>
+          )}
+        </TransitionGroup>
+        {!isMobile && (
+          <CSSTransition
+            in={enterEarth}
+            timeout={1000}
+            classNames={{
+              enter: "md:text-[24px] md:leading-[29px]",
+              enterActive: "md:text-[24px] md:leading-[29px]",
+              enterDone: "md:text-[250px] md:leading-[280px]",
+            }}
+          >
+            <span className="text-transparent text-[64px] md:text-[24px] leading-[76px] md:leading-[29px] font-[600] md:bg-introearn-title-gradient md:bg-clip-text transition-all duration-[2000ms]">EARN</span>
+          </CSSTransition>
+        )}
+        <TransitionGroup>
+          {isMobile && (
+            <CSSTransition
+              in={enterEarth}
+              timeout={1000}
+              classNames={{
+                enter: "text-[4px] md:leading-[29px]",
+                enterActive: "text-[24px] md:leading-[29px]",
+                enterDone: "text-[60px] top-[45vh] md:leading-[280px]",
+              }}
+            >
+              <span className="relative text-white text-[4px] top-[10vh] leading-[76px] md:leading-[29px] font-[600] md:bg-introearn-title-gradient md:bg-clip-text transition-all duration-[2000ms]">EARN</span>
+            </CSSTransition>
+          )}
+        </TransitionGroup>
       </div>
-      <div
-        className="absolute left-[18%] top-[calc(35vh+290px)] opacity-0 w-[128px] md:w-[200px] h-[54px] md:h-[61px] flex items-center justify-center text-[#FFF] text-[20px] md:text-[30px] leading-[24px] md:leading-[36px] font-[600] md:font-[500] border-[1px] border-[#FFF] cursor-pointer md:animate-display1"
-        onClick={() => setIsExplore(true)}
-      >
-        Explore
-        <div className="bg-introearn-down-arrow bg-cover bg-center md:w-[44.17px] md:h-[44.17px] md:ml-[10px]"></div>
-      </div>
+      {!isMobile && (
+        <div
+          className="absolute left-[18%] top-[calc(35vh+290px)] opacity-0 w-[128px] md:w-[200px] h-[54px] md:h-[61px] flex items-center justify-center text-[#FFF] text-[20px] md:text-[30px] leading-[24px] md:leading-[36px] font-[600] md:font-[500] border-[1px] border-[#FFF] cursor-pointer md:animate-display1"
+          onClick={() => setIsExplore(true)}
+        >
+          Explore
+          <div className="bg-introearn-down-arrow bg-cover bg-center md:w-[44.17px] md:h-[44.17px] md:ml-[10px]"></div>
+        </div>
+      )}
+      {isMobile && (
+        <div
+          className="absolute left-[11%] top-[57vh] opacity-0 w-[128px] md:w-[200px] h-[54px] md:h-[61px] flex items-center justify-center text-[#FFF] text-[20px] md:text-[30px] leading-[24px] md:leading-[36px] font-[600] md:font-[500] border-[1px] border-[#FFF] cursor-pointer animate-display1"
+          onClick={() => setIsExplore(true)}
+        >
+          Explore
+          <div className="bg-introearn-down-arrow bg-cover bg-center md:w-[44.17px] md:h-[44.17px] md:ml-[10px]"></div>
+        </div>
+      )}
     </div>
   ) : (
     <div className="bg-[#10213f]">
       <div className="relative w-full h-[100vh] bg-[#10213f] bg-introearn-starsstart bg-cover bg-left  overflow-hidden">
-        <CSSTransition
-          in={earthToCorner}
-          timeout={10}
-          classNames={{
-            enter: "right-[200px] top-[300px] scale-[2]",
-            enterActive: "right-[-150px] top-[-350px] scale-[1.5]",
-            enterDone: "right-[-150px] top-[-350px] scale-[1.5]"
-          }}
-        >
-          <Earth className="absolute right-[200px] top-[300px] scale-[2] transition-all duration-[2000ms]" />
-        </CSSTransition>
+        {!isMobile && (
+          <CSSTransition
+            in={earthToCorner}
+            timeout={10}
+            classNames={{
+              enter: "right-[200px] top-[300px] scale-[2]",
+              enterActive: "right-[-150px] top-[-350px] scale-[1.5]",
+              enterDone: "right-[-150px] top-[-350px] scale-[1.5]"
+            }}
+          >
+            <Earth className="absolute right-[200px] top-[300px] scale-[2] transition-all duration-[2000ms]" />
+          </CSSTransition>
+        )}
+        <TransitionGroup>
+          {isMobile && (
+            <CSSTransition
+              in={enterEarth}
+              timeout={1000}
+              classNames={{
+                enter: 'top-[300px] right-[200px] scale-[2.0]',
+                // enterActive: 'top-[-100px] right-[-100px] scale-[1.5]',
+                enterDone: 'top-[-100px] right-[-100px] scale-[1.5]',
+              }}
+            >
+              <EarthMobile className="top-[-100px] right-[-100px] absolute scale-[1.3] transition-all duration-[2000ms]"/>
+            </CSSTransition>
+          )}
+        </TransitionGroup>
         {/* <div className="absolute  bg-introearn-earth bg-cover bg-center left-[60vw] md:left-[70vw] bottom-[calc(100vh-60vw)] md:bottom-[60vh] w-[100vw] md:w-[120vh] h-[100vw] md:h-[120vh]"></div> */}
         <div className="absolute left-[-140px] bottom-[-10vh] w-[368.61px] h-[426.14px] bg-introdashboard-shape1 bg-cover bg-center"></div>
         <div className="h-[35vh]"></div>
@@ -89,10 +151,10 @@ function IntroEarn() {
           EARN
         </div>
         <div className="text-[150px] md:text-[250px] leading-[179px] md:leading-[290px] font-[600] text-[#1199FA] text-center">
-          5% APY
+          8%
         </div>
         <div className="w-[70%] mx-auto text-[20px] md:text-[32px] leading-[24px] md:leading-[38px] font-[500] md:font-[600] text-[#FFF] text-center">
-          Earn 5% on your deposits. Withdraw anytime.
+          Earn on your deposits. Withdraw anytime.
         </div>
       </div>
       <div className="relative w-full md:h-[calc(100vw*963/1512)] flex md:justify-center md:items-center bg-[#10213f] md:bg-introearn-section2 bg-cover bg-left  overflow-hidden">

@@ -245,7 +245,8 @@ module.exports = {
         'earn-expected-card-dark': '-6px -8px 15px rgba(255, 255, 255, 0.06), 4px 6px 15px rgba(0, 0, 0, 0.13)'
       },
       backgroundPosition: {
-        'earth': '-101px -93px'
+        'earth': '-101px -93px',
+        'earth-mobile': '-65px -65px'
       }
     },
     colors: {
