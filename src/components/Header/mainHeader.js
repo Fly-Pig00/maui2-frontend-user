@@ -9,7 +9,7 @@ import {
   CountryDropdown,
   CountryRegionData,
 } from "react-country-region-selector";
-
+import PhoneInput from "react-phone-input-2";
 import AnimatedTab from "../AnimatedTab";
 import DarkMode from "../DarkMode";
 import NetworkSwitch from "../NetworkSwitch";
@@ -179,7 +179,7 @@ function UserSetting({ label, signOut }) {
   }
 
   const handleUpdateProfile = () => {
-    
+
     const data = {
       firstName,
       lastName,
@@ -192,7 +192,8 @@ function UserSetting({ label, signOut }) {
       phone,
       email
     }
-    if(!validateUserProfile(data)) {
+    console.log(data)
+    if (!validateUserProfile(data)) {
       toast.error("You must fill in the required fields.");
       return;
     }
@@ -212,15 +213,7 @@ function UserSetting({ label, signOut }) {
     })
   }
 
-  const resetUserProfile = () => { 
-    // const data = {
-    //   fields: {
-    //     firstName: 'Robert',
-    //     lastName: 'Johnson',
-    //     dateOfBirth
-    //     residenceAddress
-    //   }
-    // }
+  const resetUserProfile = () => {
     const token = localStorage.getItem("token");
     axios({
       method: "post",
@@ -298,7 +291,7 @@ function UserSetting({ label, signOut }) {
 
       {userProfileModalShow && (
         <div>
-          <div className="fixed left-0 md:left-[50vw] top-0 w-full md:w-[50vw] h-[100vh] bg-deposit-card dark:bg-deposit-card-dark z-[60]">
+          <div className="overflow-y-auto md:overflow-y-hidden fixed left-0 md:left-[50vw] top-0 w-full md:w-[50vw] h-[100vh] bg-deposit-card dark:bg-deposit-card-dark z-[60]">
             <div className="mt-[30px] flex justify-between md:h-[50px]">
               <div className="flex justify-center items-center text-[30px] text-[#000] dark:text-[#FFF] font-[600] w-[90%] h-[100%]">
                 User Profile
@@ -344,12 +337,12 @@ function UserSetting({ label, signOut }) {
                   />
                 </div>
                 <div className="md:w-[45%]">
-                  <div>Phone Number*</div>
-                  <input
-                    type="text"
-                    className="w-[100%] rounded-[12px] border-transparent transition-all duration-100 text-[#000]"
+                  <PhoneInput
+                    specialLabel="Phone Number*"
+                    inputClass="w-[100%] rounded-[12px] border-transparent  text-[#000]"
+                    country={"us"}
                     value={phone}
-                    onChange={e => setPhone(e.target.value)}
+                    onChange={phone => setPhone(phone)}
                   />
                 </div>
               </div>

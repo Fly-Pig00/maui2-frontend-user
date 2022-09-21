@@ -80,6 +80,7 @@ function SignIn(props) {
         localStorage.setItem("token", response.tokens.access.token);
         localStorage.setItem("refreshToken", response.tokens.refresh.token);
         localStorage.setItem("user", JSON.stringify(response.user));
+        
         toast.success("Successfully registerd!");
         handleReset();
         setIsLoading(false);
@@ -109,6 +110,7 @@ function SignIn(props) {
             localStorage.setItem("token", response.tokens.access.token);
             localStorage.setItem("refreshToken", response.tokens.refresh.token);
             localStorage.setItem("user", JSON.stringify(response.user));
+            console.log(response)
             toast.success("Login Success!");
           }
           handleReset();

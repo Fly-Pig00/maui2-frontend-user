@@ -130,6 +130,15 @@ function TabCrypto(props) {
       setPostalCode(user.postalCode || '');
       setEmail(user.email || '');
       setPhone(user.phone || '');
+
+      if(user.country) {
+        const countryShortName = CountryRegionData.filter(
+          (country) => {
+            return country[0] === user.country
+          }
+        );
+        setCountry(countryShortName[0][1]);
+      }
     }
   }, [stage])
 
@@ -794,7 +803,7 @@ function TabCrypto(props) {
               <div
                 className="relative mt-[10px] bg-deposit-card-btn rounded-[26px] text-[14px] md:text-[20px] text-[#F0F5F9] tracking-[3px] p-2 w-full text-center cursor-pointer"
                 onClick={() => {
-                  //handlePlaidMethod();
+                  handlePlaidMethod();
                   setPaymentModalShow(!paymentModalShow);
                 }}
               >
@@ -840,7 +849,7 @@ function TabCrypto(props) {
                     id="plaid"
                     onClick={() => {
                       setIsPlaidPayment(true);
-                      open();
+                      //open();
                     }}
                     isDisabled={!linkToken || !ready}
                   >
@@ -861,7 +870,7 @@ function TabCrypto(props) {
                       if (!isPlaidPayment) setPaymentModalStage(1);
                       else {
                         open();
-                        handlePlaidMethod();
+                        //handlePlaidMethod();
                       }
                     }}
                   >
@@ -1097,7 +1106,6 @@ function TabCrypto(props) {
                     return country[0] === val
                   }
                 );
-
                 setTestCountry(val);
                 setCountry(countryShortName[0][1]);
               }}
