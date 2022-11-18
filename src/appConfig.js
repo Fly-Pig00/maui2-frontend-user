@@ -1,6 +1,6 @@
 export const appConfig = {
-  apiUrl: 'https://backendofmaui.herokuapp.com',
-  //apiUrl: 'http://localhost:4000',
+  //apiUrl: 'https://backendofmaui.herokuapp.com',
+  apiUrl: 'http://localhost:4000',
   MICRO: 1_000_000,
   BLOCKSPERYEAR: 4_656_810,
 
@@ -17,3 +17,5 @@ export const appConfig = {
   oracleAddress_test: 'terra1qljxd0y3j3gk97025qvl3lgq8ygup4gsksvaxv',
   oracleAddress_main: 'terra1tmnqgvg567ypvsvk6rwsga3srp7e3lg6u0elp8',
 };
+
+

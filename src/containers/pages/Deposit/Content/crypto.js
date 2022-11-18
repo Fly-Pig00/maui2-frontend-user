@@ -375,7 +375,7 @@ function TabCrypto(props) {
       toast.error("Please login first.");
       return false;
     }
-    if (selectedCryptoWallet === "ACH Transfer" && paymentMethods.length === 0) {
+    if (selectedCryptoWallet === "Bank Transfer" && paymentMethods.length === 0) {
       toast.error("First Select Payment Methods.");
       return;
     }
@@ -434,7 +434,7 @@ function TabCrypto(props) {
           toast.error(err.response?.data?.msg);
           setIsLoading(false);
         });
-    } else if (isFiat && selectedCryptoWallet === "ACH Transfer") {
+    } else if (isFiat && selectedCryptoWallet === "Bank Transfer") {
       //crypto & debit card method
       axios({
         method: "POST",
@@ -455,7 +455,7 @@ function TabCrypto(props) {
           toast.error(err.response?.data?.msg);
           setIsLoading(false);
         });
-    } else if (!isFiat && selectedCryptoWallet === "ACH Transfer") {
+    } else if (!isFiat && selectedCryptoWallet === "Bank Transfer") {
       //crypto & debit card method
       axios({
         method: "POST",
@@ -632,7 +632,6 @@ function TabCrypto(props) {
           <div
             className="dark:text-[#fff]"
             onChange={(e) => {
-              console.log(e.target.value);
               // if (e.target.value === "fiat") {
               //   setSelectedCryptoWallet("ACH Transfer");
               // } else {
@@ -853,7 +852,7 @@ function TabCrypto(props) {
                     }}
                     isDisabled={!linkToken || !ready}
                   >
-                    Plaid
+                    ACH Transfer
                   </Button>
                   <div
                     className={`h-[150px] rounded-[15px] dark:text-[#fff] ${!isPlaidPayment
